@@ -51,7 +51,7 @@ examer/
 
 ## 2. Examination Timetable & Urgency Analysis
 
-*Last Synchronized: 2026-11-19 08:51 IST*
+*Last Synchronized & Verified: 2026-11-19 09:18 IST*
 
 | Date | Day | Examination | Subject Code | Type | Status / Days Left | Priority Level |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -68,7 +68,63 @@ examer/
 
 ---
 
-## 3. Comparative Analysis: GATE Syllabus vs. KTU University Syllabus
+## 3. Syllabus Reverification & Gap Analysis Report
+
+> [!IMPORTANT]
+> **REVERIFICATION VERDICT**:
+> 1. **Core Playlist Precision**: The curated GATE playlists cover **~85% to 90%** of the high-weightage numerical and conceptual portions of the KTU exams (Recurrences, AVL Trees, Heaps, Graph traversals, Greedy, DP, TCP/IP, Routing, Subnetting, MAC, Framing/CRC).
+> 2. **6 False Positives Restored**: Videos previously categorized as removed in CN (Token Passing, Supernetting, IPv4 Fragmentation Pt 4, ICMP Pt 2, Link State Routing Pt 2, Silly Window Syndrome) have been restored to the study dataset.
+> 3. **Critical Syllabus Gaps (Must Read from College Notes / Textbook)**: GATE playlists **do not** contain certain KTU university-specific theoretical topics. You **must** prepare these specific topics from your college lecture notes or standard textbooks (Forouzan / Tanenbaum / Horowitz & Sahni / Cormen):
+
+### 🚨 Critical Topics Missing from GATE Playlists (Study from Textbooks/Notes):
+
+#### 1. S5 Computer Networks (PCCST501 - Exam: Nov 23)
+* **Module 4 - SNMP & ASN.1**:
+  - *Syllabus requirement*: Structure of Management Information (SMI), Management Information Base (MIB), SNMP Protocol data units (PDU), and Abstract Syntax Notation One (ASN.1 basic encoding).
+  - *Status in GATE playlist*: **0 videos** (GATE syllabus does not cover SNMP/ASN.1).
+  - *Action*: Read Chapter 9 of Forouzan (*TCP/IP Protocol Suite*) or college slides. This is a guaranteed 3-mark or 9-mark KTU question!
+* **Module 1 - Hands-on Linux Socket Programming**:
+  - *Syllabus requirement*: Elementary TCP/UDP socket system calls (`socket`, `bind`, `listen`, `accept`, `connect`, `select`, `poll`).
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Review standard C socket programming code snippets from Stevens' *Unix Network Programming*.
+* **Module 1 - P2P Networks & BitTorrent**:
+  - *Syllabus requirement*: Peer-to-peer paradigm, BitTorrent tracker, choking/unchoking algorithm.
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Read 2 pages from Kurose & Ross or Forouzan Ch 2.
+
+#### 2. S5 DAA (PCCST502 - Exam: Nov 27)
+* **Module 4 - Complexity Classes & NP-Completeness Proofs**:
+  - *Syllabus requirement*: Tractable vs Intractable, P, NP, NP-Hard, NP-Complete definitions, NP-Completeness proofs for **Clique Problem** and **Vertex Cover Problem**, Approximation algorithms (**Bin Packing**), and Randomized Algorithms (**Monte Carlo & Las Vegas definitions**).
+  - *Status in GATE playlist*: **0 videos** (The playlist only contains Randomized Quick Sort Video #228).
+  - *Action*: Read Horowitz & Sahni / Cormen (CLRS) Ch 34 & 35, or KTU module notes. **This covers an entire 15-mark module in the KTU exam!**
+* **Module 2 - Disjoint Sets & Union-Find**:
+  - *Syllabus requirement*: Disjoint set operations, Union and Find algorithms, Analysis of union by rank with path compression.
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Study Union-Find with rank and path compression from Cormen Ch 21.
+* **Module 3 - Backtracking (N-Queens)**:
+  - *Syllabus requirement*: Backtracking control abstraction and the 4-Queens / 8-Queens problem algorithm and state space tree.
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Standard 4-Queens state-space tree diagram from Horowitz & Sahni.
+* **Module 4 - Branch and Bound (TSP)**:
+  - *Syllabus requirement*: Branch and Bound control abstraction, Traveling Salesman Problem using state space tree / reduced cost matrix. (The playlist only has DP version #285).
+  - *Status in GATE playlist*: **0 videos** for B&B.
+
+#### 3. S3 DSA Supply (PCCST303 - Exam: Nov 30)
+* **Module 1 - Polynomial & Sparse Matrix**:
+  - *Syllabus requirement*: Polynomial representation using arrays, Sparse Matrix (Tuple representation: row, column, value, and sparse transpose).
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Review standard array tuple struct and sparse matrix transpose algorithm.
+* **Module 2 - Memory Management & Garbage Collection**:
+  - *Syllabus requirement*: First-fit, Best-fit, Worst-fit dynamic allocation schemes, Garbage collection and compaction techniques.
+  - *Status in GATE playlist*: **0 videos**.
+  - *Action*: Read 2 pages on memory fit policies from any operating system or data structures text.
+* **Module 1 - Multi-Stacks & Deque**:
+  - *Syllabus requirement*: Implementing multiple stacks in a single 1D array, Double Ended Queues (input-restricted and output-restricted deque).
+  - *Status in GATE playlist*: **0 videos**.
+
+---
+
+## 4. Comparative Analysis: GATE Syllabus vs. KTU University Syllabus
 
 GATE playlists are designed for comprehensive competitive examination depth, with heavy emphasis on tricky numericals, historical GATE question solving, and advanced competitive programming variations. In contrast, **KTU University End Semester Examinations (ESE - 60 Marks)** focus on:
 1. Standard conceptual derivations and clear architecture explanations.
@@ -85,12 +141,12 @@ Last Updated:   2026-11-19 08:51 IST
 
 ---
 
-## 4. Computer Networks (S5 CSE - PCCST501)
+## 5. Computer Networks (S5 CSE - PCCST501)
 
 - **Exam Date**: November 23, 2026 (4 Days Left)
 - **Original Playlist**: 202 Videos (4,637.3 minutes ≈ 77.3 hours)
-- **Curated Study Plan**: 175 Videos (Core: 124, Optional: 51)
-- **Removed Overkill**: 27 Videos (397.3 minutes ≈ 6.6 hours)
+- **Curated Study Plan**: 181 Videos (Core: 129, Optional: 52)
+- **Removed Overkill**: 21 Videos (182.2 minutes ≈ 3.0 hours)
 - **Dataset**: `data/processed/Computer_Networks_Study_Portions.csv`
 
 ### Module-by-Module Breakdown

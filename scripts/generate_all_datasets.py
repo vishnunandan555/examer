@@ -680,10 +680,10 @@ for idx, r in enumerate(cn_raw, start=1):
             reason = 'Supplementary sliding window detail'
     elif 85 <= idx <= 106:
         module = 'Module 3'
-        if idx in [85, 86, 87, 88, 89, 92, 93, 94, 95, 96, 100, 101, 102, 103, 105]:
+        if idx in [85, 86, 87, 88, 89, 92, 93, 94, 95, 96, 100, 101, 102, 103, 105, 106]:
             topic = 'Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)'
             status = 'Core'
-            reason = 'Explicit in Module 3 MAC protocols'
+            reason = 'Explicit in Module 3 MAC protocols (including Token Passing)'
         elif idx in [90, 97, 104]:
             topic = 'MAC Protocol Analysis & Questions'
             status = 'Optional'
@@ -703,10 +703,10 @@ for idx, r in enumerate(cn_raw, start=1):
             reason = 'Collision vs broadcast domain concepts'
     elif 118 <= idx <= 146:
         module = 'Module 2'
-        if idx in [118, 119, 120, 121, 122, 125, 126, 129, 130, 133, 134, 135, 136, 137, 139, 142, 144]:
+        if idx in [118, 119, 120, 121, 122, 125, 126, 129, 130, 132, 133, 134, 135, 136, 137, 139, 140, 142, 144, 146]:
             topic = 'IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP'
             status = 'Core'
-            reason = 'Core Network Layer addressing and protocol fundamentals'
+            reason = 'Core Network Layer addressing, Supernetting, Fragmentation, and ICMP protocols'
         elif idx in [123, 124, 127, 131, 138, 141, 143, 145]:
             topic = 'Subnetting Practice & Protocol Details'
             status = 'Optional'
@@ -717,10 +717,10 @@ for idx, r in enumerate(cn_raw, start=1):
             reason = 'Isolated multi-year GATE question sets'
     elif 147 <= idx <= 158:
         module = 'Module 2'
-        if idx in [147, 148, 150, 151, 152, 154, 155, 156, 157]:
+        if idx in [147, 148, 150, 151, 152, 154, 155, 156, 157, 158]:
             topic = 'Unicast Routing (Distance Vector, Count to Infinity, Link State)'
             status = 'Core'
-            reason = 'Directly in Module 2 Routing protocols'
+            reason = 'Directly in Module 2 Routing protocols (Distance Vector & Link State)'
         elif idx in [149, 153]:
             topic = 'Routing Table Optimization & Routing Questions'
             status = 'Optional'
@@ -735,14 +735,10 @@ for idx, r in enumerate(cn_raw, start=1):
             topic = 'Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)'
             status = 'Core'
             reason = 'Directly in Module 2 Transport layer & QoS'
-        elif idx in [164, 165, 170, 171, 172, 173, 174, 175, 176, 177, 179, 180, 186, 188, 189, 190]:
-            topic = 'TCP In-Depth (State Machine, Timers, System Calls, Flags)'
+        elif idx in [164, 165, 170, 171, 172, 173, 174, 175, 176, 177, 179, 180, 186, 188, 189, 190, 191]:
+            topic = 'TCP In-Depth (State Machine, Timers, Flags, Silly Window Syndrome)'
             status = 'Optional'
-            reason = 'Detailed state transitions and advanced TCP features'
-        else:
-            topic = 'TCP Corner Cases'
-            status = 'Removed'
-            reason = 'Specific corner-case videos'
+            reason = 'Detailed state transitions, timers, and Silly Window Syndrome'
     elif 192 <= idx <= 201:
         module = 'Module 1'
         if idx in [192, 193, 194, 195, 196, 197, 198, 199]:

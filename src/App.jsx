@@ -1400,7 +1400,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA & DAA Master Study Plan</h4>
-                      <span className="badge badge-core">270 Vids</span>
+                      <span className="badge badge-core">{appData.dsa_all.filter((v) => v.Status !== 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Combined master curriculum covering S3 DSA and S5 DAA university portions with YouTube links.
@@ -1451,7 +1451,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>Computer Networks Study Plan</h4>
-                      <span className="badge badge-critical">175 Vids</span>
+                      <span className="badge badge-critical">{appData.cn_all.filter((v) => v.Status !== 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Complete S5 CN (PCCST501) curated course playlist mapped to KTU Modules 1 through 4.
@@ -1502,7 +1502,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DAA (Algorithms) Focused Plan</h4>
-                      <span className="badge badge-theory">164 Vids</span>
+                      <span className="badge badge-theory">{playlists.daa.filter((v) => v.Status !== 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Specific playlist for S5 DAA Theory exam (Nov 27): recurrences, AVL trees, and greedy/DP.
@@ -1553,7 +1553,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>S3 DSA Supply Plan</h4>
-                      <span className="badge badge-supply">163 Vids</span>
+                      <span className="badge badge-supply">{playlists.dsa.filter((v) => v.Status !== 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       Targeted playlist for S3 DSA Supply exam (Nov 30): Stacks, Queues, Trees, Heaps, and Sorting.
@@ -1604,7 +1604,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>CN Filtered Out Topics</h4>
-                      <span className="badge badge-removed">27 Vids</span>
+                      <span className="badge badge-removed">{appData.cn_all.filter((v) => v.Status === 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       All removed videos from the CN playlist with reasons explaining why they were excluded.
@@ -1655,7 +1655,7 @@ export default function App() {
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
                       <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA/DAA Filtered Out Topics</h4>
-                      <span className="badge badge-removed">28 Vids</span>
+                      <span className="badge badge-removed">{appData.dsa_all.filter((v) => v.Status === 'Removed').length} Vids</span>
                     </div>
                     <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
                       All removed DSA/DAA videos with reasons explaining why they were excluded.
@@ -1699,6 +1699,78 @@ export default function App() {
                       {copiedKey === 'dsa_rem' ? 'Copied' : 'Path'}
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CRITICAL SYLLABUS REVERIFICATION & GAP ADVISORY CARD */}
+            <div className="card" style={{ padding: '1.25rem', marginBottom: '1.25rem', borderLeft: '4px solid var(--accent-yellow)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <span className="badge badge-critical" style={{ fontSize: '0.75rem' }}>CRITICAL REVERIFICATION ADVISORY</span>
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>
+                  Topics Missing from GATE Playlists (Must Read from College Notes / Textbooks)
+                </h3>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1rem', lineHeight: 1.5 }}>
+                The GATE playlists cover <strong>~85–90% of numerical and algorithmic concepts</strong>, but competitive GATE videos intentionally skip certain university theory questions. Make sure to supplement these specific items from textbooks (Forouzan / Horowitz-Sahni / Cormen):
+              </p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
+                {/* Gap 1: CN */}
+                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <strong style={{ color: 'var(--accent-red)', fontSize: '0.85rem' }}>S5 Computer Networks (Nov 23)</strong>
+                    <span className="badge badge-critical">3 Gaps</span>
+                  </div>
+                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 4 - SNMP & ASN.1</strong>: Structure of Management Info (SMI), MIB, SNMP PDUs, ASN.1 encoding. <em>(Forouzan Ch 9)</em>
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - C Socket Calls</strong>: Elementary TCP/UDP socket system calls (<code style={{ color: 'var(--accent-cyan)' }}>socket</code>, <code style={{ color: 'var(--accent-cyan)' }}>bind</code>, <code style={{ color: 'var(--accent-cyan)' }}>listen</code>, <code style={{ color: 'var(--accent-cyan)' }}>accept</code>, <code style={{ color: 'var(--accent-cyan)' }}>select</code>, <code style={{ color: 'var(--accent-cyan)' }}>poll</code>).
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - P2P & BitTorrent</strong>: P2P architecture & BitTorrent choking algorithm.
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Gap 2: DAA */}
+                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <strong style={{ color: 'var(--accent-peach)', fontSize: '0.85rem' }}>S5 DAA (Nov 27)</strong>
+                    <span className="badge badge-theory">Entire Module 4</span>
+                  </div>
+                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 4 - Complexity & NP Proofs</strong>: Tractable/Intractable, P, NP, NP-Hard, NP-Complete; Clique & Vertex Cover NP-Completeness proofs; Bin Packing; Monte Carlo & Las Vegas definitions. <em>(Cormen Ch 34/35)</em>
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 2 - Disjoint Sets</strong>: Union-Find, Union by rank with path compression.
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 3 & 4 - Backtracking & B&B</strong>: N-Queens problem state space tree, TSP using Branch & Bound (reduced matrix).
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Gap 3: S3 DSA */}
+                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                    <strong style={{ color: 'var(--accent-green)', fontSize: '0.85rem' }}>S3 DSA Supply (Nov 30)</strong>
+                    <span className="badge badge-supply">3 Gaps</span>
+                  </div>
+                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - Sparse Matrix & Polynomials</strong>: Tuple representation (row, col, value), sparse transpose algorithm, polynomial addition using arrays/linked lists.
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 2 - Memory Management</strong>: First-fit, Best-fit, Worst-fit allocation; Garbage collection and compaction.
+                    </li>
+                    <li>
+                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - Multi-Stacks & Deque</strong>: Implementing multiple stacks in a single array, Double Ended Queues.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
