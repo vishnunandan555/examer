@@ -39,7 +39,21 @@ const CURRENT_DATE = new Date('2026-11-19T08:51:00+05:30');
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [activeViewMode, setActiveViewMode] = useState('study'); // 'study', 'core', 'optional', 'removed', 'original'
+  const [activeViewMode, setActiveViewMode] = useState(() => {
+    try {
+      return localStorage.getItem('examer_active_track_v1') || 'study';
+    } catch (e) {
+      return 'study';
+    }
+  }); // 'study' (Selected), 'core', 'original' (Full), 'optional', 'removed'
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_active_track_v1', activeViewMode);
+    } catch (e) {
+      // ignore
+    }
+  }, [activeViewMode]);
   const [selectedModule, setSelectedModule] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [playbackSpeed, setPlaybackSpeed] = useState(() => {
@@ -464,6 +478,81 @@ export default function App() {
     }
     return null;
   }, [activeTab, playlists, cnStats, daaStats, dsaStats]);
+
+  // Dynamic metrics for any subject based on selected track (Selected, Core, Full)
+  const getTrackMetrics = (stats, daysLeft, mode = activeViewMode) => {
+    let totalVids = stats.selectedVideos;
+    let completedVids = stats.completedSelectedVideos;
+    let remainingHrs = stats.remainingSelectedHours;
+    let totalHrs = stats.selectedHours;
+    let trackName = 'Selected Track';
+    let trackBadge = 'badge-module';
+
+    if (mode === 'core') {
+      totalVids = stats.coreVideos;
+      completedVids = stats.completedCoreVideos;
+      remainingHrs = stats.remainingCoreHours;
+      totalHrs = stats.coreHours;
+      trackName = 'Core Track';
+      trackBadge = 'badge-supply';
+    } else if (mode === 'original') {
+      totalVids = stats.totalVideos;
+      completedVids = stats.completedTotalVideos;
+      remainingHrs = stats.remainingTotalHours;
+      totalHrs = stats.totalHours;
+      trackName = 'Full Track';
+      trackBadge = 'badge-core';
+    } else if (mode === 'optional') {
+      totalVids = stats.optVideos;
+      completedVids = stats.completedOptVideos;
+      remainingHrs = stats.remainingOptHours;
+      totalHrs = stats.optHours;
+      trackName = 'Optional Track';
+      trackBadge = 'badge-optional';
+    } else if (mode === 'removed') {
+      totalVids = stats.remVideos;
+      completedVids = 0;
+      remainingHrs = stats.remHours / playbackSpeed;
+      totalHrs = stats.remHours;
+      trackName = 'Removed Cut';
+      trackBadge = 'badge-critical';
+    }
+
+    const rate = totalVids > 0 ? (completedVids / totalVids) * 100 : 0;
+    const pace = daysLeft > 0 ? remainingHrs / daysLeft : 0;
+
+    let paceColor = '#4ade80'; // Green
+    let stress = 'Comfortable Pace';
+    let hasWarning = false;
+
+    if (pace > 12.0) {
+      paceColor = '#f87171'; // Red
+      stress = 'Extreme Crunch / Overload';
+      hasWarning = true;
+    } else if (pace > 6.5) {
+      paceColor = '#fb923c'; // Orange
+      stress = 'Intensive Study';
+      hasWarning = false;
+    } else if (pace > 3.5) {
+      paceColor = '#facc15'; // Yellow
+      stress = 'Moderate Pace';
+      hasWarning = false;
+    }
+
+    return {
+      totalVids,
+      completedVids,
+      remainingHrs,
+      totalHrs,
+      trackName,
+      trackBadge,
+      rate,
+      pace,
+      paceColor,
+      stress,
+      hasWarning
+    };
+  };
 
   // Dynamic Study Pace computation based on active track and live remaining unwatched videos
   const activePaceData = useMemo(() => {
@@ -1016,156 +1105,371 @@ export default function App() {
         {/* ===================== VIEW 1: DASHBOARD ===================== */}
         {activeTab === 'dashboard' && (
           <div>
-            {/* Urgency Banner */}
+            {/* Urgency Banner - Dynamic to active track */}
+            {(() => {
+              const cnDays = Math.max(1, getDaysLeft('2026-11-23'));
+              const cnM = getTrackMetrics(cnStats, cnDays);
+
+              return (
+                <div
+                  className="card"
+                  style={{
+                    padding: '1.15rem 1.25rem',
+                    marginBottom: '1rem',
+                    borderLeft: '4px solid var(--accent-red)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '0.85rem'
+                  }}
+                >
+                  <div style={{ flex: '1 1 auto', minWidth: '280px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
+                      <span className="badge badge-critical">IMMEDIATE FOCUS</span>
+                      <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
+                      <span className={`badge ${cnM.trackBadge}`} style={{ fontSize: '0.65rem' }}>{cnM.trackName}</span>
+                    </div>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
+                      <strong>{cnDays} days remaining</strong> • <strong>{cnM.trackName}</strong>: <strong>{formatTime(cnM.remainingHrs)}</strong> remaining at {playbackSpeed}x ({cnM.completedVids}/{cnM.totalVids} completed, {cnM.rate.toFixed(1)}%). Target pace:{' '}
+                      <strong style={{ color: cnM.paceColor }} className="mono">
+                        {cnM.pace.toFixed(1)} hrs/day
+                      </strong>{' '}
+                      ({cnM.stress}).
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setActiveTab('cn');
+                    }}
+                    style={{
+                      backgroundColor: 'var(--accent-red)',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '5px',
+                      padding: '0.55rem 1rem',
+                      fontWeight: 600,
+                      fontSize: '0.82rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      flexShrink: 0
+                    }}
+                  >
+                    Open CN ({cnM.trackName}) <ArrowRight size={14} />
+                  </button>
+                </div>
+              );
+            })()}
+
+            {/* Main Dashboard Track Switcher Toolbar */}
             <div
               className="card"
               style={{
-                padding: '1.15rem 1.25rem',
+                padding: '0.65rem 0.95rem',
                 marginBottom: '1rem',
-                borderLeft: '4px solid var(--accent-red)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '0.85rem'
+                gap: '0.65rem'
               }}
             >
-              <div style={{ flex: '1 1 auto', minWidth: '280px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
-                  <span className="badge badge-critical">IMMEDIATE FOCUS</span>
-                  <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
-                  <strong>4 days remaining</strong>. Filtered core watch time is <strong>{formatTime(cnStats.coreHours)}</strong> at 1.0x, or <strong>{formatTime(cnStats.coreHours / playbackSpeed)}</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
-                </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <Layers size={15} color="var(--accent-blue)" />
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)' }}>
+                  Active Study Track:
+                </span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>
+                  (Dashboard stats dynamically adapt to this track)
+                </span>
               </div>
-              <button
-                onClick={() => {
-                  setActiveTab('cn');
-                  setActiveViewMode('core');
-                }}
-                style={{
-                  backgroundColor: 'var(--accent-red)',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '5px',
-                  padding: '0.55rem 1rem',
-                  fontWeight: 600,
-                  fontSize: '0.82rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  flexShrink: 0
-                }}
-              >
-                Start CN Core Fast Track <ArrowRight size={14} />
-              </button>
+
+              <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+                <button
+                  onClick={() => setActiveViewMode('study')}
+                  style={{
+                    backgroundColor: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--bg-active)',
+                    color: activeViewMode === 'study' ? 'var(--bg-base)' : 'var(--text-main)',
+                    border: activeViewMode === 'study' ? '1px solid var(--accent-blue)' : '1px solid var(--border-default)',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.74rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  🎯 Selected Plan
+                </button>
+                <button
+                  onClick={() => setActiveViewMode('core')}
+                  style={{
+                    backgroundColor: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--bg-active)',
+                    color: activeViewMode === 'core' ? 'var(--bg-base)' : 'var(--text-main)',
+                    border: activeViewMode === 'core' ? '1px solid var(--accent-green)' : '1px solid var(--border-default)',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.74rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  ⚡ Core Only
+                </button>
+                <button
+                  onClick={() => setActiveViewMode('original')}
+                  style={{
+                    backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
+                    color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
+                    border: activeViewMode === 'original' ? '1px solid var(--text-main)' : '1px solid var(--border-default)',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.74rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  📜 Full Playlist
+                </button>
+              </div>
             </div>
 
-            {/* Quick KPI Grid - Clickable boxes to toggle Days format */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
+            {/* Quick KPI Grid - Updated dynamically based on selected track */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
               {/* Card 1: CN */}
-              <div
-                className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Hours / Days format"
-                style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)', cursor: 'pointer', userSelect: 'none' }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
-                  <div>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>Computer Networks</h3>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
+              {(() => {
+                const days = Math.max(1, getDaysLeft('2026-11-23'));
+                const m = getTrackMetrics(cnStats, days);
+
+                return (
+                  <div
+                    className="card card-hover"
+                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)', userSelect: 'none' }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>Computer Networks</h3>
+                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
+                        </div>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span className="badge badge-critical">{days} Days Left</span>
+                        <span
+                          onClick={toggleTimeUnit}
+                          title="Click to toggle Hours / Days format"
+                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
+                        >
+                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ margin: '0.75rem 0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
+                        <span className="mono" style={{ color: 'var(--accent-red)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
+                      </div>
+                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-red)', height: '100%', transition: 'width 0.3s ease' }} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
+                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
+                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                          {m.pace.toFixed(1)} hrs/day
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
+                      <button
+                        onClick={() => {
+                          setActiveTab('cn');
+                          setSelectedModule('ALL');
+                        }}
+                        style={{
+                          background: 'var(--bg-active)',
+                          border: '1px solid var(--border-default)',
+                          color: 'var(--accent-red)',
+                          padding: '0.25rem 0.6rem',
+                          borderRadius: '4px',
+                          fontSize: '0.72rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem'
+                        }}
+                      >
+                        View CN Videos <ArrowRight size={11} />
+                      </button>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <span className="badge badge-critical">4 Days Left</span>
-                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ margin: '0.75rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                    <span style={{ color: 'var(--text-muted)' }}>Progress: {cnStats.completedVideos} / {cnStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-red)', fontWeight: 700 }}>{cnStats.completionRate.toFixed(1)}%</span>
-                  </div>
-                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${cnStats.completionRate}%`, background: 'var(--accent-red)', height: '100%' }} />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{cnStats.coreVideos} vids</strong> ({formatTime(cnStats.coreHours)})</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(cnStats.coreHours / playbackSpeed)}</strong></span>
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Card 2: DAA */}
-              <div
-                className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Hours / Days format"
-                style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)', cursor: 'pointer', userSelect: 'none' }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
-                  <div>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>DAA (Algorithms)</h3>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
+              {(() => {
+                const days = Math.max(1, getDaysLeft('2026-11-27'));
+                const m = getTrackMetrics(daaStats, days);
+
+                return (
+                  <div
+                    className="card card-hover"
+                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)', userSelect: 'none' }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>DAA (Algorithms)</h3>
+                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
+                        </div>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span className="badge badge-theory">{days} Days Left</span>
+                        <span
+                          onClick={toggleTimeUnit}
+                          title="Click to toggle Hours / Days format"
+                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
+                        >
+                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ margin: '0.75rem 0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
+                        <span className="mono" style={{ color: 'var(--accent-peach)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
+                      </div>
+                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-peach)', height: '100%', transition: 'width 0.3s ease' }} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
+                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
+                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                          {m.pace.toFixed(1)} hrs/day
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
+                      <button
+                        onClick={() => {
+                          setActiveTab('daa');
+                          setSelectedModule('ALL');
+                        }}
+                        style={{
+                          background: 'var(--bg-active)',
+                          border: '1px solid var(--border-default)',
+                          color: 'var(--accent-peach)',
+                          padding: '0.25rem 0.6rem',
+                          borderRadius: '4px',
+                          fontSize: '0.72rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem'
+                        }}
+                      >
+                        View DAA Videos <ArrowRight size={11} />
+                      </button>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <span className="badge badge-theory">8 Days Left</span>
-                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ margin: '0.75rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                    <span style={{ color: 'var(--text-muted)' }}>Progress: {daaStats.completedVideos} / {daaStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-peach)', fontWeight: 700 }}>{daaStats.completionRate.toFixed(1)}%</span>
-                  </div>
-                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${daaStats.completionRate}%`, background: 'var(--accent-peach)', height: '100%' }} />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{daaStats.coreVideos} vids</strong> ({formatTime(daaStats.coreHours)})</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(daaStats.coreHours / playbackSpeed)}</strong></span>
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Card 3: S3 DSA */}
-              <div
-                className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Hours / Days format"
-                style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)', cursor: 'pointer', userSelect: 'none' }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
-                  <div>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>S3 DSA (Supply)</h3>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
+              {(() => {
+                const days = Math.max(1, getDaysLeft('2026-11-30'));
+                const m = getTrackMetrics(dsaStats, days);
+
+                return (
+                  <div
+                    className="card card-hover"
+                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)', userSelect: 'none' }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>S3 DSA (Supply)</h3>
+                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
+                        </div>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span className="badge badge-supply">{days} Days Left</span>
+                        <span
+                          onClick={toggleTimeUnit}
+                          title="Click to toggle Hours / Days format"
+                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
+                        >
+                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div style={{ margin: '0.75rem 0' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
+                        <span className="mono" style={{ color: 'var(--accent-green)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
+                      </div>
+                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-green)', height: '100%', transition: 'width 0.3s ease' }} />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
+                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
+                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
+                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                          {m.pace.toFixed(1)} hrs/day
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
+                      <button
+                        onClick={() => {
+                          setActiveTab('dsa');
+                          setSelectedModule('ALL');
+                        }}
+                        style={{
+                          background: 'var(--bg-active)',
+                          border: '1px solid var(--border-default)',
+                          color: 'var(--accent-green)',
+                          padding: '0.25rem 0.6rem',
+                          borderRadius: '4px',
+                          fontSize: '0.72rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem'
+                        }}
+                      >
+                        View DSA Videos <ArrowRight size={11} />
+                      </button>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <span className="badge badge-supply">11 Days Left</span>
-                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ margin: '0.75rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                    <span style={{ color: 'var(--text-muted)' }}>Progress: {dsaStats.completedVideos} / {dsaStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-green)', fontWeight: 700 }}>{dsaStats.completionRate.toFixed(1)}%</span>
-                  </div>
-                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ width: `${dsaStats.completionRate}%`, background: 'var(--accent-green)', height: '100%' }} />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{dsaStats.coreVideos} vids</strong> ({formatTime(dsaStats.coreHours)})</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(dsaStats.coreHours / playbackSpeed)}</strong></span>
-                </div>
-              </div>
+                );
+              })()}
             </div>
 
             {/* Timetable Schedule Table (Clean & Responsive) */}
