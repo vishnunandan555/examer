@@ -40,11 +40,11 @@ export default function UrgencyBanner({
         onClick={onNavigateToCN}
         style={{
           backgroundColor: 'var(--accent-red)',
-          color: '#fff',
+          color: '#090a0f',
           border: 'none',
           borderRadius: '5px',
           padding: '0.55rem 1rem',
-          fontWeight: 600,
+          fontWeight: 750,
           fontSize: '0.82rem',
           cursor: 'pointer',
           display: 'flex',
@@ -53,7 +53,8 @@ export default function UrgencyBanner({
           flexShrink: 0
         }}
       >
-        Open CN Syllabus Checklist <ArrowRight size={14} />
+        <span>Open CN Syllabus Checklist</span>
+        <ArrowRight size={14} color="#090a0f" />
       </button>
     </div>
   );
