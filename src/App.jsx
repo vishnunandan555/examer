@@ -25,8 +25,13 @@ import {
   FolderTree,
   FileText,
   Copy,
-  Check
+  Check,
+  Lock,
+  Cloud,
+  Settings,
+  KeyRound
 } from 'lucide-react';
+import { pullFromCloud, pushToCloud, getCloudConfig, saveCloudConfig } from './services/cloudSync';
 
 const CURRENT_DATE = new Date('2026-11-19T08:51:00+05:30');
 
@@ -65,6 +70,125 @@ export default function App() {
   });
 
   const [expandedSyllabus, setExpandedSyllabus] = useState(false);
+
+  // Passcode Protection & Cloud Sync State
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    try {
+      return localStorage.getItem('examer_unlocked_v1') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+  const [passcode, setPasscode] = useState(() => {
+    try {
+      return localStorage.getItem('examer_passcode_v1') || '2026';
+    } catch (e) {
+      return '2026';
+    }
+  });
+  const [passcodeAttempt, setPasscodeAttempt] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [newPasscodeInput, setNewPasscodeInput] = useState('');
+  const [passcodeSuccessMsg, setPasscodeSuccessMsg] = useState('');
+
+  // Cloud Sync state
+  const [cloudConfig, setCloudConfig] = useState(getCloudConfig);
+  const [cloudSyncState, setCloudSyncState] = useState('idle'); // 'idle' | 'syncing' | 'synced' | 'error'
+  const [cloudMsg, setCloudMsg] = useState('');
+
+  // Pull from cloud when unlocked
+  useEffect(() => {
+    if (!isUnlocked) return;
+    if (!cloudConfig.enabled || !cloudConfig.endpoint) return;
+
+    let isMounted = true;
+    setCloudSyncState('syncing');
+    pullFromCloud()
+      .then((remoteData) => {
+        if (!isMounted) return;
+        if (remoteData && typeof remoteData === 'object') {
+          setCompletedMap((prev) => ({
+            ...prev,
+            ...remoteData
+          }));
+          setCloudSyncState('synced');
+        } else {
+          setCloudSyncState('idle');
+        }
+      })
+      .catch(() => {
+        if (isMounted) setCloudSyncState('error');
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
+
+  // Debounced push to cloud when completedMap changes
+  useEffect(() => {
+    if (!isUnlocked || !cloudConfig.enabled || !cloudConfig.endpoint) return;
+
+    const timer = setTimeout(() => {
+      setCloudSyncState('syncing');
+      pushToCloud(completedMap).then((ok) => {
+        setCloudSyncState(ok ? 'synced' : 'error');
+      });
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, [completedMap, isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
+
+  const handleUnlock = (e) => {
+    if (e) e.preventDefault();
+    if (passcodeAttempt.trim() === passcode) {
+      setIsUnlocked(true);
+      try {
+        localStorage.setItem('examer_unlocked_v1', 'true');
+      } catch (err) {}
+      setPasscodeError(false);
+      setPasscodeAttempt('');
+    } else {
+      setPasscodeError(true);
+    }
+  };
+
+  const handleLock = () => {
+    setIsUnlocked(false);
+    try {
+      localStorage.removeItem('examer_unlocked_v1');
+    } catch (err) {}
+  };
+
+  const handleUpdatePasscode = (e) => {
+    if (e) e.preventDefault();
+    if (newPasscodeInput.trim().length >= 3) {
+      const code = newPasscodeInput.trim();
+      setPasscode(code);
+      try {
+        localStorage.setItem('examer_passcode_v1', code);
+      } catch (err) {}
+      setNewPasscodeInput('');
+      setPasscodeSuccessMsg('Passcode updated successfully!');
+      setTimeout(() => setPasscodeSuccessMsg(''), 3000);
+    }
+  };
+
+  const handleSaveCloudConfig = (updated) => {
+    setCloudConfig(updated);
+    saveCloudConfig(updated);
+    if (updated.enabled && updated.endpoint) {
+      setCloudSyncState('syncing');
+      pushToCloud(completedMap).then((ok) => {
+        setCloudSyncState(ok ? 'synced' : 'error');
+        setCloudMsg(ok ? 'Synced with cloud!' : 'Cloud connection failed');
+        setTimeout(() => setCloudMsg(''), 3500);
+      });
+    } else {
+      setCloudSyncState('idle');
+    }
+  };
 
   // Sync state to localStorage
   useEffect(() => {
@@ -380,6 +504,130 @@ export default function App() {
     return items;
   }, [currentSubjectData, activeViewMode, selectedModule, searchQuery]);
 
+  // If locked, render Minimalist Passcode Gate
+  if (!isUnlocked) {
+    return (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'var(--bg-base)',
+          padding: '1.5rem'
+        }}
+      >
+        <div
+          className="card"
+          style={{
+            width: '100%',
+            maxWidth: '380px',
+            padding: '2.25rem 1.75rem',
+            textAlign: 'center',
+            boxShadow: '0 25px 50px rgba(0,0,0,0.7)',
+            border: '1px solid var(--border-default)',
+            borderRadius: '8px'
+          }}
+        >
+          <div
+            style={{
+              width: '48px',
+              height: '48px',
+              borderRadius: '10px',
+              backgroundColor: 'var(--accent-blue)',
+              color: 'var(--bg-base)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 800,
+              fontSize: '1.4rem',
+              margin: '0 auto 1.15rem'
+            }}
+          >
+            E
+          </div>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0 0 0.35rem', letterSpacing: '-0.02em' }}>
+            EXAMER
+          </h2>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.5rem' }}>
+            <span className="badge badge-module">KTU CSE</span>
+            <span className="badge badge-critical" style={{ fontSize: '0.68rem' }}>🔒 Protected Personal Suite</span>
+          </div>
+
+          <form onSubmit={handleUnlock}>
+            <div style={{ marginBottom: '1.15rem', textAlign: 'left' }}>
+              <label style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.4rem', fontWeight: 700, letterSpacing: '0.04em' }}>
+                ENTER PASSCODE
+              </label>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  backgroundColor: 'var(--bg-overlay)',
+                  border: passcodeError ? '1px solid var(--accent-red)' : '1px solid var(--border-default)',
+                  borderRadius: '6px',
+                  padding: '0.6rem 0.75rem'
+                }}
+              >
+                <Lock size={15} color={passcodeError ? 'var(--accent-red)' : 'var(--text-dim)'} />
+                <input
+                  type="password"
+                  autoFocus
+                  placeholder="Passcode..."
+                  value={passcodeAttempt}
+                  onChange={(e) => {
+                    setPasscodeAttempt(e.target.value);
+                    setPasscodeError(false);
+                  }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    outline: 'none',
+                    color: 'var(--text-main)',
+                    fontSize: '1rem',
+                    width: '100%',
+                    letterSpacing: '0.15em'
+                  }}
+                />
+              </div>
+              {passcodeError && (
+                <p style={{ color: 'var(--accent-red)', fontSize: '0.72rem', margin: '0.4rem 0 0', fontWeight: 500 }}>
+                  Incorrect passcode. Please try again.
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                width: '100%',
+                backgroundColor: 'var(--accent-blue)',
+                color: 'var(--bg-base)',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '0.7rem 1rem',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              Unlock Dashboard <ArrowRight size={14} />
+            </button>
+          </form>
+
+          <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', marginTop: '1.5rem', marginBottom: 0 }}>
+            Personal exam preparation portal. Default PIN: <strong className="mono" style={{ color: 'var(--accent-yellow)' }}>2026</strong>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Navbar */}
@@ -499,6 +747,63 @@ export default function App() {
                 <strong>CN Theory</strong> in <strong style={{ color: 'var(--accent-red)' }}>4 Days</strong> (Nov 23)
               </span>
             </div>
+
+            {/* Cloud Sync & Security Settings */}
+            <button
+              onClick={() => setShowSettingsModal(true)}
+              title="Passcode & Cloud Sync Settings"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                backgroundColor: 'var(--bg-overlay)',
+                padding: '0.28rem 0.6rem',
+                borderRadius: '5px',
+                border: '1px solid var(--border-default)',
+                color: cloudConfig.enabled
+                  ? cloudSyncState === 'synced'
+                    ? 'var(--accent-green)'
+                    : cloudSyncState === 'syncing'
+                    ? 'var(--accent-blue)'
+                    : 'var(--accent-yellow)'
+                  : 'var(--text-dim)',
+                fontWeight: 600,
+                fontSize: '0.74rem',
+                cursor: 'pointer'
+              }}
+            >
+              <Cloud size={13} />
+              <span className="mono" style={{ fontSize: '0.7rem' }}>
+                {cloudConfig.enabled
+                  ? cloudSyncState === 'syncing'
+                    ? 'Syncing...'
+                    : cloudSyncState === 'synced'
+                    ? 'Cloud Synced'
+                    : 'Cloud Error'
+                  : 'Cloud / PIN'}
+              </span>
+            </button>
+
+            {/* Lock Button */}
+            <button
+              onClick={handleLock}
+              title="Lock dashboard session"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.25rem',
+                backgroundColor: 'var(--bg-overlay)',
+                padding: '0.28rem 0.55rem',
+                borderRadius: '5px',
+                border: '1px solid var(--border-default)',
+                color: 'var(--text-muted)',
+                fontSize: '0.74rem',
+                cursor: 'pointer'
+              }}
+            >
+              <Lock size={12} />
+              <span>Lock</span>
+            </button>
           </div>
         </div>
       </header>
@@ -2136,6 +2441,183 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Cloud & Passcode Settings Modal */}
+      {showSettingsModal && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+            zIndex: 1000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem'
+          }}
+          onClick={() => setShowSettingsModal(false)}
+        >
+          <div
+            className="card"
+            style={{
+              width: '100%',
+              maxWidth: '480px',
+              padding: '1.5rem',
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-default)',
+              borderRadius: '8px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.8)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <KeyRound size={18} color="var(--accent-blue)" />
+                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>Passcode & Cloud Sync Settings</h3>
+              </div>
+              <button
+                onClick={() => setShowSettingsModal(false)}
+                style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '1.1rem' }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Section 1: Change Passcode */}
+            <div style={{ paddingBottom: '1.25rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
+              <h4 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <Lock size={14} color="var(--accent-yellow)" /> Change Passcode
+              </h4>
+              <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                Set a personal secret PIN to lock your suite so only you can view and check videos.
+              </p>
+              <form onSubmit={handleUpdatePasscode} style={{ display: 'flex', gap: '0.5rem' }}>
+                <input
+                  type="password"
+                  placeholder="New passcode (min 3 chars)..."
+                  value={newPasscodeInput}
+                  onChange={(e) => setNewPasscodeInput(e.target.value)}
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'var(--bg-overlay)',
+                    border: '1px solid var(--border-default)',
+                    borderRadius: '5px',
+                    padding: '0.4rem 0.65rem',
+                    color: 'var(--text-main)',
+                    fontSize: '0.82rem',
+                    outline: 'none'
+                  }}
+                />
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: 'var(--accent-blue)',
+                    color: 'var(--bg-base)',
+                    border: 'none',
+                    borderRadius: '5px',
+                    padding: '0.4rem 0.85rem',
+                    fontWeight: 700,
+                    fontSize: '0.78rem',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Update PIN
+                </button>
+              </form>
+              {passcodeSuccessMsg && (
+                <p style={{ color: 'var(--accent-green)', fontSize: '0.72rem', margin: '0.4rem 0 0' }}>
+                  ✓ {passcodeSuccessMsg}
+                </p>
+              )}
+            </div>
+
+            {/* Section 2: Multi-Device Cloud Sync */}
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                <h4 style={{ fontSize: '0.85rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Cloud size={14} color="var(--accent-green)" /> Multi-Device Cloud Sync
+                </h4>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', fontSize: '0.75rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={cloudConfig.enabled}
+                    onChange={(e) => handleSaveCloudConfig({ ...cloudConfig, enabled: e.target.checked })}
+                  />
+                  <span>Enable Sync</span>
+                </label>
+              </div>
+              <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                Connect a free <strong>Upstash Redis</strong> or <strong>Vercel KV</strong> REST endpoint to sync completed videos seamlessly between your phone, laptop, and desktop.
+              </p>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.85rem' }}>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.2rem' }}>REST URL</label>
+                  <input
+                    type="text"
+                    placeholder="https://...upstash.io"
+                    value={cloudConfig.endpoint}
+                    onChange={(e) => setCloudConfig({ ...cloudConfig, endpoint: e.target.value })}
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'var(--bg-overlay)',
+                      border: '1px solid var(--border-default)',
+                      borderRadius: '5px',
+                      padding: '0.4rem 0.65rem',
+                      color: 'var(--text-main)',
+                      fontSize: '0.8rem',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.2rem' }}>REST Token (Bearer)</label>
+                  <input
+                    type="password"
+                    placeholder="Axxxxxx..."
+                    value={cloudConfig.token}
+                    onChange={(e) => setCloudConfig({ ...cloudConfig, token: e.target.value })}
+                    style={{
+                      width: '100%',
+                      backgroundColor: 'var(--bg-overlay)',
+                      border: '1px solid var(--border-default)',
+                      borderRadius: '5px',
+                      padding: '0.4rem 0.65rem',
+                      color: 'var(--text-main)',
+                      fontSize: '0.8rem',
+                      outline: 'none'
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  onClick={() => handleSaveCloudConfig(cloudConfig)}
+                  style={{
+                    backgroundColor: 'var(--accent-green)',
+                    color: 'var(--bg-base)',
+                    border: 'none',
+                    borderRadius: '5px',
+                    padding: '0.4rem 0.85rem',
+                    fontWeight: 700,
+                    fontSize: '0.78rem',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Save & Test Cloud Sync
+                </button>
+                {cloudMsg && (
+                  <span style={{ fontSize: '0.72rem', color: cloudSyncState === 'synced' ? 'var(--accent-green)' : 'var(--accent-red)' }}>
+                    {cloudMsg}
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
