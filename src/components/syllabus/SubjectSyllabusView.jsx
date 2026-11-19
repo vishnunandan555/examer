@@ -3,16 +3,14 @@ import {
   CheckCircle2,
   Circle,
   Search,
-  Filter,
   RotateCcw,
   Eye,
   EyeOff,
   AlertTriangle,
-  BookOpen,
-  Award,
-  Layers,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  ChevronsUpDown,
+  ListFilter
 } from 'lucide-react';
 
 export default function SubjectSyllabusView({
@@ -22,6 +20,7 @@ export default function SubjectSyllabusView({
   completedMap,
   animatingOutKeys,
   onToggleComplete,
+  onToggleSubtopic,
   onMarkBatch,
   showCompleted,
   setShowCompleted,
@@ -30,6 +29,7 @@ export default function SubjectSyllabusView({
   const [selectedModuleId, setSelectedModuleId] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('ALL');
+  const [expandedTopics, setExpandedTopics] = useState({});
 
   // Filter topics
   const filteredModules = useMemo(() => {
@@ -49,8 +49,9 @@ export default function SubjectSyllabusView({
           topics = topics.filter(
             (t) =>
               t.title.toLowerCase().includes(q) ||
-              t.concepts.toLowerCase().includes(q) ||
-              t.type.toLowerCase().includes(q)
+              (t.concepts && t.concepts.toLowerCase().includes(q)) ||
+              (t.type && t.type.toLowerCase().includes(q)) ||
+              (t.subtopics && t.subtopics.some((s) => s.title.toLowerCase().includes(q)))
           );
         }
 
@@ -72,6 +73,27 @@ export default function SubjectSyllabusView({
   const allVisibleTopics = useMemo(() => {
     return filteredModules.flatMap((m) => m.visibleTopics);
   }, [filteredModules]);
+
+  const toggleExpand = (topicId) => {
+    setExpandedTopics((prev) => ({
+      ...prev,
+      [topicId]: !prev[topicId]
+    }));
+  };
+
+  const areAllExpanded = useMemo(() => {
+    if (allVisibleTopics.length === 0) return false;
+    return allVisibleTopics.every((t) => !!expandedTopics[t.id]);
+  }, [allVisibleTopics, expandedTopics]);
+
+  const toggleExpandAll = () => {
+    const nextState = !areAllExpanded;
+    const updated = {};
+    allVisibleTopics.forEach((t) => {
+      updated[t.id] = nextState;
+    });
+    setExpandedTopics(updated);
+  };
 
   return (
     <div>
@@ -140,50 +162,68 @@ export default function SubjectSyllabusView({
               cursor: 'pointer'
             }}
           >
-            All Modules ({stats.totalTopics})
+            All Modules ({subject.modules ? subject.modules.reduce((acc, m) => acc + m.topics.length, 0) : 0})
           </button>
-          {subject.modules.map((m) => {
-            const mStat = stats.moduleStats[m.id];
-            const isSel = selectedModuleId === m.id;
-            return (
-              <button
-                key={m.id}
-                onClick={() => setSelectedModuleId(m.id)}
-                style={{
-                  backgroundColor: isSel ? 'var(--accent-blue)' : 'var(--bg-active)',
-                  color: isSel ? 'var(--bg-base)' : 'var(--text-main)',
-                  border: '1px solid var(--border-default)',
-                  padding: '0.3rem 0.65rem',
-                  borderRadius: '4px',
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  cursor: 'pointer'
-                }}
-              >
-                {m.name.split(':')[0]} ({mStat ? `${mStat.completed}/${mStat.total}` : m.topics.length})
-              </button>
-            );
-          })}
+          {subject.modules?.map((m, i) => (
+            <button
+              key={m.id}
+              onClick={() => setSelectedModuleId(m.id)}
+              style={{
+                backgroundColor: selectedModuleId === m.id ? 'var(--accent-blue)' : 'var(--bg-active)',
+                color: selectedModuleId === m.id ? 'var(--bg-base)' : 'var(--text-muted)',
+                border: '1px solid var(--border-default)',
+                padding: '0.3rem 0.65rem',
+                borderRadius: '4px',
+                fontSize: '0.75rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              M{i + 1} ({m.topics.length})
+            </button>
+          ))}
         </div>
 
-        {/* Search, Check All, Reset, Show Completed */}
+        {/* Search & Actions Bar */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
-          {/* Search Box */}
+          {/* Priority Filter */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Priority:</span>
+            <select
+              value={priorityFilter}
+              onChange={(e) => setPriorityFilter(e.target.value)}
+              style={{
+                backgroundColor: 'var(--bg-active)',
+                border: '1px solid var(--border-default)',
+                color: 'var(--text-main)',
+                fontSize: '0.72rem',
+                borderRadius: '4px',
+                padding: '0.25rem 0.45rem',
+                outline: 'none',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="ALL">All Priorities</option>
+              <option value="High">High Priority</option>
+              <option value="Medium">Medium Priority</option>
+            </select>
+          </div>
+
+          {/* Search Input */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.35rem',
-              backgroundColor: 'var(--bg-overlay)',
-              padding: '0.25rem 0.55rem',
-              borderRadius: '5px',
+              backgroundColor: 'var(--bg-active)',
+              padding: '0.2rem 0.5rem',
+              borderRadius: '4px',
               border: '1px solid var(--border-default)'
             }}
           >
             <Search size={13} color="var(--text-dim)" />
             <input
               type="text"
-              placeholder="Search syllabus..."
+              placeholder="Search topics / subtopics..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
@@ -192,15 +232,42 @@ export default function SubjectSyllabusView({
                 outline: 'none',
                 color: 'var(--text-main)',
                 fontSize: '0.75rem',
-                width: '120px'
+                width: '140px'
               }}
             />
           </div>
 
+          {/* Expand / Collapse All Subtopics Toggle */}
+          <button
+            onClick={toggleExpandAll}
+            title={areAllExpanded ? 'Collapse all subtopics' : 'Expand all subtopics'}
+            style={{
+              backgroundColor: 'var(--bg-active)',
+              border: '1px solid var(--border-default)',
+              color: 'var(--accent-purple)',
+              borderRadius: '4px',
+              padding: '0.25rem 0.5rem',
+              fontSize: '0.72rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.25rem'
+            }}
+          >
+            <ChevronsUpDown size={12} /> {areAllExpanded ? 'Collapse Subtopics' : 'Expand Subtopics'}
+          </button>
+
           {/* Check All */}
           <button
-            onClick={() => onMarkBatch(allVisibleTopics.map((t) => t.id), true)}
-            title="Mark visible topics completed"
+            onClick={() => {
+              const allIds = [];
+              allVisibleTopics.forEach((t) => {
+                allIds.push(t.id);
+                t.subtopics?.forEach((s) => allIds.push(s.id));
+              });
+              onMarkBatch(allIds, true);
+            }}
+            title="Mark visible topics & subtopics completed"
             style={{
               backgroundColor: 'var(--bg-active)',
               border: '1px solid var(--border-default)',
@@ -219,8 +286,15 @@ export default function SubjectSyllabusView({
 
           {/* Reset */}
           <button
-            onClick={() => onMarkBatch(allVisibleTopics.map((t) => t.id), false)}
-            title="Uncheck visible topics"
+            onClick={() => {
+              const allIds = [];
+              allVisibleTopics.forEach((t) => {
+                allIds.push(t.id);
+                t.subtopics?.forEach((s) => allIds.push(s.id));
+              });
+              onMarkBatch(allIds, false);
+            }}
+            title="Uncheck visible topics & subtopics"
             style={{
               backgroundColor: 'var(--bg-active)',
               border: '1px solid var(--border-default)',
@@ -323,9 +397,13 @@ export default function SubjectSyllabusView({
                 </div>
               ) : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  {topics.map((t, idx) => {
+                  {topics.map((t) => {
                     const isDone = !!completedMap[t.id];
                     const isAnimatingOut = !!animatingOutKeys[t.id];
+                    const subtopics = t.subtopics || [];
+                    const completedSubCount = subtopics.filter((s) => !!completedMap[s.id]).length;
+                    const isExpanded = !!expandedTopics[t.id];
+                    const allSubIds = subtopics.map((s) => s.id);
 
                     return (
                       <div
@@ -338,68 +416,166 @@ export default function SubjectSyllabusView({
                           transition: 'opacity 0.45s ease, transform 0.45s ease, max-height 0.45s ease, padding 0.45s ease, margin 0.45s ease'
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.65rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.65rem', flexGrow: 1 }}>
-                            {/* Checkbox */}
+                        {/* Main Topic Header Row */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.65rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexGrow: 1, minWidth: 0 }}>
+                            {/* Main Topic Checkbox */}
                             <button
-                              onClick={() => onToggleComplete(t.id)}
+                              onClick={() => onToggleComplete(t.id, allSubIds)}
+                              title={isDone ? 'Mark topic as incomplete' : 'Mark entire topic and all subtopics as mastered'}
                               style={{
                                 background: 'none',
                                 border: 'none',
                                 cursor: 'pointer',
                                 color: isDone ? 'var(--accent-green)' : 'var(--text-dim)',
                                 padding: 0,
-                                marginTop: '0.1rem',
                                 display: 'flex',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                flexShrink: 0
                               }}
                             >
                               {isDone ? <CheckCircle2 size={18} /> : <Circle size={18} />}
                             </button>
 
-                            {/* Content */}
-                            <div>
-                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap', marginBottom: '0.2rem' }}>
+                            {/* Clickable Title & Badges Area (Toggles Subtopics) */}
+                            <div
+                              onClick={() => toggleExpand(t.id)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.45rem',
+                                flexWrap: 'wrap',
+                                cursor: 'pointer',
+                                flexGrow: 1
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: '0.85rem',
+                                  fontWeight: 700,
+                                  color: isDone ? 'var(--text-dim)' : 'var(--text-main)',
+                                  textDecoration: isDone ? 'line-through' : 'none'
+                                }}
+                              >
+                                {t.title}
+                              </span>
+
+                              <span
+                                className="badge"
+                                style={{
+                                  fontSize: '0.62rem',
+                                  padding: '0.04rem 0.35rem',
+                                  backgroundColor: t.priority === 'High' ? 'rgba(248, 113, 113, 0.1)' : 'rgba(250, 204, 21, 0.1)',
+                                  color: t.priority === 'High' ? 'var(--accent-red)' : 'var(--accent-yellow)',
+                                  border: `1px solid ${t.priority === 'High' ? 'rgba(248, 113, 113, 0.3)' : 'rgba(250, 204, 21, 0.3)'}`
+                                }}
+                              >
+                                {t.priority}
+                              </span>
+
+                              <span className="badge badge-optional mono" style={{ fontSize: '0.62rem', padding: '0.04rem 0.35rem' }}>
+                                {t.type}
+                              </span>
+
+                              {subtopics.length > 0 && (
                                 <span
-                                  style={{
-                                    fontSize: '0.85rem',
-                                    fontWeight: 700,
-                                    color: isDone ? 'var(--text-dim)' : 'var(--text-main)',
-                                    textDecoration: isDone ? 'line-through' : 'none'
-                                  }}
-                                >
-                                  {t.title}
-                                </span>
-                                <span
-                                  className="badge"
+                                  className="badge mono"
                                   style={{
                                     fontSize: '0.62rem',
                                     padding: '0.04rem 0.35rem',
-                                    backgroundColor: t.priority === 'High' ? 'rgba(248, 113, 113, 0.1)' : 'rgba(250, 204, 21, 0.1)',
-                                    color: t.priority === 'High' ? 'var(--accent-red)' : 'var(--accent-yellow)',
-                                    border: `1px solid ${t.priority === 'High' ? 'rgba(248, 113, 113, 0.3)' : 'rgba(250, 204, 21, 0.3)'}`
+                                    backgroundColor: completedSubCount === subtopics.length && subtopics.length > 0 ? 'rgba(74, 222, 128, 0.15)' : 'var(--bg-active)',
+                                    color: completedSubCount === subtopics.length && subtopics.length > 0 ? 'var(--accent-green)' : 'var(--text-dim)',
+                                    border: '1px solid var(--border-default)'
                                   }}
                                 >
-                                  {t.priority}
+                                  {completedSubCount}/{subtopics.length} Subtopics
                                 </span>
-                                <span className="badge badge-optional mono" style={{ fontSize: '0.62rem', padding: '0.04rem 0.35rem' }}>
-                                  {t.type}
-                                </span>
-                              </div>
-
-                              <p
-                                style={{
-                                  fontSize: '0.74rem',
-                                  color: isDone ? 'var(--text-dim)' : 'var(--text-muted)',
-                                  margin: 0,
-                                  lineHeight: 1.45
-                                }}
-                              >
-                                {t.concepts}
-                              </p>
+                              )}
                             </div>
                           </div>
+
+                          {/* Expand/Collapse Chevron Indicator */}
+                          {subtopics.length > 0 && (
+                            <button
+                              onClick={() => toggleExpand(t.id)}
+                              title={isExpanded ? 'Collapse subtopics' : 'Expand subtopics'}
+                              style={{
+                                background: 'none',
+                                border: 'none',
+                                cursor: 'pointer',
+                                color: isExpanded ? 'var(--accent-blue)' : 'var(--text-dim)',
+                                padding: '0.2rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexShrink: 0
+                              }}
+                            >
+                              {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                            </button>
+                          )}
                         </div>
+
+                        {/* Collapsible Subtopics Section */}
+                        {isExpanded && subtopics.length > 0 && (
+                          <div
+                            style={{
+                              marginTop: '0.65rem',
+                              paddingLeft: '1.75rem',
+                              borderLeft: '2px solid var(--border-default)',
+                              marginLeft: '0.5rem',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '0.35rem'
+                            }}
+                          >
+                            {subtopics.map((sub) => {
+                              const isSubDone = !!completedMap[sub.id];
+
+                              return (
+                                <div
+                                  key={sub.id}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.45rem',
+                                    padding: '0.35rem 0.55rem',
+                                    borderRadius: '4px',
+                                    backgroundColor: isSubDone ? 'rgba(74, 222, 128, 0.04)' : 'var(--bg-active)',
+                                    border: '1px solid var(--border-subtle)',
+                                    transition: 'background-color 0.15s ease'
+                                  }}
+                                >
+                                  <button
+                                    onClick={() => onToggleSubtopic(t.id, sub.id, allSubIds)}
+                                    title={isSubDone ? 'Mark subtopic incomplete' : 'Mark subtopic completed'}
+                                    style={{
+                                      background: 'none',
+                                      border: 'none',
+                                      cursor: 'pointer',
+                                      color: isSubDone ? 'var(--accent-green)' : 'var(--text-dim)',
+                                      padding: 0,
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      flexShrink: 0
+                                    }}
+                                  >
+                                    {isSubDone ? <CheckCircle2 size={14} /> : <Circle size={14} />}
+                                  </button>
+                                  <span
+                                    style={{
+                                      fontSize: '0.75rem',
+                                      color: isSubDone ? 'var(--text-dim)' : 'var(--text-main)',
+                                      textDecoration: isSubDone ? 'line-through' : 'none',
+                                      lineHeight: 1.35
+                                    }}
+                                  >
+                                    {sub.title}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     );
                   })}

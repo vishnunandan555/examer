@@ -28,8 +28,9 @@
 
 ## 3. Data & State Management Rules
 
-1. **Syllabus Topic Key Synchronization**:
-   * Every syllabus item must be keyed by its unique topic ID (e.g., `cn-m1-01`, `daa-m2-03`) for completion state.
+1. **Syllabus Topic & Subtopic Key Synchronization**:
+   * Every syllabus item is keyed by its unique topic ID (e.g., `cn-m1-01`, `daa-m2-03`).
+   * Each topic contains collapsible, granular subtopics (e.g. `cn-m1-01-s1`, `cn-m1-01-s2`) with two-way completion sync (marking a topic completes all subtopics; marking all subtopics completes the parent topic).
    * Completions persist in `localStorage` under `examer_syllabus_completed_v1` and sync seamlessly with cloud storage (Upstash Redis / Vercel KV REST).
 2. **Required Revision Pace Metric**:
    * **Always display in `topics/day`** based on integer days left until the exam ($remainingTopics / daysLeft$).

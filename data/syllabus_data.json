@@ -112,49 +112,167 @@
               "title": "Overview of the Internet & Protocol Layering",
               "concepts": "Network edge, core, packet vs circuit switching, 5-layer Internet stack, encapsulation & decapsulation principles.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m1-01-s1",
+                  "title": "Network edge, core"
+                },
+                {
+                  "id": "cn-m1-01-s2",
+                  "title": "Packet vs circuit switching"
+                },
+                {
+                  "id": "cn-m1-01-s3",
+                  "title": "5-layer Internet stack"
+                },
+                {
+                  "id": "cn-m1-01-s4",
+                  "title": "Encapsulation & decapsulation principles"
+                }
+              ]
             },
             {
               "id": "cn-m1-02",
               "title": "Application Layer Paradigms & Client-Server Architecture",
               "concepts": "Socket interface, addressing processes, transport service requirements (data loss, throughput, timing, security).",
               "priority": "Medium",
-              "type": "Concept"
+              "type": "Concept",
+              "subtopics": [
+                {
+                  "id": "cn-m1-02-s1",
+                  "title": "Socket interface"
+                },
+                {
+                  "id": "cn-m1-02-s2",
+                  "title": "Addressing processes"
+                },
+                {
+                  "id": "cn-m1-02-s3",
+                  "title": "Transport service requirements (data loss, throughput, timing, security)"
+                }
+              ]
             },
             {
               "id": "cn-m1-03",
               "title": "World Wide Web and HTTP (HTTP/1.0, 1.1)",
               "concepts": "Persistent vs non-persistent HTTP, RTT calculation, HTTP request/response message formats, status codes, cookies, web caching.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m1-03-s1",
+                  "title": "Persistent vs non-persistent HTTP"
+                },
+                {
+                  "id": "cn-m1-03-s2",
+                  "title": "RTT calculation"
+                },
+                {
+                  "id": "cn-m1-03-s3",
+                  "title": "HTTP request/response message formats"
+                },
+                {
+                  "id": "cn-m1-03-s4",
+                  "title": "Status codes, cookies"
+                },
+                {
+                  "id": "cn-m1-03-s5",
+                  "title": "Web caching"
+                }
+              ]
             },
             {
               "id": "cn-m1-04",
               "title": "File Transfer Protocol (FTP)",
               "concepts": "Control connection (port 21) vs data connection (port 20), out-of-band control, stateful FTP connection.",
               "priority": "Medium",
-              "type": "Short Note"
+              "type": "Short Note",
+              "subtopics": [
+                {
+                  "id": "cn-m1-04-s1",
+                  "title": "Control connection (port 21) vs data connection (port 20)"
+                },
+                {
+                  "id": "cn-m1-04-s2",
+                  "title": "Out-of-band control"
+                },
+                {
+                  "id": "cn-m1-04-s3",
+                  "title": "Stateful FTP connection"
+                }
+              ]
             },
             {
               "id": "cn-m1-05",
               "title": "Electronic Mail Architecture & Protocols (SMTP, POP3, IMAP)",
               "concepts": "User agents, mail servers, SMTP transfer protocol, message formats, comparison of pull protocols (POP3, IMAP, HTTP).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m1-05-s1",
+                  "title": "User agents"
+                },
+                {
+                  "id": "cn-m1-05-s2",
+                  "title": "Mail servers"
+                },
+                {
+                  "id": "cn-m1-05-s3",
+                  "title": "SMTP transfer protocol"
+                },
+                {
+                  "id": "cn-m1-05-s4",
+                  "title": "Message formats"
+                },
+                {
+                  "id": "cn-m1-05-s5",
+                  "title": "Comparison of pull protocols (POP3, IMAP, HTTP)"
+                }
+              ]
             },
             {
               "id": "cn-m1-06",
               "title": "Domain Name System (DNS)",
               "concepts": "Distributed hierarchical database (Root, TLD, Authoritative, Local), iterative vs recursive queries, caching, DNS resource records (A, NS, CNAME, MX).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m1-06-s1",
+                  "title": "Distributed hierarchical database (Root, TLD, Authoritative, Local)"
+                },
+                {
+                  "id": "cn-m1-06-s2",
+                  "title": "Iterative vs recursive queries, caching"
+                },
+                {
+                  "id": "cn-m1-06-s3",
+                  "title": "DNS resource records (A, NS, CNAME, MX)"
+                }
+              ]
             },
             {
               "id": "cn-m1-07",
               "title": "Peer-to-Peer (P2P) Paradigm & BitTorrent Case Study",
               "concepts": "Client-Server vs P2P file distribution time comparison, BitTorrent torrents, trackers, choking/unchoking algorithms, tit-for-tat.",
               "priority": "Medium",
-              "type": "Case Study"
+              "type": "Case Study",
+              "subtopics": [
+                {
+                  "id": "cn-m1-07-s1",
+                  "title": "Client-Server vs P2P file distribution time comparison"
+                },
+                {
+                  "id": "cn-m1-07-s2",
+                  "title": "BitTorrent torrents, trackers"
+                },
+                {
+                  "id": "cn-m1-07-s3",
+                  "title": "Choking/unchoking algorithms, tit-for-tat"
+                }
+              ]
             }
           ]
         },
@@ -168,63 +286,205 @@
               "title": "Transport Layer Services & Multiplexing/Demultiplexing",
               "concepts": "Process-to-process delivery, port numbers, connectionless vs connection-oriented demultiplexing.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m2-01-s1",
+                  "title": "Process-to-process delivery"
+                },
+                {
+                  "id": "cn-m2-01-s2",
+                  "title": "Port numbers"
+                },
+                {
+                  "id": "cn-m2-01-s3",
+                  "title": "Connectionless vs connection-oriented demultiplexing"
+                }
+              ]
             },
             {
               "id": "cn-m2-02",
               "title": "User Datagram Protocol (UDP)",
               "concepts": "UDP segment header structure (8 bytes), checksum calculation using 1s complement sum, pseudo-header, use cases.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "cn-m2-02-s1",
+                  "title": "UDP segment header structure (8 bytes)"
+                },
+                {
+                  "id": "cn-m2-02-s2",
+                  "title": "Checksum calculation using 1s complement sum, pseudo-header"
+                },
+                {
+                  "id": "cn-m2-02-s3",
+                  "title": "Use cases"
+                }
+              ]
             },
             {
               "id": "cn-m2-03",
               "title": "TCP Segment Structure & Connection Management",
               "concepts": "TCP header fields, sequence and acknowledgment numbers, 3-way handshake (SYN, SYN-ACK, ACK), connection termination (FIN/ACK).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m2-03-s1",
+                  "title": "TCP header fields"
+                },
+                {
+                  "id": "cn-m2-03-s2",
+                  "title": "Sequence and acknowledgment numbers"
+                },
+                {
+                  "id": "cn-m2-03-s3",
+                  "title": "3-way handshake (SYN, SYN-ACK, ACK)"
+                },
+                {
+                  "id": "cn-m2-03-s4",
+                  "title": "Connection termination (FIN/ACK)"
+                }
+              ]
             },
             {
               "id": "cn-m2-04",
               "title": "TCP Flow Control & Congestion Control",
               "concepts": "Receive window (rwnd), Stop-and-Wait, sliding window, AIMD, Slow Start threshold (ssthresh), Congestion Avoidance, Fast Retransmit, Fast Recovery.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m2-04-s1",
+                  "title": "Receive window (rwnd), Stop-and-Wait"
+                },
+                {
+                  "id": "cn-m2-04-s2",
+                  "title": "Sliding window, AIMD"
+                },
+                {
+                  "id": "cn-m2-04-s3",
+                  "title": "Slow Start threshold (ssthresh)"
+                },
+                {
+                  "id": "cn-m2-04-s4",
+                  "title": "Congestion Avoidance"
+                },
+                {
+                  "id": "cn-m2-04-s5",
+                  "title": "Fast Retransmit"
+                },
+                {
+                  "id": "cn-m2-04-s6",
+                  "title": "Fast Recovery"
+                }
+              ]
             },
             {
               "id": "cn-m2-05",
               "title": "Linux Socket Programming (TCP & UDP Sockets)",
               "concepts": "Socket API: socket(), bind(), listen(), accept(), connect(), send()/recv(), sendto()/recvfrom(), I/O Multiplexing (select, poll).",
               "priority": "Medium",
-              "type": "Programming / Hands-on"
+              "type": "Programming / Hands-on",
+              "subtopics": [
+                {
+                  "id": "cn-m2-05-s1",
+                  "title": "Socket API: socket(), bind(), listen(), accept(), connect(), send()/recv(), sendto()/recvfrom()"
+                },
+                {
+                  "id": "cn-m2-05-s2",
+                  "title": "I/O Multiplexing (select, poll)"
+                }
+              ]
             },
             {
               "id": "cn-m2-06",
               "title": "Network Layer Introduction, IPv4 Addressing & Subnetting",
               "concepts": "Data plane vs Control plane, IPv4 header format, Classful vs Classless addressing (CIDR), subnet masks, subnetting numericals, NAT.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "cn-m2-06-s1",
+                  "title": "Data plane vs Control plane"
+                },
+                {
+                  "id": "cn-m2-06-s2",
+                  "title": "IPv4 header format"
+                },
+                {
+                  "id": "cn-m2-06-s3",
+                  "title": "Classful vs Classless addressing (CIDR)"
+                },
+                {
+                  "id": "cn-m2-06-s4",
+                  "title": "Subnet masks"
+                },
+                {
+                  "id": "cn-m2-06-s5",
+                  "title": "Subnetting numericals, NAT"
+                }
+              ]
             },
             {
               "id": "cn-m2-07",
               "title": "Unicast Routing Algorithms (Distance Vector & Link State)",
               "concepts": "Bellman-Ford algorithm & Count-to-Infinity problem; Dijkstra Link State algorithm & step-by-step routing table construction, OSPF, BGP.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "cn-m2-07-s1",
+                  "title": "Bellman-Ford algorithm & Count-to-Infinity problem"
+                },
+                {
+                  "id": "cn-m2-07-s2",
+                  "title": "Dijkstra Link State algorithm & step-by-step routing table construction, OSPF, BGP"
+                }
+              ]
             },
             {
               "id": "cn-m2-08",
               "title": "Multicast Routing, IPv6 & Quality of Service (QoS)",
               "concepts": "Multicast basics, IPv6 header format (fixed 40 bytes) vs IPv4, dual stack and tunneling, QoS traffic shaping (Leaky Bucket vs Token Bucket).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m2-08-s1",
+                  "title": "Multicast basics"
+                },
+                {
+                  "id": "cn-m2-08-s2",
+                  "title": "IPv6 header format (fixed 40 bytes) vs IPv4"
+                },
+                {
+                  "id": "cn-m2-08-s3",
+                  "title": "Dual stack and tunneling"
+                },
+                {
+                  "id": "cn-m2-08-s4",
+                  "title": "QoS traffic shaping (Leaky Bucket vs Token Bucket)"
+                }
+              ]
             },
             {
               "id": "cn-m2-09",
               "title": "Linux Kernel Routing Table & IP Command",
               "concepts": "Kernel routing cache overview, manipulating routing entries using ip route add/del.",
               "priority": "Medium",
-              "type": "Hands-on"
+              "type": "Hands-on",
+              "subtopics": [
+                {
+                  "id": "cn-m2-09-s1",
+                  "title": "Kernel routing cache overview"
+                },
+                {
+                  "id": "cn-m2-09-s2",
+                  "title": "Manipulating routing entries using ip route add/del"
+                }
+              ]
             }
           ]
         },
@@ -238,49 +498,175 @@
               "title": "Data Link Control (DLC) & Framing Techniques",
               "concepts": "Framing: Character count, Byte stuffing (character stuffing with flag bytes), Bit stuffing (flag 01111110 with zero-insertion).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m3-01-s1",
+                  "title": "Framing: Character count"
+                },
+                {
+                  "id": "cn-m3-01-s2",
+                  "title": "Byte stuffing (character stuffing with flag bytes)"
+                },
+                {
+                  "id": "cn-m3-01-s3",
+                  "title": "Bit stuffing (flag 01111110 with zero-insertion)"
+                }
+              ]
             },
             {
               "id": "cn-m3-02",
               "title": "Error Detection & Correction (CRC, Checksum, Hamming Code)",
               "concepts": "CRC polynomial division with generator, Checksum 1s complement, Hamming code parity bit positioning (^k \\ge m + k + 1$), single-bit correction.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "cn-m3-02-s1",
+                  "title": "CRC polynomial division with generator"
+                },
+                {
+                  "id": "cn-m3-02-s2",
+                  "title": "Checksum 1s complement"
+                },
+                {
+                  "id": "cn-m3-02-s3",
+                  "title": "Hamming code parity bit positioning (^k \\ge m + k + 1$)"
+                },
+                {
+                  "id": "cn-m3-02-s4",
+                  "title": "Single-bit correction"
+                }
+              ]
             },
             {
               "id": "cn-m3-03",
               "title": "Flow & Error Control ARQ Protocols",
               "concepts": "Stop-and-Wait ARQ, Go-Back-N ARQ (window size $, ^m - 1$), Selective Repeat ARQ (window size ^{m-1}$), efficiency calculations.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "cn-m3-03-s1",
+                  "title": "Stop-and-Wait ARQ"
+                },
+                {
+                  "id": "cn-m3-03-s2",
+                  "title": "Go-Back-N ARQ (window size $, ^m - 1$)"
+                },
+                {
+                  "id": "cn-m3-03-s3",
+                  "title": "Selective Repeat ARQ (window size ^{m-1}$)"
+                },
+                {
+                  "id": "cn-m3-03-s4",
+                  "title": "Efficiency calculations"
+                }
+              ]
             },
             {
               "id": "cn-m3-04",
               "title": "Multiple Access Protocols (MAC)",
               "concepts": "Pure ALOHA (throughput  = G e^{-2G}$, 18.4%), Slotted ALOHA ( = G e^{-G}$, 36.8%), 1-persistent/non-persistent/p-persistent CSMA, CSMA/CD binary exponential backoff.",
               "priority": "High",
-              "type": "Core Theory / Derivation"
+              "type": "Core Theory / Derivation",
+              "subtopics": [
+                {
+                  "id": "cn-m3-04-s1",
+                  "title": "Pure ALOHA (throughput  = G e^{-2G}$, 18.4%)"
+                },
+                {
+                  "id": "cn-m3-04-s2",
+                  "title": "Slotted ALOHA ( = G e^{-G}$, 36.8%)"
+                },
+                {
+                  "id": "cn-m3-04-s3",
+                  "title": "1-persistent/non-persistent/p-persistent CSMA"
+                },
+                {
+                  "id": "cn-m3-04-s4",
+                  "title": "CSMA/CD binary exponential backoff"
+                }
+              ]
             },
             {
               "id": "cn-m3-05",
               "title": "Link-Layer Addressing & ARP Protocol",
               "concepts": "48-bit MAC addresses, ARP packet format, ARP request (broadcast) and reply (unicast), ARP cache table.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m3-05-s1",
+                  "title": "48-bit MAC addresses"
+                },
+                {
+                  "id": "cn-m3-05-s2",
+                  "title": "ARP packet format"
+                },
+                {
+                  "id": "cn-m3-05-s3",
+                  "title": "ARP request (broadcast) and reply (unicast)"
+                },
+                {
+                  "id": "cn-m3-05-s4",
+                  "title": "ARP cache table"
+                }
+              ]
             },
             {
               "id": "cn-m3-06",
               "title": "Ethernet Protocol & Network Connecting Devices",
               "concepts": "Standard Ethernet 802.3 frame structure, Hubs, Switches (learning bridges, frame filtering/forwarding), Spanning Tree Protocol (STP), Routers.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m3-06-s1",
+                  "title": "Standard Ethernet 802.3 frame structure, Hubs"
+                },
+                {
+                  "id": "cn-m3-06-s2",
+                  "title": "Switches (learning bridges, frame filtering/forwarding)"
+                },
+                {
+                  "id": "cn-m3-06-s3",
+                  "title": "Spanning Tree Protocol (STP), Routers"
+                }
+              ]
             },
             {
               "id": "cn-m3-07",
               "title": "Wireless LANs (IEEE 802.11) & Mobile IP",
               "concepts": "BSS, ESS, AP, CSMA/CA protocol, Hidden terminal problem & Exposed terminal problem, RTS/CTS exchange, Mobile IP home/foreign agents, triangular routing.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m3-07-s1",
+                  "title": "BSS, ESS, AP"
+                },
+                {
+                  "id": "cn-m3-07-s2",
+                  "title": "CSMA/CA protocol"
+                },
+                {
+                  "id": "cn-m3-07-s3",
+                  "title": "Hidden terminal problem & Exposed terminal problem"
+                },
+                {
+                  "id": "cn-m3-07-s4",
+                  "title": "RTS/CTS exchange"
+                },
+                {
+                  "id": "cn-m3-07-s5",
+                  "title": "Mobile IP home/foreign agents"
+                },
+                {
+                  "id": "cn-m3-07-s6",
+                  "title": "Triangular routing"
+                }
+              ]
             }
           ]
         },
@@ -294,49 +680,183 @@
               "title": "Network Management Architecture & SNMP",
               "concepts": "Manager/Agent model, SNMP protocol (GetRequest, SetRequest, Trap), SMI data definition rules, MIB object tree hierarchy, ASN.1 encoding.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-01-s1",
+                  "title": "Manager/Agent model"
+                },
+                {
+                  "id": "cn-m4-01-s2",
+                  "title": "SNMP protocol (GetRequest, SetRequest, Trap)"
+                },
+                {
+                  "id": "cn-m4-01-s3",
+                  "title": "SMI data definition rules"
+                },
+                {
+                  "id": "cn-m4-01-s4",
+                  "title": "MIB object tree hierarchy"
+                },
+                {
+                  "id": "cn-m4-01-s5",
+                  "title": "ASN.1 encoding"
+                }
+              ]
             },
             {
               "id": "cn-m4-02",
               "title": "Physical Layer Data, Signals & Transmission Impairments",
               "concepts": "Analog vs digital signals, composite signals, bandwidth, attenuation, distortion, noise, SNR, Nyquist formula (B \\log_2 L$), Shannon capacity ( \\log_2(1 + SNR)$).",
               "priority": "High",
-              "type": "Numerical / Theory"
+              "type": "Numerical / Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-02-s1",
+                  "title": "Analog vs digital signals"
+                },
+                {
+                  "id": "cn-m4-02-s2",
+                  "title": "Composite signals, bandwidth, attenuation, distortion, noise, SNR"
+                },
+                {
+                  "id": "cn-m4-02-s3",
+                  "title": "Nyquist formula (B \\log_2 L$)"
+                },
+                {
+                  "id": "cn-m4-02-s4",
+                  "title": "Shannon capacity ( \\log_2(1 + SNR)$)"
+                }
+              ]
             },
             {
               "id": "cn-m4-03",
               "title": "Digital Transmission & Line Coding Schemes",
               "concepts": "Unipolar, Polar (NRZ-L, NRZ-I, RZ, Manchester, Differential Manchester), Bipolar (AMI, B8ZS, HDB3), DC component, synchronization, baseline wander.",
               "priority": "High",
-              "type": "Core Theory / Waveforms"
+              "type": "Core Theory / Waveforms",
+              "subtopics": [
+                {
+                  "id": "cn-m4-03-s1",
+                  "title": "Unipolar"
+                },
+                {
+                  "id": "cn-m4-03-s2",
+                  "title": "Polar (NRZ-L, NRZ-I, RZ, Manchester, Differential Manchester)"
+                },
+                {
+                  "id": "cn-m4-03-s3",
+                  "title": "Bipolar (AMI, B8ZS, HDB3)"
+                },
+                {
+                  "id": "cn-m4-03-s4",
+                  "title": "DC component, synchronization"
+                },
+                {
+                  "id": "cn-m4-03-s5",
+                  "title": "Baseline wander"
+                }
+              ]
             },
             {
               "id": "cn-m4-04",
               "title": "Analog-to-Digital Conversion (PCM & Delta Modulation)",
               "concepts": "Sampling (Nyquist theorem:  \\ge 2 f_{max}$), Quantization, Quantization error, Encoding, Pulse Code Modulation (PCM), Delta Modulation (DM), slope overload noise.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-04-s1",
+                  "title": "Sampling (Nyquist theorem:  \\ge 2 f_{max}$), Quantization"
+                },
+                {
+                  "id": "cn-m4-04-s2",
+                  "title": "Quantization error, Encoding"
+                },
+                {
+                  "id": "cn-m4-04-s3",
+                  "title": "Pulse Code Modulation (PCM)"
+                },
+                {
+                  "id": "cn-m4-04-s4",
+                  "title": "Delta Modulation (DM)"
+                },
+                {
+                  "id": "cn-m4-04-s5",
+                  "title": "Slope overload noise"
+                }
+              ]
             },
             {
               "id": "cn-m4-05",
               "title": "Analog Transmission & Digital Modulation (ASK, FSK, PSK, QAM)",
               "concepts": "Amplitude Shift Keying (ASK), Frequency Shift Keying (FSK), Binary Phase Shift Keying (BPSK), Quadrature PSK (QPSK), constellation diagrams, QAM.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-05-s1",
+                  "title": "Amplitude Shift Keying (ASK)"
+                },
+                {
+                  "id": "cn-m4-05-s2",
+                  "title": "Frequency Shift Keying (FSK)"
+                },
+                {
+                  "id": "cn-m4-05-s3",
+                  "title": "Binary Phase Shift Keying (BPSK)"
+                },
+                {
+                  "id": "cn-m4-05-s4",
+                  "title": "Quadrature PSK (QPSK)"
+                },
+                {
+                  "id": "cn-m4-05-s5",
+                  "title": "Constellation diagrams, QAM"
+                }
+              ]
             },
             {
               "id": "cn-m4-06",
               "title": "Bandwidth Utilization (Multiplexing & Spread Spectrum)",
               "concepts": "Frequency-Division Multiplexing (FDM), Wave-Division Multiplexing (WDM), Time-Division Multiplexing (Synchronous vs Statistical TDM), FHSS, DSSS.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-06-s1",
+                  "title": "Frequency-Division Multiplexing (FDM)"
+                },
+                {
+                  "id": "cn-m4-06-s2",
+                  "title": "Wave-Division Multiplexing (WDM)"
+                },
+                {
+                  "id": "cn-m4-06-s3",
+                  "title": "Time-Division Multiplexing (Synchronous vs Statistical TDM), FHSS, DSSS"
+                }
+              ]
             },
             {
               "id": "cn-m4-07",
               "title": "Transmission Media (Guided & Unguided Media)",
               "concepts": "Twisted pair (UTP Cat5/6), Coaxial cable, Fiber optic cable (Single mode vs Multimode step/graded index, total internal reflection, critical angle), Radio/Microwave/IR.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "cn-m4-07-s1",
+                  "title": "Twisted pair (UTP Cat5/6)"
+                },
+                {
+                  "id": "cn-m4-07-s2",
+                  "title": "Coaxial cable"
+                },
+                {
+                  "id": "cn-m4-07-s3",
+                  "title": "Fiber optic cable (Single mode vs Multimode step/graded index, total internal reflection, critical angle), Radio/Microwave/IR"
+                }
+              ]
             }
           ]
         }
@@ -362,35 +882,113 @@
               "title": "Algorithms, Characteristics & Performance Analysis",
               "concepts": "Algorithm criteria, time and space complexity, best, worst, and average case complexities, complexity calculation of non-recursive loops.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "daa-m1-01-s1",
+                  "title": "Algorithm criteria"
+                },
+                {
+                  "id": "daa-m1-01-s2",
+                  "title": "Time and space complexity, best, worst, and average case complexities"
+                },
+                {
+                  "id": "daa-m1-01-s3",
+                  "title": "Complexity calculation of non-recursive loops"
+                }
+              ]
             },
             {
               "id": "daa-m1-02",
               "title": "Asymptotic Notations and Their Mathematical Properties",
               "concepts": "Definitions of Big-O, Big-Omega, Big-Theta, Little-o, Little-omega, formal limit definitions, transitivity, reflexivity, symmetry properties.",
               "priority": "High",
-              "type": "Core Theory / Proof"
+              "type": "Core Theory / Proof",
+              "subtopics": [
+                {
+                  "id": "daa-m1-02-s1",
+                  "title": "Definitions of Big-O, Big-Omega, Big-Theta, Little-o, Little-omega"
+                },
+                {
+                  "id": "daa-m1-02-s2",
+                  "title": "Formal limit definitions, transitivity, reflexivity"
+                },
+                {
+                  "id": "daa-m1-02-s3",
+                  "title": "Symmetry properties"
+                }
+              ]
             },
             {
               "id": "daa-m1-03",
               "title": "Solving Recurrences: Iteration & Substitution Methods",
               "concepts": "Formulating recurrences from recursive code, unrolling/backward substitution, mathematical induction method for proving upper/lower bounds.",
               "priority": "High",
-              "type": "Numerical / Derivation"
+              "type": "Numerical / Derivation",
+              "subtopics": [
+                {
+                  "id": "daa-m1-03-s1",
+                  "title": "Formulating recurrences from recursive code"
+                },
+                {
+                  "id": "daa-m1-03-s2",
+                  "title": "Unrolling/backward substitution"
+                },
+                {
+                  "id": "daa-m1-03-s3",
+                  "title": "Mathematical induction method for proving upper/lower bounds"
+                }
+              ]
             },
             {
               "id": "daa-m1-04",
               "title": "Solving Recurrences: Recursion Tree & Master Theorem",
               "concepts": "Recursion tree level-by-level work evaluation; Master Theorem cases 1, 2, 3 for (n) = aT(n/b) + f(n)$ and extended master theorem cases.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "daa-m1-04-s1",
+                  "title": "Recursion tree level-by-level work evaluation"
+                },
+                {
+                  "id": "daa-m1-04-s2",
+                  "title": "Master Theorem cases 1, 2"
+                },
+                {
+                  "id": "daa-m1-04-s3",
+                  "title": "3 for (n) = aT(n/b) + f(n)$ and extended master theorem cases"
+                }
+              ]
             },
             {
               "id": "daa-m1-05",
               "title": "Balanced Search Trees: AVL Trees & Rotations",
               "concepts": "AVL tree definition, balance factor BF = height(left) - height(right), single rotations (LL, RR), double rotations (LR, RL), step-by-step insertions and deletions.",
               "priority": "High",
-              "type": "Step-by-Step Tree"
+              "type": "Step-by-Step Tree",
+              "subtopics": [
+                {
+                  "id": "daa-m1-05-s1",
+                  "title": "AVL tree definition"
+                },
+                {
+                  "id": "daa-m1-05-s2",
+                  "title": "Balance factor BF = height(left) - height(right)"
+                },
+                {
+                  "id": "daa-m1-05-s3",
+                  "title": "Single rotations (LL, RR)"
+                },
+                {
+                  "id": "daa-m1-05-s4",
+                  "title": "Double rotations (LR, RL)"
+                },
+                {
+                  "id": "daa-m1-05-s5",
+                  "title": "Step-by-step insertions and deletions"
+                }
+              ]
             }
           ]
         },
@@ -404,35 +1002,125 @@
               "title": "Disjoint Sets: Union and Find Algorithms",
               "concepts": "MakeSet, FindSet, Union operations, tree representation, Union by Rank, Path Compression heuristics, connected components of an undirected graph.",
               "priority": "High",
-              "type": "Core Theory / Algorithm"
+              "type": "Core Theory / Algorithm",
+              "subtopics": [
+                {
+                  "id": "daa-m2-01-s1",
+                  "title": "MakeSet, FindSet"
+                },
+                {
+                  "id": "daa-m2-01-s2",
+                  "title": "Union operations"
+                },
+                {
+                  "id": "daa-m2-01-s3",
+                  "title": "Tree representation"
+                },
+                {
+                  "id": "daa-m2-01-s4",
+                  "title": "Union by Rank"
+                },
+                {
+                  "id": "daa-m2-01-s5",
+                  "title": "Path Compression heuristics"
+                },
+                {
+                  "id": "daa-m2-01-s6",
+                  "title": "Connected components of an undirected graph"
+                }
+              ]
             },
             {
               "id": "daa-m2-02",
               "title": "Graph Representations & Traversals (BFS, DFS)",
               "concepts": "Adjacency matrix vs list, BFS algorithm (queue, shortest paths in unweighted graphs), DFS algorithm (stack/recursion, discovery and finishing times, edge classification).",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "daa-m2-02-s1",
+                  "title": "Adjacency matrix vs list"
+                },
+                {
+                  "id": "daa-m2-02-s2",
+                  "title": "BFS algorithm (queue, shortest paths in unweighted graphs)"
+                },
+                {
+                  "id": "daa-m2-02-s3",
+                  "title": "DFS algorithm (stack/recursion, discovery and finishing times, edge classification)"
+                }
+              ]
             },
             {
               "id": "daa-m2-03",
               "title": "Strongly Connected Components (SCC) & Topological Sorting",
               "concepts": "Kosaraju Algorithm (DFS, reverse graph, DFS on finishing times order), Topological Sorting of DAG using DFS / Kahn in-degree algorithm.",
               "priority": "High",
-              "type": "Algorithm / High-Yield"
+              "type": "Algorithm / High-Yield",
+              "subtopics": [
+                {
+                  "id": "daa-m2-03-s1",
+                  "title": "Kosaraju Algorithm (DFS, reverse graph, DFS on finishing times order)"
+                },
+                {
+                  "id": "daa-m2-03-s2",
+                  "title": "Topological Sorting of DAG using DFS / Kahn in-degree algorithm"
+                }
+              ]
             },
             {
               "id": "daa-m2-04",
               "title": "Divide and Conquer Strategy: Control Abstraction & Merge Sort",
               "concepts": "General divide-and-conquer recurrence, Merge Sort algorithm, merging step, recurrence (n) = 2T(n/2) + O(n)$, (n \\log n)$ time complexity proof.",
               "priority": "High",
-              "type": "Algorithm / Proof"
+              "type": "Algorithm / Proof",
+              "subtopics": [
+                {
+                  "id": "daa-m2-04-s1",
+                  "title": "General divide-and-conquer recurrence"
+                },
+                {
+                  "id": "daa-m2-04-s2",
+                  "title": "Merge Sort algorithm"
+                },
+                {
+                  "id": "daa-m2-04-s3",
+                  "title": "Merging step"
+                },
+                {
+                  "id": "daa-m2-04-s4",
+                  "title": "Recurrence (n) = 2T(n/2) + O(n)$"
+                },
+                {
+                  "id": "daa-m2-04-s5",
+                  "title": "(n \\log n)$ time complexity proof"
+                }
+              ]
             },
             {
               "id": "daa-m2-05",
               "title": "Strassen Matrix Multiplication",
               "concepts": "Traditional matrix multiplication (n^3)$ vs Strassen 7 multiplications, formula for $ to $, recurrence (n) = 7T(n/2) + O(n^2)$, time complexity (n^{2.81})$.",
               "priority": "High",
-              "type": "Derivation / Theory"
+              "type": "Derivation / Theory",
+              "subtopics": [
+                {
+                  "id": "daa-m2-05-s1",
+                  "title": "Traditional matrix multiplication (n^3)$ vs Strassen 7 multiplications"
+                },
+                {
+                  "id": "daa-m2-05-s2",
+                  "title": "Formula for $ to $"
+                },
+                {
+                  "id": "daa-m2-05-s3",
+                  "title": "Recurrence (n) = 7T(n/2) + O(n^2)$"
+                },
+                {
+                  "id": "daa-m2-05-s4",
+                  "title": "Time complexity (n^{2.81})$"
+                }
+              ]
             }
           ]
         },
@@ -446,42 +1134,158 @@
               "title": "Greedy Strategy & Fractional Knapsack Problem",
               "concepts": "Greedy-choice property, optimal substructure, Fractional Knapsack algorithm using profit/weight ratio sorting, comparison with 0/1 Knapsack.",
               "priority": "High",
-              "type": "Algorithm / Numerical"
+              "type": "Algorithm / Numerical",
+              "subtopics": [
+                {
+                  "id": "daa-m3-01-s1",
+                  "title": "Greedy-choice property"
+                },
+                {
+                  "id": "daa-m3-01-s2",
+                  "title": "Optimal substructure"
+                },
+                {
+                  "id": "daa-m3-01-s3",
+                  "title": "Fractional Knapsack algorithm using profit/weight ratio sorting"
+                },
+                {
+                  "id": "daa-m3-01-s4",
+                  "title": "Comparison with 0/1 Knapsack"
+                }
+              ]
             },
             {
               "id": "daa-m3-02",
               "title": "Minimum Cost Spanning Tree (Prim and Kruskal Algorithms)",
               "concepts": "Prim algorithm using priority queue (E \\log V)$, Kruskal algorithm using Disjoint Sets (E \\log E)$, step-by-step trace on graphs, cut/cycle properties.",
               "priority": "High",
-              "type": "Trace / High-Yield"
+              "type": "Trace / High-Yield",
+              "subtopics": [
+                {
+                  "id": "daa-m3-02-s1",
+                  "title": "Prim algorithm using priority queue (E \\log V)$"
+                },
+                {
+                  "id": "daa-m3-02-s2",
+                  "title": "Kruskal algorithm using Disjoint Sets (E \\log E)$"
+                },
+                {
+                  "id": "daa-m3-02-s3",
+                  "title": "Step-by-step trace on graphs"
+                },
+                {
+                  "id": "daa-m3-02-s4",
+                  "title": "Cut/cycle properties"
+                }
+              ]
             },
             {
               "id": "daa-m3-03",
               "title": "Single Source Shortest Path: Dijkstra Algorithm",
               "concepts": "Relaxation procedure, greedy vertex selection, Dijkstra algorithm step-by-step trace table, non-negative edge restriction, time complexity analysis.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "daa-m3-03-s1",
+                  "title": "Relaxation procedure"
+                },
+                {
+                  "id": "daa-m3-03-s2",
+                  "title": "Greedy vertex selection"
+                },
+                {
+                  "id": "daa-m3-03-s3",
+                  "title": "Dijkstra algorithm step-by-step trace table"
+                },
+                {
+                  "id": "daa-m3-03-s4",
+                  "title": "Non-negative edge restriction"
+                },
+                {
+                  "id": "daa-m3-03-s5",
+                  "title": "Time complexity analysis"
+                }
+              ]
             },
             {
               "id": "daa-m3-04",
               "title": "Dynamic Programming Principle & Matrix Chain Multiplication (MCM)",
               "concepts": "Principle of Optimality, memoization vs tabulation, MCM recurrence [i,j] = \\min(m[i,k] + m[k+1,j] + p_{i-1}p_k p_j)$, dynamic programming table construction.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "daa-m3-04-s1",
+                  "title": "Principle of Optimality"
+                },
+                {
+                  "id": "daa-m3-04-s2",
+                  "title": "Memoization vs tabulation"
+                },
+                {
+                  "id": "daa-m3-04-s3",
+                  "title": "MCM recurrence [i"
+                },
+                {
+                  "id": "daa-m3-04-s4",
+                  "title": "J] = \\min(m[i,k] + m[k+1,j] + p_{i-1}p_k p_j)$"
+                },
+                {
+                  "id": "daa-m3-04-s5",
+                  "title": "Dynamic programming table construction"
+                }
+              ]
             },
             {
               "id": "daa-m3-05",
               "title": "All-Pairs Shortest Path: Floyd-Warshall Algorithm",
               "concepts": "Transitive closure, intermediate vertices dynamic recurrence ^{(k)}[i,j] = \\min(D^{(k-1)}[i,j], D^{(k-1)}[i,k] + D^{(k-1)}[k,j])$, step-by-step matrix evaluation (n^3)$.",
               "priority": "High",
-              "type": "Numerical / Algorithm"
+              "type": "Numerical / Algorithm",
+              "subtopics": [
+                {
+                  "id": "daa-m3-05-s1",
+                  "title": "Transitive closure"
+                },
+                {
+                  "id": "daa-m3-05-s2",
+                  "title": "Intermediate vertices dynamic recurrence ^{(k)}[i"
+                },
+                {
+                  "id": "daa-m3-05-s3",
+                  "title": "J] = \\min(D^{(k-1)}[i,j], D^{(k-1)}[i,k] + D^{(k-1)}[k,j])$"
+                },
+                {
+                  "id": "daa-m3-05-s4",
+                  "title": "Step-by-step matrix evaluation (n^3)$"
+                }
+              ]
             },
             {
               "id": "daa-m3-06",
               "title": "Backtracking Strategy & N-Queens Problem",
               "concepts": "State space tree, depth-first search with bounding/pruning function, 4-Queens and 8-Queens solution, place(k, i) bounding function.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "daa-m3-06-s1",
+                  "title": "State space tree"
+                },
+                {
+                  "id": "daa-m3-06-s2",
+                  "title": "Depth-first search with bounding/pruning function"
+                },
+                {
+                  "id": "daa-m3-06-s3",
+                  "title": "4-Queens and 8-Queens solution"
+                },
+                {
+                  "id": "daa-m3-06-s4",
+                  "title": "Place(k, i) bounding function"
+                }
+              ]
             }
           ]
         },
@@ -495,35 +1299,125 @@
               "title": "Branch and Bound Strategy & Travelling Salesperson Problem (TSP)",
               "concepts": "FIFO vs Least Cost (LC) Branch and Bound, reduced cost matrix calculation, state space tree expansion for TSP.",
               "priority": "High",
-              "type": "Step-by-Step Numerical"
+              "type": "Step-by-Step Numerical",
+              "subtopics": [
+                {
+                  "id": "daa-m4-01-s1",
+                  "title": "FIFO vs Least Cost (LC) Branch and Bound"
+                },
+                {
+                  "id": "daa-m4-01-s2",
+                  "title": "Reduced cost matrix calculation"
+                },
+                {
+                  "id": "daa-m4-01-s3",
+                  "title": "State space tree expansion for TSP"
+                }
+              ]
             },
             {
               "id": "daa-m4-02",
               "title": "Complexity Classes: P, NP, NP-Hard, and NP-Complete",
               "concepts": "Tractable vs intractable problems, decision vs optimization, class P, class NP, polynomial reduction ( \\le_p B$), Cook-Levin theorem, Venn diagram.",
               "priority": "High",
-              "type": "Core Theory / Proof"
+              "type": "Core Theory / Proof",
+              "subtopics": [
+                {
+                  "id": "daa-m4-02-s1",
+                  "title": "Tractable vs intractable problems"
+                },
+                {
+                  "id": "daa-m4-02-s2",
+                  "title": "Decision vs optimization"
+                },
+                {
+                  "id": "daa-m4-02-s3",
+                  "title": "Class P"
+                },
+                {
+                  "id": "daa-m4-02-s4",
+                  "title": "Class NP"
+                },
+                {
+                  "id": "daa-m4-02-s5",
+                  "title": "Polynomial reduction ( \\le_p B$)"
+                },
+                {
+                  "id": "daa-m4-02-s6",
+                  "title": "Cook-Levin theorem"
+                },
+                {
+                  "id": "daa-m4-02-s7",
+                  "title": "Venn diagram"
+                }
+              ]
             },
             {
               "id": "daa-m4-03",
               "title": "NP-Completeness Proofs: Clique Problem & Vertex Cover",
               "concepts": "Steps to prove a problem is NP-Complete, proving Vertex Cover is in NP, reducing 3-SAT to Clique, reducing Clique to Vertex Cover.",
               "priority": "High",
-              "type": "Theoretical Proof"
+              "type": "Theoretical Proof",
+              "subtopics": [
+                {
+                  "id": "daa-m4-03-s1",
+                  "title": "Steps to prove a problem is NP-Complete"
+                },
+                {
+                  "id": "daa-m4-03-s2",
+                  "title": "Proving Vertex Cover is in NP"
+                },
+                {
+                  "id": "daa-m4-03-s3",
+                  "title": "Reducing 3-SAT to Clique"
+                },
+                {
+                  "id": "daa-m4-03-s4",
+                  "title": "Reducing Clique to Vertex Cover"
+                }
+              ]
             },
             {
               "id": "daa-m4-04",
               "title": "Approximation Algorithms & Bin Packing Problem",
               "concepts": "Approximation ratio, Next-Fit, First-Fit, Best-Fit, First-Fit Decreasing (FFD) heuristics, competitive ratio bounds.",
               "priority": "Medium",
-              "type": "Heuristic / Theory"
+              "type": "Heuristic / Theory",
+              "subtopics": [
+                {
+                  "id": "daa-m4-04-s1",
+                  "title": "Approximation ratio, Next-Fit, First-Fit, Best-Fit"
+                },
+                {
+                  "id": "daa-m4-04-s2",
+                  "title": "First-Fit Decreasing (FFD) heuristics"
+                },
+                {
+                  "id": "daa-m4-04-s3",
+                  "title": "Competitive ratio bounds"
+                }
+              ]
             },
             {
               "id": "daa-m4-05",
               "title": "Randomized Algorithms (Monte Carlo & Las Vegas) & Randomized QuickSort",
               "concepts": "Monte Carlo (bounded error, fixed time) vs Las Vegas (always correct, probabilistic time), Randomized QuickSort pivot selection, (n \\log n)$ expected runtime.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "daa-m4-05-s1",
+                  "title": "Monte Carlo (bounded error, fixed time) vs Las Vegas (always correct, probabilistic time)"
+                },
+                {
+                  "id": "daa-m4-05-s2",
+                  "title": "Randomized QuickSort pivot selection"
+                },
+                {
+                  "id": "daa-m4-05-s3",
+                  "title": "(n \\log n)$ expected runtime"
+                }
+              ]
             }
           ]
         }
@@ -549,35 +1443,125 @@
               "title": "Data Structures Concepts, Performance Analysis & Asymptotics",
               "concepts": "Linear vs non-linear, ADT concept, Big-O, Big-Omega, Big-Theta definitions, space and time complexity estimation.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "dsa-m1-01-s1",
+                  "title": "Linear vs non-linear"
+                },
+                {
+                  "id": "dsa-m1-01-s2",
+                  "title": "ADT concept, Big-O, Big-Omega"
+                },
+                {
+                  "id": "dsa-m1-01-s3",
+                  "title": "Big-Theta definitions"
+                },
+                {
+                  "id": "dsa-m1-01-s4",
+                  "title": "Space and time complexity estimation"
+                }
+              ]
             },
             {
               "id": "dsa-m1-02",
               "title": "Arrays, Polynomial Representation & Sparse Matrix",
               "concepts": "Array representations, polynomial addition using arrays, sparse matrix 3-tuple format, simple transpose and fast transpose algorithms.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "dsa-m1-02-s1",
+                  "title": "Array representations"
+                },
+                {
+                  "id": "dsa-m1-02-s2",
+                  "title": "Polynomial addition using arrays"
+                },
+                {
+                  "id": "dsa-m1-02-s3",
+                  "title": "Sparse matrix 3-tuple format"
+                },
+                {
+                  "id": "dsa-m1-02-s4",
+                  "title": "Simple transpose and fast transpose algorithms"
+                }
+              ]
             },
             {
               "id": "dsa-m1-03",
               "title": "Stacks: Array Implementation & Multiple Stacks",
               "concepts": "Stack ADT, LIFO principle, Push, Pop, Peek, IsEmpty, IsFull operations, multiple stacks sharing single 1D array.",
               "priority": "High",
-              "type": "Algorithm / Code"
+              "type": "Algorithm / Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m1-03-s1",
+                  "title": "Stack ADT"
+                },
+                {
+                  "id": "dsa-m1-03-s2",
+                  "title": "LIFO principle, Push, Pop, Peek, IsEmpty"
+                },
+                {
+                  "id": "dsa-m1-03-s3",
+                  "title": "IsFull operations"
+                },
+                {
+                  "id": "dsa-m1-03-s4",
+                  "title": "Multiple stacks sharing single 1D array"
+                }
+              ]
             },
             {
               "id": "dsa-m1-04",
               "title": "Stack Applications: Infix to Postfix Conversion & Evaluation",
               "concepts": "Operator precedence and associativity, step-by-step conversion algorithm using stack table, evaluation of postfix expression using operand stack.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "dsa-m1-04-s1",
+                  "title": "Operator precedence and associativity"
+                },
+                {
+                  "id": "dsa-m1-04-s2",
+                  "title": "Step-by-step conversion algorithm using stack table"
+                },
+                {
+                  "id": "dsa-m1-04-s3",
+                  "title": "Evaluation of postfix expression using operand stack"
+                }
+              ]
             },
             {
               "id": "dsa-m1-05",
               "title": "Queues: Linear, Circular, and Double-Ended Queues (Deque)",
               "concepts": "Queue ADT, FIFO principle, limitation of linear queue, circular queue arithmetic (front/rear modulo N), input/output restricted deques.",
               "priority": "High",
-              "type": "Algorithm / Code"
+              "type": "Algorithm / Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m1-05-s1",
+                  "title": "Queue ADT"
+                },
+                {
+                  "id": "dsa-m1-05-s2",
+                  "title": "FIFO principle"
+                },
+                {
+                  "id": "dsa-m1-05-s3",
+                  "title": "Limitation of linear queue"
+                },
+                {
+                  "id": "dsa-m1-05-s4",
+                  "title": "Circular queue arithmetic (front/rear modulo N)"
+                },
+                {
+                  "id": "dsa-m1-05-s5",
+                  "title": "Input/output restricted deques"
+                }
+              ]
             }
           ]
         },
@@ -591,28 +1575,96 @@
               "title": "Singly Linked List (SLL) Implementation & Operations",
               "concepts": "Node structure, dynamic memory, insertion (head, tail, arbitrary position), deletion (head, tail, by key), search, traversal algorithms.",
               "priority": "High",
-              "type": "Algorithm / C Code"
+              "type": "Algorithm / C Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m2-01-s1",
+                  "title": "Node structure"
+                },
+                {
+                  "id": "dsa-m2-01-s2",
+                  "title": "Dynamic memory"
+                },
+                {
+                  "id": "dsa-m2-01-s3",
+                  "title": "Insertion (head, tail, arbitrary position)"
+                },
+                {
+                  "id": "dsa-m2-01-s4",
+                  "title": "Deletion (head, tail, by key), search"
+                },
+                {
+                  "id": "dsa-m2-01-s5",
+                  "title": "Traversal algorithms"
+                }
+              ]
             },
             {
               "id": "dsa-m2-02",
               "title": "Stacks, Queues & Polynomials using Linked Lists",
               "concepts": "Linked stack (Push/Pop at head), Linked queue (Enqueue at tail, Dequeue at head), Polynomial representation and addition using linked list.",
               "priority": "High",
-              "type": "Algorithm / Code"
+              "type": "Algorithm / Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m2-02-s1",
+                  "title": "Linked stack (Push/Pop at head)"
+                },
+                {
+                  "id": "dsa-m2-02-s2",
+                  "title": "Linked queue (Enqueue at tail, Dequeue at head)"
+                },
+                {
+                  "id": "dsa-m2-02-s3",
+                  "title": "Polynomial representation and addition using linked list"
+                }
+              ]
             },
             {
               "id": "dsa-m2-03",
               "title": "Doubly Linked List (DLL) & Circular Linked List (CLL)",
               "concepts": "DLL node (prev, data, next), bidirectional traversal, insertion/deletion; CLL header node, single circular and double circular lists.",
               "priority": "High",
-              "type": "Algorithm / Code"
+              "type": "Algorithm / Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m2-03-s1",
+                  "title": "DLL node (prev, data, next)"
+                },
+                {
+                  "id": "dsa-m2-03-s2",
+                  "title": "Bidirectional traversal, insertion/deletion"
+                },
+                {
+                  "id": "dsa-m2-03-s3",
+                  "title": "CLL header node"
+                },
+                {
+                  "id": "dsa-m2-03-s4",
+                  "title": "Single circular and double circular lists"
+                }
+              ]
             },
             {
               "id": "dsa-m2-04",
               "title": "Dynamic Memory Allocation Schemes & Garbage Collection",
               "concepts": "malloc, calloc, realloc, free; First-fit, Best-fit, Worst-fit allocation strategies with numerical comparison, internal/external fragmentation, compaction.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "dsa-m2-04-s1",
+                  "title": "Malloc, calloc, realloc, free, First-fit, Best-fit"
+                },
+                {
+                  "id": "dsa-m2-04-s2",
+                  "title": "Worst-fit allocation strategies with numerical comparison"
+                },
+                {
+                  "id": "dsa-m2-04-s3",
+                  "title": "Internal/external fragmentation, compaction"
+                }
+              ]
             }
           ]
         },
@@ -626,35 +1678,129 @@
               "title": "Tree Concepts & Binary Trees (Types & Properties)",
               "concepts": "Degree, height, depth, full, complete, perfect binary trees, maximum nodes at level i (^i$), array vs linked representation.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "dsa-m3-01-s1",
+                  "title": "Degree, height, depth, full, complete"
+                },
+                {
+                  "id": "dsa-m3-01-s2",
+                  "title": "Perfect binary trees"
+                },
+                {
+                  "id": "dsa-m3-01-s3",
+                  "title": "Maximum nodes at level i (^i$)"
+                },
+                {
+                  "id": "dsa-m3-01-s4",
+                  "title": "Array vs linked representation"
+                }
+              ]
             },
             {
               "id": "dsa-m3-02",
               "title": "Binary Tree Traversals (Inorder, Preorder, Postorder, Level-order)",
               "concepts": "Recursive traversal algorithms, trace on tree, tree reconstruction given Inorder + Preorder or Inorder + Postorder; Expression trees.",
               "priority": "High",
-              "type": "Trace / High-Yield"
+              "type": "Trace / High-Yield",
+              "subtopics": [
+                {
+                  "id": "dsa-m3-02-s1",
+                  "title": "Recursive traversal algorithms"
+                },
+                {
+                  "id": "dsa-m3-02-s2",
+                  "title": "Trace on tree"
+                },
+                {
+                  "id": "dsa-m3-02-s3",
+                  "title": "Tree reconstruction given Inorder + Preorder or Inorder + Postorder"
+                },
+                {
+                  "id": "dsa-m3-02-s4",
+                  "title": "Expression trees"
+                }
+              ]
             },
             {
               "id": "dsa-m3-03",
               "title": "Binary Search Trees (BST) & Operations",
               "concepts": "BST property, search algorithm (h)$, insertion, deletion (leaf, 1 child, 2 children using inorder predecessor/successor).",
               "priority": "High",
-              "type": "Algorithm / Step-by-Step"
+              "type": "Algorithm / Step-by-Step",
+              "subtopics": [
+                {
+                  "id": "dsa-m3-03-s1",
+                  "title": "BST property"
+                },
+                {
+                  "id": "dsa-m3-03-s2",
+                  "title": "Search algorithm (h)$, insertion"
+                },
+                {
+                  "id": "dsa-m3-03-s3",
+                  "title": "Deletion (leaf, 1 child, 2 children using inorder predecessor/successor)"
+                }
+              ]
             },
             {
               "id": "dsa-m3-04",
               "title": "Binary Heaps (Max-Heap, Min-Heap) & Priority Queues",
               "concepts": "Heap property, array representation (i+1, 2i+2$), Insert operation, Delete/Extract-Max, Heapify procedure, Priority Queue ADT.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "dsa-m3-04-s1",
+                  "title": "Heap property"
+                },
+                {
+                  "id": "dsa-m3-04-s2",
+                  "title": "Array representation (i+1, 2i+2$)"
+                },
+                {
+                  "id": "dsa-m3-04-s3",
+                  "title": "Insert operation, Delete/Extract-Max"
+                },
+                {
+                  "id": "dsa-m3-04-s4",
+                  "title": "Heapify procedure"
+                },
+                {
+                  "id": "dsa-m3-04-s5",
+                  "title": "Priority Queue ADT"
+                }
+              ]
             },
             {
               "id": "dsa-m3-05",
               "title": "Graphs: Representations & Traversals (BFS, DFS)",
               "concepts": "Adjacency matrix, adjacency list, BFS using queue, DFS using stack/recursion, single-source shortest path concept in unweighted graphs.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "dsa-m3-05-s1",
+                  "title": "Adjacency matrix"
+                },
+                {
+                  "id": "dsa-m3-05-s2",
+                  "title": "Adjacency list"
+                },
+                {
+                  "id": "dsa-m3-05-s3",
+                  "title": "BFS using queue"
+                },
+                {
+                  "id": "dsa-m3-05-s4",
+                  "title": "DFS using stack/recursion"
+                },
+                {
+                  "id": "dsa-m3-05-s5",
+                  "title": "Single-source shortest path concept in unweighted graphs"
+                }
+              ]
             }
           ]
         },
@@ -668,35 +1814,117 @@
               "title": "Comparison-Based Sorting: Selection, Insertion, Bubble Sort",
               "concepts": "Algorithms, pass-by-pass tracing, best/average/worst case time complexities, space complexity, stability comparison.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "dsa-m4-01-s1",
+                  "title": "Algorithms"
+                },
+                {
+                  "id": "dsa-m4-01-s2",
+                  "title": "Pass-by-pass tracing"
+                },
+                {
+                  "id": "dsa-m4-01-s3",
+                  "title": "Best/average/worst case time complexities"
+                },
+                {
+                  "id": "dsa-m4-01-s4",
+                  "title": "Space complexity"
+                },
+                {
+                  "id": "dsa-m4-01-s5",
+                  "title": "Stability comparison"
+                }
+              ]
             },
             {
               "id": "dsa-m4-02",
               "title": "Advanced Sorting: Quick Sort & Merge Sort",
               "concepts": "Quick Sort partition algorithm (pivot placement, worst-case (n^2)$, average (n \\log n)$); Merge Sort algorithm, merging procedure, guaranteed (n \\log n)$.",
               "priority": "High",
-              "type": "Algorithm / Proof"
+              "type": "Algorithm / Proof",
+              "subtopics": [
+                {
+                  "id": "dsa-m4-02-s1",
+                  "title": "Quick Sort partition algorithm (pivot placement, worst-case (n^2)$, average (n \\log n)$)"
+                },
+                {
+                  "id": "dsa-m4-02-s2",
+                  "title": "Merge Sort algorithm"
+                },
+                {
+                  "id": "dsa-m4-02-s3",
+                  "title": "Merging procedure"
+                },
+                {
+                  "id": "dsa-m4-02-s4",
+                  "title": "Guaranteed (n \\log n)$"
+                }
+              ]
             },
             {
               "id": "dsa-m4-03",
               "title": "Heap Sort & Radix Sort",
               "concepts": "Heap Sort in-place algorithm (build max-heap, swap root with last, heapify, (n \\log n)$); Radix Sort LSD bucket pass using counting sort.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "dsa-m4-03-s1",
+                  "title": "Heap Sort in-place algorithm (build max-heap, swap root with last, heapify, (n \\log n)$)"
+                },
+                {
+                  "id": "dsa-m4-03-s2",
+                  "title": "Radix Sort LSD bucket pass using counting sort"
+                }
+              ]
             },
             {
               "id": "dsa-m4-04",
               "title": "Searching Techniques: Linear Search & Binary Search",
               "concepts": "Linear search algorithm, Binary search (iterative and recursive versions), precondition of sorted array, (\\log n)$ comparison.",
               "priority": "High",
-              "type": "Algorithm / Code"
+              "type": "Algorithm / Code",
+              "subtopics": [
+                {
+                  "id": "dsa-m4-04-s1",
+                  "title": "Linear search algorithm"
+                },
+                {
+                  "id": "dsa-m4-04-s2",
+                  "title": "Binary search (iterative and recursive versions)"
+                },
+                {
+                  "id": "dsa-m4-04-s3",
+                  "title": "Precondition of sorted array"
+                },
+                {
+                  "id": "dsa-m4-04-s4",
+                  "title": "(\\log n)$ comparison"
+                }
+              ]
             },
             {
               "id": "dsa-m4-05",
               "title": "Hashing, Hash Functions & Collision Resolution",
               "concepts": "Hash functions (Division, Mid-Square, Folding, Digit Analysis); Collision resolution: Open Addressing (Linear Probing, Quadratic Probing, Double Hashing) vs Chaining, load factor.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "dsa-m4-05-s1",
+                  "title": "Hash functions (Division, Mid-Square, Folding, Digit Analysis)"
+                },
+                {
+                  "id": "dsa-m4-05-s2",
+                  "title": "Collision resolution: Open Addressing (Linear Probing, Quadratic Probing, Double Hashing) vs Chaining"
+                },
+                {
+                  "id": "dsa-m4-05-s3",
+                  "title": "Load factor"
+                }
+              ]
             }
           ]
         }
@@ -722,35 +1950,125 @@
               "title": "Discrete Random Variables & PMF/CDF",
               "concepts": "Discrete random variables, Probability Mass Function (PMF), Cumulative Distribution Function (CDF) and its properties.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m1-01-s1",
+                  "title": "Discrete random variables"
+                },
+                {
+                  "id": "mat-m1-01-s2",
+                  "title": "Probability Mass Function (PMF)"
+                },
+                {
+                  "id": "mat-m1-01-s3",
+                  "title": "Cumulative Distribution Function (CDF) and its properties"
+                }
+              ]
             },
             {
               "id": "mat-m1-02",
               "title": "Mathematical Expectation, Mean & Variance",
               "concepts": "Expected value E[X], Variance Var(X) = E[X^2] - (E[X])^2, standard deviation, properties of expectation and variance.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m1-02-s1",
+                  "title": "Expected value E[X]"
+                },
+                {
+                  "id": "mat-m1-02-s2",
+                  "title": "Variance Var(X) = E[X^2] - (E[X])^2"
+                },
+                {
+                  "id": "mat-m1-02-s3",
+                  "title": "Standard deviation"
+                },
+                {
+                  "id": "mat-m1-02-s4",
+                  "title": "Properties of expectation and variance"
+                }
+              ]
             },
             {
               "id": "mat-m1-03",
               "title": "Binomial Probability Distribution",
               "concepts": "Bernoulli trials, Binomial PMF P(X=k) = nCk p^k (1-p)^(n-k), Mean = np, Variance = np(1-p), moment generating functions.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m1-03-s1",
+                  "title": "Bernoulli trials"
+                },
+                {
+                  "id": "mat-m1-03-s2",
+                  "title": "Binomial PMF P(X=k) = nCk p^k (1-p)^(n-k)"
+                },
+                {
+                  "id": "mat-m1-03-s3",
+                  "title": "Mean = np"
+                },
+                {
+                  "id": "mat-m1-03-s4",
+                  "title": "Variance = np(1-p)"
+                },
+                {
+                  "id": "mat-m1-03-s5",
+                  "title": "Moment generating functions"
+                }
+              ]
             },
             {
               "id": "mat-m1-04",
               "title": "Poisson Probability Distribution",
               "concepts": "Poisson PMF P(X=k) = e^(-lambda) lambda^k / k!, Mean = lambda, Variance = lambda, Poisson as limiting form of Binomial distribution (n -> inf, p -> 0).",
               "priority": "High",
-              "type": "Numerical / Derivation"
+              "type": "Numerical / Derivation",
+              "subtopics": [
+                {
+                  "id": "mat-m1-04-s1",
+                  "title": "Poisson PMF P(X=k) = e^(-lambda) lambda^k / k!"
+                },
+                {
+                  "id": "mat-m1-04-s2",
+                  "title": "Mean = lambda"
+                },
+                {
+                  "id": "mat-m1-04-s3",
+                  "title": "Variance = lambda"
+                },
+                {
+                  "id": "mat-m1-04-s4",
+                  "title": "Poisson as limiting form of Binomial distribution (n -> inf, p -> 0)"
+                }
+              ]
             },
             {
               "id": "mat-m1-05",
               "title": "Two-Dimensional Discrete Random Variables",
               "concepts": "Joint probability mass function P(X=x, Y=y), Marginal PMFs of X and Y, Condition for independence P(X,Y) = P(X)P(Y), Expected value E[g(X,Y)].",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m1-05-s1",
+                  "title": "Joint probability mass function P(X=x, Y=y)"
+                },
+                {
+                  "id": "mat-m1-05-s2",
+                  "title": "Marginal PMFs of X and Y"
+                },
+                {
+                  "id": "mat-m1-05-s3",
+                  "title": "Condition for independence P(X,Y) = P(X)P(Y)"
+                },
+                {
+                  "id": "mat-m1-05-s4",
+                  "title": "Expected value E[g(X,Y)]"
+                }
+              ]
             }
           ]
         },
@@ -764,35 +2082,133 @@
               "title": "Continuous Random Variables & PDF/CDF",
               "concepts": "Probability Density Function (PDF) f(x) >= 0, integral of f(x) = 1, relationship between PDF and CDF dF(x)/dx = f(x), Expectation, Mean and Variance.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m2-01-s1",
+                  "title": "Probability Density Function (PDF) f(x) >= 0"
+                },
+                {
+                  "id": "mat-m2-01-s2",
+                  "title": "Integral of f(x) = 1"
+                },
+                {
+                  "id": "mat-m2-01-s3",
+                  "title": "Relationship between PDF and CDF dF(x)/dx = f(x), Expectation"
+                },
+                {
+                  "id": "mat-m2-01-s4",
+                  "title": "Mean and Variance"
+                }
+              ]
             },
             {
               "id": "mat-m2-02",
               "title": "Uniform Distribution",
               "concepts": "Uniform continuous distribution on [a, b], PDF f(x) = 1/(b-a), CDF, Mean = (a+b)/2, Variance = (b-a)^2 / 12.",
               "priority": "Medium",
-              "type": "Numerical"
+              "type": "Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m2-02-s1",
+                  "title": "Uniform continuous distribution on [a, b]"
+                },
+                {
+                  "id": "mat-m2-02-s2",
+                  "title": "PDF f(x) = 1/(b-a), CDF"
+                },
+                {
+                  "id": "mat-m2-02-s3",
+                  "title": "Mean = (a+b)/2"
+                },
+                {
+                  "id": "mat-m2-02-s4",
+                  "title": "Variance = (b-a)^2 / 12"
+                }
+              ]
             },
             {
               "id": "mat-m2-03",
               "title": "Normal (Gaussian) Distribution",
               "concepts": "Bell-shaped curve, standard normal distribution Z = (X - mu)/sigma, standard normal tables, 68-95-99.7 empirical rule, properties and applications.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m2-03-s1",
+                  "title": "Bell-shaped curve"
+                },
+                {
+                  "id": "mat-m2-03-s2",
+                  "title": "Standard normal distribution Z = (X - mu)/sigma"
+                },
+                {
+                  "id": "mat-m2-03-s3",
+                  "title": "Standard normal tables"
+                },
+                {
+                  "id": "mat-m2-03-s4",
+                  "title": "68-95-99.7 empirical rule"
+                },
+                {
+                  "id": "mat-m2-03-s5",
+                  "title": "Properties and applications"
+                }
+              ]
             },
             {
               "id": "mat-m2-04",
               "title": "Exponential Distribution & Memoryless Property",
               "concepts": "PDF f(x) = lambda e^(-lambda x), CDF F(x) = 1 - e^(-lambda x), Mean = 1/lambda, Variance = 1/lambda^2, Proof of Memoryless Property P(X > s+t | X > s) = P(X > t).",
               "priority": "High",
-              "type": "Derivation / High-Yield"
+              "type": "Derivation / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m2-04-s1",
+                  "title": "PDF f(x) = lambda e^(-lambda x)"
+                },
+                {
+                  "id": "mat-m2-04-s2",
+                  "title": "CDF F(x) = 1 - e^(-lambda x)"
+                },
+                {
+                  "id": "mat-m2-04-s3",
+                  "title": "Mean = 1/lambda"
+                },
+                {
+                  "id": "mat-m2-04-s4",
+                  "title": "Variance = 1/lambda^2"
+                },
+                {
+                  "id": "mat-m2-04-s5",
+                  "title": "Proof of Memoryless Property P(X > s+t | X > s) = P(X > t)"
+                }
+              ]
             },
             {
               "id": "mat-m2-05",
               "title": "Two-Dimensional Continuous Random Variables",
               "concepts": "Joint PDF f(x,y), Marginal PDFs f_X(x) and f_Y(y), Independent continuous variables, Expectation E[g(X,Y)], Covariance.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m2-05-s1",
+                  "title": "Joint PDF f(x,y)"
+                },
+                {
+                  "id": "mat-m2-05-s2",
+                  "title": "Marginal PDFs f_X(x) and f_Y(y)"
+                },
+                {
+                  "id": "mat-m2-05-s3",
+                  "title": "Independent continuous variables"
+                },
+                {
+                  "id": "mat-m2-05-s4",
+                  "title": "Expectation E[g(X,Y)], Covariance"
+                }
+              ]
             }
           ]
         },
@@ -806,28 +2222,100 @@
               "title": "Markov Inequality & Chebyshev Inequality",
               "concepts": "Markov Inequality P(X >= a) <= E[X]/a for non-negative X; Chebyshev Inequality P(|X - mu| >= k*sigma) <= 1/k^2, bounding probabilities.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m3-01-s1",
+                  "title": "Markov Inequality P(X >= a) <= E[X]/a for non-negative X"
+                },
+                {
+                  "id": "mat-m3-01-s2",
+                  "title": "Chebyshev Inequality P(|X - mu| >= k*sigma) <= 1/k^2"
+                },
+                {
+                  "id": "mat-m3-01-s3",
+                  "title": "Bounding probabilities"
+                }
+              ]
             },
             {
               "id": "mat-m3-02",
               "title": "Law of Large Numbers & Central Limit Theorem",
               "concepts": "Weak and Strong Law of Large Numbers (SLLN statement); Central Limit Theorem (CLT) statement and solving probability approximations for sample sums.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m3-02-s1",
+                  "title": "Weak and Strong Law of Large Numbers (SLLN statement)"
+                },
+                {
+                  "id": "mat-m3-02-s2",
+                  "title": "Central Limit Theorem (CLT) statement and solving probability approximations for sample sums"
+                }
+              ]
             },
             {
               "id": "mat-m3-03",
               "title": "Stochastic Processes Classification",
               "concepts": "Definition {X(t), t in T}, State space and Parameter space, classification: Discrete-time discrete-state, Discrete-time continuous-state, Continuous-time discrete-state, Continuous-time continuous-state.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "mat-m3-03-s1",
+                  "title": "Definition {X(t)"
+                },
+                {
+                  "id": "mat-m3-03-s2",
+                  "title": "T in T}"
+                },
+                {
+                  "id": "mat-m3-03-s3",
+                  "title": "State space and Parameter space"
+                },
+                {
+                  "id": "mat-m3-03-s4",
+                  "title": "Classification: Discrete-time discrete-state"
+                },
+                {
+                  "id": "mat-m3-03-s5",
+                  "title": "Discrete-time continuous-state"
+                },
+                {
+                  "id": "mat-m3-03-s6",
+                  "title": "Continuous-time discrete-state"
+                },
+                {
+                  "id": "mat-m3-03-s7",
+                  "title": "Continuous-time continuous-state"
+                }
+              ]
             },
             {
               "id": "mat-m3-04",
               "title": "The Poisson Process & Interarrival Times",
               "concepts": "Counting processes, Poisson process postulates (independent increments, stationary increments), distribution of number of arrivals, Exponential distribution of interarrival times.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m3-04-s1",
+                  "title": "Counting processes"
+                },
+                {
+                  "id": "mat-m3-04-s2",
+                  "title": "Poisson process postulates (independent increments, stationary increments)"
+                },
+                {
+                  "id": "mat-m3-04-s3",
+                  "title": "Distribution of number of arrivals"
+                },
+                {
+                  "id": "mat-m3-04-s4",
+                  "title": "Exponential distribution of interarrival times"
+                }
+              ]
             }
           ]
         },
@@ -841,35 +2329,121 @@
               "title": "Markov Chains & Transition Probability Matrix (TPM)",
               "concepts": "Markov property P(X_n+1 = j | X_n = i), 1-step Transition Probability Matrix P, State transition diagram.",
               "priority": "High",
-              "type": "Core Theory / Numerical"
+              "type": "Core Theory / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m4-01-s1",
+                  "title": "Markov property P(X_n+1 = j | X_n = i)"
+                },
+                {
+                  "id": "mat-m4-01-s2",
+                  "title": "1-step Transition Probability Matrix P"
+                },
+                {
+                  "id": "mat-m4-01-s3",
+                  "title": "State transition diagram"
+                }
+              ]
             },
             {
               "id": "mat-m4-02",
               "title": "Chapman-Kolmogorov Equations & n-Step Transitions",
               "concepts": "P_ij^(n+m) = sum(P_ik^(n) * P_kj^(m)), calculating n-step transition probability matrix P^(n) by matrix multiplication.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m4-02-s1",
+                  "title": "P_ij^(n+m) = sum(P_ik^(n) * P_kj^(m))"
+                },
+                {
+                  "id": "mat-m4-02-s2",
+                  "title": "Calculating n-step transition probability matrix P^(n) by matrix multiplication"
+                }
+              ]
             },
             {
               "id": "mat-m4-03",
               "title": "Classification of States in Markov Chains",
               "concepts": "Accessible state, Communicating states, Closed set, Irreducible Markov chain, Recurrent state (first return probability f_ii = 1), Transient state (f_ii < 1), Periodic vs Aperiodic states, Absorbing states.",
               "priority": "High",
-              "type": "Core Theory / High-Yield"
+              "type": "Core Theory / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m4-03-s1",
+                  "title": "Accessible state"
+                },
+                {
+                  "id": "mat-m4-03-s2",
+                  "title": "Communicating states"
+                },
+                {
+                  "id": "mat-m4-03-s3",
+                  "title": "Closed set"
+                },
+                {
+                  "id": "mat-m4-03-s4",
+                  "title": "Irreducible Markov chain"
+                },
+                {
+                  "id": "mat-m4-03-s5",
+                  "title": "Recurrent state (first return probability f_ii = 1)"
+                },
+                {
+                  "id": "mat-m4-03-s6",
+                  "title": "Transient state (f_ii < 1)"
+                },
+                {
+                  "id": "mat-m4-03-s7",
+                  "title": "Periodic vs Aperiodic states"
+                },
+                {
+                  "id": "mat-m4-03-s8",
+                  "title": "Absorbing states"
+                }
+              ]
             },
             {
               "id": "mat-m4-04",
               "title": "Random Walk Model & Gambler Ruin Concept",
               "concepts": "Simple 1D random walk on integers, absorbing barriers, transition probabilities, probability of ruin.",
               "priority": "Medium",
-              "type": "Model / Numerical"
+              "type": "Model / Numerical",
+              "subtopics": [
+                {
+                  "id": "mat-m4-04-s1",
+                  "title": "Simple 1D random walk on integers"
+                },
+                {
+                  "id": "mat-m4-04-s2",
+                  "title": "Absorbing barriers"
+                },
+                {
+                  "id": "mat-m4-04-s3",
+                  "title": "Transition probabilities"
+                },
+                {
+                  "id": "mat-m4-04-s4",
+                  "title": "Probability of ruin"
+                }
+              ]
             },
             {
               "id": "mat-m4-05",
               "title": "Steady-State Distribution & Long-Run Proportions",
               "concepts": "Stationary distribution vector pi = [pi_0, pi_1, ...], solving system of linear equations pi * P = pi and sum(pi_i) = 1 for long-run proportions.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mat-m4-05-s1",
+                  "title": "Stationary distribution vector pi = [pi_0, pi_1, ...]"
+                },
+                {
+                  "id": "mat-m4-05-s2",
+                  "title": "Solving system of linear equations pi * P = pi and sum(pi_i) = 1 for long-run proportions"
+                }
+              ]
             }
           ]
         }
@@ -895,28 +2469,80 @@
               "title": "Machine Learning vs Traditional Programming",
               "concepts": "Well-posed learning problem (Task T, Performance P, Experience E), ML workflow, supervised, unsupervised, semi-supervised, and reinforcement learning paradigms.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "ml-m1-01-s1",
+                  "title": "Well-posed learning problem (Task T, Performance P, Experience E)"
+                },
+                {
+                  "id": "ml-m1-01-s2",
+                  "title": "ML workflow, supervised, unsupervised, semi-supervised, and reinforcement learning paradigms"
+                }
+              ]
             },
             {
               "id": "ml-m1-02",
               "title": "Maximum Likelihood Estimation (MLE)",
               "concepts": "Likelihood function L(theta), Log-likelihood, maximizing likelihood, MLE for coin-toss Bernoulli and Gaussian distribution parameters.",
               "priority": "High",
-              "type": "Derivation / High-Yield"
+              "type": "Derivation / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m1-02-s1",
+                  "title": "Likelihood function L(theta), Log-likelihood"
+                },
+                {
+                  "id": "ml-m1-02-s2",
+                  "title": "Maximizing likelihood"
+                },
+                {
+                  "id": "ml-m1-02-s3",
+                  "title": "MLE for coin-toss Bernoulli and Gaussian distribution parameters"
+                }
+              ]
             },
             {
               "id": "ml-m1-03",
               "title": "Maximum A Posteriori (MAP) & Bayesian Formulation",
               "concepts": "Bayes theorem for parameters P(theta|D) = P(D|theta)P(theta)/P(D), Prior vs Posterior distribution, comparison of MLE and MAP estimation.",
               "priority": "High",
-              "type": "Core Theory / Derivation"
+              "type": "Core Theory / Derivation",
+              "subtopics": [
+                {
+                  "id": "ml-m1-03-s1",
+                  "title": "Bayes theorem for parameters P(theta|D) = P(D|theta)P(theta)/P(D)"
+                },
+                {
+                  "id": "ml-m1-03-s2",
+                  "title": "Prior vs Posterior distribution"
+                },
+                {
+                  "id": "ml-m1-03-s3",
+                  "title": "Comparison of MLE and MAP estimation"
+                }
+              ]
             },
             {
               "id": "ml-m1-04",
               "title": "Feature Representation & Loss Functions",
               "concepts": "Feature vectors, design matrix, role of loss functions (Mean Squared Error, Cross-Entropy loss) and optimization concepts.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "ml-m1-04-s1",
+                  "title": "Feature vectors"
+                },
+                {
+                  "id": "ml-m1-04-s2",
+                  "title": "Design matrix"
+                },
+                {
+                  "id": "ml-m1-04-s3",
+                  "title": "Role of loss functions (Mean Squared Error, Cross-Entropy loss) and optimization concepts"
+                }
+              ]
             }
           ]
         },
@@ -930,35 +2556,133 @@
               "title": "Linear Regression (Single & Multiple Variables)",
               "concepts": "Hypothesis h_theta(x) = theta^T x, MSE Cost function J(theta), derivation of Gradient Descent update rules, Normal Equation closed-form solution theta = (X^T X)^(-1) X^T y.",
               "priority": "High",
-              "type": "Derivation / Numerical"
+              "type": "Derivation / Numerical",
+              "subtopics": [
+                {
+                  "id": "ml-m2-01-s1",
+                  "title": "Hypothesis h_theta(x) = theta^T x"
+                },
+                {
+                  "id": "ml-m2-01-s2",
+                  "title": "MSE Cost function J(theta)"
+                },
+                {
+                  "id": "ml-m2-01-s3",
+                  "title": "Derivation of Gradient Descent update rules"
+                },
+                {
+                  "id": "ml-m2-01-s4",
+                  "title": "Normal Equation closed-form solution theta = (X^T X)^(-1) X^T y"
+                }
+              ]
             },
             {
               "id": "ml-m2-02",
               "title": "Logistic Regression & Sigmoid Function",
               "concepts": "Classification problem, Sigmoid/Logistic activation g(z) = 1/(1 + e^(-z)), Log-Loss / Cross-Entropy cost function, decision boundary, gradient descent update.",
               "priority": "High",
-              "type": "Derivation / High-Yield"
+              "type": "Derivation / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m2-02-s1",
+                  "title": "Classification problem"
+                },
+                {
+                  "id": "ml-m2-02-s2",
+                  "title": "Sigmoid/Logistic activation g(z) = 1/(1 + e^(-z))"
+                },
+                {
+                  "id": "ml-m2-02-s3",
+                  "title": "Log-Loss / Cross-Entropy cost function"
+                },
+                {
+                  "id": "ml-m2-02-s4",
+                  "title": "Decision boundary"
+                },
+                {
+                  "id": "ml-m2-02-s5",
+                  "title": "Gradient descent update"
+                }
+              ]
             },
             {
               "id": "ml-m2-03",
               "title": "Na\u00efve Bayes Classification",
               "concepts": "Bayes rule for classification, Class conditional independence assumption, MAP decision rule, handling continuous features with Gaussian Naive Bayes.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m2-03-s1",
+                  "title": "Bayes rule for classification"
+                },
+                {
+                  "id": "ml-m2-03-s2",
+                  "title": "Class conditional independence assumption"
+                },
+                {
+                  "id": "ml-m2-03-s3",
+                  "title": "MAP decision rule"
+                },
+                {
+                  "id": "ml-m2-03-s4",
+                  "title": "Handling continuous features with Gaussian Naive Bayes"
+                }
+              ]
             },
             {
               "id": "ml-m2-04",
               "title": "K-Nearest Neighbors (KNN) Classifier",
               "concepts": "Instance-based / Lazy learning, Distance metrics (Euclidean, Manhattan), choosing optimal k, boundary decisions, Voronoi diagram.",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "ml-m2-04-s1",
+                  "title": "Instance-based / Lazy learning"
+                },
+                {
+                  "id": "ml-m2-04-s2",
+                  "title": "Distance metrics (Euclidean, Manhattan)"
+                },
+                {
+                  "id": "ml-m2-04-s3",
+                  "title": "Choosing optimal k"
+                },
+                {
+                  "id": "ml-m2-04-s4",
+                  "title": "Boundary decisions"
+                },
+                {
+                  "id": "ml-m2-04-s5",
+                  "title": "Voronoi diagram"
+                }
+              ]
             },
             {
               "id": "ml-m2-05",
               "title": "Decision Trees & ID3 Algorithm",
               "concepts": "Decision tree representation, Entropy H(S) = -sum(p log2 p), Information Gain calculation Gain(S, A), ID3 algorithm step-by-step split.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m2-05-s1",
+                  "title": "Decision tree representation"
+                },
+                {
+                  "id": "ml-m2-05-s2",
+                  "title": "Entropy H(S) = -sum(p log2 p)"
+                },
+                {
+                  "id": "ml-m2-05-s3",
+                  "title": "Information Gain calculation Gain(S, A)"
+                },
+                {
+                  "id": "ml-m2-05-s4",
+                  "title": "ID3 algorithm step-by-step split"
+                }
+              ]
             }
           ]
         },
@@ -972,35 +2696,129 @@
               "title": "Overfitting, Underfitting & Regularization (L1 & L2)",
               "concepts": "Overfitting causes, Training/Validation/Testing split, L1 LASSO (sparsity) vs L2 RIDGE (weight decay) regularization penalties in cost function.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "ml-m3-01-s1",
+                  "title": "Overfitting causes"
+                },
+                {
+                  "id": "ml-m3-01-s2",
+                  "title": "Training/Validation/Testing split"
+                },
+                {
+                  "id": "ml-m3-01-s3",
+                  "title": "L1 LASSO (sparsity) vs L2 RIDGE (weight decay) regularization penalties in cost function"
+                }
+              ]
             },
             {
               "id": "ml-m3-02",
               "title": "Evaluation Metrics for Classification & Regression",
               "concepts": "Confusion Matrix (TP, TN, FP, FN), Precision, Recall, Accuracy, F1-Score, ROC curve and AUC; Regression: MAE, RMSE, R-squared coefficient.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m3-02-s1",
+                  "title": "Confusion Matrix (TP, TN, FP, FN), Precision, Recall, Accuracy, F1-Score"
+                },
+                {
+                  "id": "ml-m3-02-s2",
+                  "title": "ROC curve and AUC"
+                },
+                {
+                  "id": "ml-m3-02-s3",
+                  "title": "Regression: MAE, RMSE"
+                },
+                {
+                  "id": "ml-m3-02-s4",
+                  "title": "R-squared coefficient"
+                }
+              ]
             },
             {
               "id": "ml-m3-03",
               "title": "Support Vector Machines (Linear & Non-linear SVM)",
               "concepts": "Hyperplane, Margin = 2/||w||, Maximum Margin Hyperplane, Support vectors, Hard margin vs Soft margin (slack variables), Kernel Trick (Polynomial, RBF Gaussian).",
               "priority": "High",
-              "type": "Core Theory / Derivation"
+              "type": "Core Theory / Derivation",
+              "subtopics": [
+                {
+                  "id": "ml-m3-03-s1",
+                  "title": "Hyperplane"
+                },
+                {
+                  "id": "ml-m3-03-s2",
+                  "title": "Margin = 2/||w||"
+                },
+                {
+                  "id": "ml-m3-03-s3",
+                  "title": "Maximum Margin Hyperplane"
+                },
+                {
+                  "id": "ml-m3-03-s4",
+                  "title": "Support vectors"
+                },
+                {
+                  "id": "ml-m3-03-s5",
+                  "title": "Hard margin vs Soft margin (slack variables)"
+                },
+                {
+                  "id": "ml-m3-03-s6",
+                  "title": "Kernel Trick (Polynomial, RBF Gaussian)"
+                }
+              ]
             },
             {
               "id": "ml-m3-04",
               "title": "Perceptron & Multilayer Feedforward Neural Networks",
               "concepts": "Biological neuron vs Perceptron, activation functions (Sigmoid, ReLU, Tanh), Multilayer Perceptron (MLP) architecture, forward propagation.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "ml-m3-04-s1",
+                  "title": "Biological neuron vs Perceptron"
+                },
+                {
+                  "id": "ml-m3-04-s2",
+                  "title": "Activation functions (Sigmoid, ReLU, Tanh)"
+                },
+                {
+                  "id": "ml-m3-04-s3",
+                  "title": "Multilayer Perceptron (MLP) architecture"
+                },
+                {
+                  "id": "ml-m3-04-s4",
+                  "title": "Forward propagation"
+                }
+              ]
             },
             {
               "id": "ml-m3-05",
               "title": "Backpropagation Algorithm",
               "concepts": "Error backpropagation using chain rule, gradient of loss with respect to weights, weight update formula, learning rate.",
               "priority": "High",
-              "type": "Derivation / High-Yield"
+              "type": "Derivation / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m3-05-s1",
+                  "title": "Error backpropagation using chain rule"
+                },
+                {
+                  "id": "ml-m3-05-s2",
+                  "title": "Gradient of loss with respect to weights"
+                },
+                {
+                  "id": "ml-m3-05-s3",
+                  "title": "Weight update formula"
+                },
+                {
+                  "id": "ml-m3-05-s4",
+                  "title": "Learning rate"
+                }
+              ]
             }
           ]
         },
@@ -1014,28 +2832,88 @@
               "title": "Clustering Algorithms (K-Means & Hierarchical)",
               "concepts": "Clustering similarity measures, K-Means algorithm (centroid update, convergence), Hierarchical Agglomerative Clustering (Single, Complete, Average linkage, Dendrograms).",
               "priority": "High",
-              "type": "Algorithm / Trace"
+              "type": "Algorithm / Trace",
+              "subtopics": [
+                {
+                  "id": "ml-m4-01-s1",
+                  "title": "Clustering similarity measures"
+                },
+                {
+                  "id": "ml-m4-01-s2",
+                  "title": "K-Means algorithm (centroid update, convergence)"
+                },
+                {
+                  "id": "ml-m4-01-s3",
+                  "title": "Hierarchical Agglomerative Clustering (Single, Complete, Average linkage, Dendrograms)"
+                }
+              ]
             },
             {
               "id": "ml-m4-02",
               "title": "Principal Component Analysis (PCA)",
               "concepts": "Curse of dimensionality, PCA steps: Mean centering, Covariance matrix calculation, Eigenvalues and Eigenvectors, projecting onto top k principal components.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "ml-m4-02-s1",
+                  "title": "Curse of dimensionality"
+                },
+                {
+                  "id": "ml-m4-02-s2",
+                  "title": "PCA steps: Mean centering"
+                },
+                {
+                  "id": "ml-m4-02-s3",
+                  "title": "Covariance matrix calculation"
+                },
+                {
+                  "id": "ml-m4-02-s4",
+                  "title": "Eigenvalues and Eigenvectors"
+                },
+                {
+                  "id": "ml-m4-02-s5",
+                  "title": "Projecting onto top k principal components"
+                }
+              ]
             },
             {
               "id": "ml-m4-03",
               "title": "Ensemble Methods (Bagging & Boosting)",
               "concepts": "Ensemble concept, Bootstrap Aggregation (Bagging, Random Forest), Boosting (Sequential training, AdaBoost algorithm, weighted errors).",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "ml-m4-03-s1",
+                  "title": "Ensemble concept"
+                },
+                {
+                  "id": "ml-m4-03-s2",
+                  "title": "Bootstrap Aggregation (Bagging, Random Forest)"
+                },
+                {
+                  "id": "ml-m4-03-s3",
+                  "title": "Boosting (Sequential training, AdaBoost algorithm, weighted errors)"
+                }
+              ]
             },
             {
               "id": "ml-m4-04",
               "title": "Resampling Methods & Bias-Variance Tradeoff",
               "concepts": "K-Fold Cross Validation, Bootstrapping; Bias (underfitting) vs Variance (overfitting) tradeoff decomposition of expected test error.",
               "priority": "High",
-              "type": "Core Theory / Derivation"
+              "type": "Core Theory / Derivation",
+              "subtopics": [
+                {
+                  "id": "ml-m4-04-s1",
+                  "title": "K-Fold Cross Validation, Bootstrapping"
+                },
+                {
+                  "id": "ml-m4-04-s2",
+                  "title": "Bias (underfitting) vs Variance (overfitting) tradeoff decomposition of expected test error"
+                }
+              ]
             }
           ]
         }
@@ -1061,28 +2939,108 @@
               "title": "Embedded Systems & Processor Classification",
               "concepts": "Embedded systems characteristics, Embedded C basics, Microcontroller vs Microprocessor, Harvard vs Von Neumann, RISC vs CISC.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "mc-m1-01-s1",
+                  "title": "Embedded systems characteristics"
+                },
+                {
+                  "id": "mc-m1-01-s2",
+                  "title": "Embedded C basics"
+                },
+                {
+                  "id": "mc-m1-01-s3",
+                  "title": "Microcontroller vs Microprocessor"
+                },
+                {
+                  "id": "mc-m1-01-s4",
+                  "title": "Harvard vs Von Neumann"
+                },
+                {
+                  "id": "mc-m1-01-s5",
+                  "title": "RISC vs CISC"
+                }
+              ]
             },
             {
               "id": "mc-m1-02",
               "title": "ARM Cortex-M Series & Armv8-M Architecture",
               "concepts": "ARM Cortex-M family overview, Cortex-M23 (efficiency) and Cortex-M33 (performance with TrustZone), Armv8-M Mainline vs Baseline architecture.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "mc-m1-02-s1",
+                  "title": "ARM Cortex-M family overview"
+                },
+                {
+                  "id": "mc-m1-02-s2",
+                  "title": "Cortex-M23 (efficiency) and Cortex-M33 (performance with TrustZone)"
+                },
+                {
+                  "id": "mc-m1-02-s3",
+                  "title": "Armv8-M Mainline vs Baseline architecture"
+                }
+              ]
             },
             {
               "id": "mc-m1-03",
               "title": "ARM Cortex Core Features: Registers & Memory Map",
               "concepts": "Core registers R0-R12, Stack Pointers MSP/PSP (R13), Link Register LR (R14), Program Counter PC (R15), Special registers xPSR, Memory-mapped I/O structure.",
               "priority": "High",
-              "type": "Core Theory / High-Yield"
+              "type": "Core Theory / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mc-m1-03-s1",
+                  "title": "Core registers R0-R12"
+                },
+                {
+                  "id": "mc-m1-03-s2",
+                  "title": "Stack Pointers MSP/PSP (R13)"
+                },
+                {
+                  "id": "mc-m1-03-s3",
+                  "title": "Link Register LR (R14)"
+                },
+                {
+                  "id": "mc-m1-03-s4",
+                  "title": "Program Counter PC (R15)"
+                },
+                {
+                  "id": "mc-m1-03-s5",
+                  "title": "Special registers xPSR"
+                },
+                {
+                  "id": "mc-m1-03-s6",
+                  "title": "Memory-mapped I/O structure"
+                }
+              ]
             },
             {
               "id": "mc-m1-04",
               "title": "Bus Architecture & Generational Comparison",
               "concepts": "AMBA bus interface, AHB (Advanced High-performance Bus), APB (Advanced Peripheral Bus), comparison of Cortex-M33 with Cortex-M3/M4.",
               "priority": "Medium",
-              "type": "Architecture"
+              "type": "Architecture",
+              "subtopics": [
+                {
+                  "id": "mc-m1-04-s1",
+                  "title": "AMBA bus interface"
+                },
+                {
+                  "id": "mc-m1-04-s2",
+                  "title": "AHB (Advanced High-performance Bus)"
+                },
+                {
+                  "id": "mc-m1-04-s3",
+                  "title": "APB (Advanced Peripheral Bus)"
+                },
+                {
+                  "id": "mc-m1-04-s4",
+                  "title": "Comparison of Cortex-M33 with Cortex-M3/M4"
+                }
+              ]
             }
           ]
         },
@@ -1096,35 +3054,137 @@
               "title": "STM32 Architecture & HAL Library",
               "concepts": "STM32U575 microcontroller specifications, Ultra-low power modes, STM32CubeIDE ecosystem, Hardware Abstraction Layer (HAL) concepts and driver structure.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "mc-m2-01-s1",
+                  "title": "STM32U575 microcontroller specifications"
+                },
+                {
+                  "id": "mc-m2-01-s2",
+                  "title": "Ultra-low power modes"
+                },
+                {
+                  "id": "mc-m2-01-s3",
+                  "title": "STM32CubeIDE ecosystem"
+                },
+                {
+                  "id": "mc-m2-01-s4",
+                  "title": "Hardware Abstraction Layer (HAL) concepts and driver structure"
+                }
+              ]
             },
             {
               "id": "mc-m2-02",
               "title": "GPIO Programming & Display Interfacing",
               "concepts": "GPIO register configuration (MODER, OTYPER, OSPEEDR, PUPDR), LED blinking, 7-Segment display interfacing, 16x2 LCD display, Matrix Keypad scanning, Relay interfacing.",
               "priority": "High",
-              "type": "Interfacing / Code"
+              "type": "Interfacing / Code",
+              "subtopics": [
+                {
+                  "id": "mc-m2-02-s1",
+                  "title": "GPIO register configuration (MODER, OTYPER, OSPEEDR, PUPDR)"
+                },
+                {
+                  "id": "mc-m2-02-s2",
+                  "title": "LED blinking"
+                },
+                {
+                  "id": "mc-m2-02-s3",
+                  "title": "7-Segment display interfacing"
+                },
+                {
+                  "id": "mc-m2-02-s4",
+                  "title": "16x2 LCD display"
+                },
+                {
+                  "id": "mc-m2-02-s5",
+                  "title": "Matrix Keypad scanning"
+                },
+                {
+                  "id": "mc-m2-02-s6",
+                  "title": "Relay interfacing"
+                }
+              ]
             },
             {
               "id": "mc-m2-03",
               "title": "Analog-to-Digital (ADC) & Digital-to-Analog (DAC) Conversion",
               "concepts": "ADC successive approximation, interfacing Potentiometer, LDR, Temperature sensor; DAC configuration, generating sine wave and audio signals.",
               "priority": "High",
-              "type": "Interfacing / Numerical"
+              "type": "Interfacing / Numerical",
+              "subtopics": [
+                {
+                  "id": "mc-m2-03-s1",
+                  "title": "ADC successive approximation"
+                },
+                {
+                  "id": "mc-m2-03-s2",
+                  "title": "Interfacing Potentiometer, LDR"
+                },
+                {
+                  "id": "mc-m2-03-s3",
+                  "title": "Temperature sensor"
+                },
+                {
+                  "id": "mc-m2-03-s4",
+                  "title": "DAC configuration"
+                },
+                {
+                  "id": "mc-m2-03-s5",
+                  "title": "Generating sine wave and audio signals"
+                }
+              ]
             },
             {
               "id": "mc-m2-04",
               "title": "Interrupt Handling (NVIC & EXTI)",
               "concepts": "Nested Vectored Interrupt Controller (NVIC), Interrupt vector table, priority levels, External Interrupts (EXTI) configuration and ISR execution.",
               "priority": "High",
-              "type": "Core Theory / Code"
+              "type": "Core Theory / Code",
+              "subtopics": [
+                {
+                  "id": "mc-m2-04-s1",
+                  "title": "Nested Vectored Interrupt Controller (NVIC)"
+                },
+                {
+                  "id": "mc-m2-04-s2",
+                  "title": "Interrupt vector table"
+                },
+                {
+                  "id": "mc-m2-04-s3",
+                  "title": "Priority levels"
+                },
+                {
+                  "id": "mc-m2-04-s4",
+                  "title": "External Interrupts (EXTI) configuration and ISR execution"
+                }
+              ]
             },
             {
               "id": "mc-m2-05",
               "title": "Timers, Counters & Real-Time Clock (RTC)",
               "concepts": "Basic timer configuration, prescaler and auto-reload registers (PSC, ARR), timers as event counters, RTC module and periodic time generation.",
               "priority": "High",
-              "type": "Core Theory / Calculations"
+              "type": "Core Theory / Calculations",
+              "subtopics": [
+                {
+                  "id": "mc-m2-05-s1",
+                  "title": "Basic timer configuration"
+                },
+                {
+                  "id": "mc-m2-05-s2",
+                  "title": "Prescaler and auto-reload registers (PSC, ARR)"
+                },
+                {
+                  "id": "mc-m2-05-s3",
+                  "title": "Timers as event counters"
+                },
+                {
+                  "id": "mc-m2-05-s4",
+                  "title": "RTC module and periodic time generation"
+                }
+              ]
             }
           ]
         },
@@ -1138,35 +3198,121 @@
               "title": "UART / USART Serial Communication",
               "concepts": "Asynchronous vs synchronous serial communication, baud rate calculation, frame format, TX/RX lines, interfacing STM32 to PC terminal via HAL UART.",
               "priority": "High",
-              "type": "Protocol / Code"
+              "type": "Protocol / Code",
+              "subtopics": [
+                {
+                  "id": "mc-m3-01-s1",
+                  "title": "Asynchronous vs synchronous serial communication"
+                },
+                {
+                  "id": "mc-m3-01-s2",
+                  "title": "Baud rate calculation"
+                },
+                {
+                  "id": "mc-m3-01-s3",
+                  "title": "Frame format"
+                },
+                {
+                  "id": "mc-m3-01-s4",
+                  "title": "TX/RX lines"
+                },
+                {
+                  "id": "mc-m3-01-s5",
+                  "title": "Interfacing STM32 to PC terminal via HAL UART"
+                }
+              ]
             },
             {
               "id": "mc-m3-02",
               "title": "I2C Protocol & Sensor Interfacing",
               "concepts": "Two-wire interface (SDA, SCL), master-slave addressing, START/STOP conditions, ACK/NACK, interfacing I2C temperature sensor and LCD.",
               "priority": "High",
-              "type": "Protocol / High-Yield"
+              "type": "Protocol / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mc-m3-02-s1",
+                  "title": "Two-wire interface (SDA, SCL)"
+                },
+                {
+                  "id": "mc-m3-02-s2",
+                  "title": "Master-slave addressing"
+                },
+                {
+                  "id": "mc-m3-02-s3",
+                  "title": "START/STOP conditions, ACK/NACK"
+                },
+                {
+                  "id": "mc-m3-02-s4",
+                  "title": "Interfacing I2C temperature sensor and LCD"
+                }
+              ]
             },
             {
               "id": "mc-m3-03",
               "title": "SPI Protocol & EEPROM Memory Interfacing",
               "concepts": "Four-wire interface (MOSI, MISO, SCK, CS), full-duplex synchronous transmission, clock polarity (CPOL) and phase (CPHA), writing/reading SPI EEPROM.",
               "priority": "High",
-              "type": "Protocol / High-Yield"
+              "type": "Protocol / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mc-m3-03-s1",
+                  "title": "Four-wire interface (MOSI, MISO, SCK, CS)"
+                },
+                {
+                  "id": "mc-m3-03-s2",
+                  "title": "Full-duplex synchronous transmission"
+                },
+                {
+                  "id": "mc-m3-03-s3",
+                  "title": "Clock polarity (CPOL) and phase (CPHA)"
+                },
+                {
+                  "id": "mc-m3-03-s4",
+                  "title": "Writing/reading SPI EEPROM"
+                }
+              ]
             },
             {
               "id": "mc-m3-04",
               "title": "Controller Area Network (CAN) Protocol",
               "concepts": "Differential signaling (CAN_H, CAN_L), message arbitration using CSMA/CD+AMP, CAN frame format, multi-node STM32 communication.",
               "priority": "High",
-              "type": "Protocol / High-Yield"
+              "type": "Protocol / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mc-m3-04-s1",
+                  "title": "Differential signaling (CAN_H, CAN_L)"
+                },
+                {
+                  "id": "mc-m3-04-s2",
+                  "title": "Message arbitration using CSMA/CD+AMP"
+                },
+                {
+                  "id": "mc-m3-04-s3",
+                  "title": "CAN frame format"
+                },
+                {
+                  "id": "mc-m3-04-s4",
+                  "title": "Multi-node STM32 communication"
+                }
+              ]
             },
             {
               "id": "mc-m3-05",
               "title": "USB Device Architecture & HID Implementation",
               "concepts": "USB architecture, endpoints, descriptors, implementing USB Human Interface Device (HID) for keyboard/mouse emulation on STM32.",
               "priority": "Medium",
-              "type": "Implementation"
+              "type": "Implementation",
+              "subtopics": [
+                {
+                  "id": "mc-m3-05-s1",
+                  "title": "USB architecture, endpoints, descriptors"
+                },
+                {
+                  "id": "mc-m3-05-s2",
+                  "title": "Implementing USB Human Interface Device (HID) for keyboard/mouse emulation on STM32"
+                }
+              ]
             }
           ]
         },
@@ -1180,35 +3326,141 @@
               "title": "IoT Protocols (MQTT & CoAP) & Wireless Communication",
               "concepts": "IoT architecture, MQTT publish/subscribe model, CoAP REST-based protocol; Interfacing GSM module (AT commands, SMS, GPRS), Bluetooth, and LoRa long-range.",
               "priority": "High",
-              "type": "IoT Protocols"
+              "type": "IoT Protocols",
+              "subtopics": [
+                {
+                  "id": "mc-m4-01-s1",
+                  "title": "IoT architecture"
+                },
+                {
+                  "id": "mc-m4-01-s2",
+                  "title": "MQTT publish/subscribe model"
+                },
+                {
+                  "id": "mc-m4-01-s3",
+                  "title": "CoAP REST-based protocol"
+                },
+                {
+                  "id": "mc-m4-01-s4",
+                  "title": "Interfacing GSM module (AT commands, SMS, GPRS), Bluetooth, and LoRa long-range"
+                }
+              ]
             },
             {
               "id": "mc-m4-02",
               "title": "Real-Time Operating Systems (RTOS) & FreeRTOS Concepts",
               "concepts": "General OS vs RTOS, Hard vs Soft real-time, FreeRTOS kernel on STM32, Task states, Task creation (xTaskCreate), Task priority and Preemptive Priority Scheduling.",
               "priority": "High",
-              "type": "RTOS / Code"
+              "type": "RTOS / Code",
+              "subtopics": [
+                {
+                  "id": "mc-m4-02-s1",
+                  "title": "General OS vs RTOS"
+                },
+                {
+                  "id": "mc-m4-02-s2",
+                  "title": "Hard vs Soft real-time"
+                },
+                {
+                  "id": "mc-m4-02-s3",
+                  "title": "FreeRTOS kernel on STM32"
+                },
+                {
+                  "id": "mc-m4-02-s4",
+                  "title": "Task states"
+                },
+                {
+                  "id": "mc-m4-02-s5",
+                  "title": "Task creation (xTaskCreate)"
+                },
+                {
+                  "id": "mc-m4-02-s6",
+                  "title": "Task priority and Preemptive Priority Scheduling"
+                }
+              ]
             },
             {
               "id": "mc-m4-03",
               "title": "Inter-Task Communication: Queues & Semaphores",
               "concepts": "Task synchronization, Binary semaphores, Counting semaphores, Mutex (priority inversion and priority inheritance), FreeRTOS Queues for message passing.",
               "priority": "High",
-              "type": "RTOS / High-Yield"
+              "type": "RTOS / High-Yield",
+              "subtopics": [
+                {
+                  "id": "mc-m4-03-s1",
+                  "title": "Task synchronization"
+                },
+                {
+                  "id": "mc-m4-03-s2",
+                  "title": "Binary semaphores"
+                },
+                {
+                  "id": "mc-m4-03-s3",
+                  "title": "Counting semaphores"
+                },
+                {
+                  "id": "mc-m4-03-s4",
+                  "title": "Mutex (priority inversion and priority inheritance)"
+                },
+                {
+                  "id": "mc-m4-03-s5",
+                  "title": "FreeRTOS Queues for message passing"
+                }
+              ]
             },
             {
               "id": "mc-m4-04",
               "title": "ARM TrustZone Security Technology",
               "concepts": "Hardware-enforced security, Secure World vs Non-Secure World, Secure Gateway, SAU (Security Attribution Unit), implementing TrustZone on STM32U575.",
               "priority": "High",
-              "type": "Security Architecture"
+              "type": "Security Architecture",
+              "subtopics": [
+                {
+                  "id": "mc-m4-04-s1",
+                  "title": "Hardware-enforced security"
+                },
+                {
+                  "id": "mc-m4-04-s2",
+                  "title": "Secure World vs Non-Secure World"
+                },
+                {
+                  "id": "mc-m4-04-s3",
+                  "title": "Secure Gateway"
+                },
+                {
+                  "id": "mc-m4-04-s4",
+                  "title": "SAU (Security Attribution Unit)"
+                },
+                {
+                  "id": "mc-m4-04-s5",
+                  "title": "Implementing TrustZone on STM32U575"
+                }
+              ]
             },
             {
               "id": "mc-m4-05",
               "title": "Embedded Code & Memory Optimization Techniques",
               "concepts": "RAM/Flash memory constraints, compiler optimization flags, debugging tools (JTAG, SWD), profiling and low-power software design.",
               "priority": "Medium",
-              "type": "Optimization"
+              "type": "Optimization",
+              "subtopics": [
+                {
+                  "id": "mc-m4-05-s1",
+                  "title": "RAM/Flash memory constraints"
+                },
+                {
+                  "id": "mc-m4-05-s2",
+                  "title": "Compiler optimization flags"
+                },
+                {
+                  "id": "mc-m4-05-s3",
+                  "title": "Debugging tools (JTAG, SWD)"
+                },
+                {
+                  "id": "mc-m4-05-s4",
+                  "title": "Profiling and low-power software design"
+                }
+              ]
             }
           ]
         }
@@ -1234,28 +3486,100 @@
               "title": "Analytics Process Model & Data Analytics Lifecycle",
               "concepts": "Data Analytics overview, business problem formulation, data collection, analytical model requirements, deployment lifecycle phases.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "da-m1-01-s1",
+                  "title": "Data Analytics overview"
+                },
+                {
+                  "id": "da-m1-01-s2",
+                  "title": "Business problem formulation"
+                },
+                {
+                  "id": "da-m1-01-s3",
+                  "title": "Data collection"
+                },
+                {
+                  "id": "da-m1-01-s4",
+                  "title": "Analytical model requirements"
+                },
+                {
+                  "id": "da-m1-01-s5",
+                  "title": "Deployment lifecycle phases"
+                }
+              ]
             },
             {
               "id": "da-m1-02",
               "title": "Variable Types & Association Overview",
               "concepts": "Discrete, continuous, and ordinal variables, probability calculus, common probability distributions in analytics.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "da-m1-02-s1",
+                  "title": "Discrete, continuous, and ordinal variables"
+                },
+                {
+                  "id": "da-m1-02-s2",
+                  "title": "Probability calculus"
+                },
+                {
+                  "id": "da-m1-02-s3",
+                  "title": "Common probability distributions in analytics"
+                }
+              ]
             },
             {
               "id": "da-m1-03",
               "title": "Hypothesis Testing Fundamentals",
               "concepts": "Null hypothesis H0 vs Alternative hypothesis H1, Type I error (alpha) and Type II error (beta), p-value decision rule, significance level.",
               "priority": "High",
-              "type": "Core Theory / High-Yield"
+              "type": "Core Theory / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m1-03-s1",
+                  "title": "Null hypothesis H0 vs Alternative hypothesis H1"
+                },
+                {
+                  "id": "da-m1-03-s2",
+                  "title": "Type I error (alpha) and Type II error (beta)"
+                },
+                {
+                  "id": "da-m1-03-s3",
+                  "title": "P-value decision rule"
+                },
+                {
+                  "id": "da-m1-03-s4",
+                  "title": "Significance level"
+                }
+              ]
             },
             {
               "id": "da-m1-04",
               "title": "Attribute Types & Proximity (Similarity / Dissimilarity) Measures",
               "concepts": "Attribute types: Nominal, Binary (Symmetric vs Asymmetric), Ordinal, Numeric; Distance metrics: Euclidean, Manhattan, Minkowski, Cosine similarity for text.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m1-04-s1",
+                  "title": "Attribute types: Nominal"
+                },
+                {
+                  "id": "da-m1-04-s2",
+                  "title": "Binary (Symmetric vs Asymmetric), Ordinal, Numeric"
+                },
+                {
+                  "id": "da-m1-04-s3",
+                  "title": "Distance metrics: Euclidean, Manhattan, Minkowski"
+                },
+                {
+                  "id": "da-m1-04-s4",
+                  "title": "Cosine similarity for text"
+                }
+              ]
             }
           ]
         },
@@ -1269,28 +3593,112 @@
               "title": "Summarizing Two Discrete Variables & Contingency Tables",
               "concepts": "Two-way contingency tables, Joint frequency, Marginal frequency, Conditional frequency distributions, mosaic display.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m2-01-s1",
+                  "title": "Two-way contingency tables"
+                },
+                {
+                  "id": "da-m2-01-s2",
+                  "title": "Joint frequency"
+                },
+                {
+                  "id": "da-m2-01-s3",
+                  "title": "Marginal frequency"
+                },
+                {
+                  "id": "da-m2-01-s4",
+                  "title": "Conditional frequency distributions"
+                },
+                {
+                  "id": "da-m2-01-s5",
+                  "title": "Mosaic display"
+                }
+              ]
             },
             {
               "id": "da-m2-02",
               "title": "Measures of Association for Discrete Variables",
               "concepts": "Chi-Square (chi^2) test of independence, expected frequencies calculation, degrees of freedom (r-1)(c-1), Cramer V, Odds Ratio.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m2-02-s1",
+                  "title": "Chi-Square (chi^2) test of independence"
+                },
+                {
+                  "id": "da-m2-02-s2",
+                  "title": "Expected frequencies calculation"
+                },
+                {
+                  "id": "da-m2-02-s3",
+                  "title": "Degrees of freedom (r-1)(c-1)"
+                },
+                {
+                  "id": "da-m2-02-s4",
+                  "title": "Cramer V"
+                },
+                {
+                  "id": "da-m2-02-s5",
+                  "title": "Odds Ratio"
+                }
+              ]
             },
             {
               "id": "da-m2-03",
               "title": "Association: Ordinal and Continuous Variables",
               "concepts": "Correlation between ordinal variables (Spearman rank correlation), continuous variables (Pearson correlation coefficient r), visualization across scales.",
               "priority": "High",
-              "type": "Numerical / Formula"
+              "type": "Numerical / Formula",
+              "subtopics": [
+                {
+                  "id": "da-m2-03-s1",
+                  "title": "Correlation between ordinal variables (Spearman rank correlation)"
+                },
+                {
+                  "id": "da-m2-03-s2",
+                  "title": "Continuous variables (Pearson correlation coefficient r)"
+                },
+                {
+                  "id": "da-m2-03-s3",
+                  "title": "Visualization across scales"
+                }
+              ]
             },
             {
               "id": "da-m2-04",
               "title": "Statistical Description: Central Tendency & Dispersion",
               "concepts": "Mean, Median, Mode; Measures of dispersion: Range, Quartiles (Q1, Q2, Q3), Interquartile Range (IQR), Variance, Standard Deviation, Five-number summary, Boxplot.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m2-04-s1",
+                  "title": "Mean, Median, Mode"
+                },
+                {
+                  "id": "da-m2-04-s2",
+                  "title": "Measures of dispersion: Range"
+                },
+                {
+                  "id": "da-m2-04-s3",
+                  "title": "Quartiles (Q1, Q2, Q3)"
+                },
+                {
+                  "id": "da-m2-04-s4",
+                  "title": "Interquartile Range (IQR), Variance"
+                },
+                {
+                  "id": "da-m2-04-s5",
+                  "title": "Standard Deviation"
+                },
+                {
+                  "id": "da-m2-04-s6",
+                  "title": "Five-number summary, Boxplot"
+                }
+              ]
             }
           ]
         },
@@ -1304,28 +3712,92 @@
               "title": "Data Preprocessing Techniques",
               "concepts": "Data Cleaning (missing values, noisy data smoothing), Integration, Reduction (numerosity, PCA), Transformation (Min-Max normalization, Z-score, Decimal scaling), Discretization.",
               "priority": "High",
-              "type": "Numerical / Theory"
+              "type": "Numerical / Theory",
+              "subtopics": [
+                {
+                  "id": "da-m3-01-s1",
+                  "title": "Data Cleaning (missing values, noisy data smoothing), Integration"
+                },
+                {
+                  "id": "da-m3-01-s2",
+                  "title": "Reduction (numerosity, PCA)"
+                },
+                {
+                  "id": "da-m3-01-s3",
+                  "title": "Transformation (Min-Max normalization, Z-score, Decimal scaling), Discretization"
+                }
+              ]
             },
             {
               "id": "da-m3-02",
               "title": "Mining Frequent Patterns & Apriori Algorithm",
               "concepts": "Market basket analysis, Itemsets, Support and Confidence metrics, Apriori property (anti-monotonicity of support), candidate generation (Ck) and pruning (Lk) step-by-step.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m3-02-s1",
+                  "title": "Market basket analysis, Itemsets"
+                },
+                {
+                  "id": "da-m3-02-s2",
+                  "title": "Support and Confidence metrics"
+                },
+                {
+                  "id": "da-m3-02-s3",
+                  "title": "Apriori property (anti-monotonicity of support)"
+                },
+                {
+                  "id": "da-m3-02-s4",
+                  "title": "Candidate generation (Ck) and pruning (Lk) step-by-step"
+                }
+              ]
             },
             {
               "id": "da-m3-03",
               "title": "Classification: ID3 Decision Tree & Na\u00efve Bayes",
               "concepts": "Information Gain, Entropy, ID3 tree construction step-by-step; Naive Bayesian classification on tabular dataset.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m3-03-s1",
+                  "title": "Information Gain, Entropy"
+                },
+                {
+                  "id": "da-m3-03-s2",
+                  "title": "ID3 tree construction step-by-step"
+                },
+                {
+                  "id": "da-m3-03-s3",
+                  "title": "Naive Bayesian classification on tabular dataset"
+                }
+              ]
             },
             {
               "id": "da-m3-04",
               "title": "Clustering: K-Means, Hierarchical, BIRCH & DBSCAN",
               "concepts": "K-Means clustering numerical; Agglomerative vs Divisive hierarchical; BIRCH clustering features; Density-based DBSCAN (core points, border points, noise points, eps, MinPts).",
               "priority": "High",
-              "type": "Algorithm / High-Yield"
+              "type": "Algorithm / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m3-04-s1",
+                  "title": "K-Means clustering numerical"
+                },
+                {
+                  "id": "da-m3-04-s2",
+                  "title": "Agglomerative vs Divisive hierarchical"
+                },
+                {
+                  "id": "da-m3-04-s3",
+                  "title": "BIRCH clustering features"
+                },
+                {
+                  "id": "da-m3-04-s4",
+                  "title": "Density-based DBSCAN (core points, border points, noise points, eps, MinPts)"
+                }
+              ]
             }
           ]
         },
@@ -1339,28 +3811,96 @@
               "title": "Information Retrieval & Inverted Index Construction",
               "concepts": "IR problem overview, Document representation, Inverted Index structure (dictionary and postings lists), processing Boolean queries (AND, OR, NOT).",
               "priority": "High",
-              "type": "Core Theory / High-Yield"
+              "type": "Core Theory / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m4-01-s1",
+                  "title": "IR problem overview"
+                },
+                {
+                  "id": "da-m4-01-s2",
+                  "title": "Document representation"
+                },
+                {
+                  "id": "da-m4-01-s3",
+                  "title": "Inverted Index structure (dictionary and postings lists)"
+                },
+                {
+                  "id": "da-m4-01-s4",
+                  "title": "Processing Boolean queries (AND, OR, NOT)"
+                }
+              ]
             },
             {
               "id": "da-m4-02",
               "title": "Text Preprocessing: Tokenization, Stemming & Positional Index",
               "concepts": "Tokenization challenges, Stop word removal, Stemming (Porter stemmer rules) vs Lemmatization, Phrase queries and Positional index.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "da-m4-02-s1",
+                  "title": "Tokenization challenges"
+                },
+                {
+                  "id": "da-m4-02-s2",
+                  "title": "Stop word removal"
+                },
+                {
+                  "id": "da-m4-02-s3",
+                  "title": "Stemming (Porter stemmer rules) vs Lemmatization"
+                },
+                {
+                  "id": "da-m4-02-s4",
+                  "title": "Phrase queries and Positional index"
+                }
+              ]
             },
             {
               "id": "da-m4-03",
               "title": "Vector Space Model & TF-IDF Weighting",
               "concepts": "Term Frequency (TF), Inverse Document Frequency (IDF = log(N/df)), TF-IDF weight matrix, Cosine similarity ranking between query and documents.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "da-m4-03-s1",
+                  "title": "Term Frequency (TF)"
+                },
+                {
+                  "id": "da-m4-03-s2",
+                  "title": "Inverse Document Frequency (IDF = log(N/df))"
+                },
+                {
+                  "id": "da-m4-03-s3",
+                  "title": "TF-IDF weight matrix"
+                },
+                {
+                  "id": "da-m4-03-s4",
+                  "title": "Cosine similarity ranking between query and documents"
+                }
+              ]
             },
             {
               "id": "da-m4-04",
               "title": "Language Models & Na\u00efve Bayes Text Classification",
               "concepts": "Unigram and Bigram language models, Query likelihood model, Naive Bayes probabilistic text classification for spam/sentiment analysis.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "da-m4-04-s1",
+                  "title": "Unigram and Bigram language models"
+                },
+                {
+                  "id": "da-m4-04-s2",
+                  "title": "Query likelihood model"
+                },
+                {
+                  "id": "da-m4-04-s3",
+                  "title": "Naive Bayes probabilistic text classification for spam/sentiment analysis"
+                }
+              ]
             }
           ]
         }
@@ -1386,35 +3926,137 @@
               "title": "Basic Economic Problems & Production Possibility Curve (PPC)",
               "concepts": "Scarcity, choice, central problems (what, how, for whom), PPC definition, opportunity cost, law of increasing opportunity cost.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m1-01-s1",
+                  "title": "Scarcity, choice"
+                },
+                {
+                  "id": "eth-m1-01-s2",
+                  "title": "Central problems (what, how, for whom)"
+                },
+                {
+                  "id": "eth-m1-01-s3",
+                  "title": "PPC definition"
+                },
+                {
+                  "id": "eth-m1-01-s4",
+                  "title": "Opportunity cost"
+                },
+                {
+                  "id": "eth-m1-01-s5",
+                  "title": "Law of increasing opportunity cost"
+                }
+              ]
             },
             {
               "id": "eth-m1-02",
               "title": "Utility & Law of Diminishing Marginal Utility",
               "concepts": "Total utility, marginal utility, law of diminishing marginal utility statement, assumptions, exceptions, and consumer equilibrium.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m1-02-s1",
+                  "title": "Total utility"
+                },
+                {
+                  "id": "eth-m1-02-s2",
+                  "title": "Marginal utility"
+                },
+                {
+                  "id": "eth-m1-02-s3",
+                  "title": "Law of diminishing marginal utility statement, assumptions, exceptions, and consumer equilibrium"
+                }
+              ]
             },
             {
               "id": "eth-m1-03",
               "title": "Laws of Demand & Supply and Market Equilibrium",
               "concepts": "Law of demand, demand curve, determinants of demand, exceptions; Law of supply; Market equilibrium and shifts in demand/supply curves.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m1-03-s1",
+                  "title": "Law of demand"
+                },
+                {
+                  "id": "eth-m1-03-s2",
+                  "title": "Demand curve"
+                },
+                {
+                  "id": "eth-m1-03-s3",
+                  "title": "Determinants of demand, exceptions"
+                },
+                {
+                  "id": "eth-m1-03-s4",
+                  "title": "Law of supply"
+                },
+                {
+                  "id": "eth-m1-03-s5",
+                  "title": "Market equilibrium and shifts in demand/supply curves"
+                }
+              ]
             },
             {
               "id": "eth-m1-04",
               "title": "Elasticity of Demand & Applications",
               "concepts": "Price elasticity, income elasticity, cross elasticity, degrees of elasticity (perfectly elastic, inelastic, unitary), measurement methods (point, arc), business applications.",
               "priority": "High",
-              "type": "Numerical / Theory"
+              "type": "Numerical / Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m1-04-s1",
+                  "title": "Price elasticity"
+                },
+                {
+                  "id": "eth-m1-04-s2",
+                  "title": "Income elasticity"
+                },
+                {
+                  "id": "eth-m1-04-s3",
+                  "title": "Cross elasticity"
+                },
+                {
+                  "id": "eth-m1-04-s4",
+                  "title": "Degrees of elasticity (perfectly elastic, inelastic, unitary)"
+                },
+                {
+                  "id": "eth-m1-04-s5",
+                  "title": "Measurement methods (point, arc)"
+                },
+                {
+                  "id": "eth-m1-04-s6",
+                  "title": "Business applications"
+                }
+              ]
             },
             {
               "id": "eth-m1-05",
               "title": "Production Function & Economies of Scale",
               "concepts": "Short run vs long run, Law of Variable Proportions (3 stages of production), Internal and External economies of scale, Cobb-Douglas production function Q = A K^alpha L^beta.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m1-05-s1",
+                  "title": "Short run vs long run"
+                },
+                {
+                  "id": "eth-m1-05-s2",
+                  "title": "Law of Variable Proportions (3 stages of production)"
+                },
+                {
+                  "id": "eth-m1-05-s3",
+                  "title": "Internal and External economies of scale"
+                },
+                {
+                  "id": "eth-m1-05-s4",
+                  "title": "Cobb-Douglas production function Q = A K^alpha L^beta"
+                }
+              ]
             }
           ]
         },
@@ -1428,28 +4070,136 @@
               "title": "Cost Concepts & Short-Run Cost Curves",
               "concepts": "Explicit vs Implicit cost, Social vs Private cost, Sunk cost, Opportunity cost, Fixed cost (TFC), Variable cost (TVC), Marginal cost (MC), Average cost (AC), U-shaped cost curves.",
               "priority": "High",
-              "type": "Core Theory / Curves"
+              "type": "Core Theory / Curves",
+              "subtopics": [
+                {
+                  "id": "eth-m2-01-s1",
+                  "title": "Explicit vs Implicit cost"
+                },
+                {
+                  "id": "eth-m2-01-s2",
+                  "title": "Social vs Private cost"
+                },
+                {
+                  "id": "eth-m2-01-s3",
+                  "title": "Sunk cost"
+                },
+                {
+                  "id": "eth-m2-01-s4",
+                  "title": "Opportunity cost"
+                },
+                {
+                  "id": "eth-m2-01-s5",
+                  "title": "Fixed cost (TFC)"
+                },
+                {
+                  "id": "eth-m2-01-s6",
+                  "title": "Variable cost (TVC)"
+                },
+                {
+                  "id": "eth-m2-01-s7",
+                  "title": "Marginal cost (MC)"
+                },
+                {
+                  "id": "eth-m2-01-s8",
+                  "title": "Average cost (AC)"
+                },
+                {
+                  "id": "eth-m2-01-s9",
+                  "title": "U-shaped cost curves"
+                }
+              ]
             },
             {
               "id": "eth-m2-02",
               "title": "Revenue Concepts & Objectives of Firms",
               "concepts": "Total Revenue (TR), Average Revenue (AR), Marginal Revenue (MR), relationship between AR and MR under perfect and imperfect competition, profit maximization condition MR = MC.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m2-02-s1",
+                  "title": "Total Revenue (TR)"
+                },
+                {
+                  "id": "eth-m2-02-s2",
+                  "title": "Average Revenue (AR)"
+                },
+                {
+                  "id": "eth-m2-02-s3",
+                  "title": "Marginal Revenue (MR)"
+                },
+                {
+                  "id": "eth-m2-02-s4",
+                  "title": "Relationship between AR and MR under perfect and imperfect competition"
+                },
+                {
+                  "id": "eth-m2-02-s5",
+                  "title": "Profit maximization condition MR = MC"
+                }
+              ]
             },
             {
               "id": "eth-m2-03",
               "title": "Market Structures: Perfect Competition & Monopoly",
               "concepts": "Features of Perfect Competition, price taker, equilibrium; Monopoly: single seller, barriers to entry, price discrimination, equilibrium.",
               "priority": "High",
-              "type": "Core Theory / Comparison"
+              "type": "Core Theory / Comparison",
+              "subtopics": [
+                {
+                  "id": "eth-m2-03-s1",
+                  "title": "Features of Perfect Competition"
+                },
+                {
+                  "id": "eth-m2-03-s2",
+                  "title": "Price taker, equilibrium"
+                },
+                {
+                  "id": "eth-m2-03-s3",
+                  "title": "Monopoly: single seller"
+                },
+                {
+                  "id": "eth-m2-03-s4",
+                  "title": "Barriers to entry"
+                },
+                {
+                  "id": "eth-m2-03-s5",
+                  "title": "Price discrimination, equilibrium"
+                }
+              ]
             },
             {
               "id": "eth-m2-04",
               "title": "Monopolistic Competition & Oligopoly",
               "concepts": "Monopolistic competition: product differentiation, selling costs; Oligopoly: few sellers, mutual interdependence, price rigidity, Kinked Demand Curve hypothesis.",
               "priority": "High",
-              "type": "Core Theory / Curve"
+              "type": "Core Theory / Curve",
+              "subtopics": [
+                {
+                  "id": "eth-m2-04-s1",
+                  "title": "Monopolistic competition: product differentiation"
+                },
+                {
+                  "id": "eth-m2-04-s2",
+                  "title": "Selling costs"
+                },
+                {
+                  "id": "eth-m2-04-s3",
+                  "title": "Oligopoly: few sellers"
+                },
+                {
+                  "id": "eth-m2-04-s4",
+                  "title": "Mutual interdependence"
+                },
+                {
+                  "id": "eth-m2-04-s5",
+                  "title": "Price rigidity"
+                },
+                {
+                  "id": "eth-m2-04-s6",
+                  "title": "Kinked Demand Curve hypothesis"
+                }
+              ]
             }
           ]
         },
@@ -1463,35 +4213,125 @@
               "title": "Functions of Money & Central Banking (RBI)",
               "concepts": "Primary and secondary functions of money, Central Bank role, Quantitative credit control (Repo rate, Reverse repo, CRR, SLR, Bank rate) vs Qualitative credit controls.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m3-01-s1",
+                  "title": "Primary and secondary functions of money"
+                },
+                {
+                  "id": "eth-m3-01-s2",
+                  "title": "Central Bank role"
+                },
+                {
+                  "id": "eth-m3-01-s3",
+                  "title": "Quantitative credit control (Repo rate, Reverse repo, CRR, SLR, Bank rate) vs Qualitative credit controls"
+                }
+              ]
             },
             {
               "id": "eth-m3-02",
               "title": "Inflation & Deflation: Causes, Effects & Policies",
               "concepts": "Demand-pull inflation, Cost-push inflation, effects on production and distribution, Monetary policy vs Fiscal policy measures to control inflation.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m3-02-s1",
+                  "title": "Demand-pull inflation"
+                },
+                {
+                  "id": "eth-m3-02-s2",
+                  "title": "Cost-push inflation"
+                },
+                {
+                  "id": "eth-m3-02-s3",
+                  "title": "Effects on production and distribution"
+                },
+                {
+                  "id": "eth-m3-02-s4",
+                  "title": "Monetary policy vs Fiscal policy measures to control inflation"
+                }
+              ]
             },
             {
               "id": "eth-m3-03",
               "title": "Taxation: Direct vs Indirect Taxes & GST",
               "concepts": "Canons of taxation, Direct taxes (Income tax, Corporate tax) vs Indirect taxes (Customs, Excise), Goods and Services Tax (GST) structure, CGST, SGST, IGST.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m3-03-s1",
+                  "title": "Canons of taxation"
+                },
+                {
+                  "id": "eth-m3-03-s2",
+                  "title": "Direct taxes (Income tax, Corporate tax) vs Indirect taxes (Customs, Excise)"
+                },
+                {
+                  "id": "eth-m3-03-s3",
+                  "title": "Goods and Services Tax (GST) structure, CGST, SGST, IGST"
+                }
+              ]
             },
             {
               "id": "eth-m3-04",
               "title": "National Income Concepts & Circular Flow",
               "concepts": "GDP, GNP, NNP at market price and factor cost, Personal income, Circular flow of income in two-sector and three-sector economies, difficulties in measurement.",
               "priority": "High",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m3-04-s1",
+                  "title": "GDP, GNP"
+                },
+                {
+                  "id": "eth-m3-04-s2",
+                  "title": "NNP at market price and factor cost"
+                },
+                {
+                  "id": "eth-m3-04-s3",
+                  "title": "Personal income"
+                },
+                {
+                  "id": "eth-m3-04-s4",
+                  "title": "Circular flow of income in two-sector and three-sector economies"
+                },
+                {
+                  "id": "eth-m3-04-s5",
+                  "title": "Difficulties in measurement"
+                }
+              ]
             },
             {
               "id": "eth-m3-05",
               "title": "Stock Market Functions & Demat Trading",
               "concepts": "Primary vs Secondary market, Functions of stock exchange, Demat account, Trading account, Stock market indices: BSE Sensex and NSE Nifty.",
               "priority": "Medium",
-              "type": "Core Theory"
+              "type": "Core Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m3-05-s1",
+                  "title": "Primary vs Secondary market"
+                },
+                {
+                  "id": "eth-m3-05-s2",
+                  "title": "Functions of stock exchange"
+                },
+                {
+                  "id": "eth-m3-05-s3",
+                  "title": "Demat account"
+                },
+                {
+                  "id": "eth-m3-05-s4",
+                  "title": "Trading account"
+                },
+                {
+                  "id": "eth-m3-05-s5",
+                  "title": "Stock market indices: BSE Sensex and NSE Nifty"
+                }
+              ]
             }
           ]
         },
@@ -1505,28 +4345,120 @@
               "title": "Value Engineering: Concepts & Job Plan Procedure",
               "concepts": "Cost Value, Exchange Value, Use Value, Esteem Value, Value = Function / Cost, 6-phase Value Engineering Job Plan (Information, Function Analysis, Creative, Evaluation, Development, Presentation).",
               "priority": "High",
-              "type": "Core Theory / Procedure"
+              "type": "Core Theory / Procedure",
+              "subtopics": [
+                {
+                  "id": "eth-m4-01-s1",
+                  "title": "Cost Value"
+                },
+                {
+                  "id": "eth-m4-01-s2",
+                  "title": "Exchange Value"
+                },
+                {
+                  "id": "eth-m4-01-s3",
+                  "title": "Use Value"
+                },
+                {
+                  "id": "eth-m4-01-s4",
+                  "title": "Esteem Value"
+                },
+                {
+                  "id": "eth-m4-01-s5",
+                  "title": "Value = Function / Cost"
+                },
+                {
+                  "id": "eth-m4-01-s6",
+                  "title": "6-phase Value Engineering Job Plan (Information, Function Analysis, Creative, Evaluation, Development, Presentation)"
+                }
+              ]
             },
             {
               "id": "eth-m4-02",
               "title": "Break-Even Analysis (BEP)",
               "concepts": "Fixed cost, variable cost, Contribution = Sales - Variable Cost, P/V Ratio = Contribution/Sales, BEP (units) = FC / (P - V), BEP (sales) = FC / (P/V ratio), Margin of Safety, Break-Even Chart.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "eth-m4-02-s1",
+                  "title": "Fixed cost"
+                },
+                {
+                  "id": "eth-m4-02-s2",
+                  "title": "Variable cost"
+                },
+                {
+                  "id": "eth-m4-02-s3",
+                  "title": "Contribution = Sales - Variable Cost"
+                },
+                {
+                  "id": "eth-m4-02-s4",
+                  "title": "P/V Ratio = Contribution/Sales"
+                },
+                {
+                  "id": "eth-m4-02-s5",
+                  "title": "BEP (units) = FC / (P - V)"
+                },
+                {
+                  "id": "eth-m4-02-s6",
+                  "title": "BEP (sales) = FC / (P/V ratio)"
+                },
+                {
+                  "id": "eth-m4-02-s7",
+                  "title": "Margin of Safety"
+                },
+                {
+                  "id": "eth-m4-02-s8",
+                  "title": "Break-Even Chart"
+                }
+              ]
             },
             {
               "id": "eth-m4-03",
               "title": "Cost-Benefit Analysis (CBA)",
               "concepts": "Identification of costs and benefits, discounting, Benefit-Cost Ratio (BCR = Present value of benefits / Present value of costs), decision criteria BCR >= 1.",
               "priority": "High",
-              "type": "Numerical / Theory"
+              "type": "Numerical / Theory",
+              "subtopics": [
+                {
+                  "id": "eth-m4-03-s1",
+                  "title": "Identification of costs and benefits, discounting"
+                },
+                {
+                  "id": "eth-m4-03-s2",
+                  "title": "Benefit-Cost Ratio (BCR = Present value of benefits / Present value of costs)"
+                },
+                {
+                  "id": "eth-m4-03-s3",
+                  "title": "Decision criteria BCR >= 1"
+                }
+              ]
             },
             {
               "id": "eth-m4-04",
               "title": "Capital Budgeting Techniques",
               "concepts": "Payback Period method, Net Present Value (NPV = PV of inflows - Initial Investment), Internal Rate of Return (IRR), comparison and decision rules.",
               "priority": "High",
-              "type": "Numerical / High-Yield"
+              "type": "Numerical / High-Yield",
+              "subtopics": [
+                {
+                  "id": "eth-m4-04-s1",
+                  "title": "Payback Period method"
+                },
+                {
+                  "id": "eth-m4-04-s2",
+                  "title": "Net Present Value (NPV = PV of inflows - Initial Investment)"
+                },
+                {
+                  "id": "eth-m4-04-s3",
+                  "title": "Internal Rate of Return (IRR)"
+                },
+                {
+                  "id": "eth-m4-04-s4",
+                  "title": "Comparison and decision rules"
+                }
+              ]
             }
           ]
         }

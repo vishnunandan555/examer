@@ -149,13 +149,19 @@ export default function App() {
     return null;
   }, [activeTab, allSubjectStats]);
 
-  // Toggle Topic Completion with Smooth Animation
-  const toggleComplete = (topicId) => {
+  // Toggle Topic Completion with Subtopics and Smooth Animation
+  const toggleComplete = (topicId, subtopicIds = []) => {
     const willBeCompleted = !completedMap[topicId];
 
     if (willBeCompleted && !showCompleted) {
       setAnimatingOutKeys((prev) => ({ ...prev, [topicId]: true }));
-      setCompletedMap((prev) => ({ ...prev, [topicId]: true }));
+      setCompletedMap((prev) => {
+        const next = { ...prev, [topicId]: true };
+        subtopicIds.forEach((sid) => {
+          next[sid] = true;
+        });
+        return next;
+      });
 
       setTimeout(() => {
         setAnimatingOutKeys((prev) => {
@@ -172,11 +178,45 @@ export default function App() {
           return next;
         });
       }
-      setCompletedMap((prev) => ({
-        ...prev,
-        [topicId]: !prev[topicId]
-      }));
+      setCompletedMap((prev) => {
+        const next = { ...prev };
+        if (willBeCompleted) {
+          next[topicId] = true;
+          subtopicIds.forEach((sid) => {
+            next[sid] = true;
+          });
+        } else {
+          delete next[topicId];
+          subtopicIds.forEach((sid) => {
+            delete next[sid];
+          });
+        }
+        return next;
+      });
     }
+  };
+
+  const toggleSubtopic = (topicId, subtopicId, allSubtopicIds = []) => {
+    setCompletedMap((prev) => {
+      const next = { ...prev };
+      const willBeDone = !prev[subtopicId];
+
+      if (willBeDone) {
+        next[subtopicId] = true;
+      } else {
+        delete next[subtopicId];
+      }
+
+      // Check if all subtopics are completed
+      const allDone = allSubtopicIds.length > 0 && allSubtopicIds.every((sid) => (sid === subtopicId ? willBeDone : !!next[sid]));
+      if (allDone) {
+        next[topicId] = true;
+      } else {
+        delete next[topicId];
+      }
+
+      return next;
+    });
   };
 
   const markBatch = (topicIds, done) => {
@@ -275,6 +315,7 @@ export default function App() {
             completedMap={completedMap}
             animatingOutKeys={animatingOutKeys}
             onToggleComplete={toggleComplete}
+            onToggleSubtopic={toggleSubtopic}
             onMarkBatch={markBatch}
             showCompleted={showCompleted}
             setShowCompleted={setShowCompleted}

@@ -47,32 +47,31 @@ npm run dev
 | **Dec 07** | **Data Analytics** | **CST311** | **Theory** | **18 Days Left** | **16 Topics** | Upcoming Focus |
 | **Dec 08** | **S3 EE / Ethics** | **HUT200** | **Supply** | **19 Days Left** | **18 Topics** | Final Exam |
 
-**Total Ingested Curriculum: 160 Core Topics across 32 Modules**
+**Total Ingested Curriculum: 160 Core Topics & 653 Granular Subtopics across 32 Modules**
 
 ---
 
 ## 📚 Syllabus Structure & Mastery Checklists
 
-Each course is organized into its official KTU 4-module distribution with marks weightage, concept summaries, and priority tags:
+Each course is organized into its official KTU 4-module distribution with marks weightage, concept summaries, and priority tags. Clicking on any main topic smoothly expands its interactive subtopics:
 
-| Subject | Modules | Topics Covered | Exam Pattern & Marks |
-| :--- | :--- | :--- | :--- |
-| **Computer Networks (`PCCST501`)** | Modules 1 to 4 | **30 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **S3 Mathematics (`MAT203`)** | Modules 1 to 4 | **19 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **DAA Algorithms (`PCCST502`)** | Modules 1 to 4 | **21 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **S3 DSA Supply (`PCCST303`)** | Modules 1 to 4 | **19 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **Machine Learning (`CST307-T`)** | Modules 1 to 4 | **18 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **Microcontrollers (`CST309`)** | Modules 1 to 4 | **19 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **Data Analytics (`CST311`)** | Modules 1 to 4 | **16 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
-| **EE & Ethics (`HUT200`)** | Modules 1 to 4 | **18 Topics** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| Subject | Modules | Topics Covered | Granular Subtopics | Exam Pattern & Marks |
+| :--- | :--- | :--- | :--- | :--- |
+| **Computer Networks (`PCCST501`)** | Modules 1 to 4 | **30 Topics** | **117 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **S3 Mathematics (`MAT203`)** | Modules 1 to 4 | **19 Topics** | **78 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **DAA Algorithms (`PCCST502`)** | Modules 1 to 4 | **21 Topics** | **83 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **S3 DSA Supply (`PCCST303`)** | Modules 1 to 4 | **19 Topics** | **80 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **Machine Learning (`CST307-T`)** | Modules 1 to 4 | **18 Topics** | **74 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **Microcontrollers (`CST309`)** | Modules 1 to 4 | **19 Topics** | **76 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **Data Analytics (`CST311`)** | Modules 1 to 4 | **16 Topics** | **69 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
+| **EE & Ethics (`HUT200`)** | Modules 1 to 4 | **18 Topics** | **76 Subsections** | Part A: 8Q x 3M (24M) • Part B: 4M x 9M (36M) = 60 Marks |
 
 ---
 
 ## 🛠️ Key Capabilities
 
-- **Zero-Distraction Checklist**: Mark topics as mastered as you revise notes and solve PYQs.
+- **Collapsible Subtopics Checklist**: Topics stay clean and compact by default; click any topic or use *Expand Subtopics* to access granular sub-checklists with 2-way auto completion sync.
 - **Dynamic Revision Pace**: Displays required pace in `topics/day` with color-coded stress indicators (Green/Yellow/Orange/Red + `AlertTriangle` warning icon).
-- **Environment-Driven PIN Gate**: Support 5-key PIN via `PIN` or `VITE_PIN` environment variable (defaults to `0000` on local desktop).
-- **Multi-Device Cloud Sync**: Real-time cross-device state synchronization via free Upstash Redis or Vercel KV REST APIs.
+- **Single-User Built-in Cloud Sync**: Zero-config personal sync via Upstash Redis REST API. All checks sync between phone and laptop upon entering your PIN.
 - **Show Completed Toggle & Smooth Animation**: Toggle between full syllabus order and unrevised view with fluid exit animations.
 - **Safe Branching**: The prior video playlist suite remains permanently preserved in `archive/playlist-suite`.
