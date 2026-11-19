@@ -14,6 +14,9 @@ import DashboardView from './components/dashboard/DashboardView';
 import SubjectSyllabusView from './components/syllabus/SubjectSyllabusView';
 import ReferencesView from './components/references/ReferencesView';
 
+// Default Desktop PIN fallback is '0000'. Production PIN is injected via PIN or VITE_PIN
+const DEFAULT_PIN = import.meta.env.VITE_PIN || '0000';
+
 export default function App() {
   // Navigation State
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -50,9 +53,9 @@ export default function App() {
 
   const [passcode, setPasscode] = useState(() => {
     try {
-      return localStorage.getItem('examer_passcode_v1') || '2026';
+      return localStorage.getItem('examer_passcode_v1') || DEFAULT_PIN;
     } catch (e) {
-      return '2026';
+      return DEFAULT_PIN;
     }
   });
 
@@ -122,23 +125,29 @@ export default function App() {
     };
   }, [isUnlocked, cloudConfig.enabled]);
 
-  // Exam Countdown Calculations
-  const cnDays = Math.max(1, getDaysLeft('2026-11-23'));
-  const daaDays = Math.max(1, getDaysLeft('2026-11-27'));
-  const dsaDays = Math.max(1, getDaysLeft('2026-11-30'));
+  // Dynamically compute syllabus stats for all 8 subjects
+  const allSubjectStats = useMemo(() => {
+    const statsMap = {};
+    if (!syllabusData?.subjects) return statsMap;
 
-  // Pre-computed subject syllabus stats
-  const cnStats = useMemo(() => getSubjectSyllabusStats(syllabusData.subjects.cn, completedMap, cnDays), [completedMap, cnDays]);
-  const daaStats = useMemo(() => getSubjectSyllabusStats(syllabusData.subjects.daa, completedMap, daaDays), [completedMap, daaDays]);
-  const dsaStats = useMemo(() => getSubjectSyllabusStats(syllabusData.subjects.dsa, completedMap, dsaDays), [completedMap, dsaDays]);
+    Object.entries(syllabusData.subjects).forEach(([key, subj]) => {
+      const days = Math.max(1, getDaysLeft(subj.examDate));
+      statsMap[key] = {
+        data: subj,
+        days,
+        stats: getSubjectSyllabusStats(subj, completedMap, days)
+      };
+    });
+    return statsMap;
+  }, [completedMap]);
 
   // Active Subject Selection
   const currentSubject = useMemo(() => {
-    if (activeTab === 'cn') return { data: syllabusData.subjects.cn, days: cnDays, stats: cnStats };
-    if (activeTab === 'daa') return { data: syllabusData.subjects.daa, days: daaDays, stats: daaStats };
-    if (activeTab === 'dsa') return { data: syllabusData.subjects.dsa, days: dsaDays, stats: dsaStats };
+    if (activeTab && allSubjectStats[activeTab]) {
+      return allSubjectStats[activeTab];
+    }
     return null;
-  }, [activeTab, cnDays, daaDays, dsaDays, cnStats, daaStats, dsaStats]);
+  }, [activeTab, allSubjectStats]);
 
   // Toggle Topic Completion with Smooth Animation
   const toggleComplete = (topicId) => {
@@ -250,12 +259,7 @@ export default function App() {
       <main style={{ maxWidth: '1440px', width: '100%', margin: '1rem auto', padding: '0 1rem', flex: 1 }}>
         {activeTab === 'dashboard' && (
           <DashboardView
-            cnStats={cnStats}
-            cnDays={cnDays}
-            daaStats={daaStats}
-            daaDays={daaDays}
-            dsaStats={dsaStats}
-            dsaDays={dsaDays}
+            allSubjectStats={allSubjectStats}
             timetable={syllabusData.examTimetable}
             lastUpdatedDisplay={syllabusData.lastUpdatedDisplay}
             availableSubjectIds={availableSubjectIds}

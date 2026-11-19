@@ -5,19 +5,27 @@ import ExamTimetable from './ExamTimetable';
 import OverallProgressSummary from './OverallProgressSummary';
 
 export default function DashboardView({
-  cnStats,
-  cnDays,
-  daaStats,
-  daaDays,
-  dsaStats,
-  dsaDays,
+  allSubjectStats = {},
   timetable,
   lastUpdatedDisplay,
   availableSubjectIds,
   onNavigate
 }) {
-  const totalTopics = (cnStats?.totalTopics || 0) + (daaStats?.totalTopics || 0) + (dsaStats?.totalTopics || 0);
-  const completedTopics = (cnStats?.completedTopics || 0) + (daaStats?.completedTopics || 0) + (dsaStats?.completedTopics || 0);
+  const cnInfo = allSubjectStats.cn;
+  const cnStats = cnInfo?.stats;
+  const cnDays = cnInfo?.days || 1;
+
+  // Aggregate stats across all 8 subjects
+  let totalTopics = 0;
+  let completedTopics = 0;
+
+  Object.values(allSubjectStats).forEach((item) => {
+    if (item.stats) {
+      totalTopics += item.stats.totalTopics || 0;
+      completedTopics += item.stats.completedTopics || 0;
+    }
+  });
+
   const overallRate = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
 
   return (
@@ -29,14 +37,9 @@ export default function DashboardView({
         onNavigateToCN={() => onNavigate('cn')}
       />
 
-      {/* 2. Subject KPI Grid (CN, DAA, S3 DSA) */}
+      {/* 2. Subject KPI Grid across all upcoming courses */}
       <SubjectKpiGrid
-        cnStats={cnStats}
-        cnDays={cnDays}
-        daaStats={daaStats}
-        daaDays={daaDays}
-        dsaStats={dsaStats}
-        dsaDays={dsaDays}
+        allSubjectStats={allSubjectStats}
         onNavigate={onNavigate}
       />
 

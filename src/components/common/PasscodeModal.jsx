@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, ArrowRight, KeyRound } from 'lucide-react';
 
 export default function PasscodeModal({
   passcode,
@@ -10,7 +10,7 @@ export default function PasscodeModal({
 
   const handleUnlock = (e) => {
     if (e) e.preventDefault();
-    if (passcodeAttempt.trim() === passcode) {
+    if (passcodeAttempt.trim() === String(passcode).trim()) {
       setPasscodeError(false);
       onUnlock();
     } else {
@@ -44,9 +44,9 @@ export default function PasscodeModal({
       >
         <div
           style={{
-            width: '48px',
-            height: '48px',
-            borderRadius: '10px',
+            width: '52px',
+            height: '52px',
+            borderRadius: '12px',
             backgroundColor: 'var(--accent-blue)',
             color: 'var(--bg-base)',
             display: 'flex',
@@ -57,7 +57,7 @@ export default function PasscodeModal({
             margin: '0 auto 1.15rem'
           }}
         >
-          E
+          <KeyRound size={26} />
         </div>
         <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0 0 0.35rem', letterSpacing: '-0.02em' }}>
           EXAMER
@@ -82,29 +82,29 @@ export default function PasscodeModal({
               <Lock size={16} color="var(--text-dim)" />
               <input
                 type="password"
-                placeholder="Enter 4-digit Passcode"
+                placeholder="Enter 5-key PIN"
                 value={passcodeAttempt}
                 onChange={(e) => {
                   setPasscodeAttempt(e.target.value);
                   setPasscodeError(false);
                 }}
                 autoFocus
-                maxLength={10}
+                maxLength={12}
                 style={{
                   background: 'none',
                   border: 'none',
                   outline: 'none',
                   color: 'var(--text-main)',
                   width: '100%',
-                  fontSize: '0.95rem',
-                  letterSpacing: '0.15em',
+                  fontSize: '1.05rem',
+                  letterSpacing: '0.25em',
                   textAlign: 'center'
                 }}
               />
             </div>
             {passcodeError && (
-              <div style={{ color: 'var(--accent-red)', fontSize: '0.72rem', marginTop: '0.4rem', textAlign: 'left' }}>
-                Incorrect passcode. Please try again.
+              <div style={{ color: 'var(--accent-red)', fontSize: '0.72rem', marginTop: '0.45rem', textAlign: 'center' }}>
+                Incorrect PIN. Please try again.
               </div>
             )}
           </div>
@@ -133,8 +133,8 @@ export default function PasscodeModal({
           </button>
         </form>
 
-        <div style={{ marginTop: '1.25rem', fontSize: '0.68rem', color: 'var(--text-dim)' }}>
-          Default PIN is <code style={{ color: 'var(--accent-blue)' }}>2026</code>. You can change this anytime in Settings.
+        <div style={{ marginTop: '1.25rem', fontSize: '0.7rem', color: 'var(--text-dim)' }}>
+          Desktop default PIN: <code style={{ color: 'var(--accent-blue)' }}>0000</code>. Production PIN loaded from <code style={{ color: 'var(--accent-peach)' }}>PIN</code> env.
         </div>
       </div>
     </div>

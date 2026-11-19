@@ -1,28 +1,42 @@
 import React from 'react';
-import { BookOpen, FileText, Download, Award, ShieldCheck, Check } from 'lucide-react';
+import { BookOpen, FileText, CheckCircle2 } from 'lucide-react';
 
 export default function ReferencesView({ lastUpdatedDisplay }) {
   const references = [
     {
       code: 'PCCST501',
       title: 'Computer Networks (S5 Theory)',
+      examDate: 'Nov 23, 2026',
       credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
       textbooks: [
-        'Behrouz A. Forouzan, Data Communications and Networking with TCP/IP Protocol Suite, 6th Edition, McGraw Hill (Book 1: Ch 1-9)',
-        'W. Richard Stevens, Bill Fenner, Andrew M. Rudoff, UNIX Network Programming, Volume 1: The Sockets Networking API, 3rd Edition, Addison-Wesley (Book 2)',
-        'Christian Benvenuti, Understanding Linux Network Internals, O\'Reilly (Book 3: Ch 14)'
+        'Behrouz A. Forouzan, Data Communications and Networking with TCP/IP Protocol Suite, McGraw Hill (SIE 2017)',
+        'W. Richard Stevens, Bill Fenner, Andrew M. Rudoff, UNIX Network Programming, Vol 1: Sockets API, 3/e, Pearson',
+        'Sameer Seth, M. Ajaykumar Venkatesulu, TCP/IP Architecture, Design, and Implementation in Linux, Wiley'
       ],
       pdfPath: 'docs/syllabus/S5 CSE CN.pdf',
       color: 'var(--accent-red)'
     },
     {
-      code: 'PCCST502',
-      title: 'Design and Analysis of Algorithms (S5 Theory)',
+      code: 'MAT203',
+      title: 'Mathematics-3 (Discrete Structures / Prob) (S3 Supply)',
+      examDate: 'Nov 24, 2026',
       credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
       textbooks: [
-        'Ellis Horowitz, Sartaj Sahni and Sanguthevar Rajasekaran, Computer Algorithms / C++, 2nd Edition, Universities Press',
-        'Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, Introduction to Algorithms, 3rd Edition, PHI Learning',
-        'Sara Baase and Allen Van Gelder, Computer Algorithms - Introduction to Design and Analysis, 3rd Edition, Pearson Education'
+        'Devore J. L, Probability and Statistics for Engineering and the Sciences, 9th edition, Cengage Learning, 2016',
+        'Sheldon M. Ross, Introduction to Probability Models, 13th edition, Academic Press, 2024'
+      ],
+      pdfPath: 'docs/syllabus/S3 CSE Mathematics-3 (Group A).pdf',
+      color: 'var(--accent-yellow)'
+    },
+    {
+      code: 'PCCST502',
+      title: 'Design and Analysis of Algorithms (S5 Theory)',
+      examDate: 'Nov 27, 2026',
+      credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
+      textbooks: [
+        'T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein, Introduction to Algorithms, 4th edition, PHI / MIT Press',
+        'Ellis Horowitz, Sartaj Sahni, Sanguthevar Rajasekaran, Fundamentals of Computer Algorithms, Universities Press',
+        'Sara Baase and Allen Van Gelder, Computer Algorithms - Introduction to Design & Analysis, Pearson Education'
       ],
       pdfPath: 'docs/syllabus/S5 CSE DAA.pdf',
       color: 'var(--accent-peach)'
@@ -30,14 +44,64 @@ export default function ReferencesView({ lastUpdatedDisplay }) {
     {
       code: 'PCCST303',
       title: 'Data Structures and Algorithms (S3 Supply)',
+      examDate: 'Nov 30, 2026',
       credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
       textbooks: [
-        'Ellis Horowitz, Sartaj Sahni, Susan Anderson-Freed, Fundamentals of Data Structures in C, 2nd Edition, Universities Press',
-        'Seymour Lipschutz, Data Structures with C (Schaum\'s Outline Series), McGraw Hill',
-        'Richard F. Gilberg, Behrouz A. Forouzan, Data Structures: A Pseudocode Approach with C, Cengage Learning'
+        'Ellis Horowitz, Sartaj Sahni, Susan Anderson-Freed, Fundamentals of Data Structures in C, Universities Press',
+        'Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein, Introduction to Algorithms, PHI'
       ],
       pdfPath: 'docs/syllabus/S3 CSE DSA.pdf',
       color: 'var(--accent-green)'
+    },
+    {
+      code: 'CST307-T',
+      title: 'Machine Learning (S5 Theory)',
+      examDate: 'Dec 1, 2026',
+      credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
+      textbooks: [
+        'Ethem Alpaydin, Introduction to Machine Learning, 4th edition, MIT Press, 2020',
+        'Mohammed J. Zaki, Wagner Meira, Data Mining and Analysis: Fundamental Concepts & Algorithms, Cambridge Univ Press',
+        'Christopher Bishop, Neural Networks for Pattern Recognition, Oxford University Press, 1998'
+      ],
+      pdfPath: 'docs/syllabus/S5 CSE ML.pdf',
+      color: 'var(--accent-blue)'
+    },
+    {
+      code: 'CST309',
+      title: 'Microcontroller and Embedded Systems (S5 Theory)',
+      examDate: 'Dec 4, 2026',
+      credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
+      textbooks: [
+        'Joseph Yiu, The Definitive Guide to ARM Cortex-M3 and Cortex-M4 Processors, 3rd edition, Newnes - Elsevier, 2014',
+        'Carmine Noviello, Mastering STM32, 2nd edition, Leanpub, 2022'
+      ],
+      pdfPath: 'docs/syllabus/S5 CSE MC.pdf',
+      color: 'var(--accent-purple)'
+    },
+    {
+      code: 'CST311',
+      title: 'Data Analytics (S5 Theory)',
+      examDate: 'Dec 7, 2026',
+      credits: '4 Credits • 60 ESE Marks • 40 CIE Marks',
+      textbooks: [
+        'Christian Heumann and Michael Schomaker, Introduction to Statistics and Data Analysis, 1st edition, Springer, 2016',
+        'Jiawei Han and Micheline Kamber, Data Mining: Concepts and Techniques, 3rd edition, Elsevier, 2012'
+      ],
+      pdfPath: 'docs/syllabus/S5 CSE DA.pdf',
+      color: 'var(--accent-cyan)'
+    },
+    {
+      code: 'HUT200',
+      title: 'Engineering Economics & Ethics (S3 Supply)',
+      examDate: 'Dec 8, 2026',
+      credits: '3 Credits • 60 ESE Marks • 40 CIE Marks',
+      textbooks: [
+        'Geetika, Piyali Ghosh and Chodhury, Managerial Economics, Tata McGraw Hill, 2015',
+        'H. G. Thuesen, W. J. Fabrycky, Engineering Economy, PHI, 1966',
+        'R. Paneerselvam, Engineering Economics, PHI, 2012'
+      ],
+      pdfPath: 'docs/syllabus/S3 CSE EE.pdf',
+      color: '#ec4899'
     }
   ];
 
@@ -51,7 +115,7 @@ export default function ReferencesView({ lastUpdatedDisplay }) {
               <BookOpen size={18} color="var(--accent-purple)" /> Official KTU Course Syllabi & Textbooks
             </h3>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.2rem 0 0' }}>
-              Core reference materials, course evaluation standards, and official syllabus textbooks for S5 & S3 courses.
+              Official curriculum textbooks and evaluation standards across all 8 S5 Regular & S3 Supply examination courses.
             </p>
           </div>
           <span className="badge badge-optional mono">LAST UPDATED: {lastUpdatedDisplay}</span>
@@ -78,7 +142,10 @@ export default function ReferencesView({ lastUpdatedDisplay }) {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', gap: '0.4rem' }}>
               <div>
                 <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700 }}>{ref.title}</h4>
-                <span className="badge badge-module mono" style={{ fontSize: '0.65rem', marginTop: '0.2rem' }}>{ref.code}</span>
+                <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.25rem', alignItems: 'center' }}>
+                  <span className="badge badge-module mono" style={{ fontSize: '0.65rem' }}>{ref.code}</span>
+                  <span className="badge badge-critical mono" style={{ fontSize: '0.62rem' }}>{ref.examDate}</span>
+                </div>
               </div>
               <span className="badge badge-optional mono" style={{ fontSize: '0.62rem', flexShrink: 0 }}>{ref.credits}</span>
             </div>
@@ -94,20 +161,12 @@ export default function ReferencesView({ lastUpdatedDisplay }) {
 
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '0.55rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <code style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>{ref.pdfPath}</code>
-              <span className="badge badge-core" style={{ fontSize: '0.62rem' }}>Verified Syllabus</span>
+              <span className="badge badge-core" style={{ fontSize: '0.62rem', display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
+                <CheckCircle2 size={10} /> Verified KTU Syllabus
+              </span>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Upcoming Exams Note */}
-      <div className="card" style={{ padding: '1rem', backgroundColor: 'var(--bg-overlay)' }}>
-        <h4 style={{ margin: '0 0 0.35rem', fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <FileText size={14} color="var(--accent-blue)" /> Upcoming Examinations (Syllabi Ingestion Queue)
-        </h4>
-        <p style={{ margin: 0, fontSize: '0.74rem', color: 'var(--text-dim)', lineHeight: 1.45 }}>
-          As you collect the course syllabi for <strong>S3 Mathematics (MAT203)</strong>, <strong>Machine Learning Theory (CST307-T)</strong>, <strong>Microcontrollers (CST309)</strong>, <strong>Data Analytics (CST311)</strong>, and <strong>S3 EE/Ethics (HUT200)</strong>, paste their module contents here and their full checklist sections will be instantly activated.
-        </p>
       </div>
     </div>
   );

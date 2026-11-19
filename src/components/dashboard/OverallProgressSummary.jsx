@@ -10,7 +10,7 @@ export default function OverallProgressSummary({
     {
       title: 'Total Syllabus Topics',
       value: `${totalTopics} Topics`,
-      sub: 'Across CN, DAA & S3 DSA courses',
+      sub: 'Across all 8 S5 Regular & S3 Supply courses',
       color: 'var(--text-main)',
       icon: <Target size={16} color="var(--accent-blue)" />
     },
@@ -31,7 +31,7 @@ export default function OverallProgressSummary({
     {
       title: 'Immediate Target',
       value: 'CN (Nov 23)',
-      sub: '4 Days Left • 30 Topics in Syllabus',
+      sub: 'Immediate Exam • 30 Topics in Syllabus',
       color: 'var(--accent-red)',
       icon: <Flame size={16} color="var(--accent-red)" />
     }
@@ -41,10 +41,10 @@ export default function OverallProgressSummary({
     <div className="card" style={{ padding: '1rem' }}>
       <div style={{ marginBottom: '0.85rem' }}>
         <h3 style={{ fontSize: '0.98rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem', margin: 0 }}>
-          <Target size={16} color="var(--accent-blue)" /> Exam Preparation Overview
+          <Target size={16} color="var(--accent-blue)" /> Exam Series Readiness & Syllabus Mastery
         </h3>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: '0.2rem 0 0' }}>
-          Real-time syllabus completion across all upcoming university examinations:
+          Real-time syllabus completion across all 8 upcoming university examinations:
         </p>
       </div>
 

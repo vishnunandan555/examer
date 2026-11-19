@@ -1,0 +1,482 @@
+GO LEARNERZ
+Where Learnerz Meets progress
+
+KTU BTECH ONLINE CLASSES
+KTU CRASH COURSES| KTU MOCK TEST | KTU
+PREVIOUS YEAR QUESTION PAPER SOLVED
+
+www.golearnerz.com
+
+SEMESTER S3
+ECONOMICS FOR ENGINEERS
+(Common to All Branches)
+Course Code
+Teaching Hours/Week
+(L: T:P: R)
+
+UCHUT346
+
+CIE Marks
+
+50
+
+2:0:0:0
+
+ESE Marks
+
+50
+
+2
+
+Exam Hours
+
+2 Hrs. 30 min.
+
+None
+
+Course Type
+
+Theory
+
+Credits
+Prerequisites (if any)
+
+Course Objectives:
+1. Understanding of finance and costing for engineering operation, budgetary planning and control
+2. Provide fundamental concept of micro and macroeconomics related to engineering industry
+3. Deliver the basic concepts of Value Engineering.
+
+SYLLABUS
+Module
+No.
+
+Syllabus Description
+Basic Economics Concepts
+
+Contact
+Hours
+
+- Basic economic problems – Production
+
+Possibility Curve – Utility – Law of diminishing marginal utility – Law of
+
+1
+
+Demand - Law of supply – Elasticity - measurement of elasticity and its
+applications – Equilibrium- Changes in demand and supply and its effects
+
+6
+
+Production function - Law of variable proportion – Economies of Scale –
+Internal and External Economies – Cobb-Douglas Production Function
+Cost concepts – Social cost, private cost – Explicit and implicit cost – Sunk
+cost - Opportunity cost - short run cost curves - Revenue concepts
+
+2
+
+Firms and their objectives – Types of firms – Markets - Perfect Competition
+
+6
+
+– Monopoly - Monopolistic Competition - Oligopoly (features and
+equilibrium of a firm)
+
+3
+
+Monetary System – Money – Functions - Central Banking –Inflation -
+
+6
+
+Causes and Effects – Measures to Control Inflation - Monetary and Fiscal
+
+For More Lecture Videos: www.golearnerz.com
+
+policies – Deflation
+Taxation – Direct and Indirect taxes (merits and demerits) - GST
+National income – Concepts - Circular Flow – Methods of Estimation and
+Difficulties - Stock Market – Functions- Problems faced by the Indian stock
+market-Demat Account and Trading Account – Stock market IndicatorsSENSEX and NIFTY
+Value Analysis and value Engineering - Cost Value, Exchange Value, Use
+Value, Esteem Value - Aims, Advantages and Application areas of Value
+
+4
+
+6
+
+Engineering - Value Engineering Procedure - Break-even Analysis - CostBenefit Analysis - Capital Budgeting - Process planning
+
+Course Assessment Method
+(CIE: 50 marks, ESE: 50 marks)
+Continuous Internal Evaluation Marks (CIE):
+
+Attendance
+
+Assignment/ Case
+study/Microproject
+
+Internal
+Examination-1
+(Written)
+
+Internal
+Examination- 2
+(Written)
+
+Total
+
+10
+
+15
+
+12.5
+
+12.5
+
+50
+
+End Semester Examination Marks (ESE)
+In Part A, all questions need to be answered and in Part B, each student can choose any one
+full question out of two questions
+Part A
+
+
+Minimum 1 and Maximum
+
+Part B
+
+
+2 questions will be given from each module, out
+of which 1 question should be answered.
+
+
+
+Each question can have a maximum of 2 sub
+divisions.
+
+
+
+Each question carries 8 marks.
+
+2 Questions from each
+module.
+
+
+Total of 6 Questions, each
+carrying 3 marks
+(6x3 =18marks)
+
+Total
+
+50
+
+(4x8 = 32 marks)
+
+For More Lecture Videos: www.golearnerz.com
+
+Course Outcomes (COs)
+At the end of the course students should be able to:
+Bloom’s
+Knowledge
+Level (KL)
+
+Course Outcome
+
+CO1
+
+CO2
+CO3
+CO4
+
+K2
+
+Understand the fundamentals of various economic issues using laws
+and learn the concepts of demand, supply, elasticity and production
+function.
+Develop decision making capability by applying concepts relating to
+costs and revenue, and acquire knowledge regarding the functioning of
+firms in different market situations.
+Outline the macroeconomic principles of monetary and fiscal systems,
+national income and stock market.
+Make use of the possibilities of value analysis and engineering, and
+solve simple business problems using break even analysis, cost benefit
+analysis and capital budgeting techniques.
+
+K3
+
+K2
+K3
+
+Note: K1- Remember, K2- Understand, K3- Apply, K4- Analyse, K5- Evaluate, K6- Create
+CO-PO Mapping Table:
+PO1
+
+PO2
+
+PO3
+
+PO4
+
+PO5
+
+PO6
+
+PO7
+
+PO8
+
+PO9
+
+PO10
+
+CO1
+
+-
+
+-
+
+-
+
+-
+
+-
+
+1
+
+-
+
+-
+
+-
+
+-
+
+1
+
+-
+
+CO2
+
+-
+
+-
+
+-
+
+-
+
+-
+
+1
+
+1
+
+-
+
+-
+
+-
+
+1
+
+-
+
+CO3
+
+-
+
+-
+
+-
+
+-
+
+1
+
+-
+
+-
+
+-
+
+-
+
+-
+
+2
+
+-
+
+CO4
+
+-
+
+-
+
+-
+
+-
+
+1
+
+1
+
+-
+
+-
+
+-
+
+-
+
+2
+
+-
+
+PO11 PO12
+
+Note: 1: Slight (Low), 2: Moderate (Medium), 3: Substantial (High), -: No Correlation
+
+Text Books
+Sl. No
+1
+2
+3
+
+Title of the Book
+Managerial Economics
+
+Engineering Economy
+Engineering Economics
+
+Name of the Author/s
+
+Name of the
+Publisher
+
+Edition
+and Year
+
+Geetika, Piyali Ghosh
+and Chodhury
+
+Tata McGraw Hill,
+
+2015
+
+H. G. Thuesen, W. J.
+Fabrycky
+
+PHI
+
+1966
+
+R. Paneerselvam
+
+PHI
+
+2012
+
+For More Lecture Videos: www.golearnerz.com
+
+Reference Books
+Name of the Author/s
+
+Name of the
+Publisher
+
+Edition
+and Year
+
+Engineering Economy
+
+Leland Blank P.E,
+Anthony Tarquin P. E.
+
+Mc Graw Hill
+
+7TH Edition
+
+2
+
+Indian Financial System
+
+Khan M. Y.
+
+Tata McGraw Hill
+
+2011
+
+3
+
+Engineering Economics and
+analysis
+
+Donald G. Newman,
+Jerome P. Lavelle
+
+Engg. Press, Texas
+
+2002
+
+4
+
+Contemporary Engineering
+Economics
+
+Chan S. Park
+
+Prentice Hall of India
+Ltd
+
+2001
+
+Sl. No
+1
+
+Title of the Book
+
+For More Lecture Videos: www.golearnerz.com
+
+WHERE LEARNERS
+MEETS PROGRESS
+ELEVATE YOUR EXPERIENCE
+
+Easy To Use,
+Anywhere, Anytime
+
+Streamlined User
+Interface
+
+Personalized
+Experience
+
+24 Hours
+Support
+
+Why Choose Us?
+Top Faculties and
+Mentor Support
+
+Free Webinars on
+Exam preparation
+
+Subject wise community for
+discussion and doubt solving
+
+Well Formatted
+Recorded classes
+
+Solved Previous Year
+Questions With Detailed
+Video
+
+Subject Wise Materials
+
+Contact Us
+
++918089464002
+
+www.golearnerz.com
+golearnerz
+
+

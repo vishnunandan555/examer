@@ -1,34 +1,41 @@
 import React from 'react';
-import { Layers, Clock, Sparkles, BookOpen, FileText } from 'lucide-react';
+import { Layers, Clock, Sparkles, BookOpen, FileText, Cpu, Brain, BarChart3, Scale } from 'lucide-react';
+import { getDaysLeft } from '../../utils/timeUtils';
+import syllabusData from '../../data/syllabus_data.json';
 
 export default function NavigationTabs({
   activeTab,
   setActiveTab
 }) {
-  const tabs = [
-    { id: 'dashboard', label: 'Main Dashboard', icon: <Layers size={14} /> },
-    {
-      id: 'cn',
-      label: 'Computer Networks (Nov 23)',
-      badge: '4D Left',
-      icon: <Clock size={14} color="var(--accent-red)" />
-    },
-    {
-      id: 'daa',
-      label: 'DAA (Nov 27)',
-      badge: '8D Left',
-      icon: <Sparkles size={14} color="var(--accent-peach)" />
-    },
-    {
-      id: 'dsa',
-      label: 'S3 DSA Supply (Nov 30)',
-      badge: '11D Left',
-      icon: <BookOpen size={14} color="var(--accent-green)" />
-    },
+  const subjectIcons = {
+    cn: <Clock size={13} color="var(--accent-red)" />,
+    mat: <Sparkles size={13} color="var(--accent-yellow)" />,
+    daa: <Sparkles size={13} color="var(--accent-peach)" />,
+    dsa: <BookOpen size={13} color="var(--accent-green)" />,
+    ml: <Brain size={13} color="var(--accent-blue)" />,
+    mc: <Cpu size={13} color="var(--accent-purple)" />,
+    da: <BarChart3 size={13} color="var(--accent-cyan)" />,
+    ethics: <Scale size={13} color="var(--accent-peach)" />
+  };
+
+  const subjectTabs = Object.entries(syllabusData.subjects).map(([key, subj]) => {
+    const days = Math.max(0, getDaysLeft(subj.examDate));
+    return {
+      id: key,
+      label: subj.code,
+      fullTitle: subj.title,
+      badge: `${days}D`,
+      icon: subjectIcons[key] || <BookOpen size={13} />
+    };
+  });
+
+  const allTabs = [
+    { id: 'dashboard', label: 'Dashboard', icon: <Layers size={13} /> },
+    ...subjectTabs,
     {
       id: 'references',
-      label: 'Course Syllabi & Guidelines',
-      icon: <FileText size={14} color="var(--accent-purple)" />
+      label: 'Syllabi & Guidelines',
+      icon: <FileText size={13} color="var(--accent-purple)" />
     }
   ];
 
@@ -38,23 +45,24 @@ export default function NavigationTabs({
         style={{
           maxWidth: '1440px',
           margin: '0 auto',
-          padding: '0 1rem',
+          padding: '0 0.75rem',
           display: 'flex',
-          gap: '0.25rem',
+          gap: '0.2rem',
           overflowX: 'auto',
           WebkitOverflowScrolling: 'touch',
           alignItems: 'center'
         }}
       >
-        {tabs.map((tab) => {
+        {allTabs.map((tab) => {
           const isActive = activeTab === tab.id;
           return (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
+              title={tab.fullTitle || tab.label}
               style={{
-                padding: '0.7rem 0.85rem',
-                fontSize: '0.82rem',
+                padding: '0.65rem 0.7rem',
+                fontSize: '0.8rem',
                 fontWeight: isActive ? 700 : 500,
                 color: isActive ? 'var(--accent-blue)' : 'var(--text-muted)',
                 borderBottom: isActive ? '2px solid var(--accent-blue)' : '2px solid transparent',
@@ -65,9 +73,10 @@ export default function NavigationTabs({
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
+                gap: '0.35rem',
                 whiteSpace: 'nowrap',
-                transition: 'all 0.15s ease'
+                transition: 'all 0.15s ease',
+                flexShrink: 0
               }}
             >
               {tab.icon}

@@ -701,6 +701,836 @@
           ]
         }
       ]
+    },
+    "mat": {
+      "id": "mat",
+      "title": "S3 Mathematics (Probability & Random Processes)",
+      "code": "MAT203",
+      "examDate": "2026-11-24",
+      "displayDate": "Nov 24, 2026",
+      "semester": "S3 Supply",
+      "color": "var(--accent-blue)",
+      "examFormat": "Part A: 8 questions x 3 marks = 24 marks (all compulsory). Part B: 4 modules x 9 marks = 36 marks (choice per module). Total = 60 marks (2.5 Hrs).",
+      "modules": [
+        {
+          "id": "mat-m1",
+          "name": "Module 1: Discrete Random Variables & Distributions",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mat-m1-01",
+              "title": "Discrete Random Variables & PMF/CDF",
+              "concepts": "Discrete random variables, Probability Mass Function (PMF), Cumulative Distribution Function (CDF) and its properties.",
+              "priority": "High",
+              "type": "Core Theory / Numerical"
+            },
+            {
+              "id": "mat-m1-02",
+              "title": "Mathematical Expectation, Mean & Variance",
+              "concepts": "Expected value E[X], Variance Var(X) = E[X^2] - (E[X])^2, standard deviation, properties of expectation and variance.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "mat-m1-03",
+              "title": "Binomial Probability Distribution",
+              "concepts": "Bernoulli trials, Binomial PMF P(X=k) = nCk p^k (1-p)^(n-k), Mean = np, Variance = np(1-p), moment generating functions.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "mat-m1-04",
+              "title": "Poisson Probability Distribution",
+              "concepts": "Poisson PMF P(X=k) = e^(-lambda) lambda^k / k!, Mean = lambda, Variance = lambda, Poisson as limiting form of Binomial distribution (n -> inf, p -> 0).",
+              "priority": "High",
+              "type": "Numerical / Derivation"
+            },
+            {
+              "id": "mat-m1-05",
+              "title": "Two-Dimensional Discrete Random Variables",
+              "concepts": "Joint probability mass function P(X=x, Y=y), Marginal PMFs of X and Y, Condition for independence P(X,Y) = P(X)P(Y), Expected value E[g(X,Y)].",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "mat-m2",
+          "name": "Module 2: Continuous Random Variables & Distributions",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mat-m2-01",
+              "title": "Continuous Random Variables & PDF/CDF",
+              "concepts": "Probability Density Function (PDF) f(x) >= 0, integral of f(x) = 1, relationship between PDF and CDF dF(x)/dx = f(x), Expectation, Mean and Variance.",
+              "priority": "High",
+              "type": "Core Theory / Numerical"
+            },
+            {
+              "id": "mat-m2-02",
+              "title": "Uniform Distribution",
+              "concepts": "Uniform continuous distribution on [a, b], PDF f(x) = 1/(b-a), CDF, Mean = (a+b)/2, Variance = (b-a)^2 / 12.",
+              "priority": "Medium",
+              "type": "Numerical"
+            },
+            {
+              "id": "mat-m2-03",
+              "title": "Normal (Gaussian) Distribution",
+              "concepts": "Bell-shaped curve, standard normal distribution Z = (X - mu)/sigma, standard normal tables, 68-95-99.7 empirical rule, properties and applications.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "mat-m2-04",
+              "title": "Exponential Distribution & Memoryless Property",
+              "concepts": "PDF f(x) = lambda e^(-lambda x), CDF F(x) = 1 - e^(-lambda x), Mean = 1/lambda, Variance = 1/lambda^2, Proof of Memoryless Property P(X > s+t | X > s) = P(X > t).",
+              "priority": "High",
+              "type": "Derivation / High-Yield"
+            },
+            {
+              "id": "mat-m2-05",
+              "title": "Two-Dimensional Continuous Random Variables",
+              "concepts": "Joint PDF f(x,y), Marginal PDFs f_X(x) and f_Y(y), Independent continuous variables, Expectation E[g(X,Y)], Covariance.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "mat-m3",
+          "name": "Module 3: Limit Theorems & Stochastic Processes",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mat-m3-01",
+              "title": "Markov Inequality & Chebyshev Inequality",
+              "concepts": "Markov Inequality P(X >= a) <= E[X]/a for non-negative X; Chebyshev Inequality P(|X - mu| >= k*sigma) <= 1/k^2, bounding probabilities.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "mat-m3-02",
+              "title": "Law of Large Numbers & Central Limit Theorem",
+              "concepts": "Weak and Strong Law of Large Numbers (SLLN statement); Central Limit Theorem (CLT) statement and solving probability approximations for sample sums.",
+              "priority": "High",
+              "type": "Core Theory / Numerical"
+            },
+            {
+              "id": "mat-m3-03",
+              "title": "Stochastic Processes Classification",
+              "concepts": "Definition {X(t), t in T}, State space and Parameter space, classification: Discrete-time discrete-state, Discrete-time continuous-state, Continuous-time discrete-state, Continuous-time continuous-state.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "mat-m3-04",
+              "title": "The Poisson Process & Interarrival Times",
+              "concepts": "Counting processes, Poisson process postulates (independent increments, stationary increments), distribution of number of arrivals, Exponential distribution of interarrival times.",
+              "priority": "High",
+              "type": "Core Theory / Numerical"
+            }
+          ]
+        },
+        {
+          "id": "mat-m4",
+          "name": "Module 4: Markov Chains & Random Walk Model",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mat-m4-01",
+              "title": "Markov Chains & Transition Probability Matrix (TPM)",
+              "concepts": "Markov property P(X_n+1 = j | X_n = i), 1-step Transition Probability Matrix P, State transition diagram.",
+              "priority": "High",
+              "type": "Core Theory / Numerical"
+            },
+            {
+              "id": "mat-m4-02",
+              "title": "Chapman-Kolmogorov Equations & n-Step Transitions",
+              "concepts": "P_ij^(n+m) = sum(P_ik^(n) * P_kj^(m)), calculating n-step transition probability matrix P^(n) by matrix multiplication.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "mat-m4-03",
+              "title": "Classification of States in Markov Chains",
+              "concepts": "Accessible state, Communicating states, Closed set, Irreducible Markov chain, Recurrent state (first return probability f_ii = 1), Transient state (f_ii < 1), Periodic vs Aperiodic states, Absorbing states.",
+              "priority": "High",
+              "type": "Core Theory / High-Yield"
+            },
+            {
+              "id": "mat-m4-04",
+              "title": "Random Walk Model & Gambler Ruin Concept",
+              "concepts": "Simple 1D random walk on integers, absorbing barriers, transition probabilities, probability of ruin.",
+              "priority": "Medium",
+              "type": "Model / Numerical"
+            },
+            {
+              "id": "mat-m4-05",
+              "title": "Steady-State Distribution & Long-Run Proportions",
+              "concepts": "Stationary distribution vector pi = [pi_0, pi_1, ...], solving system of linear equations pi * P = pi and sum(pi_i) = 1 for long-run proportions.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        }
+      ]
+    },
+    "ml": {
+      "id": "ml",
+      "title": "Machine Learning",
+      "code": "CST307-T",
+      "examDate": "2026-12-01",
+      "displayDate": "Dec 01, 2026",
+      "semester": "S5 Theory",
+      "color": "var(--accent-purple)",
+      "examFormat": "Part A: 8 questions x 3 marks = 24 marks (all compulsory). Part B: 4 modules x 9 marks = 36 marks (choice per module). Total = 60 marks (2.5 Hrs).",
+      "modules": [
+        {
+          "id": "ml-m1",
+          "name": "Module 1: ML Foundations, Paradigms & Parameter Estimation",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "ml-m1-01",
+              "title": "Machine Learning vs Traditional Programming",
+              "concepts": "Well-posed learning problem (Task T, Performance P, Experience E), ML workflow, supervised, unsupervised, semi-supervised, and reinforcement learning paradigms.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "ml-m1-02",
+              "title": "Maximum Likelihood Estimation (MLE)",
+              "concepts": "Likelihood function L(theta), Log-likelihood, maximizing likelihood, MLE for coin-toss Bernoulli and Gaussian distribution parameters.",
+              "priority": "High",
+              "type": "Derivation / High-Yield"
+            },
+            {
+              "id": "ml-m1-03",
+              "title": "Maximum A Posteriori (MAP) & Bayesian Formulation",
+              "concepts": "Bayes theorem for parameters P(theta|D) = P(D|theta)P(theta)/P(D), Prior vs Posterior distribution, comparison of MLE and MAP estimation.",
+              "priority": "High",
+              "type": "Core Theory / Derivation"
+            },
+            {
+              "id": "ml-m1-04",
+              "title": "Feature Representation & Loss Functions",
+              "concepts": "Feature vectors, design matrix, role of loss functions (Mean Squared Error, Cross-Entropy loss) and optimization concepts.",
+              "priority": "Medium",
+              "type": "Core Theory"
+            }
+          ]
+        },
+        {
+          "id": "ml-m2",
+          "name": "Module 2: Regression & Supervised Classification",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "ml-m2-01",
+              "title": "Linear Regression (Single & Multiple Variables)",
+              "concepts": "Hypothesis h_theta(x) = theta^T x, MSE Cost function J(theta), derivation of Gradient Descent update rules, Normal Equation closed-form solution theta = (X^T X)^(-1) X^T y.",
+              "priority": "High",
+              "type": "Derivation / Numerical"
+            },
+            {
+              "id": "ml-m2-02",
+              "title": "Logistic Regression & Sigmoid Function",
+              "concepts": "Classification problem, Sigmoid/Logistic activation g(z) = 1/(1 + e^(-z)), Log-Loss / Cross-Entropy cost function, decision boundary, gradient descent update.",
+              "priority": "High",
+              "type": "Derivation / High-Yield"
+            },
+            {
+              "id": "ml-m2-03",
+              "title": "Na\u00efve Bayes Classification",
+              "concepts": "Bayes rule for classification, Class conditional independence assumption, MAP decision rule, handling continuous features with Gaussian Naive Bayes.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "ml-m2-04",
+              "title": "K-Nearest Neighbors (KNN) Classifier",
+              "concepts": "Instance-based / Lazy learning, Distance metrics (Euclidean, Manhattan), choosing optimal k, boundary decisions, Voronoi diagram.",
+              "priority": "High",
+              "type": "Algorithm / Trace"
+            },
+            {
+              "id": "ml-m2-05",
+              "title": "Decision Trees & ID3 Algorithm",
+              "concepts": "Decision tree representation, Entropy H(S) = -sum(p log2 p), Information Gain calculation Gain(S, A), ID3 algorithm step-by-step split.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "ml-m3",
+          "name": "Module 3: Overfitting, SVM & Neural Networks",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "ml-m3-01",
+              "title": "Overfitting, Underfitting & Regularization (L1 & L2)",
+              "concepts": "Overfitting causes, Training/Validation/Testing split, L1 LASSO (sparsity) vs L2 RIDGE (weight decay) regularization penalties in cost function.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "ml-m3-02",
+              "title": "Evaluation Metrics for Classification & Regression",
+              "concepts": "Confusion Matrix (TP, TN, FP, FN), Precision, Recall, Accuracy, F1-Score, ROC curve and AUC; Regression: MAE, RMSE, R-squared coefficient.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "ml-m3-03",
+              "title": "Support Vector Machines (Linear & Non-linear SVM)",
+              "concepts": "Hyperplane, Margin = 2/||w||, Maximum Margin Hyperplane, Support vectors, Hard margin vs Soft margin (slack variables), Kernel Trick (Polynomial, RBF Gaussian).",
+              "priority": "High",
+              "type": "Core Theory / Derivation"
+            },
+            {
+              "id": "ml-m3-04",
+              "title": "Perceptron & Multilayer Feedforward Neural Networks",
+              "concepts": "Biological neuron vs Perceptron, activation functions (Sigmoid, ReLU, Tanh), Multilayer Perceptron (MLP) architecture, forward propagation.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "ml-m3-05",
+              "title": "Backpropagation Algorithm",
+              "concepts": "Error backpropagation using chain rule, gradient of loss with respect to weights, weight update formula, learning rate.",
+              "priority": "High",
+              "type": "Derivation / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "ml-m4",
+          "name": "Module 4: Unsupervised Learning, Dimensionality Reduction & Ensembles",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "ml-m4-01",
+              "title": "Clustering Algorithms (K-Means & Hierarchical)",
+              "concepts": "Clustering similarity measures, K-Means algorithm (centroid update, convergence), Hierarchical Agglomerative Clustering (Single, Complete, Average linkage, Dendrograms).",
+              "priority": "High",
+              "type": "Algorithm / Trace"
+            },
+            {
+              "id": "ml-m4-02",
+              "title": "Principal Component Analysis (PCA)",
+              "concepts": "Curse of dimensionality, PCA steps: Mean centering, Covariance matrix calculation, Eigenvalues and Eigenvectors, projecting onto top k principal components.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "ml-m4-03",
+              "title": "Ensemble Methods (Bagging & Boosting)",
+              "concepts": "Ensemble concept, Bootstrap Aggregation (Bagging, Random Forest), Boosting (Sequential training, AdaBoost algorithm, weighted errors).",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "ml-m4-04",
+              "title": "Resampling Methods & Bias-Variance Tradeoff",
+              "concepts": "K-Fold Cross Validation, Bootstrapping; Bias (underfitting) vs Variance (overfitting) tradeoff decomposition of expected test error.",
+              "priority": "High",
+              "type": "Core Theory / Derivation"
+            }
+          ]
+        }
+      ]
+    },
+    "mc": {
+      "id": "mc",
+      "title": "Microcontrollers & Embedded Systems",
+      "code": "CST309",
+      "examDate": "2026-12-04",
+      "displayDate": "Dec 04, 2026",
+      "semester": "S5 Theory",
+      "color": "var(--accent-peach)",
+      "examFormat": "Part A: 8 questions x 3 marks = 24 marks (all compulsory). Part B: 4 modules x 9 marks = 36 marks (choice per module). Total = 60 marks (2.5 Hrs).",
+      "modules": [
+        {
+          "id": "mc-m1",
+          "name": "Module 1: ARM Cortex-M Architecture",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mc-m1-01",
+              "title": "Embedded Systems & Processor Classification",
+              "concepts": "Embedded systems characteristics, Embedded C basics, Microcontroller vs Microprocessor, Harvard vs Von Neumann, RISC vs CISC.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "mc-m1-02",
+              "title": "ARM Cortex-M Series & Armv8-M Architecture",
+              "concepts": "ARM Cortex-M family overview, Cortex-M23 (efficiency) and Cortex-M33 (performance with TrustZone), Armv8-M Mainline vs Baseline architecture.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "mc-m1-03",
+              "title": "ARM Cortex Core Features: Registers & Memory Map",
+              "concepts": "Core registers R0-R12, Stack Pointers MSP/PSP (R13), Link Register LR (R14), Program Counter PC (R15), Special registers xPSR, Memory-mapped I/O structure.",
+              "priority": "High",
+              "type": "Core Theory / High-Yield"
+            },
+            {
+              "id": "mc-m1-04",
+              "title": "Bus Architecture & Generational Comparison",
+              "concepts": "AMBA bus interface, AHB (Advanced High-performance Bus), APB (Advanced Peripheral Bus), comparison of Cortex-M33 with Cortex-M3/M4.",
+              "priority": "Medium",
+              "type": "Architecture"
+            }
+          ]
+        },
+        {
+          "id": "mc-m2",
+          "name": "Module 2: STM32 Peripheral Programming & Hardware Interfacing",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mc-m2-01",
+              "title": "STM32 Architecture & HAL Library",
+              "concepts": "STM32U575 microcontroller specifications, Ultra-low power modes, STM32CubeIDE ecosystem, Hardware Abstraction Layer (HAL) concepts and driver structure.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "mc-m2-02",
+              "title": "GPIO Programming & Display Interfacing",
+              "concepts": "GPIO register configuration (MODER, OTYPER, OSPEEDR, PUPDR), LED blinking, 7-Segment display interfacing, 16x2 LCD display, Matrix Keypad scanning, Relay interfacing.",
+              "priority": "High",
+              "type": "Interfacing / Code"
+            },
+            {
+              "id": "mc-m2-03",
+              "title": "Analog-to-Digital (ADC) & Digital-to-Analog (DAC) Conversion",
+              "concepts": "ADC successive approximation, interfacing Potentiometer, LDR, Temperature sensor; DAC configuration, generating sine wave and audio signals.",
+              "priority": "High",
+              "type": "Interfacing / Numerical"
+            },
+            {
+              "id": "mc-m2-04",
+              "title": "Interrupt Handling (NVIC & EXTI)",
+              "concepts": "Nested Vectored Interrupt Controller (NVIC), Interrupt vector table, priority levels, External Interrupts (EXTI) configuration and ISR execution.",
+              "priority": "High",
+              "type": "Core Theory / Code"
+            },
+            {
+              "id": "mc-m2-05",
+              "title": "Timers, Counters & Real-Time Clock (RTC)",
+              "concepts": "Basic timer configuration, prescaler and auto-reload registers (PSC, ARR), timers as event counters, RTC module and periodic time generation.",
+              "priority": "High",
+              "type": "Core Theory / Calculations"
+            }
+          ]
+        },
+        {
+          "id": "mc-m3",
+          "name": "Module 3: Serial Communication Protocols & USB",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mc-m3-01",
+              "title": "UART / USART Serial Communication",
+              "concepts": "Asynchronous vs synchronous serial communication, baud rate calculation, frame format, TX/RX lines, interfacing STM32 to PC terminal via HAL UART.",
+              "priority": "High",
+              "type": "Protocol / Code"
+            },
+            {
+              "id": "mc-m3-02",
+              "title": "I2C Protocol & Sensor Interfacing",
+              "concepts": "Two-wire interface (SDA, SCL), master-slave addressing, START/STOP conditions, ACK/NACK, interfacing I2C temperature sensor and LCD.",
+              "priority": "High",
+              "type": "Protocol / High-Yield"
+            },
+            {
+              "id": "mc-m3-03",
+              "title": "SPI Protocol & EEPROM Memory Interfacing",
+              "concepts": "Four-wire interface (MOSI, MISO, SCK, CS), full-duplex synchronous transmission, clock polarity (CPOL) and phase (CPHA), writing/reading SPI EEPROM.",
+              "priority": "High",
+              "type": "Protocol / High-Yield"
+            },
+            {
+              "id": "mc-m3-04",
+              "title": "Controller Area Network (CAN) Protocol",
+              "concepts": "Differential signaling (CAN_H, CAN_L), message arbitration using CSMA/CD+AMP, CAN frame format, multi-node STM32 communication.",
+              "priority": "High",
+              "type": "Protocol / High-Yield"
+            },
+            {
+              "id": "mc-m3-05",
+              "title": "USB Device Architecture & HID Implementation",
+              "concepts": "USB architecture, endpoints, descriptors, implementing USB Human Interface Device (HID) for keyboard/mouse emulation on STM32.",
+              "priority": "Medium",
+              "type": "Implementation"
+            }
+          ]
+        },
+        {
+          "id": "mc-m4",
+          "name": "Module 4: IoT, Wireless, FreeRTOS & TrustZone",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "mc-m4-01",
+              "title": "IoT Protocols (MQTT & CoAP) & Wireless Communication",
+              "concepts": "IoT architecture, MQTT publish/subscribe model, CoAP REST-based protocol; Interfacing GSM module (AT commands, SMS, GPRS), Bluetooth, and LoRa long-range.",
+              "priority": "High",
+              "type": "IoT Protocols"
+            },
+            {
+              "id": "mc-m4-02",
+              "title": "Real-Time Operating Systems (RTOS) & FreeRTOS Concepts",
+              "concepts": "General OS vs RTOS, Hard vs Soft real-time, FreeRTOS kernel on STM32, Task states, Task creation (xTaskCreate), Task priority and Preemptive Priority Scheduling.",
+              "priority": "High",
+              "type": "RTOS / Code"
+            },
+            {
+              "id": "mc-m4-03",
+              "title": "Inter-Task Communication: Queues & Semaphores",
+              "concepts": "Task synchronization, Binary semaphores, Counting semaphores, Mutex (priority inversion and priority inheritance), FreeRTOS Queues for message passing.",
+              "priority": "High",
+              "type": "RTOS / High-Yield"
+            },
+            {
+              "id": "mc-m4-04",
+              "title": "ARM TrustZone Security Technology",
+              "concepts": "Hardware-enforced security, Secure World vs Non-Secure World, Secure Gateway, SAU (Security Attribution Unit), implementing TrustZone on STM32U575.",
+              "priority": "High",
+              "type": "Security Architecture"
+            },
+            {
+              "id": "mc-m4-05",
+              "title": "Embedded Code & Memory Optimization Techniques",
+              "concepts": "RAM/Flash memory constraints, compiler optimization flags, debugging tools (JTAG, SWD), profiling and low-power software design.",
+              "priority": "Medium",
+              "type": "Optimization"
+            }
+          ]
+        }
+      ]
+    },
+    "da": {
+      "id": "da",
+      "title": "Data Analytics",
+      "code": "CST311",
+      "examDate": "2026-12-07",
+      "displayDate": "Dec 07, 2026",
+      "semester": "S5 Theory",
+      "color": "var(--accent-yellow)",
+      "examFormat": "Part A: 8 questions x 3 marks = 24 marks (all compulsory). Part B: 4 modules x 9 marks = 36 marks (choice per module). Total = 60 marks (2.5 Hrs).",
+      "modules": [
+        {
+          "id": "da-m1",
+          "name": "Module 1: Analytics Process Model & Proximity Measures",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "da-m1-01",
+              "title": "Analytics Process Model & Data Analytics Lifecycle",
+              "concepts": "Data Analytics overview, business problem formulation, data collection, analytical model requirements, deployment lifecycle phases.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "da-m1-02",
+              "title": "Variable Types & Association Overview",
+              "concepts": "Discrete, continuous, and ordinal variables, probability calculus, common probability distributions in analytics.",
+              "priority": "Medium",
+              "type": "Core Theory"
+            },
+            {
+              "id": "da-m1-03",
+              "title": "Hypothesis Testing Fundamentals",
+              "concepts": "Null hypothesis H0 vs Alternative hypothesis H1, Type I error (alpha) and Type II error (beta), p-value decision rule, significance level.",
+              "priority": "High",
+              "type": "Core Theory / High-Yield"
+            },
+            {
+              "id": "da-m1-04",
+              "title": "Attribute Types & Proximity (Similarity / Dissimilarity) Measures",
+              "concepts": "Attribute types: Nominal, Binary (Symmetric vs Asymmetric), Ordinal, Numeric; Distance metrics: Euclidean, Manhattan, Minkowski, Cosine similarity for text.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "da-m2",
+          "name": "Module 2: Association of Variables & Descriptive Statistics",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "da-m2-01",
+              "title": "Summarizing Two Discrete Variables & Contingency Tables",
+              "concepts": "Two-way contingency tables, Joint frequency, Marginal frequency, Conditional frequency distributions, mosaic display.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "da-m2-02",
+              "title": "Measures of Association for Discrete Variables",
+              "concepts": "Chi-Square (chi^2) test of independence, expected frequencies calculation, degrees of freedom (r-1)(c-1), Cramer V, Odds Ratio.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "da-m2-03",
+              "title": "Association: Ordinal and Continuous Variables",
+              "concepts": "Correlation between ordinal variables (Spearman rank correlation), continuous variables (Pearson correlation coefficient r), visualization across scales.",
+              "priority": "High",
+              "type": "Numerical / Formula"
+            },
+            {
+              "id": "da-m2-04",
+              "title": "Statistical Description: Central Tendency & Dispersion",
+              "concepts": "Mean, Median, Mode; Measures of dispersion: Range, Quartiles (Q1, Q2, Q3), Interquartile Range (IQR), Variance, Standard Deviation, Five-number summary, Boxplot.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "da-m3",
+          "name": "Module 3: Data Preprocessing, Frequent Patterns, Classification & Clustering",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "da-m3-01",
+              "title": "Data Preprocessing Techniques",
+              "concepts": "Data Cleaning (missing values, noisy data smoothing), Integration, Reduction (numerosity, PCA), Transformation (Min-Max normalization, Z-score, Decimal scaling), Discretization.",
+              "priority": "High",
+              "type": "Numerical / Theory"
+            },
+            {
+              "id": "da-m3-02",
+              "title": "Mining Frequent Patterns & Apriori Algorithm",
+              "concepts": "Market basket analysis, Itemsets, Support and Confidence metrics, Apriori property (anti-monotonicity of support), candidate generation (Ck) and pruning (Lk) step-by-step.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "da-m3-03",
+              "title": "Classification: ID3 Decision Tree & Na\u00efve Bayes",
+              "concepts": "Information Gain, Entropy, ID3 tree construction step-by-step; Naive Bayesian classification on tabular dataset.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "da-m3-04",
+              "title": "Clustering: K-Means, Hierarchical, BIRCH & DBSCAN",
+              "concepts": "K-Means clustering numerical; Agglomerative vs Divisive hierarchical; BIRCH clustering features; Density-based DBSCAN (core points, border points, noise points, eps, MinPts).",
+              "priority": "High",
+              "type": "Algorithm / High-Yield"
+            }
+          ]
+        },
+        {
+          "id": "da-m4",
+          "name": "Module 4: Text Processing & Information Retrieval",
+          "weightage": "15 Marks (2 Part A + 1 Part B)",
+          "topics": [
+            {
+              "id": "da-m4-01",
+              "title": "Information Retrieval & Inverted Index Construction",
+              "concepts": "IR problem overview, Document representation, Inverted Index structure (dictionary and postings lists), processing Boolean queries (AND, OR, NOT).",
+              "priority": "High",
+              "type": "Core Theory / High-Yield"
+            },
+            {
+              "id": "da-m4-02",
+              "title": "Text Preprocessing: Tokenization, Stemming & Positional Index",
+              "concepts": "Tokenization challenges, Stop word removal, Stemming (Porter stemmer rules) vs Lemmatization, Phrase queries and Positional index.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "da-m4-03",
+              "title": "Vector Space Model & TF-IDF Weighting",
+              "concepts": "Term Frequency (TF), Inverse Document Frequency (IDF = log(N/df)), TF-IDF weight matrix, Cosine similarity ranking between query and documents.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "da-m4-04",
+              "title": "Language Models & Na\u00efve Bayes Text Classification",
+              "concepts": "Unigram and Bigram language models, Query likelihood model, Naive Bayes probabilistic text classification for spam/sentiment analysis.",
+              "priority": "High",
+              "type": "Core Theory"
+            }
+          ]
+        }
+      ]
+    },
+    "ethics": {
+      "id": "ethics",
+      "title": "Engineering Economics & Management",
+      "code": "HUT200",
+      "examDate": "2026-12-08",
+      "displayDate": "Dec 08, 2026",
+      "semester": "S3 Supply",
+      "color": "var(--accent-red)",
+      "examFormat": "Part A: 8 questions (compulsory). Part B: 4 module choices. Total = 50 Marks (CIE: 50, ESE: 50).",
+      "modules": [
+        {
+          "id": "eth-m1",
+          "name": "Module 1: Basic Economics, Demand, Supply & Production",
+          "weightage": "12.5 Marks",
+          "topics": [
+            {
+              "id": "eth-m1-01",
+              "title": "Basic Economic Problems & Production Possibility Curve (PPC)",
+              "concepts": "Scarcity, choice, central problems (what, how, for whom), PPC definition, opportunity cost, law of increasing opportunity cost.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m1-02",
+              "title": "Utility & Law of Diminishing Marginal Utility",
+              "concepts": "Total utility, marginal utility, law of diminishing marginal utility statement, assumptions, exceptions, and consumer equilibrium.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m1-03",
+              "title": "Laws of Demand & Supply and Market Equilibrium",
+              "concepts": "Law of demand, demand curve, determinants of demand, exceptions; Law of supply; Market equilibrium and shifts in demand/supply curves.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m1-04",
+              "title": "Elasticity of Demand & Applications",
+              "concepts": "Price elasticity, income elasticity, cross elasticity, degrees of elasticity (perfectly elastic, inelastic, unitary), measurement methods (point, arc), business applications.",
+              "priority": "High",
+              "type": "Numerical / Theory"
+            },
+            {
+              "id": "eth-m1-05",
+              "title": "Production Function & Economies of Scale",
+              "concepts": "Short run vs long run, Law of Variable Proportions (3 stages of production), Internal and External economies of scale, Cobb-Douglas production function Q = A K^alpha L^beta.",
+              "priority": "High",
+              "type": "Core Theory"
+            }
+          ]
+        },
+        {
+          "id": "eth-m2",
+          "name": "Module 2: Cost Concepts & Market Structures",
+          "weightage": "12.5 Marks",
+          "topics": [
+            {
+              "id": "eth-m2-01",
+              "title": "Cost Concepts & Short-Run Cost Curves",
+              "concepts": "Explicit vs Implicit cost, Social vs Private cost, Sunk cost, Opportunity cost, Fixed cost (TFC), Variable cost (TVC), Marginal cost (MC), Average cost (AC), U-shaped cost curves.",
+              "priority": "High",
+              "type": "Core Theory / Curves"
+            },
+            {
+              "id": "eth-m2-02",
+              "title": "Revenue Concepts & Objectives of Firms",
+              "concepts": "Total Revenue (TR), Average Revenue (AR), Marginal Revenue (MR), relationship between AR and MR under perfect and imperfect competition, profit maximization condition MR = MC.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m2-03",
+              "title": "Market Structures: Perfect Competition & Monopoly",
+              "concepts": "Features of Perfect Competition, price taker, equilibrium; Monopoly: single seller, barriers to entry, price discrimination, equilibrium.",
+              "priority": "High",
+              "type": "Core Theory / Comparison"
+            },
+            {
+              "id": "eth-m2-04",
+              "title": "Monopolistic Competition & Oligopoly",
+              "concepts": "Monopolistic competition: product differentiation, selling costs; Oligopoly: few sellers, mutual interdependence, price rigidity, Kinked Demand Curve hypothesis.",
+              "priority": "High",
+              "type": "Core Theory / Curve"
+            }
+          ]
+        },
+        {
+          "id": "eth-m3",
+          "name": "Module 3: Monetary System, Taxation & National Income",
+          "weightage": "12.5 Marks",
+          "topics": [
+            {
+              "id": "eth-m3-01",
+              "title": "Functions of Money & Central Banking (RBI)",
+              "concepts": "Primary and secondary functions of money, Central Bank role, Quantitative credit control (Repo rate, Reverse repo, CRR, SLR, Bank rate) vs Qualitative credit controls.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m3-02",
+              "title": "Inflation & Deflation: Causes, Effects & Policies",
+              "concepts": "Demand-pull inflation, Cost-push inflation, effects on production and distribution, Monetary policy vs Fiscal policy measures to control inflation.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m3-03",
+              "title": "Taxation: Direct vs Indirect Taxes & GST",
+              "concepts": "Canons of taxation, Direct taxes (Income tax, Corporate tax) vs Indirect taxes (Customs, Excise), Goods and Services Tax (GST) structure, CGST, SGST, IGST.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m3-04",
+              "title": "National Income Concepts & Circular Flow",
+              "concepts": "GDP, GNP, NNP at market price and factor cost, Personal income, Circular flow of income in two-sector and three-sector economies, difficulties in measurement.",
+              "priority": "High",
+              "type": "Core Theory"
+            },
+            {
+              "id": "eth-m3-05",
+              "title": "Stock Market Functions & Demat Trading",
+              "concepts": "Primary vs Secondary market, Functions of stock exchange, Demat account, Trading account, Stock market indices: BSE Sensex and NSE Nifty.",
+              "priority": "Medium",
+              "type": "Core Theory"
+            }
+          ]
+        },
+        {
+          "id": "eth-m4",
+          "name": "Module 4: Value Engineering, Break-Even Analysis & Capital Budgeting",
+          "weightage": "12.5 Marks",
+          "topics": [
+            {
+              "id": "eth-m4-01",
+              "title": "Value Engineering: Concepts & Job Plan Procedure",
+              "concepts": "Cost Value, Exchange Value, Use Value, Esteem Value, Value = Function / Cost, 6-phase Value Engineering Job Plan (Information, Function Analysis, Creative, Evaluation, Development, Presentation).",
+              "priority": "High",
+              "type": "Core Theory / Procedure"
+            },
+            {
+              "id": "eth-m4-02",
+              "title": "Break-Even Analysis (BEP)",
+              "concepts": "Fixed cost, variable cost, Contribution = Sales - Variable Cost, P/V Ratio = Contribution/Sales, BEP (units) = FC / (P - V), BEP (sales) = FC / (P/V ratio), Margin of Safety, Break-Even Chart.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            },
+            {
+              "id": "eth-m4-03",
+              "title": "Cost-Benefit Analysis (CBA)",
+              "concepts": "Identification of costs and benefits, discounting, Benefit-Cost Ratio (BCR = Present value of benefits / Present value of costs), decision criteria BCR >= 1.",
+              "priority": "High",
+              "type": "Numerical / Theory"
+            },
+            {
+              "id": "eth-m4-04",
+              "title": "Capital Budgeting Techniques",
+              "concepts": "Payback Period method, Net Present Value (NPV = PV of inflows - Initial Investment), Internal Rate of Return (IRR), comparison and decision rules.",
+              "priority": "High",
+              "type": "Numerical / High-Yield"
+            }
+          ]
+        }
+      ]
     }
   }
 }

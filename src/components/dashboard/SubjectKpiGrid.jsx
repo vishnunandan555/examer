@@ -1,47 +1,38 @@
 import React from 'react';
-import { AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { AlertTriangle, ArrowRight } from 'lucide-react';
+
+const SUBJECT_METADATA = {
+  cn: { badgeClass: 'badge-critical', accentColor: 'var(--accent-red)', typeLabel: 'S5 Theory' },
+  mat: { badgeClass: 'badge-supply', accentColor: 'var(--accent-yellow)', typeLabel: 'S3 Supply' },
+  daa: { badgeClass: 'badge-theory', accentColor: 'var(--accent-peach)', typeLabel: 'S5 Theory' },
+  dsa: { badgeClass: 'badge-supply', accentColor: 'var(--accent-green)', typeLabel: 'S3 Supply' },
+  ml: { badgeClass: 'badge-theory', accentColor: 'var(--accent-blue)', typeLabel: 'S5 Theory' },
+  mc: { badgeClass: 'badge-theory', accentColor: 'var(--accent-purple)', typeLabel: 'S5 Theory' },
+  da: { badgeClass: 'badge-theory', accentColor: 'var(--accent-cyan)', typeLabel: 'S5 Theory' },
+  ethics: { badgeClass: 'badge-supply', accentColor: '#ec4899', typeLabel: 'S3 Supply' }
+};
 
 export default function SubjectKpiGrid({
-  cnStats,
-  cnDays,
-  daaStats,
-  daaDays,
-  dsaStats,
-  dsaDays,
+  allSubjectStats = {},
   onNavigate
 }) {
-  const cards = [
-    {
-      id: 'cn',
-      title: 'Computer Networks',
-      code: 'Nov 23 • S5 Theory (PCCST501)',
-      badgeClass: 'badge-critical',
-      accentColor: 'var(--accent-red)',
-      stats: cnStats,
-      days: cnDays,
-      viewLabel: 'Open CN Syllabus'
-    },
-    {
-      id: 'daa',
-      title: 'DAA (Algorithms)',
-      code: 'Nov 27 • S5 Theory (PCCST502)',
+  const subjectList = Object.entries(allSubjectStats).map(([id, info]) => {
+    const meta = SUBJECT_METADATA[id] || {
       badgeClass: 'badge-theory',
-      accentColor: 'var(--accent-peach)',
-      stats: daaStats,
-      days: daaDays,
-      viewLabel: 'Open DAA Syllabus'
-    },
-    {
-      id: 'dsa',
-      title: 'S3 DSA (Supply)',
-      code: 'Nov 30 • S3 Supply (PCCST303)',
-      badgeClass: 'badge-supply',
-      accentColor: 'var(--accent-green)',
-      stats: dsaStats,
-      days: dsaDays,
-      viewLabel: 'Open DSA Syllabus'
-    }
-  ];
+      accentColor: 'var(--accent-blue)',
+      typeLabel: 'Course'
+    };
+    return {
+      id,
+      title: info.data.title,
+      code: `${info.data.displayDate} • ${meta.typeLabel} (${info.data.code})`,
+      badgeClass: meta.badgeClass,
+      accentColor: meta.accentColor,
+      stats: info.stats,
+      days: info.days,
+      viewLabel: `Open ${info.data.code} Syllabus`
+    };
+  });
 
   return (
     <div
@@ -52,8 +43,9 @@ export default function SubjectKpiGrid({
         marginBottom: '1.25rem'
       }}
     >
-      {cards.map((card) => {
+      {subjectList.map((card) => {
         const s = card.stats;
+        if (!s) return null;
 
         return (
           <div

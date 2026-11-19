@@ -1,0 +1,698 @@
+GO LEARNERZ
+Where Learnerz Meets progress
+
+KTU BTECH ONLINE CLASSES
+KTU CRASH COURSES| KTU MOCK TEST | KTU
+PREVIOUS YEAR QUESTION PAPER SOLVED
+
+www.golearnerz.com
+
+SEMESTER S5
+MICROCONTROLLERS
+(Common to CS/CC)
+Course Code
+
+PBCST504
+
+CIE Marks
+
+60
+
+3:0:0:1
+
+ESE Marks
+
+40
+
+4
+
+Exam Hours
+
+2 Hrs. 30 Min.
+
+None
+
+Course Type
+
+Theory
+
+Teaching Hours/Week
+(L:T:P:R)
+Credits
+Prerequisites (if any)
+Course Objectives:
+
+1. To introduce the ARM architecture and ARM-based microcontroller architecture.
+2. To impart knowledge on the hardware and software components to develop embedded systems
+using STM32 microcontrollers.
+
+SYLLABUS
+Module
+
+Contact
+
+Syllabus Description
+
+No.
+
+Hours
+
+Introduction to ARM Cortex-M Architecture:Overview of Embedded Systems, Applications of Embedded Systems,
+Introduction
+
+1
+
+to
+
+Embedded
+
+C,
+
+Microcontrollers
+
+vs.
+
+Microprocessors,
+
+Classification of processors, Overview of ARM Cortex-M Series, Introduction
+
+9
+
+to the Cortex-M23 and Cortex-M33 processors and the Armv8-mArchitecture,
+ARM Core Features: Registers, Memory, and Bus Architecture, Comparison
+with previous generations of Cortex-M processors.
+STM32 Microcontroller Overview and Peripheral Programming:Introduction to STM32 Family, STM32U575 Features and Specifications,
+Power Management and Low-Power Features Libraries, Introduction to
+
+2
+
+Integrated Development Environment and HAL, Writing, and Debugging Your
+
+11
+
+First Program(LED Interfacing), Interfacing Seven-Segment Display, LCD
+Display, and Matrix Keypad, Relay Interfacing, Analog to Digital Conversion:
+Potentiometer, temperature sensor, LDR, Microphone, Digital to Analog
+Conversion: Simple DAC Output Generation, Generating a Sine Wave, Audio
+
+For More Lecture Videos: www.golearnerz.com
+
+Signal Generation, Interrupt Handling, Timer and Counter Applications: Basic
+Timer Configuration, Timers as Counters, Timer-Based Real-Time Clock
+(RTC)
+Communication Protocols and USB:Serial port terminal Application, Serial communication (USART, I2C, SPI,
+CAN), Interfacing an I2C Temperature Sensor and Displaying Data on an LCD,
+
+3
+
+writing to and Reading from an SPI-based EEPROM, Configuring and
+Implementing
+
+CAN
+
+Communication
+
+between
+
+Multiple
+
+10
+
+STM32U575
+
+Microcontrollers, Creating a USB HID Device for Keyboard / Mouse
+Emulation
+IoT, Wireless Communication, and RTOS:Introduction to IoT, IoT Architecture, Protocols (MQTT, CoAP), IoT Security
+Principles and Common Threats Wireless Communication: Interfacing GSM
+(Call, SMS, Internet), Bluetooth Communication Basics, LoRa Communication
+Basics and Applications, Designing an IoT-Based Home Automation System,
+Introduction to RTOS Concepts, FreeRTOS with STM32: Task Creation,
+
+4
+
+Scheduling, and Management, RTOS Timers, Delays, and RTC Integration,
+
+14
+
+Inter-task Communication: Queues and Semaphores
+Trust Zone Technology: Introduction to ARM Trust Zone, Trust Zone
+Architecture and Features, Secure and Non-Secure Worlds: Configuration and
+Management, Implementing Trust Zone in STM32U575, Advanced Debugging
+and Optimization: Code and Memory Optimization Techniques, Debugging
+Strategies and Tools
+
+Suggestion on Project Topics
+
+● Identify real world problems requiring hardware solutions and develop them using
+peripheral devices. Some of the examples would be - Home automation, Small
+home/office security system, ARM based voice response system etc.
+
+For More Lecture Videos: www.golearnerz.com
+
+Course Assessment Method
+(CIE: 60 marks, ESE: 40 marks)
+Continuous Internal Evaluation Marks (CIE):
+
+Attendance
+
+Project
+
+Internal Ex-1
+
+Internal Ex-2
+
+Total
+
+5
+
+30
+
+12.5
+
+12.5
+
+60
+
+End Semester Examination Marks (ESE)
+In Part A, all questions need to be answered and in Part B, each student can choose any one
+full question out of two questions
+Part A
+●
+●
+
+Part B
+
+Total
+
+2 Questions from each
+
+2 questions will be given from each module, out of
+
+module.
+
+which 1 question should be answered. Each question
+
+Total of 8 Questions,
+
+can have a maximum of 2 subdivisions. Each question
+
+each carrying 2 marks
+
+carries 6 marks.
+
+40
+
+(4x6 = 24 marks)
+
+(8x2 =16 marks)
+
+Course Outcomes (COs)
+At the end of the course students should be able to:
+
+Course Outcome
+
+Bloom’s
+Knowledge
+Level (KL)
+K2
+
+CO2
+
+Explain the architectural features and instructions of the ARM
+microcontrollers.
+Develop applications involving interfacing of external devices and I/O
+with ARM microcontroller.
+Use various communication protocols of interaction with peer devices
+and peripherals.
+
+K3
+
+CO3
+CO4
+
+Demonstrate the use of a real time operating system in embedded
+system applications.
+
+K3
+
+CO5
+
+Apply hardware security features of ARM in real world applications.
+
+K3
+
+CO1
+
+K3
+
+Note: K1- Remember, K2- Understand, K3- Apply, K4- Analyse, K5- Evaluate, K6- Create
+
+For More Lecture Videos: www.golearnerz.com
+
+CO-PO Mapping Table:
+PO1
+
+PO2
+
+PO3
+
+PO4
+
+PO5
+
+PO6
+
+PO7
+
+PO8
+
+PO9
+
+PO10
+
+CO1
+
+3
+
+3
+
+3
+
+3
+
+CO2
+
+3
+
+3
+
+3
+
+3
+
+CO3
+
+3
+
+3
+
+3
+
+3
+
+3
+
+3
+
+CO4
+
+3
+
+3
+
+3
+
+3
+
+3
+
+3
+
+CO5
+
+3
+
+3
+
+3
+
+3
+
+PO11 PO12
+
+3
+
+Text Books
+Sl. No
+
+Title of the Book
+The Definitive Guide to ARM Cortex-
+
+1
+
+M3 and Cortex-M4 Processors
+
+2
+
+Mastering STM32
+
+Name of the
+
+Name of the
+
+Edition
+
+Author/s
+
+Publisher
+
+and Year
+
+Joseph Yiu
+
+Newnes - Elsevier
+
+3/e, 2014
+
+Carmine Noviello
+
+Learnpub
+
+2/e, 2022
+
+Reference Books
+Sl. No
+1
+
+2
+
+3
+
+Title of the Book
+
+Name of the Author/s
+
+ARM System Developer’s
+
+Andrew N. Sloss, Dominic
+
+Guide
+
+Symes, Chris Wright
+
+Embedded System Design
+
+Cem Ünsalan, Hüseyin Deniz
+
+with Arm Cortex-M
+
+Gürhan
+
+Microcontrollers
+
+Mehmet Erkin Yücel
+
+Introduction to ARM ®
+Cortex-M Microcontrollers
+
+Jonathan W. Valvano
+
+Name of the
+
+Edition
+
+Publisher
+
+and Year
+
+Morgan Kaufman
+
+1/e, 2008
+
+Springer
+
+1/e, 2022
+
+Self-Published
+
+5/e, 2014
+
+For More Lecture Videos: www.golearnerz.com
+
+Video Links (NPTEL, SWAYAM…)
+Module No.
+
+Link ID
+
+1
+
+https://archive.nptel.ac.in/courses/106/105/106105193/
+
+2
+
+https://www.st.com/resource/en/datasheet/
+
+PBL Course Elements
+L: Lecture
+
+R: Project (1 Hr.), 2 Faculty Members
+
+(3 Hrs.)
+
+Lecture delivery
+Group discussion
+
+Tutorial
+
+Practical
+
+Project identification
+Project Analysis
+
+Simulation/
+
+Presentation
+
+Laboratory Work/
+
+(Progress
+
+Workshops
+
+Presentations)
+
+Data Collection
+
+Evaluation
+
+Question answer
+
+Project
+
+Sessions/
+
+Analytical thinking and
+
+Brainstorming
+
+self-learning
+
+Testing
+
+Sessions
+Guest Speakers
+(Industry
+Experts)
+
+Presentation
+
+and
+
+Final
+
+Milestone
+
+Reviews,
+
+Feedback,
+Project
+
+reformation
+
+(If
+
+required)
+Poster Presentation/
+Case
+
+Study/
+
+Survey Report
+
+Field
+
+Prototyping
+
+Video Presentation: Students
+present their results in a 2 to 5
+minutes video
+
+For More Lecture Videos: www.golearnerz.com
+
+Assessment and Evaluation for Project Activity
+Sl. No
+
+Evaluation for
+
+Allotted
+Marks
+
+1
+
+Project Planning and Proposal
+
+5
+
+2
+
+Contribution in Progress Presentations and Question Answer
+
+4
+
+Sessions
+3
+
+Involvement in the project work and Team Work
+
+3
+
+4
+
+Execution and Implementation
+
+10
+
+5
+
+Final Presentations
+
+5
+
+6
+
+Project Quality, Innovation and Creativity
+
+3
+
+Total
+
+30
+
+1. Project Planning and Proposal (5 Marks)
+●
+
+Clarity and feasibility of the project plan
+
+●
+
+Research and background understanding
+
+●
+
+Defined objectives and methodology
+
+2. Contribution in Progress Presentation and Question Answer Sessions (4 Marks)
+
+3.
+
+●
+
+Individual contribution to the presentation
+
+●
+
+Effectiveness in answering questions and handling feedback
+
+Involvement in the Project Work and Team Work (3 Marks)
+●
+
+Active participation and individual contribution
+
+●
+
+Teamwork and collaboration
+
+4. Execution and Implementation (10 Marks)
+●
+
+Adherence to the project timeline and milestones
+
+●
+
+Application of theoretical knowledge and problem-solving
+
+●
+
+Final Result
+
+For More Lecture Videos: www.golearnerz.com
+
+5. Final Presentation (5 Marks)
+●
+
+Quality and clarity of the overall presentation
+
+●
+
+Individual contribution to the presentation
+
+●
+
+Effectiveness in answering questions
+
+6. Project Quality, Innovation, and Creativity (3 Marks)
+●
+
+Overall quality and technical excellence of the project
+
+●
+
+Innovation and originality in the project
+
+Creativity in solutions and approaches
+
+For More Lecture Videos: www.golearnerz.com
+
+WHERE LEARNERS
+MEETS PROGRESS
+ELEVATE YOUR EXPERIENCE
+
+Easy To Use,
+Anywhere, Anytime
+
+Streamlined User
+Interface
+
+Personalized
+Experience
+
+24 Hours
+Support
+
+Why Choose Us?
+Top Faculties and
+Mentor Support
+
+Free Webinars on
+Exam preparation
+
+Subject wise community for
+discussion and doubt solving
+
+Well Formatted
+Recorded classes
+
+Solved Previous Year
+Questions With Detailed
+Video
+
+Subject Wise Materials
+
+Contact Us
+
++918089464002
+
+www.golearnerz.com
+golearnerz
+
+
