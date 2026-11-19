@@ -1,0 +1,181 @@
+import React from 'react';
+import { AlertTriangle, ArrowRight } from 'lucide-react';
+import { formatTime } from '../../utils/timeUtils';
+
+export default function SubjectKpiGrid({
+  cnMetrics,
+  cnDays,
+  daaMetrics,
+  daaDays,
+  dsaMetrics,
+  dsaDays,
+  playbackSpeed,
+  timeUnitMode,
+  toggleTimeUnit,
+  onNavigate
+}) {
+  const cards = [
+    {
+      id: 'cn',
+      title: 'Computer Networks',
+      code: 'Nov 23 • S5 Theory (PCCST501)',
+      badgeClass: 'badge-critical',
+      accentColor: 'var(--accent-red)',
+      metrics: cnMetrics,
+      days: cnDays,
+      viewLabel: 'View CN Videos'
+    },
+    {
+      id: 'daa',
+      title: 'DAA (Algorithms)',
+      code: 'Nov 27 • S5 Theory (PCCST502)',
+      badgeClass: 'badge-theory',
+      accentColor: 'var(--accent-peach)',
+      metrics: daaMetrics,
+      days: daaDays,
+      viewLabel: 'View DAA Videos'
+    },
+    {
+      id: 'dsa',
+      title: 'S3 DSA (Supply)',
+      code: 'Nov 30 • S3 Supply (PCCST303)',
+      badgeClass: 'badge-supply',
+      accentColor: 'var(--accent-green)',
+      metrics: dsaMetrics,
+      days: dsaDays,
+      viewLabel: 'View DSA Videos'
+    }
+  ];
+
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '0.85rem',
+        marginBottom: '1.25rem'
+      }}
+    >
+      {cards.map((card) => {
+        const m = card.metrics;
+
+        return (
+          <div
+            key={card.id}
+            className="card card-hover"
+            style={{ padding: '1rem', borderTop: `3px solid ${card.accentColor}`, userSelect: 'none' }}
+          >
+            {/* Card Header */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                marginBottom: '0.4rem',
+                flexWrap: 'wrap',
+                gap: '0.35rem'
+              }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>{card.title}</h3>
+                  <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>
+                    {m.trackName}
+                  </span>
+                </div>
+                <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>{card.code}</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span className={`badge ${card.badgeClass}`}>{card.days} Days Left</span>
+                <span
+                  onClick={toggleTimeUnit}
+                  title="Click to toggle Hours / Days format"
+                  style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
+                >
+                  {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                </span>
+              </div>
+            </div>
+
+            {/* Progress Section */}
+            <div style={{ margin: '0.75rem 0' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+                <span style={{ color: 'var(--text-muted)' }}>
+                  Progress: {m.completedVids} / {m.totalVids} videos
+                </span>
+                <span className="mono" style={{ color: card.accentColor, fontWeight: 700 }}>
+                  {m.rate.toFixed(1)}%
+                </span>
+              </div>
+              <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                <div
+                  style={{
+                    width: `${m.rate}%`,
+                    background: card.accentColor,
+                    height: '100%',
+                    transition: 'width 0.3s ease'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Remaining Watch Time & Study Pace Footer */}
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '0.75rem',
+                color: 'var(--text-muted)',
+                paddingTop: '0.5rem',
+                borderTop: '1px solid var(--border-subtle)',
+                flexWrap: 'wrap',
+                gap: '0.35rem'
+              }}
+            >
+              <span>
+                Remaining:{' '}
+                <strong style={{ color: 'var(--text-main)' }}>
+                  {formatTime(m.remainingHrs, timeUnitMode)}
+                </strong>{' '}
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span>
+              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
+                <strong
+                  style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
+                  className="mono"
+                >
+                  {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                  {m.pace.toFixed(1)} hrs/day
+                </strong>
+              </div>
+            </div>
+
+            {/* View Link Button */}
+            <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
+              <button
+                onClick={() => onNavigate(card.id)}
+                style={{
+                  background: 'var(--bg-active)',
+                  border: '1px solid var(--border-default)',
+                  color: card.accentColor,
+                  padding: '0.25rem 0.6rem',
+                  borderRadius: '4px',
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem'
+                }}
+              >
+                {card.viewLabel} <ArrowRight size={11} />
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

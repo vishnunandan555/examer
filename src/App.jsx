@@ -1,43 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import appData from './data/playlist_data.json';
-import {
-  Calendar,
-  Clock,
-  CheckCircle2,
-  Circle,
-  ExternalLink,
-  BookOpen,
-  Filter,
-  Search,
-  Sparkles,
-  Layers,
-  ArrowRight,
-  TrendingUp,
-  AlertTriangle,
-  RotateCcw,
-  Download,
-  Info,
-  ChevronDown,
-  ChevronUp,
-  Zap,
-  ShieldCheck,
-  Flame,
-  FolderTree,
-  FileText,
-  Copy,
-  Check,
-  Lock,
-  Cloud,
-  Settings,
-  KeyRound,
-  Eye,
-  EyeOff
-} from 'lucide-react';
+import { getDaysLeft, formatTime } from './utils/timeUtils';
+import { getItemKey, getSubjectStats, getTrackMetrics } from './utils/metricsUtils';
 import { pullFromCloud, pushToCloud, getCloudConfig, saveCloudConfig } from './services/cloudSync';
 
-const CURRENT_DATE = new Date('2026-11-19T08:51:00+05:30');
+// Common Components
+import Navbar from './components/common/Navbar';
+import NavigationTabs from './components/common/NavigationTabs';
+import PasscodeModal from './components/common/PasscodeModal';
+import SettingsModal from './components/common/SettingsModal';
+import SyllabusModal from './components/common/SyllabusModal';
+
+// Views
+import DashboardView from './components/dashboard/DashboardView';
+import SubjectView from './components/subject/SubjectView';
+import DatasetsView from './components/datasets/DatasetsView';
 
 export default function App() {
+  // Navigation & View Mode State
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeViewMode, setActiveViewMode] = useState(() => {
     try {
@@ -45,17 +25,12 @@ export default function App() {
     } catch (e) {
       return 'study';
     }
-  }); // 'study' (Selected), 'core', 'original' (Full), 'optional', 'removed'
+  });
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('examer_active_track_v1', activeViewMode);
-    } catch (e) {
-      // ignore
-    }
-  }, [activeViewMode]);
   const [selectedModule, setSelectedModule] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Speed & Time Formatting Preferences
   const [playbackSpeed, setPlaybackSpeed] = useState(() => {
     try {
       const saved = localStorage.getItem('examer_playback_speed_v1');
@@ -64,10 +39,7 @@ export default function App() {
       return 1.5;
     }
   });
-  const [copiedKey, setCopiedKey] = useState(null);
-  const [selectedSyllabusTab, setSelectedSyllabusTab] = useState('cn');
 
-  // Time unit display: 'hrs' or 'days'
   const [timeUnitMode, setTimeUnitMode] = useState(() => {
     try {
       return localStorage.getItem('examer_time_unit_v1') || 'hrs';
@@ -76,6 +48,7 @@ export default function App() {
     }
   });
 
+  // Completion State
   const [completedMap, setCompletedMap] = useState(() => {
     try {
       const saved = localStorage.getItem('examer_completed_v1');
@@ -96,17 +69,7 @@ export default function App() {
 
   const [animatingOutKeys, setAnimatingOutKeys] = useState({});
 
-  useEffect(() => {
-    try {
-      localStorage.setItem('examer_show_completed_v1', String(showCompleted));
-    } catch (e) {
-      // ignore
-    }
-  }, [showCompleted]);
-
-  const [expandedSyllabus, setExpandedSyllabus] = useState(false);
-
-  // Passcode Protection & Cloud Sync State
+  // Security Passcode State
   const [isUnlocked, setIsUnlocked] = useState(() => {
     try {
       return localStorage.getItem('examer_unlocked_v1') === 'true';
@@ -114,6 +77,7 @@ export default function App() {
       return false;
     }
   });
+
   const [passcode, setPasscode] = useState(() => {
     try {
       return localStorage.getItem('examer_passcode_v1') || '2026';
@@ -121,21 +85,64 @@ export default function App() {
       return '2026';
     }
   });
-  const [passcodeAttempt, setPasscodeAttempt] = useState('');
-  const [passcodeError, setPasscodeError] = useState(false);
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [newPasscodeInput, setNewPasscodeInput] = useState('');
-  const [passcodeSuccessMsg, setPasscodeSuccessMsg] = useState('');
 
-  // Cloud Sync state
+  // Modal Dialogs State
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [expandedSyllabus, setExpandedSyllabus] = useState(false);
+
+  // Multi-Device Cloud Sync State
   const [cloudConfig, setCloudConfig] = useState(getCloudConfig);
   const [cloudSyncState, setCloudSyncState] = useState('idle'); // 'idle' | 'syncing' | 'synced' | 'error'
   const [cloudMsg, setCloudMsg] = useState('');
 
-  // Pull from cloud when unlocked
+  // LocalStorage Synchronization Effects
   useEffect(() => {
-    if (!isUnlocked) return;
-    if (!cloudConfig.enabled || !cloudConfig.endpoint) return;
+    try {
+      localStorage.setItem('examer_active_track_v1', activeViewMode);
+    } catch (e) {}
+  }, [activeViewMode]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_playback_speed_v1', String(playbackSpeed));
+    } catch (e) {}
+  }, [playbackSpeed]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_time_unit_v1', timeUnitMode);
+    } catch (e) {}
+  }, [timeUnitMode]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_completed_v1', JSON.stringify(completedMap));
+    } catch (e) {}
+
+    // Auto-sync to cloud when online and configured
+    if (cloudConfig.enabled && cloudConfig.endpoint && cloudConfig.token) {
+      setCloudSyncState('syncing');
+      pushToCloud(completedMap)
+        .then(() => {
+          setCloudSyncState('synced');
+          setCloudMsg(`Synced at ${new Date().toLocaleTimeString()}`);
+        })
+        .catch((err) => {
+          setCloudSyncState('error');
+          setCloudMsg(err.message);
+        });
+    }
+  }, [completedMap]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_show_completed_v1', String(showCompleted));
+    } catch (e) {}
+  }, [showCompleted]);
+
+  // Pull from Cloud on Initial Unlock
+  useEffect(() => {
+    if (!isUnlocked || !cloudConfig.enabled || !cloudConfig.endpoint) return;
 
     let isMounted = true;
     setCloudSyncState('syncing');
@@ -148,199 +155,21 @@ export default function App() {
             ...remoteData
           }));
           setCloudSyncState('synced');
+          setCloudMsg(`Pulled latest from cloud`);
         } else {
-          setCloudSyncState('idle');
+          setCloudSyncState('synced');
         }
       })
-      .catch(() => {
-        if (isMounted) setCloudSyncState('error');
+      .catch((err) => {
+        if (!isMounted) return;
+        setCloudSyncState('error');
+        setCloudMsg(err.message);
       });
 
     return () => {
       isMounted = false;
     };
-  }, [isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
-
-  // Debounced push to cloud when completedMap changes
-  useEffect(() => {
-    if (!isUnlocked || !cloudConfig.enabled || !cloudConfig.endpoint) return;
-
-    const timer = setTimeout(() => {
-      setCloudSyncState('syncing');
-      pushToCloud(completedMap).then((ok) => {
-        setCloudSyncState(ok ? 'synced' : 'error');
-      });
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, [completedMap, isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
-
-  const handleUnlock = (e) => {
-    if (e) e.preventDefault();
-    if (passcodeAttempt.trim() === passcode) {
-      setIsUnlocked(true);
-      try {
-        localStorage.setItem('examer_unlocked_v1', 'true');
-      } catch (err) {}
-      setPasscodeError(false);
-      setPasscodeAttempt('');
-    } else {
-      setPasscodeError(true);
-    }
-  };
-
-  const handleLock = () => {
-    setIsUnlocked(false);
-    try {
-      localStorage.removeItem('examer_unlocked_v1');
-    } catch (err) {}
-  };
-
-  const handleUpdatePasscode = (e) => {
-    if (e) e.preventDefault();
-    if (newPasscodeInput.trim().length >= 3) {
-      const code = newPasscodeInput.trim();
-      setPasscode(code);
-      try {
-        localStorage.setItem('examer_passcode_v1', code);
-      } catch (err) {}
-      setNewPasscodeInput('');
-      setPasscodeSuccessMsg('Passcode updated successfully!');
-      setTimeout(() => setPasscodeSuccessMsg(''), 3000);
-    }
-  };
-
-  const handleSaveCloudConfig = (updated) => {
-    setCloudConfig(updated);
-    saveCloudConfig(updated);
-    if (updated.enabled && updated.endpoint) {
-      setCloudSyncState('syncing');
-      pushToCloud(completedMap).then((ok) => {
-        setCloudSyncState(ok ? 'synced' : 'error');
-        setCloudMsg(ok ? 'Synced with cloud!' : 'Cloud connection failed');
-        setTimeout(() => setCloudMsg(''), 3500);
-      });
-    } else {
-      setCloudSyncState('idle');
-    }
-  };
-
-  // Sync state to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem('examer_playback_speed_v1', String(playbackSpeed));
-    } catch (e) {
-      console.error('Failed to save playback speed', e);
-    }
-  }, [playbackSpeed]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('examer_completed_v1', JSON.stringify(completedMap));
-    } catch (e) {
-      console.error('Failed to save to localStorage', e);
-    }
-  }, [completedMap]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('examer_time_unit_v1', timeUnitMode);
-    } catch (e) {
-      console.error('Failed to save time unit', e);
-    }
-  }, [timeUnitMode]);
-
-  const toggleTimeUnit = () => {
-    setTimeUnitMode((prev) => (prev === 'hrs' ? 'days' : 'hrs'));
-  };
-
-  // Format hours vs days: if >= 12 hrs in days mode, convert to Days (i.e. 12 hrs = 0.5 Days)
-  const formatTime = (hours) => {
-    if (typeof hours !== 'number' || isNaN(hours)) return '0 hrs';
-    if (timeUnitMode === 'days') {
-      if (hours >= 12) {
-        const days = (hours / 24).toFixed(1);
-        return `${days} Days`;
-      }
-      return `${hours.toFixed(1)} hrs`;
-    }
-    return `${hours.toFixed(1)} hrs`;
-  };
-
-  // Universal unique video identifier across all tracks & tabs
-  const getItemKey = (item) => {
-    return item['Video url'] || `${item.Subject}_${item.Index}`;
-  };
-
-  const toggleComplete = (itemKey) => {
-    const willBeCompleted = !completedMap[itemKey];
-
-    if (willBeCompleted && !showCompleted) {
-      // Initiate smooth removal animation
-      setAnimatingOutKeys((prev) => ({ ...prev, [itemKey]: true }));
-      setCompletedMap((prev) => ({
-        ...prev,
-        [itemKey]: true
-      }));
-
-      setTimeout(() => {
-        setAnimatingOutKeys((prev) => {
-          const next = { ...prev };
-          delete next[itemKey];
-          return next;
-        });
-      }, 450);
-    } else {
-      if (animatingOutKeys[itemKey]) {
-        setAnimatingOutKeys((prev) => {
-          const next = { ...prev };
-          delete next[itemKey];
-          return next;
-        });
-      }
-      setCompletedMap((prev) => ({
-        ...prev,
-        [itemKey]: !prev[itemKey]
-      }));
-    }
-  };
-
-  const markBatch = (items, done) => {
-    setCompletedMap((prev) => {
-      const next = { ...prev };
-      items.forEach((item) => {
-        const key = getItemKey(item);
-        if (done) next[key] = true;
-        else delete next[key];
-      });
-      return next;
-    });
-  };
-
-  // CSV Download utility
-  const downloadCSV = (filename, rows) => {
-    if (!rows || !rows.length) return;
-    const headers = Object.keys(rows[0]);
-    const csvContent = [
-      headers.join(','),
-      ...rows.map((r) => headers.map((h) => `"${String(r[h] ?? '').replace(/"/g, '""')}"`).join(','))
-    ].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', filename);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  // Copy to clipboard helper
-  const copyPath = (text, key) => {
-    navigator.clipboard.writeText(text);
-    setCopiedKey(key);
-    setTimeout(() => setCopiedKey(null), 2000);
-  };
+  }, [isUnlocked, cloudConfig.enabled]);
 
   // Pre-filter playlists
   const playlists = useMemo(() => {
@@ -354,90 +183,12 @@ export default function App() {
     return { cn, daa, dsa, dsaAll };
   }, []);
 
-  // Compute Days Remaining helper (Normalized to start-of-day IST)
-  const getDaysLeft = (dateStr) => {
-    const now = new Date();
-    // Use actual system date if in 2026, otherwise fallback to current timeline date 2026-11-19
-    const baseDate = now.getFullYear() === 2026 ? now : new Date('2026-11-19T09:08:43+05:30');
-    const todayYear = baseDate.getFullYear();
-    const todayMonth = String(baseDate.getMonth() + 1).padStart(2, '0');
-    const todayDay = String(baseDate.getDate()).padStart(2, '0');
-    const todayIso = `${todayYear}-${todayMonth}-${todayDay}`;
+  // Compute Subject Stats dynamically
+  const cnStats = useMemo(() => getSubjectStats(playlists.cn, completedMap, playbackSpeed), [playlists.cn, completedMap, playbackSpeed]);
+  const daaStats = useMemo(() => getSubjectStats(playlists.daa, completedMap, playbackSpeed), [playlists.daa, completedMap, playbackSpeed]);
+  const dsaStats = useMemo(() => getSubjectStats(playlists.dsa, completedMap, playbackSpeed), [playlists.dsa, completedMap, playbackSpeed]);
 
-    const targetTime = new Date(dateStr + 'T00:00:00').getTime();
-    const todayTime = new Date(todayIso + 'T00:00:00').getTime();
-
-    const diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
-  // Stats computation for a subject list (Dynamic metrics based on global video status)
-  const getSubjectStats = (list, subjectKey) => {
-    const totalVideos = list.length;
-    const totalMinutes = list.reduce((acc, v) => acc + v.Duration, 0);
-
-    const coreVideos = list.filter((v) => v.Status === 'Core');
-    const coreMinutes = coreVideos.reduce((acc, v) => acc + v.Duration, 0);
-
-    const optVideos = list.filter((v) => v.Status === 'Optional');
-    const optMinutes = optVideos.reduce((acc, v) => acc + v.Duration, 0);
-
-    const remVideos = list.filter((v) => v.Status === 'Removed');
-    const remMinutes = remVideos.reduce((acc, v) => acc + v.Duration, 0);
-
-    const selectedVideos = list.filter((v) => v.Status === 'Core' || v.Status === 'Optional');
-    const selectedMinutes = selectedVideos.reduce((acc, v) => acc + v.Duration, 0);
-
-    // Completed counts & minutes using unified video key
-    const completedTotalVideos = list.filter((v) => !!completedMap[getItemKey(v)]);
-    const completedTotalMinutes = completedTotalVideos.reduce((acc, v) => acc + v.Duration, 0);
-    const remainingTotalMinutes = Math.max(0, totalMinutes - completedTotalMinutes);
-
-    const completedCoreVideos = coreVideos.filter((v) => !!completedMap[getItemKey(v)]);
-    const completedCoreMinutes = completedCoreVideos.reduce((acc, v) => acc + v.Duration, 0);
-    const remainingCoreMinutes = Math.max(0, coreMinutes - completedCoreMinutes);
-
-    const completedOptVideos = optVideos.filter((v) => !!completedMap[getItemKey(v)]);
-    const completedOptMinutes = completedOptVideos.reduce((acc, v) => acc + v.Duration, 0);
-    const remainingOptMinutes = Math.max(0, optMinutes - completedOptMinutes);
-
-    const completedSelectedVideos = selectedVideos.filter((v) => !!completedMap[getItemKey(v)]);
-    const completedSelectedMinutes = completedSelectedVideos.reduce((acc, v) => acc + v.Duration, 0);
-    const remainingSelectedMinutes = Math.max(0, selectedMinutes - completedSelectedMinutes);
-
-    return {
-      totalVideos,
-      totalHours: totalMinutes / 60,
-      remainingTotalHours: remainingTotalMinutes / (60 * playbackSpeed),
-      completedTotalVideos: completedTotalVideos.length,
-
-      coreVideos: coreVideos.length,
-      coreHours: coreMinutes / 60,
-      remainingCoreHours: remainingCoreMinutes / (60 * playbackSpeed),
-      completedCoreVideos: completedCoreVideos.length,
-
-      optVideos: optVideos.length,
-      optHours: optMinutes / 60,
-      remainingOptHours: remainingOptMinutes / (60 * playbackSpeed),
-      completedOptVideos: completedOptVideos.length,
-
-      selectedVideos: selectedVideos.length,
-      selectedHours: selectedMinutes / 60,
-      remainingSelectedHours: remainingSelectedMinutes / (60 * playbackSpeed),
-      completedSelectedVideos: completedSelectedVideos.length,
-
-      remVideos: remVideos.length,
-      remHours: remMinutes / 60,
-
-      completionRate: totalVideos > 0 ? (completedTotalVideos.length / totalVideos) * 100 : 0
-    };
-  };
-
-  const cnStats = useMemo(() => getSubjectStats(playlists.cn, 'cn'), [playlists.cn, completedMap, playbackSpeed]);
-  const daaStats = useMemo(() => getSubjectStats(playlists.daa, 'daa'), [playlists.daa, completedMap, playbackSpeed]);
-  const dsaStats = useMemo(() => getSubjectStats(playlists.dsa, 'dsa'), [playlists.dsa, completedMap, playbackSpeed]);
-
-  // Active Subject List depending on active tab
+  // Active Subject Metadata
   const currentSubjectData = useMemo(() => {
     if (activeTab === 'cn') {
       return {
@@ -479,135 +230,20 @@ export default function App() {
     return null;
   }, [activeTab, playlists, cnStats, daaStats, dsaStats]);
 
-  // Dynamic metrics for any subject based on selected track (Selected, Core, Full)
-  const getTrackMetrics = (stats, daysLeft, mode = activeViewMode) => {
-    let totalVids = stats.selectedVideos;
-    let completedVids = stats.completedSelectedVideos;
-    let remainingHrs = stats.remainingSelectedHours;
-    let totalHrs = stats.selectedHours;
-    let trackName = 'Selected Track';
-    let trackBadge = 'badge-module';
-
-    if (mode === 'core') {
-      totalVids = stats.coreVideos;
-      completedVids = stats.completedCoreVideos;
-      remainingHrs = stats.remainingCoreHours;
-      totalHrs = stats.coreHours;
-      trackName = 'Core Track';
-      trackBadge = 'badge-supply';
-    } else if (mode === 'original') {
-      totalVids = stats.totalVideos;
-      completedVids = stats.completedTotalVideos;
-      remainingHrs = stats.remainingTotalHours;
-      totalHrs = stats.totalHours;
-      trackName = 'Full Track';
-      trackBadge = 'badge-core';
-    } else if (mode === 'optional') {
-      totalVids = stats.optVideos;
-      completedVids = stats.completedOptVideos;
-      remainingHrs = stats.remainingOptHours;
-      totalHrs = stats.optHours;
-      trackName = 'Optional Track';
-      trackBadge = 'badge-optional';
-    } else if (mode === 'removed') {
-      totalVids = stats.remVideos;
-      completedVids = 0;
-      remainingHrs = stats.remHours / playbackSpeed;
-      totalHrs = stats.remHours;
-      trackName = 'Removed Cut';
-      trackBadge = 'badge-critical';
-    }
-
-    const rate = totalVids > 0 ? (completedVids / totalVids) * 100 : 0;
-    const pace = daysLeft > 0 ? remainingHrs / daysLeft : 0;
-
-    let paceColor = '#4ade80'; // Green
-    let stress = 'Comfortable Pace';
-    let hasWarning = false;
-
-    if (pace > 12.0) {
-      paceColor = '#f87171'; // Red
-      stress = 'Extreme Crunch / Overload';
-      hasWarning = true;
-    } else if (pace > 6.5) {
-      paceColor = '#fb923c'; // Orange
-      stress = 'Intensive Study';
-      hasWarning = false;
-    } else if (pace > 3.5) {
-      paceColor = '#facc15'; // Yellow
-      stress = 'Moderate Pace';
-      hasWarning = false;
-    }
-
-    return {
-      totalVids,
-      completedVids,
-      remainingHrs,
-      totalHrs,
-      trackName,
-      trackBadge,
-      rate,
-      pace,
-      paceColor,
-      stress,
-      hasWarning
-    };
-  };
-
-  // Dynamic Study Pace computation based on active track and live remaining unwatched videos
+  // Active Subject Pace calculation
   const activePaceData = useMemo(() => {
     if (!currentSubjectData) return { pace: 0, color: '#4ade80', stress: 'Relaxed', trackLabel: 'Core Track', hasWarning: false };
-    const stats = currentSubjectData.stats;
-    const days = currentSubjectData.daysLeft > 0 ? currentSubjectData.daysLeft : 1;
-
-    let targetRemainingHours = stats.remainingCoreHours;
-    let trackLabel = 'Core Track';
-
-    if (activeViewMode === 'original') {
-      targetRemainingHours = stats.remainingTotalHours;
-      trackLabel = 'Full Track';
-    } else if (activeViewMode === 'study') {
-      targetRemainingHours = stats.remainingSelectedHours;
-      trackLabel = 'Selected Track';
-    } else if (activeViewMode === 'optional') {
-      targetRemainingHours = stats.remainingOptHours;
-      trackLabel = 'Optional Track';
-    } else if (activeViewMode === 'removed') {
-      targetRemainingHours = stats.remHours / playbackSpeed;
-      trackLabel = 'Removed Videos';
-    }
-
-    const pace = currentSubjectData.daysLeft > 0 ? targetRemainingHours / days : 0;
-
-    let color = '#4ade80'; // Green
-    let stress = 'Chill / Manageable';
-    let hasWarning = false;
-
-    if (pace > 12.0) {
-      color = '#f87171'; // Red
-      stress = 'Extreme Crunch / Overload';
-      hasWarning = true;
-    } else if (pace > 6.5) {
-      color = '#fb923c'; // Orange
-      stress = 'Intensive Study';
-      hasWarning = false;
-    } else if (pace > 3.5) {
-      color = '#facc15'; // Yellow
-      stress = 'Moderate Pace';
-      hasWarning = false;
-    }
-
+    const m = getTrackMetrics(currentSubjectData.stats, currentSubjectData.daysLeft, activeViewMode, playbackSpeed);
     return {
-      pace,
-      color,
-      stress,
-      trackLabel,
-      hasWarning,
-      remainingHours: targetRemainingHours
+      pace: m.pace,
+      color: m.paceColor,
+      stress: m.stress,
+      trackLabel: m.trackName,
+      hasWarning: m.hasWarning
     };
   }, [currentSubjectData, activeViewMode, playbackSpeed]);
 
-  // Filter videos for the current active tab
+  // Filtered Video List for Active Tab
   const displayedVideos = useMemo(() => {
     if (!currentSubjectData) return [];
     let items = currentSubjectData.list;
@@ -637,7 +273,7 @@ export default function App() {
       );
     }
 
-    // Filter out completed videos when showCompleted is false (except if actively animating out)
+    // Filter out completed videos if showCompleted is off (unless currently animating out)
     if (!showCompleted) {
       items = items.filter((v) => {
         const key = getItemKey(v);
@@ -650,2365 +286,209 @@ export default function App() {
     return items;
   }, [currentSubjectData, activeViewMode, selectedModule, searchQuery, showCompleted, completedMap, animatingOutKeys]);
 
+  // Video completion toggle with smooth removal animation
+  const toggleComplete = (itemKey) => {
+    const willBeCompleted = !completedMap[itemKey];
+
+    if (willBeCompleted && !showCompleted) {
+      setAnimatingOutKeys((prev) => ({ ...prev, [itemKey]: true }));
+      setCompletedMap((prev) => ({
+        ...prev,
+        [itemKey]: true
+      }));
+
+      setTimeout(() => {
+        setAnimatingOutKeys((prev) => {
+          const next = { ...prev };
+          delete next[itemKey];
+          return next;
+        });
+      }, 450);
+    } else {
+      if (animatingOutKeys[itemKey]) {
+        setAnimatingOutKeys((prev) => {
+          const next = { ...prev };
+          delete next[itemKey];
+          return next;
+        });
+      }
+      setCompletedMap((prev) => ({
+        ...prev,
+        [itemKey]: !prev[itemKey]
+      }));
+    }
+  };
+
+  const markBatch = (items, done) => {
+    setCompletedMap((prev) => {
+      const next = { ...prev };
+      items.forEach((item) => {
+        const key = getItemKey(item);
+        if (done) next[key] = true;
+        else delete next[key];
+      });
+      return next;
+    });
+  };
+
+  const toggleTimeUnit = () => {
+    setTimeUnitMode((prev) => (prev === 'days' ? 'hrs' : 'days'));
+  };
+
+  const handleManualPull = async () => {
+    setCloudSyncState('syncing');
+    try {
+      const remote = await pullFromCloud();
+      if (remote && typeof remote === 'object') {
+        setCompletedMap((prev) => ({ ...prev, ...remote }));
+        setCloudSyncState('synced');
+        setCloudMsg(`Successfully pulled ${Object.keys(remote).length} completion records.`);
+      }
+    } catch (e) {
+      setCloudSyncState('error');
+      setCloudMsg(e.message);
+    }
+  };
+
+  const handleManualPush = async () => {
+    setCloudSyncState('syncing');
+    try {
+      await pushToCloud(completedMap);
+      setCloudSyncState('synced');
+      setCloudMsg(`Successfully pushed ${Object.keys(completedMap).length} records to cloud.`);
+    } catch (e) {
+      setCloudSyncState('error');
+      setCloudMsg(e.message);
+    }
+  };
+
+  const handleLockDashboard = () => {
+    setIsUnlocked(false);
+    try {
+      localStorage.removeItem('examer_unlocked_v1');
+    } catch (e) {}
+    setShowSettingsModal(false);
+  };
+
+  const handleUnlock = () => {
+    setIsUnlocked(true);
+    try {
+      localStorage.setItem('examer_unlocked_v1', 'true');
+    } catch (e) {}
+  };
+
   // If locked, render Minimalist Passcode Gate
   if (!isUnlocked) {
-    return (
-      <div
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'var(--bg-base)',
-          padding: '1.5rem'
-        }}
-      >
-        <div
-          className="card"
-          style={{
-            width: '100%',
-            maxWidth: '380px',
-            padding: '2.25rem 1.75rem',
-            textAlign: 'center',
-            boxShadow: '0 25px 50px rgba(0,0,0,0.7)',
-            border: '1px solid var(--border-default)',
-            borderRadius: '8px'
-          }}
-        >
-          <div
-            style={{
-              width: '48px',
-              height: '48px',
-              borderRadius: '10px',
-              backgroundColor: 'var(--accent-blue)',
-              color: 'var(--bg-base)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 800,
-              fontSize: '1.4rem',
-              margin: '0 auto 1.15rem'
-            }}
-          >
-            E
-          </div>
-          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0 0 0.35rem', letterSpacing: '-0.02em' }}>
-            EXAMER
-          </h2>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem', marginBottom: '1.5rem' }}>
-            <span className="badge badge-module">KTU CSE</span>
-            <span className="badge badge-critical" style={{ fontSize: '0.68rem' }}>🔒 Protected Personal Suite</span>
-          </div>
-
-          <form onSubmit={handleUnlock}>
-            <div style={{ marginBottom: '1.15rem', textAlign: 'left' }}>
-              <label style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.4rem', fontWeight: 700, letterSpacing: '0.04em' }}>
-                ENTER PASSCODE
-              </label>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.55rem',
-                  backgroundColor: 'var(--bg-overlay)',
-                  border: passcodeError ? '1px solid var(--accent-red)' : '1px solid var(--border-default)',
-                  borderRadius: '6px',
-                  padding: '0.6rem 0.75rem'
-                }}
-              >
-                <Lock size={15} color={passcodeError ? 'var(--accent-red)' : 'var(--text-dim)'} />
-                <input
-                  type="password"
-                  autoFocus
-                  placeholder="Passcode..."
-                  value={passcodeAttempt}
-                  onChange={(e) => {
-                    setPasscodeAttempt(e.target.value);
-                    setPasscodeError(false);
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    outline: 'none',
-                    color: 'var(--text-main)',
-                    fontSize: '1rem',
-                    width: '100%',
-                    letterSpacing: '0.15em'
-                  }}
-                />
-              </div>
-              {passcodeError && (
-                <p style={{ color: 'var(--accent-red)', fontSize: '0.72rem', margin: '0.4rem 0 0', fontWeight: 500 }}>
-                  Incorrect passcode. Please try again.
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              style={{
-                width: '100%',
-                backgroundColor: 'var(--accent-blue)',
-                color: 'var(--bg-base)',
-                border: 'none',
-                borderRadius: '6px',
-                padding: '0.7rem 1rem',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.4rem'
-              }}
-            >
-              Unlock Dashboard <ArrowRight size={14} />
-            </button>
-          </form>
-
-          <p style={{ color: 'var(--text-dim)', fontSize: '0.7rem', marginTop: '1.5rem', marginBottom: 0 }}>
-            Personal exam preparation portal. Default PIN: <strong className="mono" style={{ color: 'var(--accent-yellow)' }}>2026</strong>
-          </p>
-        </div>
-      </div>
-    );
+    return <PasscodeModal passcode={passcode} onUnlock={handleUnlock} />;
   }
+
+  // Dashboard pre-computed metrics
+  const cnDays = Math.max(1, getDaysLeft('2026-11-23'));
+  const daaDays = Math.max(1, getDaysLeft('2026-11-27'));
+  const dsaDays = Math.max(1, getDaysLeft('2026-11-30'));
+
+  const cnMetrics = getTrackMetrics(cnStats, cnDays, activeViewMode, playbackSpeed);
+  const daaMetrics = getTrackMetrics(daaStats, daaDays, activeViewMode, playbackSpeed);
+  const dsaMetrics = getTrackMetrics(dsaStats, dsaDays, activeViewMode, playbackSpeed);
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Top Navbar */}
-      <header
-        style={{
-          borderBottom: '1px solid var(--border-default)',
-          backgroundColor: 'var(--bg-surface)',
-          padding: '0.65rem 1rem',
-          position: 'sticky',
-          top: 0,
-          zIndex: 50
-        }}
-      >
-        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }}>
-          {/* Logo & Brand */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-            <div
-              style={{
-                width: '34px',
-                height: '34px',
-                borderRadius: '6px',
-                backgroundColor: 'var(--accent-blue)',
-                color: 'var(--bg-base)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 800,
-                fontSize: '1.05rem',
-                flexShrink: 0
-              }}
-            >
-              E
-            </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
-                  EXAMER
-                </span>
-                <span className="badge badge-module">KTU CSE</span>
-              </div>
-              <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', lineHeight: 1.2 }}>Personal Exam Suite & Playlist Tracker</p>
-            </div>
-          </div>
+      {/* 1. Global Navigation Bar */}
+      <Navbar
+        playbackSpeed={playbackSpeed}
+        setPlaybackSpeed={setPlaybackSpeed}
+        lastUpdatedDisplay={appData.lastUpdatedDisplay}
+        cloudSyncState={cloudSyncState}
+        cloudConfig={cloudConfig}
+        onOpenSettings={() => setShowSettingsModal(true)}
+      />
 
-          {/* Right Header Controls: Unit Toggle, Speed & Next Exam */}
-          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-            {/* Global Time Format Toggle (Hrs vs Days) */}
-            <button
-              onClick={toggleTimeUnit}
-              title="Click to toggle time units (Hours vs Days if >= 12hrs)"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                backgroundColor: 'var(--bg-overlay)',
-                padding: '0.3rem 0.6rem',
-                borderRadius: '5px',
-                border: '1px solid var(--border-default)',
-                color: timeUnitMode === 'days' ? 'var(--accent-green)' : 'var(--accent-blue)',
-                fontWeight: 600,
-                fontSize: '0.76rem',
-                cursor: 'pointer'
-              }}
-            >
-              <Clock size={13} />
-              <span>Format: <strong>{timeUnitMode === 'days' ? 'Days (0.5d+)' : 'Hours'}</strong></span>
-            </button>
+      {/* 2. Primary Tab Switcher */}
+      <NavigationTabs
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onOpenSyllabusModal={() => setExpandedSyllabus(true)}
+      />
 
-            {/* Speed Selector */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                backgroundColor: 'var(--bg-overlay)',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '5px',
-                border: '1px solid var(--border-default)'
-              }}
-            >
-              <Zap size={13} color="var(--accent-yellow)" />
-              <select
-                value={playbackSpeed}
-                onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-                style={{
-                  backgroundColor: 'transparent',
-                  color: 'var(--accent-yellow)',
-                  fontWeight: 600,
-                  fontSize: '0.78rem',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                <option value={1.0} style={{ background: '#11131b' }}>1.0x Normal</option>
-                <option value={1.25} style={{ background: '#11131b' }}>1.25x Swift</option>
-                <option value={1.5} style={{ background: '#11131b' }}>1.5x Rec.</option>
-                <option value={1.75} style={{ background: '#11131b' }}>1.75x Rapid</option>
-                <option value={2.0} style={{ background: '#11131b' }}>2.0x Double</option>
-              </select>
-            </div>
-
-            {/* Next Exam Pill */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                backgroundColor: 'rgba(248, 113, 113, 0.1)',
-                border: '1px solid rgba(248, 113, 113, 0.25)',
-                padding: '0.25rem 0.6rem',
-                borderRadius: '5px'
-              }}
-            >
-              <Flame size={14} color="var(--accent-red)" />
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
-                <strong>CN Theory</strong> in <strong style={{ color: 'var(--accent-red)' }}>4 Days</strong> (Nov 23)
-              </span>
-            </div>
-
-            {/* Cloud Sync & Security Settings */}
-            <button
-              onClick={() => setShowSettingsModal(true)}
-              title="Passcode & Cloud Sync Settings"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                backgroundColor: 'var(--bg-overlay)',
-                padding: '0.28rem 0.6rem',
-                borderRadius: '5px',
-                border: '1px solid var(--border-default)',
-                color: cloudConfig.enabled
-                  ? cloudSyncState === 'synced'
-                    ? 'var(--accent-green)'
-                    : cloudSyncState === 'syncing'
-                    ? 'var(--accent-blue)'
-                    : 'var(--accent-yellow)'
-                  : 'var(--text-dim)',
-                fontWeight: 600,
-                fontSize: '0.74rem',
-                cursor: 'pointer'
-              }}
-            >
-              <Cloud size={13} />
-              <span className="mono" style={{ fontSize: '0.7rem' }}>
-                {cloudConfig.enabled
-                  ? cloudSyncState === 'syncing'
-                    ? 'Syncing...'
-                    : cloudSyncState === 'synced'
-                    ? 'Cloud Synced'
-                    : 'Cloud Error'
-                  : 'Cloud / PIN'}
-              </span>
-            </button>
-
-            {/* Lock Button */}
-            <button
-              onClick={handleLock}
-              title="Lock dashboard session"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.25rem',
-                backgroundColor: 'var(--bg-overlay)',
-                padding: '0.28rem 0.55rem',
-                borderRadius: '5px',
-                border: '1px solid var(--border-default)',
-                color: 'var(--text-muted)',
-                fontSize: '0.74rem',
-                cursor: 'pointer'
-              }}
-            >
-              <Lock size={12} />
-              <span>Lock</span>
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Tabs Navigation Bar */}
-      <div style={{ backgroundColor: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
-        <div
-          className="no-scrollbar"
-          style={{
-            maxWidth: '1440px',
-            margin: '0 auto',
-            display: 'flex',
-            gap: '0.35rem',
-            padding: '0 0.75rem',
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch'
-          }}
-        >
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            style={{
-              padding: '0.7rem 0.85rem',
-              fontSize: '0.82rem',
-              fontWeight: activeTab === 'dashboard' ? 700 : 500,
-              color: activeTab === 'dashboard' ? 'var(--accent-blue)' : 'var(--text-muted)',
-              borderBottom: activeTab === 'dashboard' ? '2px solid var(--accent-blue)' : '2px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
-          >
-            <Layers size={15} /> Dashboard
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('cn');
-              setSelectedModule('ALL');
-            }}
-            style={{
-              padding: '0.7rem 0.85rem',
-              fontSize: '0.82rem',
-              fontWeight: activeTab === 'cn' ? 700 : 500,
-              color: activeTab === 'cn' ? 'var(--accent-red)' : 'var(--text-muted)',
-              borderBottom: activeTab === 'cn' ? '2px solid var(--accent-red)' : '2px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
-          >
-            <Clock size={14} color="var(--accent-red)" />
-            CN (Nov 23)
-            <span className="badge badge-critical" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>4d</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('daa');
-              setSelectedModule('ALL');
-            }}
-            style={{
-              padding: '0.7rem 0.85rem',
-              fontSize: '0.82rem',
-              fontWeight: activeTab === 'daa' ? 700 : 500,
-              color: activeTab === 'daa' ? 'var(--accent-peach)' : 'var(--text-muted)',
-              borderBottom: activeTab === 'daa' ? '2px solid var(--accent-peach)' : '2px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
-          >
-            <Sparkles size={14} color="var(--accent-peach)" />
-            DAA (Nov 27)
-            <span className="badge badge-theory" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>8d</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setActiveTab('dsa');
-              setSelectedModule('ALL');
-            }}
-            style={{
-              padding: '0.7rem 0.85rem',
-              fontSize: '0.82rem',
-              fontWeight: activeTab === 'dsa' ? 700 : 500,
-              color: activeTab === 'dsa' ? 'var(--accent-green)' : 'var(--text-muted)',
-              borderBottom: activeTab === 'dsa' ? '2px solid var(--accent-green)' : '2px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
-          >
-            <BookOpen size={14} color="var(--accent-green)" />
-            S3 DSA Supply (Nov 30)
-            <span className="badge badge-supply" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>11d</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('syllabus')}
-            style={{
-              padding: '0.7rem 0.85rem',
-              fontSize: '0.82rem',
-              fontWeight: activeTab === 'syllabus' ? 700 : 500,
-              color: activeTab === 'syllabus' ? 'var(--accent-purple)' : 'var(--text-muted)',
-              borderBottom: activeTab === 'syllabus' ? '2px solid var(--accent-purple)' : '2px solid transparent',
-              background: 'none',
-              borderTop: 'none',
-              borderLeft: 'none',
-              borderRight: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
-          >
-            <Download size={14} color="var(--accent-purple)" /> Study Files & Syllabi
-          </button>
-        </div>
-      </div>
-
-      {/* Main Container */}
+      {/* 3. Main Views Container */}
       <main style={{ maxWidth: '1440px', width: '100%', margin: '1rem auto', padding: '0 1rem', flex: 1 }}>
-        {/* ===================== VIEW 1: DASHBOARD ===================== */}
         {activeTab === 'dashboard' && (
-          <div>
-            {/* Urgency Banner - Dynamic to active track */}
-            {(() => {
-              const cnDays = Math.max(1, getDaysLeft('2026-11-23'));
-              const cnM = getTrackMetrics(cnStats, cnDays);
-
-              return (
-                <div
-                  className="card"
-                  style={{
-                    padding: '1.15rem 1.25rem',
-                    marginBottom: '1rem',
-                    borderLeft: '4px solid var(--accent-red)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    flexWrap: 'wrap',
-                    gap: '0.85rem'
-                  }}
-                >
-                  <div style={{ flex: '1 1 auto', minWidth: '280px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
-                      <span className="badge badge-critical">IMMEDIATE FOCUS</span>
-                      <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
-                      <span className={`badge ${cnM.trackBadge}`} style={{ fontSize: '0.65rem' }}>{cnM.trackName}</span>
-                    </div>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
-                      <strong>{cnDays} days remaining</strong> • <strong>{cnM.trackName}</strong>: <strong>{formatTime(cnM.remainingHrs)}</strong> remaining at {playbackSpeed}x ({cnM.completedVids}/{cnM.totalVids} completed, {cnM.rate.toFixed(1)}%). Target pace:{' '}
-                      <strong style={{ color: cnM.paceColor }} className="mono">
-                        {cnM.pace.toFixed(1)} hrs/day
-                      </strong>{' '}
-                      ({cnM.stress}).
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => {
-                      setActiveTab('cn');
-                    }}
-                    style={{
-                      backgroundColor: 'var(--accent-red)',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '5px',
-                      padding: '0.55rem 1rem',
-                      fontWeight: 600,
-                      fontSize: '0.82rem',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.4rem',
-                      flexShrink: 0
-                    }}
-                  >
-                    Open CN ({cnM.trackName}) <ArrowRight size={14} />
-                  </button>
-                </div>
-              );
-            })()}
-
-            {/* Main Dashboard Track Switcher Toolbar */}
-            <div
-              className="card"
-              style={{
-                padding: '0.65rem 0.95rem',
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '0.65rem'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <Layers size={15} color="var(--accent-blue)" />
-                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-main)' }}>
-                  Active Study Track:
-                </span>
-                <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>
-                  (Dashboard stats dynamically adapt to this track)
-                </span>
-              </div>
-
-              <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
-                <button
-                  onClick={() => setActiveViewMode('study')}
-                  style={{
-                    backgroundColor: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--bg-active)',
-                    color: activeViewMode === 'study' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: activeViewMode === 'study' ? '1px solid var(--accent-blue)' : '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.74rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  🎯 Selected Plan
-                </button>
-                <button
-                  onClick={() => setActiveViewMode('core')}
-                  style={{
-                    backgroundColor: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--bg-active)',
-                    color: activeViewMode === 'core' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: activeViewMode === 'core' ? '1px solid var(--accent-green)' : '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.74rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  ⚡ Core Only
-                </button>
-                <button
-                  onClick={() => setActiveViewMode('original')}
-                  style={{
-                    backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
-                    color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: activeViewMode === 'original' ? '1px solid var(--text-main)' : '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.74rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  📜 Full Playlist
-                </button>
-              </div>
-            </div>
-
-            {/* Quick KPI Grid - Updated dynamically based on selected track */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
-              {/* Card 1: CN */}
-              {(() => {
-                const days = Math.max(1, getDaysLeft('2026-11-23'));
-                const m = getTrackMetrics(cnStats, days);
-
-                return (
-                  <div
-                    className="card card-hover"
-                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)', userSelect: 'none' }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>Computer Networks</h3>
-                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
-                        </div>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        <span className="badge badge-critical">{days} Days Left</span>
-                        <span
-                          onClick={toggleTimeUnit}
-                          title="Click to toggle Hours / Days format"
-                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
-                        >
-                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ margin: '0.75rem 0' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
-                        <span className="mono" style={{ color: 'var(--accent-red)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
-                      </div>
-                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-red)', height: '100%', transition: 'width 0.3s ease' }} />
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
-                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
-                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
-                          {m.pace.toFixed(1)} hrs/day
-                        </strong>
-                      </div>
-                    </div>
-
-                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
-                      <button
-                        onClick={() => {
-                          setActiveTab('cn');
-                          setSelectedModule('ALL');
-                        }}
-                        style={{
-                          background: 'var(--bg-active)',
-                          border: '1px solid var(--border-default)',
-                          color: 'var(--accent-red)',
-                          padding: '0.25rem 0.6rem',
-                          borderRadius: '4px',
-                          fontSize: '0.72rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.25rem'
-                        }}
-                      >
-                        View CN Videos <ArrowRight size={11} />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Card 2: DAA */}
-              {(() => {
-                const days = Math.max(1, getDaysLeft('2026-11-27'));
-                const m = getTrackMetrics(daaStats, days);
-
-                return (
-                  <div
-                    className="card card-hover"
-                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)', userSelect: 'none' }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>DAA (Algorithms)</h3>
-                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
-                        </div>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        <span className="badge badge-theory">{days} Days Left</span>
-                        <span
-                          onClick={toggleTimeUnit}
-                          title="Click to toggle Hours / Days format"
-                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
-                        >
-                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ margin: '0.75rem 0' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
-                        <span className="mono" style={{ color: 'var(--accent-peach)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
-                      </div>
-                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-peach)', height: '100%', transition: 'width 0.3s ease' }} />
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
-                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
-                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
-                          {m.pace.toFixed(1)} hrs/day
-                        </strong>
-                      </div>
-                    </div>
-
-                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
-                      <button
-                        onClick={() => {
-                          setActiveTab('daa');
-                          setSelectedModule('ALL');
-                        }}
-                        style={{
-                          background: 'var(--bg-active)',
-                          border: '1px solid var(--border-default)',
-                          color: 'var(--accent-peach)',
-                          padding: '0.25rem 0.6rem',
-                          borderRadius: '4px',
-                          fontSize: '0.72rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.25rem'
-                        }}
-                      >
-                        View DAA Videos <ArrowRight size={11} />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {/* Card 3: S3 DSA */}
-              {(() => {
-                const days = Math.max(1, getDaysLeft('2026-11-30'));
-                const m = getTrackMetrics(dsaStats, days);
-
-                return (
-                  <div
-                    className="card card-hover"
-                    style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)', userSelect: 'none' }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>S3 DSA (Supply)</h3>
-                          <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>{m.trackName}</span>
-                        </div>
-                        <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                        <span className="badge badge-supply">{days} Days Left</span>
-                        <span
-                          onClick={toggleTimeUnit}
-                          title="Click to toggle Hours / Days format"
-                          style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
-                        >
-                          {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ margin: '0.75rem 0' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
-                        <span style={{ color: 'var(--text-muted)' }}>Progress: {m.completedVids} / {m.totalVids} videos</span>
-                        <span className="mono" style={{ color: 'var(--accent-green)', fontWeight: 700 }}>{m.rate.toFixed(1)}%</span>
-                      </div>
-                      <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
-                        <div style={{ width: `${m.rate}%`, background: 'var(--accent-green)', height: '100%', transition: 'width 0.3s ease' }} />
-                      </div>
-                    </div>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      <span>Remaining: <strong style={{ color: 'var(--text-main)' }}>{formatTime(m.remainingHrs)}</strong> <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span></span>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                        <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
-                        <strong style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
-                          {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
-                          {m.pace.toFixed(1)} hrs/day
-                        </strong>
-                      </div>
-                    </div>
-
-                    <div style={{ marginTop: '0.65rem', textAlign: 'right' }}>
-                      <button
-                        onClick={() => {
-                          setActiveTab('dsa');
-                          setSelectedModule('ALL');
-                        }}
-                        style={{
-                          background: 'var(--bg-active)',
-                          border: '1px solid var(--border-default)',
-                          color: 'var(--accent-green)',
-                          padding: '0.25rem 0.6rem',
-                          borderRadius: '4px',
-                          fontSize: '0.72rem',
-                          fontWeight: 600,
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.25rem'
-                        }}
-                      >
-                        View DSA Videos <ArrowRight size={11} />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-
-            {/* Timetable Schedule Table (Clean & Responsive) */}
-            <div className="card" style={{ padding: '1rem', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                <div>
-                  <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <Calendar size={16} color="var(--accent-blue)" /> Official Examination Schedule
-                  </h3>
-                  <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>Full examination timeline (KTU 2026)</p>
-                </div>
-                <span className="badge badge-optional mono">Updated: {appData.lastUpdatedDisplay}</span>
-              </div>
-
-              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-                <table style={{ width: '100%', minWidth: '550px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid var(--border-default)', color: 'var(--text-muted)' }}>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Date</th>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Subject</th>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Code</th>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Type</th>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Countdown</th>
-                      <th style={{ padding: '0.55rem 0.65rem' }}>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {appData.examTimetable.map((item, idx) => {
-                      const days = getDaysLeft(item.date);
-                      const isPast = days < 0 || item.status === 'completed';
-                      const isNext = item.date === '2026-11-23';
-
-                      return (
-                        <tr
-                          key={idx}
-                          style={{
-                            borderBottom: '1px solid var(--border-subtle)',
-                            backgroundColor: isNext ? 'rgba(248, 113, 113, 0.05)' : isPast ? 'rgba(255, 255, 255, 0.01)' : 'transparent',
-                            opacity: isPast ? 0.65 : 1
-                          }}
-                        >
-                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: 600 }} className="mono">
-                            {item.displayDate}
-                          </td>
-                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: isNext ? 700 : 500, color: isNext ? 'var(--accent-red)' : isPast ? 'var(--text-muted)' : 'var(--text-main)' }}>
-                            {item.subject}
-                          </td>
-                          <td style={{ padding: '0.55rem 0.65rem', color: 'var(--text-dim)' }} className="mono">
-                            {item.code}
-                          </td>
-                          <td style={{ padding: '0.55rem 0.65rem' }}>
-                            <span className={`badge badge-${item.type.toLowerCase()}`}>{item.type}</span>
-                          </td>
-                          <td style={{ padding: '0.55rem 0.65rem' }}>
-                            {isPast ? (
-                              <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>Completed</span>
-                            ) : days === 0 ? (
-                              <span className="badge badge-critical">Today!</span>
-                            ) : (
-                              <span className="mono" style={{ fontWeight: 600, color: days <= 4 ? 'var(--accent-red)' : days <= 8 ? 'var(--accent-peach)' : 'var(--text-main)' }}>
-                                {days} day{days > 1 ? 's' : ''} left
-                              </span>
-                            )}
-                          </td>
-                          <td style={{ padding: '0.55rem 0.65rem' }}>
-                            {item.playlistKey ? (
-                              <button
-                                onClick={() => {
-                                  setActiveTab(item.playlistKey);
-                                  setSelectedModule('ALL');
-                                }}
-                                style={{
-                                  background: 'var(--bg-active)',
-                                  border: '1px solid var(--border-default)',
-                                  color: 'var(--accent-blue)',
-                                  padding: '0.2rem 0.55rem',
-                                  borderRadius: '4px',
-                                  fontSize: '0.72rem',
-                                  fontWeight: 600,
-                                  cursor: 'pointer',
-                                  display: 'inline-flex',
-                                  alignItems: 'center',
-                                  gap: '0.25rem'
-                                }}
-                              >
-                                View <ArrowRight size={11} />
-                              </button>
-                            ) : isPast ? (
-                              <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>✓ Done</span>
-                            ) : (
-                              <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Self Study</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Reduction Analysis Summary */}
-            <div className="card" style={{ padding: '1rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                <h3 style={{ fontSize: '0.98rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <TrendingUp size={16} color="var(--accent-green)" /> Syllabus Filtering Impact Summary
-                </h3>
-                <span style={{ fontSize: '0.7rem', color: 'var(--accent-blue)' }}>(Click any box to toggle Days / Hours)</span>
-              </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginBottom: '0.85rem' }}>
-                Eliminated repetitive competitive programming and isolated 2-minute GATE questions to isolate pure university syllabus portions:
-              </p>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-                <div
-                  className="card card-hover"
-                  onClick={toggleTimeUnit}
-                  title="Click to toggle Days format"
-                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
-                >
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Original Raw Playlists</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>500 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{formatTime(260.2)} total watch time</div>
-                </div>
-
-                <div
-                  className="card card-hover"
-                  onClick={toggleTimeUnit}
-                  title="Click to toggle Days format"
-                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
-                >
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Curated Core (Must-Watch)</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-green)' }}>290 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-green)' }}>{formatTime(152.0)} (42% Load Cut)</div>
-                </div>
-
-                <div
-                  className="card card-hover"
-                  onClick={toggleTimeUnit}
-                  title="Click to toggle Days format"
-                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
-                >
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Optional Practice</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-yellow)' }}>155 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-yellow)' }}>{formatTime(85.9)} extra practice</div>
-                </div>
-
-                <div
-                  className="card card-hover"
-                  onClick={toggleTimeUnit}
-                  title="Click to toggle Days format"
-                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
-                >
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Eliminated Overkill</div>
-                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-red)' }}>55 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-red)' }}>{formatTime(22.3)} saved directly</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DashboardView
+            cnStats={cnStats}
+            cnDays={cnDays}
+            cnMetrics={cnMetrics}
+            daaMetrics={daaMetrics}
+            daaDays={daaDays}
+            dsaMetrics={dsaMetrics}
+            dsaDays={dsaDays}
+            activeViewMode={activeViewMode}
+            setActiveViewMode={setActiveViewMode}
+            playbackSpeed={playbackSpeed}
+            timeUnitMode={timeUnitMode}
+            toggleTimeUnit={toggleTimeUnit}
+            timetable={appData.examTimetable}
+            lastUpdatedDisplay={appData.lastUpdatedDisplay}
+            onNavigate={(tabId) => {
+              setActiveTab(tabId);
+              setSelectedModule('ALL');
+            }}
+          />
         )}
 
-        {/* ===================== VIEW 2: SUBJECT SPECIFIC TABS (CN, DAA, DSA) ===================== */}
         {(activeTab === 'cn' || activeTab === 'daa' || activeTab === 'dsa') && currentSubjectData && (
-          <div>
-            {/* Subject Header Banner - FIXED TO ALWAYS MATCH SECOND IMAGE (Horizontal Side-by-Side) */}
-            <div className="card subject-header-banner">
-              <div className="subject-header-left">
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-                  <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>{currentSubjectData.title}</h2>
-                  <span className="badge badge-module mono">{currentSubjectData.code}</span>
-                  <span className="badge badge-critical">{currentSubjectData.daysLeft} Days Left</span>
-                  <span className="badge badge-optional mono" style={{ fontSize: '0.68rem' }}>Updated: {appData.lastUpdatedDisplay}</span>
-                </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: 0, lineHeight: 1.45 }}>
-                  Exam Date: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
-                </p>
-              </div>
-
-              {/* Progress Summary Pill on Right (Image 2 style) */}
-              <div className="subject-header-right">
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
-                  Subject Progress
-                </div>
-                <div style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0.1rem 0' }} className="mono">
-                  {currentSubjectData.stats.completedVideos} <span style={{ color: 'var(--text-dim)', fontWeight: 400 }}>/</span> {currentSubjectData.stats.totalVideos}{' '}
-                  <span style={{ fontSize: '0.85rem', color: 'var(--accent-green)', fontWeight: 600 }}>
-                    ({currentSubjectData.stats.completionRate.toFixed(1)}%)
-                  </span>
-                </div>
-                <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-                  Remaining Core: <strong style={{ color: 'var(--text-main)' }}>{formatTime(currentSubjectData.stats.remainingCoreHours)}</strong> at {playbackSpeed}x
-                </div>
-              </div>
-            </div>
-
-            {/* Subject Stats Strip - 5 DYNAMIC TRACK CARDS (stats-grid-5) */}
-            <div className="stats-grid-5">
-              {/* Card 1: FULL TRACK */}
-              <div
-                className="card card-hover"
-                onClick={() => setActiveViewMode('original')}
-                title="Click to view Full Playlist Track (Click Days/Hrs badge to toggle format)"
-                style={{
-                  padding: '0.75rem',
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  borderTop: activeViewMode === 'original' ? '3px solid var(--text-main)' : '1px solid var(--border-default)',
-                  backgroundColor: activeViewMode === 'original' ? 'rgba(255, 255, 255, 0.03)' : 'var(--bg-surface)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--text-dim)', fontWeight: 700 }}>
-                    1. FULL Time
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    {activeViewMode === 'original' && (
-                      <span className="badge badge-core" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
-                    )}
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleTimeUnit();
-                      }}
-                      title="Toggle Days / Hours format"
-                      style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.85, cursor: 'pointer' }}
-                    >
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
-                  {formatTime(currentSubjectData.stats.remainingTotalHours)}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                  {currentSubjectData.stats.completedTotalVideos} / {currentSubjectData.stats.totalVideos} watched ({formatTime(currentSubjectData.stats.totalHours)} total)
-                </div>
-              </div>
-
-              {/* Card 2: CORE TRACK */}
-              <div
-                className="card card-hover"
-                onClick={() => setActiveViewMode('core')}
-                title="Click to view Core Track (Click Days/Hrs badge to toggle format)"
-                style={{
-                  padding: '0.75rem',
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  borderTop: activeViewMode === 'core' ? '3px solid var(--accent-green)' : '1px solid var(--border-default)',
-                  backgroundColor: activeViewMode === 'core' ? 'rgba(74, 222, 128, 0.03)' : 'var(--bg-surface)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--text-dim)', fontWeight: 700 }}>
-                    2. CORE Time
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    {activeViewMode === 'core' && (
-                      <span className="badge badge-supply" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
-                    )}
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleTimeUnit();
-                      }}
-                      title="Toggle Days / Hours format"
-                      style={{ fontSize: '0.6rem', color: 'var(--accent-green)', opacity: 0.85, cursor: 'pointer' }}
-                    >
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-green)' }} className="mono">
-                  {formatTime(currentSubjectData.stats.remainingCoreHours)}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                  {currentSubjectData.stats.completedCoreVideos} / {currentSubjectData.stats.coreVideos} watched ({formatTime(currentSubjectData.stats.coreHours)} total)
-                </div>
-              </div>
-
-              {/* Card 3: REQUIRED STUDY PACE (ALWAYS IN HOURS/DAY, COLOR CODED, WARNING ICON IF > 12 HRS/DAY) */}
-              <div
-                className="card card-hover"
-                style={{
-                  padding: '0.75rem',
-                  cursor: 'default',
-                  userSelect: 'none',
-                  borderTop: `3px solid ${activePaceData.color}`,
-                  backgroundColor: activePaceData.hasWarning ? 'rgba(248, 113, 113, 0.04)' : 'var(--bg-surface)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)', fontWeight: 700 }}>
-                    3. Required Study Pace
-                  </span>
-                  <span
-                    className="badge mono"
-                    style={{
-                      fontSize: '0.56rem',
-                      padding: '0.04rem 0.3rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                      color: activePaceData.color,
-                      borderColor: activePaceData.color
-                    }}
-                  >
-                    {activePaceData.trackLabel}
-                  </span>
-                </div>
-                <div
-                  style={{
-                    fontSize: '1.15rem',
-                    fontWeight: 700,
-                    color: activePaceData.color,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem'
-                  }}
-                  className="mono"
-                >
-                  {activePaceData.hasWarning && (
-                    <AlertTriangle size={15} color="#f87171" style={{ flexShrink: 0 }} />
-                  )}
-                  <span>{activePaceData.pace.toFixed(1)} hrs/day</span>
-                </div>
-                <div style={{ fontSize: '0.68rem', color: activePaceData.color, opacity: 0.9 }}>
-                  Over next {currentSubjectData.daysLeft}d • {activePaceData.stress}
-                </div>
-              </div>
-
-              {/* Card 4: SELECTED STUDY TRACK */}
-              <div
-                className="card card-hover"
-                onClick={() => setActiveViewMode('study')}
-                title="Click to view Selected Study Track (Click Days/Hrs badge to toggle format)"
-                style={{
-                  padding: '0.75rem',
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  borderTop: activeViewMode === 'study' ? '3px solid var(--accent-blue)' : '1px solid var(--border-default)',
-                  backgroundColor: activeViewMode === 'study' ? 'rgba(96, 165, 250, 0.03)' : 'var(--bg-surface)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--text-dim)', fontWeight: 700 }}>
-                    Selected Plan
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    {activeViewMode === 'study' && (
-                      <span className="badge badge-module" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
-                    )}
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleTimeUnit();
-                      }}
-                      title="Toggle Days / Hours format"
-                      style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.85, cursor: 'pointer' }}
-                    >
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-blue)' }} className="mono">
-                  {formatTime(currentSubjectData.stats.remainingSelectedHours)}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                  {currentSubjectData.stats.completedSelectedVideos} / {currentSubjectData.stats.selectedVideos} watched ({formatTime(currentSubjectData.stats.selectedHours)} total)
-                </div>
-              </div>
-
-              {/* Card 5: REMOVED OVERKILL */}
-              <div
-                className="card card-hover"
-                onClick={() => setActiveViewMode('removed')}
-                title="Click to view Removed Overkill (Click Days/Hrs badge to toggle format)"
-                style={{
-                  padding: '0.75rem',
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  borderTop: activeViewMode === 'removed' ? '3px solid var(--accent-red)' : '1px solid var(--border-default)',
-                  backgroundColor: activeViewMode === 'removed' ? 'rgba(248, 113, 113, 0.03)' : 'var(--bg-surface)'
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'removed' ? 'var(--accent-red)' : 'var(--text-dim)', fontWeight: 700 }}>
-                    Removed Overkill
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                    {activeViewMode === 'removed' && (
-                      <span className="badge badge-critical" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
-                    )}
-                    <span
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleTimeUnit();
-                      }}
-                      title="Toggle Days / Hours format"
-                      style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.85, cursor: 'pointer' }}
-                    >
-                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                    </span>
-                  </div>
-                </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {formatTime(currentSubjectData.stats.remHours)}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>
-                  {currentSubjectData.stats.remVideos} cut videos (saved {formatTime(currentSubjectData.stats.remHours / playbackSpeed)})
-                </div>
-              </div>
-            </div>
-
-            {/* Filter Bar: Views, Module, Search */}
-            <div
-              className="card"
-              style={{
-                padding: '0.75rem',
-                marginBottom: '0.85rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: '0.65rem'
-              }}
-            >
-              {/* View Switcher Pills */}
-              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
-                {/* 1. Selected Track */}
-                <button
-                  onClick={() => setActiveViewMode('study')}
-                  style={{
-                    backgroundColor: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--bg-active)',
-                    color: activeViewMode === 'study' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  🎯 Selected ({currentSubjectData.stats.selectedVideos})
-                </button>
-
-                {/* 2. Core Track */}
-                <button
-                  onClick={() => setActiveViewMode('core')}
-                  style={{
-                    backgroundColor: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--bg-active)',
-                    color: activeViewMode === 'core' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  ⚡ Core ({currentSubjectData.stats.coreVideos})
-                </button>
-
-                {/* 3. Full Track */}
-                <button
-                  onClick={() => setActiveViewMode('original')}
-                  style={{
-                    backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
-                    color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  📜 Full ({currentSubjectData.stats.totalVideos})
-                </button>
-
-                {/* 4. Optional Practice */}
-                <button
-                  onClick={() => setActiveViewMode('optional')}
-                  style={{
-                    backgroundColor: activeViewMode === 'optional' ? 'var(--accent-yellow)' : 'var(--bg-active)',
-                    color: activeViewMode === 'optional' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  💡 Optional ({currentSubjectData.stats.optVideos})
-                </button>
-
-                {/* 5. Removed Overkill */}
-                <button
-                  onClick={() => setActiveViewMode('removed')}
-                  style={{
-                    backgroundColor: activeViewMode === 'removed' ? 'var(--accent-red)' : 'var(--bg-active)',
-                    color: activeViewMode === 'removed' ? '#fff' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  🗑️ Removed ({currentSubjectData.stats.remVideos})
-                </button>
-              </div>
-
-              {/* Right Side: Search and Batch Actions */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', width: 'auto' }}>
-                {/* Search Box */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.35rem',
-                    backgroundColor: 'var(--bg-overlay)',
-                    padding: '0.25rem 0.55rem',
-                    borderRadius: '5px',
-                    border: '1px solid var(--border-default)',
-                    flexGrow: 1
-                  }}
-                >
-                  <Search size={13} color="var(--text-dim)" />
-                  <input
-                    type="text"
-                    placeholder="Search videos..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      outline: 'none',
-                      color: 'var(--text-main)',
-                      fontSize: '0.78rem',
-                      width: '130px'
-                    }}
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery('')}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '0.72rem' }}
-                    >
-                      ✕
-                    </button>
-                  )}
-                </div>
-
-                {/* Batch Mark Buttons */}
-                <button
-                  onClick={() => markBatch(displayedVideos, true)}
-                  title="Mark visible videos completed"
-                  style={{
-                    backgroundColor: 'var(--bg-active)',
-                    border: '1px solid var(--border-default)',
-                    color: 'var(--accent-green)',
-                    borderRadius: '4px',
-                    padding: '0.25rem 0.5rem',
-                    fontSize: '0.72rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem'
-                  }}
-                >
-                  <CheckCircle2 size={12} /> Check All
-                </button>
-
-                <button
-                  onClick={() => markBatch(displayedVideos, false)}
-                  title="Uncheck visible videos"
-                  style={{
-                    backgroundColor: 'var(--bg-active)',
-                    border: '1px solid var(--border-default)',
-                    color: 'var(--text-dim)',
-                    borderRadius: '4px',
-                    padding: '0.25rem 0.5rem',
-                    fontSize: '0.72rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.25rem'
-                  }}
-                >
-                  <RotateCcw size={12} /> Reset
-                </button>
-
-                {/* Show / Hide Completed Toggle */}
-                <button
-                  onClick={() => setShowCompleted((prev) => !prev)}
-                  title={showCompleted ? 'Click to hide completed videos' : 'Click to show all completed videos'}
-                  style={{
-                    backgroundColor: showCompleted ? 'rgba(56, 189, 248, 0.12)' : 'var(--bg-active)',
-                    border: showCompleted ? '1px solid var(--accent-blue)' : '1px solid var(--border-default)',
-                    color: showCompleted ? 'var(--accent-blue)' : 'var(--text-dim)',
-                    borderRadius: '4px',
-                    padding: '0.25rem 0.55rem',
-                    fontSize: '0.72rem',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.3rem',
-                    fontWeight: showCompleted ? 600 : 400,
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  {showCompleted ? <Eye size={12} /> : <EyeOff size={12} />}
-                  <span>Show Completed</span>
-                </button>
-              </div>
-            </div>
-
-            {/* DESKTOP TABLE VIEW (>= 769px) */}
-            <div className="card desktop-table-view" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-              <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-                <thead>
-                  <tr style={{ borderBottom: '1px solid var(--border-default)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-muted)' }}>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '45px' }}>Done</th>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '45px' }}>#</th>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '105px' }}>Module</th>
-                    <th style={{ padding: '0.6rem 0.75rem' }}>Video Title & Details</th>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '95px' }}>Duration</th>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '85px' }}>Status</th>
-                    <th style={{ padding: '0.6rem 0.75rem', width: '80px' }}>Link</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {displayedVideos.length === 0 ? (
-                    <tr>
-                      <td colSpan={7} style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-dim)' }}>
-                        {showCompleted
-                          ? 'No videos found matching your filter criteria.'
-                          : 'All matching videos completed! (Click "Show Completed" to reveal them)'}
-                      </td>
-                    </tr>
-                  ) : (
-                    displayedVideos.map((item) => {
-                      const itemKey = getItemKey(item);
-                      const isCompleted = !!completedMap[itemKey];
-                      const isAnimatingOut = !!animatingOutKeys[itemKey];
-
-                      return (
-                        <tr
-                          key={itemKey}
-                          className={`${isCompleted ? 'table-row-completed' : ''} ${isAnimatingOut ? 'row-animating-out' : ''}`.trim()}
-                          style={{
-                            borderBottom: '1px solid var(--border-subtle)',
-                            transition: 'background-color 0.15s ease, opacity 0.45s ease, transform 0.45s ease'
-                          }}
-                        >
-                          <td style={{ padding: '0.6rem 0.75rem', textAlign: 'center' }}>
-                            <button
-                              onClick={() => toggleComplete(itemKey)}
-                              style={{
-                                background: 'none',
-                                border: 'none',
-                                cursor: 'pointer',
-                                color: isCompleted ? 'var(--accent-green)' : 'var(--text-dim)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                              }}
-                            >
-                              {isCompleted ? <CheckCircle2 size={17} /> : <Circle size={17} />}
-                            </button>
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem', color: 'var(--text-dim)' }} className="mono">
-                            {item.Index}
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem' }}>
-                            <span className="badge badge-module" style={{ fontSize: '0.68rem' }}>
-                              {item.Module || 'General'}
-                            </span>
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem' }}>
-                            <div style={{ fontWeight: 600, color: isCompleted ? 'var(--text-muted)' : 'var(--text-main)', textDecoration: isCompleted ? 'line-through' : 'none' }}>
-                              {item.Title}
-                            </div>
-                            <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
-                              <span style={{ color: 'var(--accent-blue)', fontWeight: 500 }}>{item.Topic}</span>
-                              {item.Reason && (
-                                <span style={{ marginLeft: '0.4rem', color: 'var(--text-muted)' }}>
-                                  — {item.Reason}
-                                </span>
-                              )}
-                            </div>
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem', whiteSpace: 'nowrap' }} className="mono">
-                            <div>{item.Duration}m</div>
-                            <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>
-                              {(item.Duration / playbackSpeed).toFixed(1)}m @ {playbackSpeed}x
-                            </div>
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem' }}>
-                            <span className={`badge badge-${item.Status.toLowerCase()}`}>{item.Status}</span>
-                          </td>
-
-                          <td style={{ padding: '0.6rem 0.75rem' }}>
-                            <a
-                              href={item['Video url']}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '0.2rem',
-                                color: 'var(--accent-blue)',
-                                fontWeight: 600,
-                                fontSize: '0.75rem',
-                                padding: '0.2rem 0.45rem',
-                                borderRadius: '4px',
-                                backgroundColor: 'var(--bg-active)'
-                              }}
-                            >
-                              Watch <ExternalLink size={11} />
-                            </a>
-                          </td>
-                        </tr>
-                      );
-                    })
-                  )}
-                </tbody>
-              </table>
-            </div>
-
-            {/* MOBILE CARD VIEW (< 769px) - Zero horizontal scroll, touch-friendly */}
-            <div className="mobile-card-view">
-              {displayedVideos.length === 0 ? (
-                <div className="card" style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-dim)' }}>
-                  {showCompleted
-                    ? 'No videos found matching your filter criteria.'
-                    : 'All matching videos completed! (Click "Show Completed" to reveal them)'}
-                </div>
-              ) : (
-                displayedVideos.map((item) => {
-                  const itemKey = getItemKey(item);
-                  const isCompleted = !!completedMap[itemKey];
-                  const isAnimatingOut = !!animatingOutKeys[itemKey];
-
-                  return (
-                    <div
-                      key={itemKey}
-                      className={`card ${isAnimatingOut ? 'card-animating-out' : ''}`.trim()}
-                      style={{
-                        padding: '0.75rem',
-                        backgroundColor: isCompleted ? 'rgba(74, 222, 128, 0.03)' : 'var(--bg-surface)',
-                        borderLeft: isCompleted ? '3px solid var(--accent-green)' : '3px solid var(--border-default)',
-                        transition: 'opacity 0.45s ease, transform 0.45s ease, max-height 0.45s ease, padding 0.45s ease, margin 0.45s ease'
-                      }}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.4rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-                          <button
-                            onClick={() => toggleComplete(itemKey)}
-                            style={{
-                              background: 'none',
-                              border: 'none',
-                              cursor: 'pointer',
-                              color: isCompleted ? 'var(--accent-green)' : 'var(--text-dim)',
-                              padding: 0,
-                              display: 'flex',
-                              alignItems: 'center'
-                            }}
-                          >
-                            {isCompleted ? <CheckCircle2 size={20} /> : <Circle size={20} />}
-                          </button>
-                          <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>#{item.Index}</span>
-                          <span className="badge badge-module" style={{ fontSize: '0.65rem' }}>{item.Module}</span>
-                          <span className={`badge badge-${item.Status.toLowerCase()}`} style={{ fontSize: '0.65rem' }}>{item.Status}</span>
-                        </div>
-
-                        <a
-                          href={item['Video url']}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.25rem',
-                            color: 'var(--accent-blue)',
-                            fontWeight: 600,
-                            fontSize: '0.75rem',
-                            padding: '0.2rem 0.5rem',
-                            borderRadius: '4px',
-                            backgroundColor: 'var(--bg-active)',
-                            flexShrink: 0
-                          }}
-                        >
-                          Watch <ExternalLink size={11} />
-                        </a>
-                      </div>
-
-                      <div style={{ fontWeight: 600, fontSize: '0.84rem', color: isCompleted ? 'var(--text-muted)' : 'var(--text-main)', textDecoration: isCompleted ? 'line-through' : 'none', marginBottom: '0.25rem' }}>
-                        {item.Title}
-                      </div>
-
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginBottom: '0.4rem' }}>
-                        <span style={{ color: 'var(--accent-blue)' }}>{item.Topic}</span>
-                        {item.Reason && <span> — {item.Reason}</span>}
-                      </div>
-
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-muted)', paddingTop: '0.35rem', borderTop: '1px solid var(--border-subtle)' }}>
-                        <span className="mono">Duration: <strong>{item.Duration}m</strong></span>
-                        <span className="mono" style={{ color: 'var(--accent-yellow)' }}>{(item.Duration / playbackSpeed).toFixed(1)}m @ {playbackSpeed}x</span>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
+          <SubjectView
+            activeTab={activeTab}
+            subjectData={currentSubjectData}
+            activeViewMode={activeViewMode}
+            setActiveViewMode={setActiveViewMode}
+            activePaceData={activePaceData}
+            selectedModule={selectedModule}
+            setSelectedModule={setSelectedModule}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            displayedVideos={displayedVideos}
+            completedMap={completedMap}
+            animatingOutKeys={animatingOutKeys}
+            onToggleComplete={toggleComplete}
+            onMarkBatch={markBatch}
+            showCompleted={showCompleted}
+            setShowCompleted={setShowCompleted}
+            playbackSpeed={playbackSpeed}
+            timeUnitMode={timeUnitMode}
+            toggleTimeUnit={toggleTimeUnit}
+            lastUpdatedDisplay={appData.lastUpdatedDisplay}
+            onOpenSyllabusModal={() => setExpandedSyllabus(true)}
+          />
         )}
 
-        {/* ===================== VIEW 3: STUDY FILES & SYLLABI ===================== */}
-        {activeTab === 'syllabus' && (
-          <div>
-            <div className="card" style={{ padding: '1.25rem', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                <div>
-                  <h2 style={{ fontSize: '1.2rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Download size={18} color="var(--accent-purple)" /> Curated Study Files & Datasets
-                  </h2>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-                    Export complete filtered study portions and review official syllabi directly in your browser.
-                  </p>
-                </div>
-                <span className="badge badge-optional mono">Last Synced: {appData.lastUpdatedDisplay}</span>
-              </div>
-
-              {/* Grid of Actionable Resource Cards with Direct Download */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.85rem', marginTop: '1rem' }}>
-                {/* 1. Combined Master Plan */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-blue)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA & DAA Master Study Plan</h4>
-                      <span className="badge badge-core">{appData.dsa_all.filter((v) => v.Status !== 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      Combined master curriculum covering S3 DSA and S5 DAA university portions with YouTube links.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('Data_Structures_and_Algorithms_Study_Portions.csv', appData.dsa_all.filter((v) => v.Status !== 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--accent-blue)',
-                        color: 'var(--bg-base)',
-                        border: 'none',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/Data_Structures_and_Algorithms_Study_Portions.csv', 'dsa_study')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'dsa_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'dsa_study' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* 2. Computer Networks Study Plan */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>Computer Networks Study Plan</h4>
-                      <span className="badge badge-critical">{appData.cn_all.filter((v) => v.Status !== 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      Complete S5 CN (PCCST501) curated course playlist mapped to KTU Modules 1 through 4.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('Computer_Networks_Study_Portions.csv', appData.cn_all.filter((v) => v.Status !== 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--accent-red)',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/Computer_Networks_Study_Portions.csv', 'cn_study')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'cn_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'cn_study' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* 3. DAA Theory Plan */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-peach)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DAA (Algorithms) Focused Plan</h4>
-                      <span className="badge badge-theory">{playlists.daa.filter((v) => v.Status !== 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      Specific playlist for S5 DAA Theory exam (Nov 27): recurrences, AVL trees, and greedy/DP.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('S5_DAA_Study_Portions.csv', playlists.daa.filter((v) => v.Status !== 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--accent-peach)',
-                        color: 'var(--bg-base)',
-                        border: 'none',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/S5_DAA_Study_Portions.csv', 'daa_study')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'daa_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'daa_study' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* 4. S3 DSA Supply Plan */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-green)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>S3 DSA Supply Plan</h4>
-                      <span className="badge badge-supply">{playlists.dsa.filter((v) => v.Status !== 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      Targeted playlist for S3 DSA Supply exam (Nov 30): Stacks, Queues, Trees, Heaps, and Sorting.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('S3_DSA_Study_Portions.csv', playlists.dsa.filter((v) => v.Status !== 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--accent-green)',
-                        color: 'var(--bg-base)',
-                        border: 'none',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 700,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/S3_DSA_Study_Portions.csv', 'dsa_supply')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'dsa_supply' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'dsa_supply' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* 5. CN Removed Topics */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>CN Filtered Out Topics</h4>
-                      <span className="badge badge-removed">{appData.cn_all.filter((v) => v.Status === 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      All removed videos from the CN playlist with reasons explaining why they were excluded.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('Computer_Networks_Removed_Portions.csv', appData.cn_all.filter((v) => v.Status === 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--accent-red)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/Computer_Networks_Removed_Portions.csv', 'cn_rem')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'cn_rem' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'cn_rem' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* 6. DSA/DAA Removed Topics */}
-                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
-                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA/DAA Filtered Out Topics</h4>
-                      <span className="badge badge-removed">{appData.dsa_all.filter((v) => v.Status === 'Removed').length} Vids</span>
-                    </div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                      All removed DSA/DAA videos with reasons explaining why they were excluded.
-                    </p>
-                  </div>
-                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
-                    <button
-                      onClick={() => downloadCSV('Data_Structures_and_Algorithms_Removed_Portions.csv', appData.dsa_all.filter((v) => v.Status === 'Removed'))}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--accent-red)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '0.74rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.3rem'
-                      }}
-                    >
-                      <Download size={12} /> Download CSV
-                    </button>
-                    <button
-                      onClick={() => copyPath('data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv', 'dsa_rem')}
-                      style={{
-                        backgroundColor: 'var(--bg-active)',
-                        border: '1px solid var(--border-default)',
-                        color: 'var(--text-muted)',
-                        borderRadius: '4px',
-                        padding: '0.3rem 0.55rem',
-                        fontSize: '0.72rem',
-                        cursor: 'pointer',
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.25rem'
-                      }}
-                    >
-                      {copiedKey === 'dsa_rem' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
-                      {copiedKey === 'dsa_rem' ? 'Copied' : 'Path'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* CRITICAL SYLLABUS REVERIFICATION & GAP ADVISORY CARD */}
-            <div className="card" style={{ padding: '1.25rem', marginBottom: '1.25rem', borderLeft: '4px solid var(--accent-yellow)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <span className="badge badge-critical" style={{ fontSize: '0.75rem' }}>CRITICAL REVERIFICATION ADVISORY</span>
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>
-                  Topics Missing from GATE Playlists (Must Read from College Notes / Textbooks)
-                </h3>
-              </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1rem', lineHeight: 1.5 }}>
-                The GATE playlists cover <strong>~85–90% of numerical and algorithmic concepts</strong>, but competitive GATE videos intentionally skip certain university theory questions. Make sure to supplement these specific items from textbooks (Forouzan / Horowitz-Sahni / Cormen):
-              </p>
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))', gap: '0.85rem' }}>
-                {/* Gap 1: CN */}
-                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <strong style={{ color: 'var(--accent-red)', fontSize: '0.85rem' }}>S5 Computer Networks (Nov 23)</strong>
-                    <span className="badge badge-critical">3 Gaps</span>
-                  </div>
-                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 4 - SNMP & ASN.1</strong>: Structure of Management Info (SMI), MIB, SNMP PDUs, ASN.1 encoding. <em>(Forouzan Ch 9)</em>
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - C Socket Calls</strong>: Elementary TCP/UDP socket system calls (<code style={{ color: 'var(--accent-cyan)' }}>socket</code>, <code style={{ color: 'var(--accent-cyan)' }}>bind</code>, <code style={{ color: 'var(--accent-cyan)' }}>listen</code>, <code style={{ color: 'var(--accent-cyan)' }}>accept</code>, <code style={{ color: 'var(--accent-cyan)' }}>select</code>, <code style={{ color: 'var(--accent-cyan)' }}>poll</code>).
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - P2P & BitTorrent</strong>: P2P architecture & BitTorrent choking algorithm.
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Gap 2: DAA */}
-                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <strong style={{ color: 'var(--accent-peach)', fontSize: '0.85rem' }}>S5 DAA (Nov 27)</strong>
-                    <span className="badge badge-theory">Entire Module 4</span>
-                  </div>
-                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 4 - Complexity & NP Proofs</strong>: Tractable/Intractable, P, NP, NP-Hard, NP-Complete; Clique & Vertex Cover NP-Completeness proofs; Bin Packing; Monte Carlo & Las Vegas definitions. <em>(Cormen Ch 34/35)</em>
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 2 - Disjoint Sets</strong>: Union-Find, Union by rank with path compression.
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 3 & 4 - Backtracking & B&B</strong>: N-Queens problem state space tree, TSP using Branch & Bound (reduced matrix).
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Gap 3: S3 DSA */}
-                <div style={{ background: 'var(--bg-base)', border: '1px solid var(--border-subtle)', borderRadius: '6px', padding: '0.85rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                    <strong style={{ color: 'var(--accent-green)', fontSize: '0.85rem' }}>S3 DSA Supply (Nov 30)</strong>
-                    <span className="badge badge-supply">3 Gaps</span>
-                  </div>
-                  <ul style={{ margin: 0, paddingLeft: '1.1rem', fontSize: '0.76rem', color: 'var(--text-muted)', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - Sparse Matrix & Polynomials</strong>: Tuple representation (row, col, value), sparse transpose algorithm, polynomial addition using arrays/linked lists.
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 2 - Memory Management</strong>: First-fit, Best-fit, Worst-fit allocation; Garbage collection and compaction.
-                    </li>
-                    <li>
-                      <strong style={{ color: 'var(--text-main)' }}>Module 1 - Multi-Stacks & Deque</strong>: Implementing multiple stacks in a single array, Double Ended Queues.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Interactive Syllabus Reader */}
-            <div className="card" style={{ padding: '1.25rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <FileText size={16} color="var(--accent-blue)" /> Official University Syllabus Viewer
-                </h3>
-
-                {/* Syllabus Switcher Tabs */}
-                <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
-                  <button
-                    onClick={() => setSelectedSyllabusTab('cn')}
-                    style={{
-                      backgroundColor: selectedSyllabusTab === 'cn' ? 'var(--accent-red)' : 'var(--bg-active)',
-                      color: selectedSyllabusTab === 'cn' ? '#fff' : 'var(--text-muted)',
-                      border: '1px solid var(--border-default)',
-                      padding: '0.25rem 0.6rem',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    S5 CN
-                  </button>
-                  <button
-                    onClick={() => setSelectedSyllabusTab('daa')}
-                    style={{
-                      backgroundColor: selectedSyllabusTab === 'daa' ? 'var(--accent-peach)' : 'var(--bg-active)',
-                      color: selectedSyllabusTab === 'daa' ? '#fff' : 'var(--text-muted)',
-                      border: '1px solid var(--border-default)',
-                      padding: '0.25rem 0.6rem',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    S5 DAA
-                  </button>
-                  <button
-                    onClick={() => setSelectedSyllabusTab('dsa')}
-                    style={{
-                      backgroundColor: selectedSyllabusTab === 'dsa' ? 'var(--accent-green)' : 'var(--bg-active)',
-                      color: selectedSyllabusTab === 'dsa' ? '#fff' : 'var(--text-muted)',
-                      border: '1px solid var(--border-default)',
-                      padding: '0.25rem 0.6rem',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    S3 DSA
-                  </button>
-                </div>
-              </div>
-
-              {/* Syllabus Content Display */}
-              <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                {selectedSyllabusTab === 'cn' && (
-                  <div>
-                    <div style={{ fontWeight: 700, color: 'var(--accent-red)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-                      KTU S5 Computer Networks (PCCST501) • ESE: 60 Marks, CIE: 40 Marks
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (6 Hours):</strong> Overview of Internet, Protocol layering; Application Layer: World Wide Web and HTTP, FTP, Email (SMTP, POP, IMAP), DNS, Peer-to-peer paradigm & BitTorrent.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (18 Hours):</strong> Transport Layer: UDP, TCP Header, Connection Establishment/Termination, Flow Control, Congestion Control (AIMD); Network Layer: IPv4, IPv6, ICMP, ARP, Unicast Routing (Distance Vector, Link State), Multicast, QoS (Leaky/Token Bucket).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Data-Link Layer: Data link control (DLC), Framing, Flow & Error Control (CRC, Hamming, Stop-and-wait, GBN, SR); Multiple Access Protocols (ALOHA, CSMA/CD, CSMA/CA); Ethernet; Connecting Devices (Hub, Switch, Router); Wireless LANs 802.11.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (9 Hours):</strong> SNMP, ASN.1; Physical Layer: Data & Signals, Digital transmission (NRZ, RZ, Manchester), Analog transmission, Bandwidth utilization (FDM, TDM, WDM), Transmission media.
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedSyllabusTab === 'daa' && (
-                  <div>
-                    <div style={{ fontWeight: 700, color: 'var(--accent-peach)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-                      KTU S5 Design and Analysis of Algorithms (PCCST502) • ESE: 60 Marks, CIE: 40 Marks
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (11 Hours):</strong> Algorithms criteria; Asymptotic Notations & properties; Recurrence Equations: Iteration Method, Recursion Tree Method, Substitution Method, Master's Theorem; Balanced Search Trees: AVL Trees (Insertion & Deletion with all rotations).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (11 Hours):</strong> Disjoint Sets: Union and find, Union by rank with path compression, Connected components; Graph Traversals (BFS, DFS, SCC); Topological Sorting; Divide and Conquer (Control Abstraction, Merge Sort, Strassen's Matrix Multiplication).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Greedy Strategy (Control Abstraction, Fractional Knapsack, Kruskal's and Prim's MST, Dijkstra Shortest Path); Dynamic Programming (Control Abstraction, Optimality Principle, Matrix Chain Multiplication, Floyd-Warshall); Backtracking (N-Queens Problem).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (11 Hours):</strong> Branch and Bound (Traveling Salesman Problem); Complexity Classes (P, NP, NP-Hard, NP-Complete, Clique & Vertex Cover proofs); Approximation (Bin Packing); Randomized Quick Sort with analysis.
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {selectedSyllabusTab === 'dsa' && (
-                  <div>
-                    <div style={{ fontWeight: 700, color: 'var(--accent-green)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
-                      KTU S3 Data Structures and Algorithms (PCCST303) • ESE: 60 Marks, CIE: 40 Marks
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (11 Hours):</strong> Basic Concepts, Time & Space Complexity, Asymptotic Notations; Polynomial representation using Arrays, Sparse matrix; Stacks, Queues, Circular Queues, Deque; Expression Evaluation (Infix to Postfix, Postfix evaluation).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (11 Hours):</strong> Singly Linked List, Stacks & Queues using Linked List, Polynomials; Doubly Linked List, Circular Linked List; Memory Allocation (First-fit, Best-fit, Worst-fit), Garbage collection and compaction.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Trees: Binary Trees & properties, Traversals; Expression Trees; BST Operations; Binary Heaps & Priority Queues; Graphs (Definitions, Adjacency Matrix & List, BFS, DFS, Single-Source Shortest Path).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (11 Hours):</strong> Sorting: Selection, Insertion, Quick, Merge, Heap, Radix Sort; Searching: Linear Search, Binary Search; Hashing & Collision Resolution (Linear probing, Quadratic probing, Double hashing, Chaining).
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+        {activeTab === 'datasets' && (
+          <DatasetsView
+            appData={appData}
+            playlists={playlists}
+            lastUpdatedDisplay={appData.lastUpdatedDisplay}
+          />
         )}
       </main>
 
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--border-default)', backgroundColor: 'var(--bg-surface)', padding: '0.85rem 1rem', marginTop: '1.5rem' }}>
-        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.74rem', color: 'var(--text-dim)' }}>
-          <div>
-            <strong>EXAMER</strong> • Prepared for Vishnu Nandan • KTU CSE B.Tech Suite • <span className="mono">Updated: {appData.lastUpdatedDisplay}</span>
-          </div>
-          <div>
-            Repository: <code className="mono" style={{ color: 'var(--accent-blue)' }}>git@github.com:vishnunandan555/examer.git</code>
-          </div>
-        </div>
-      </footer>
+      {/* Modals */}
+      <SettingsModal
+        isOpen={showSettingsModal}
+        onClose={() => setShowSettingsModal(false)}
+        passcode={passcode}
+        setPasscode={setPasscode}
+        onLockDashboard={handleLockDashboard}
+        cloudConfig={cloudConfig}
+        setCloudConfig={setCloudConfig}
+        onManualPull={handleManualPull}
+        onManualPush={handleManualPush}
+        cloudSyncState={cloudSyncState}
+        cloudMsg={cloudMsg}
+      />
 
-      {/* Cloud & Passcode Settings Modal */}
-      {showSettingsModal && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)',
-            zIndex: 1000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1rem'
-          }}
-          onClick={() => setShowSettingsModal(false)}
-        >
-          <div
-            className="card"
-            style={{
-              width: '100%',
-              maxWidth: '480px',
-              padding: '1.5rem',
-              backgroundColor: 'var(--bg-surface)',
-              border: '1px solid var(--border-default)',
-              borderRadius: '8px',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.8)'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <KeyRound size={18} color="var(--accent-blue)" />
-                <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>Passcode & Cloud Sync Settings</h3>
-              </div>
-              <button
-                onClick={() => setShowSettingsModal(false)}
-                style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '1.1rem' }}
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Section 1: Change Passcode */}
-            <div style={{ paddingBottom: '1.25rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
-              <h4 style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Lock size={14} color="var(--accent-yellow)" /> Change Passcode
-              </h4>
-              <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                Set a personal secret PIN to lock your suite so only you can view and check videos.
-              </p>
-              <form onSubmit={handleUpdatePasscode} style={{ display: 'flex', gap: '0.5rem' }}>
-                <input
-                  type="password"
-                  placeholder="New passcode (min 3 chars)..."
-                  value={newPasscodeInput}
-                  onChange={(e) => setNewPasscodeInput(e.target.value)}
-                  style={{
-                    flex: 1,
-                    backgroundColor: 'var(--bg-overlay)',
-                    border: '1px solid var(--border-default)',
-                    borderRadius: '5px',
-                    padding: '0.4rem 0.65rem',
-                    color: 'var(--text-main)',
-                    fontSize: '0.82rem',
-                    outline: 'none'
-                  }}
-                />
-                <button
-                  type="submit"
-                  style={{
-                    backgroundColor: 'var(--accent-blue)',
-                    color: 'var(--bg-base)',
-                    border: 'none',
-                    borderRadius: '5px',
-                    padding: '0.4rem 0.85rem',
-                    fontWeight: 700,
-                    fontSize: '0.78rem',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Update PIN
-                </button>
-              </form>
-              {passcodeSuccessMsg && (
-                <p style={{ color: 'var(--accent-green)', fontSize: '0.72rem', margin: '0.4rem 0 0' }}>
-                  ✓ {passcodeSuccessMsg}
-                </p>
-              )}
-            </div>
-
-            {/* Section 2: Multi-Device Cloud Sync */}
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
-                <h4 style={{ fontSize: '0.85rem', fontWeight: 700, margin: 0, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <Cloud size={14} color="var(--accent-green)" /> Multi-Device Cloud Sync
-                </h4>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', fontSize: '0.75rem' }}>
-                  <input
-                    type="checkbox"
-                    checked={cloudConfig.enabled}
-                    onChange={(e) => handleSaveCloudConfig({ ...cloudConfig, enabled: e.target.checked })}
-                  />
-                  <span>Enable Sync</span>
-                </label>
-              </div>
-              <p style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
-                Connect a free <strong>Upstash Redis</strong> or <strong>Vercel KV</strong> REST endpoint to sync completed videos seamlessly between your phone, laptop, and desktop.
-              </p>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.85rem' }}>
-                <div>
-                  <label style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.2rem' }}>REST URL</label>
-                  <input
-                    type="text"
-                    placeholder="https://...upstash.io"
-                    value={cloudConfig.endpoint}
-                    onChange={(e) => setCloudConfig({ ...cloudConfig, endpoint: e.target.value })}
-                    style={{
-                      width: '100%',
-                      backgroundColor: 'var(--bg-overlay)',
-                      border: '1px solid var(--border-default)',
-                      borderRadius: '5px',
-                      padding: '0.4rem 0.65rem',
-                      color: 'var(--text-main)',
-                      fontSize: '0.8rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-                <div>
-                  <label style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', marginBottom: '0.2rem' }}>REST Token (Bearer)</label>
-                  <input
-                    type="password"
-                    placeholder="Axxxxxx..."
-                    value={cloudConfig.token}
-                    onChange={(e) => setCloudConfig({ ...cloudConfig, token: e.target.value })}
-                    style={{
-                      width: '100%',
-                      backgroundColor: 'var(--bg-overlay)',
-                      border: '1px solid var(--border-default)',
-                      borderRadius: '5px',
-                      padding: '0.4rem 0.65rem',
-                      color: 'var(--text-main)',
-                      fontSize: '0.8rem',
-                      outline: 'none'
-                    }}
-                  />
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <button
-                  type="button"
-                  onClick={() => handleSaveCloudConfig(cloudConfig)}
-                  style={{
-                    backgroundColor: 'var(--accent-green)',
-                    color: 'var(--bg-base)',
-                    border: 'none',
-                    borderRadius: '5px',
-                    padding: '0.4rem 0.85rem',
-                    fontWeight: 700,
-                    fontSize: '0.78rem',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Save & Test Cloud Sync
-                </button>
-                {cloudMsg && (
-                  <span style={{ fontSize: '0.72rem', color: cloudSyncState === 'synced' ? 'var(--accent-green)' : 'var(--accent-red)' }}>
-                    {cloudMsg}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <SyllabusModal
+        isOpen={expandedSyllabus}
+        onClose={() => setExpandedSyllabus(false)}
+      />
     </div>
   );
 }
