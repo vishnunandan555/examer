@@ -63,6 +63,27 @@ export default function App() {
   // Modal Dialogs State
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
+  // Progressive Web App (PWA) Install Prompt
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
+
   // Cloud Sync State
   const [cloudConfig, setCloudConfig] = useState(getCloudConfig);
   const [cloudSyncState, setCloudSyncState] = useState('idle'); // 'idle' | 'syncing' | 'synced' | 'error'
@@ -282,6 +303,8 @@ export default function App() {
         cloudSyncState={cloudSyncState}
         cloudConfig={cloudConfig}
         onOpenSettings={() => setShowSettingsModal(true)}
+        onInstallApp={handleInstallApp}
+        canInstall={!!deferredPrompt}
       />
 
       {/* 2. Primary Tab Switcher */}
@@ -336,6 +359,8 @@ export default function App() {
         onManualPush={handleManualPush}
         cloudSyncState={cloudSyncState}
         cloudMsg={cloudMsg}
+        onInstallApp={handleInstallApp}
+        canInstall={!!deferredPrompt}
       />
     </div>
   );

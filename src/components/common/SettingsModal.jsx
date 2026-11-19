@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Cloud, KeyRound, Check, RotateCcw, ShieldCheck } from 'lucide-react';
+import { Lock, Cloud, KeyRound, Check, RotateCcw, Smartphone, Download } from 'lucide-react';
 
 export default function SettingsModal({
   isOpen,
@@ -12,7 +12,9 @@ export default function SettingsModal({
   onManualPull,
   onManualPush,
   cloudSyncState,
-  cloudMsg
+  cloudMsg,
+  onInstallApp,
+  canInstall
 }) {
   const [newPasscodeInput, setNewPasscodeInput] = useState('');
   const [passcodeSuccessMsg, setPasscodeSuccessMsg] = useState('');
@@ -144,7 +146,7 @@ export default function SettingsModal({
         </div>
 
         {/* Section 2: Built-in Single-User Cloud Sync */}
-        <div style={{ marginBottom: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
+        <div style={{ marginBottom: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
             <h4 style={{ fontSize: '0.85rem', fontWeight: 600, margin: 0, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <Cloud size={14} color="var(--accent-blue)" /> Built-in Cloud Sync
@@ -218,6 +220,52 @@ export default function SettingsModal({
               }}
             >
               {cloudMsg}
+            </div>
+          )}
+        </div>
+
+        {/* Section 3: Install Mobile Web App (PWA) */}
+        <div style={{ marginBottom: '1.25rem', paddingTop: '1rem', borderTop: '1px solid var(--border-subtle)' }}>
+          <h4 style={{ fontSize: '0.85rem', fontWeight: 600, margin: '0 0 0.4rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <Smartphone size={14} color="var(--accent-green)" /> Install on Mobile
+          </h4>
+          <p style={{ fontSize: '0.74rem', color: 'var(--text-dim)', margin: '0 0 0.65rem', lineHeight: 1.4 }}>
+            Install Examer as a fullscreen, standalone app on your smartphone with instant home screen access.
+          </p>
+
+          {canInstall ? (
+            <button
+              type="button"
+              onClick={onInstallApp}
+              style={{
+                backgroundColor: 'rgba(74, 222, 128, 0.15)',
+                border: '1px solid var(--accent-green)',
+                color: 'var(--accent-green)',
+                padding: '0.45rem 0.85rem',
+                borderRadius: '5px',
+                fontSize: '0.78rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.35rem'
+              }}
+            >
+              <Download size={13} /> Install Examer App Now
+            </button>
+          ) : (
+            <div
+              style={{
+                fontSize: '0.72rem',
+                color: 'var(--text-muted)',
+                backgroundColor: 'var(--bg-overlay)',
+                padding: '0.55rem 0.75rem',
+                borderRadius: '5px',
+                lineHeight: 1.45
+              }}
+            >
+              <div>• <strong>Android (Chrome)</strong>: Tap ⋮ (top right) → select <strong>Install App</strong> or <strong>Add to Home screen</strong>.</div>
+              <div style={{ marginTop: '0.25rem' }}>• <strong>iPhone (Safari)</strong>: Tap the Share button (square with arrow) → select <strong>Add to Home Screen</strong>.</div>
             </div>
           )}
         </div>
