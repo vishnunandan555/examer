@@ -219,7 +219,7 @@ export default function App() {
       };
     } else if (activeTab === 'daa') {
       return {
-        title: 'Design & Analysis of Algorithms',
+        title: 'Design and Analysis of Algorithms',
         code: 'PCCST502',
         examDate: '2026-11-27',
         displayDate: 'Nov 27, 2026',
@@ -231,7 +231,7 @@ export default function App() {
       };
     } else if (activeTab === 'dsa') {
       return {
-        title: 'Data Structures & Algorithms',
+        title: 'Data Structures and Algorithms',
         code: 'PCCST303 (Supply)',
         examDate: '2026-11-30',
         displayDate: 'Nov 30, 2026',
@@ -556,7 +556,7 @@ export default function App() {
             <div
               className="card"
               style={{
-                padding: '1rem',
+                padding: '1.15rem 1.25rem',
                 marginBottom: '1rem',
                 borderLeft: '4px solid var(--accent-red)',
                 display: 'flex',
@@ -566,12 +566,12 @@ export default function App() {
                 gap: '0.85rem'
               }}
             >
-              <div>
+              <div style={{ flex: '1 1 auto', minWidth: '280px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
                   <span className="badge badge-critical">IMMEDIATE FOCUS</span>
-                  <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Computer Networks (Theory) • Nov 23</h2>
+                  <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
                   <strong>4 days remaining</strong>. Filtered core watch time is <strong>{formatTime(cnStats.coreHours)}</strong> at 1.0x, or <strong>{formatTime(cnStats.coreHours / playbackSpeed)}</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
                 </p>
               </div>
@@ -591,7 +591,8 @@ export default function App() {
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem'
+                  gap: '0.4rem',
+                  flexShrink: 0
                 }}
               >
                 Start CN Core Fast Track <ArrowRight size={14} />
@@ -865,54 +866,39 @@ export default function App() {
         {/* ===================== VIEW 2: SUBJECT SPECIFIC TABS (CN, DAA, DSA) ===================== */}
         {(activeTab === 'cn' || activeTab === 'daa' || activeTab === 'dsa') && currentSubjectData && (
           <div>
-            {/* Subject Header Banner */}
-            <div
-              className="card"
-              style={{
-                padding: '1rem',
-                marginBottom: '0.85rem',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                flexWrap: 'wrap',
-                gap: '0.75rem'
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
-                  <h2 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{currentSubjectData.title}</h2>
+            {/* Subject Header Banner - FIXED TO ALWAYS MATCH SECOND IMAGE (Horizontal Side-by-Side) */}
+            <div className="card subject-header-banner">
+              <div className="subject-header-left">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+                  <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>{currentSubjectData.title}</h2>
                   <span className="badge badge-module mono">{currentSubjectData.code}</span>
                   <span className="badge badge-critical">{currentSubjectData.daysLeft} Days Left</span>
+                  <span className="badge badge-optional mono" style={{ fontSize: '0.68rem' }}>Updated: {appData.lastUpdatedDisplay}</span>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>
-                  Exam: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', margin: 0, lineHeight: 1.45 }}>
+                  Exam Date: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
                 </p>
               </div>
 
-              {/* Progress Summary */}
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Completion</div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
-                  {currentSubjectData.stats.completedVideos} / {currentSubjectData.stats.totalVideos}{' '}
-                  <span style={{ fontSize: '0.8rem', color: 'var(--accent-green)' }}>
+              {/* Progress Summary Pill on Right (Image 2 style) */}
+              <div className="subject-header-right">
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
+                  Subject Progress
+                </div>
+                <div style={{ fontSize: '1.35rem', fontWeight: 800, margin: '0.1rem 0' }} className="mono">
+                  {currentSubjectData.stats.completedVideos} <span style={{ color: 'var(--text-dim)', fontWeight: 400 }}>/</span> {currentSubjectData.stats.totalVideos}{' '}
+                  <span style={{ fontSize: '0.85rem', color: 'var(--accent-green)', fontWeight: 600 }}>
                     ({currentSubjectData.stats.completionRate.toFixed(1)}%)
                   </span>
                 </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  Remaining Core: <strong>{formatTime(currentSubjectData.stats.remainingCoreHours)}</strong> at {playbackSpeed}x
+                <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                  Remaining Core: <strong style={{ color: 'var(--text-main)' }}>{formatTime(currentSubjectData.stats.remainingCoreHours)}</strong> at {playbackSpeed}x
                 </div>
               </div>
             </div>
 
-            {/* Subject Stats Strip - CLICKABLE STAT BOXES WITH >=12H DAYS FORMAT */}
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                gap: '0.65rem',
-                marginBottom: '0.85rem'
-              }}
-            >
+            {/* Subject Stats Strip - 5 BOXES IN A SINGLE HORIZONTAL ROW (stats-grid-5) */}
+            <div className="stats-grid-5">
               {/* Box 1 */}
               <div
                 className="card card-hover"
@@ -926,10 +912,10 @@ export default function App() {
                     {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
+                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
                   {formatTime(currentSubjectData.stats.coreHours)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch vids</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch videos</div>
               </div>
 
               {/* Box 2 */}
@@ -945,11 +931,11 @@ export default function App() {
                     {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
+                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
                   {formatTime(currentSubjectData.stats.coreHours / playbackSpeed)}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                  Saves {formatTime(currentSubjectData.stats.coreHours * (1 - 1 / playbackSpeed))}
+                  Saves {formatTime(currentSubjectData.stats.coreHours * (1 - 1 / playbackSpeed))}!
                 </div>
               </div>
 
@@ -966,13 +952,13 @@ export default function App() {
                     {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
+                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
                   {currentSubjectData.daysLeft > 0
                     ? `${((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1)} hrs/day`
                     : '0 hrs/day'}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>
-                  Over next {currentSubjectData.daysLeft} days @ {playbackSpeed}x
+                  Over next {currentSubjectData.daysLeft} days at {playbackSpeed}x
                 </div>
               </div>
 
@@ -989,10 +975,10 @@ export default function App() {
                     {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
+                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
                   {formatTime(currentSubjectData.stats.optHours)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice vids</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice videos</div>
               </div>
 
               {/* Box 5 */}
@@ -1008,10 +994,10 @@ export default function App() {
                     {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
+                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
                   {formatTime(currentSubjectData.stats.remHours)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} cut videos</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} unnecessary videos cut</div>
               </div>
             </div>
 
