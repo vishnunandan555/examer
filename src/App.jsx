@@ -35,7 +35,14 @@ export default function App() {
   const [activeViewMode, setActiveViewMode] = useState('study'); // 'study', 'core', 'optional', 'removed', 'original'
   const [selectedModule, setSelectedModule] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
-  const [playbackSpeed, setPlaybackSpeed] = useState(1.5);
+  const [playbackSpeed, setPlaybackSpeed] = useState(() => {
+    try {
+      const saved = localStorage.getItem('examer_playback_speed_v1');
+      return saved ? parseFloat(saved) : 1.5;
+    } catch (e) {
+      return 1.5;
+    }
+  });
   const [copiedKey, setCopiedKey] = useState(null);
   const [selectedSyllabusTab, setSelectedSyllabusTab] = useState('cn');
 
@@ -60,6 +67,14 @@ export default function App() {
   const [expandedSyllabus, setExpandedSyllabus] = useState(false);
 
   // Sync state to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_playback_speed_v1', String(playbackSpeed));
+    } catch (e) {
+      console.error('Failed to save playback speed', e);
+    }
+  }, [playbackSpeed]);
+
   useEffect(() => {
     try {
       localStorage.setItem('examer_completed_v1', JSON.stringify(completedMap));
