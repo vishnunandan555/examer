@@ -22,8 +22,10 @@ import {
   Zap,
   ShieldCheck,
   Flame,
-  RefreshCw,
-  FolderTree
+  FolderTree,
+  FileText,
+  Copy,
+  Check
 } from 'lucide-react';
 
 const CURRENT_DATE = new Date('2026-11-19T08:51:00+05:30');
@@ -34,6 +36,9 @@ export default function App() {
   const [selectedModule, setSelectedModule] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [playbackSpeed, setPlaybackSpeed] = useState(1.5);
+  const [copiedKey, setCopiedKey] = useState(null);
+  const [selectedSyllabusTab, setSelectedSyllabusTab] = useState('cn');
+
   const [completedMap, setCompletedMap] = useState(() => {
     try {
       const saved = localStorage.getItem('examer_completed_v1');
@@ -71,6 +76,31 @@ export default function App() {
       });
       return next;
     });
+  };
+
+  // CSV Download utility
+  const downloadCSV = (filename, rows) => {
+    if (!rows || !rows.length) return;
+    const headers = Object.keys(rows[0]);
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((r) => headers.map((h) => `"${String(r[h] ?? '').replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Copy to clipboard helper
+  const copyPath = (text, key) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
   };
 
   // Pre-filter playlists
@@ -155,7 +185,7 @@ export default function App() {
       };
     } else if (activeTab === 'daa') {
       return {
-        title: 'Design and Analysis of Algorithms',
+        title: 'Design & Analysis of Algorithms',
         code: 'PCCST502',
         examDate: '2026-11-27',
         displayDate: 'Nov 27, 2026',
@@ -167,8 +197,8 @@ export default function App() {
       };
     } else if (activeTab === 'dsa') {
       return {
-        title: 'Data Structures and Algorithms (Supply)',
-        code: 'PCCST303',
+        title: 'Data Structures & Algorithms',
+        code: 'PCCST303 (Supply)',
         examDate: '2026-11-30',
         displayDate: 'Nov 30, 2026',
         daysLeft: getDaysLeft('2026-11-30'),
@@ -186,7 +216,6 @@ export default function App() {
     if (!currentSubjectData) return [];
     let items = currentSubjectData.list;
 
-    // View mode filter
     if (activeViewMode === 'study') {
       items = items.filter((v) => v.Status === 'Core' || v.Status === 'Optional');
     } else if (activeViewMode === 'core') {
@@ -197,12 +226,10 @@ export default function App() {
       items = items.filter((v) => v.Status === 'Removed');
     }
 
-    // Module filter
     if (selectedModule !== 'ALL') {
       items = items.filter((v) => v.Module && v.Module.includes(selectedModule));
     }
 
-    // Search query
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase();
       items = items.filter(
@@ -224,60 +251,58 @@ export default function App() {
         style={{
           borderBottom: '1px solid var(--border-default)',
           backgroundColor: 'var(--bg-surface)',
-          padding: '0.75rem 1.5rem',
+          padding: '0.65rem 1rem',
           position: 'sticky',
           top: 0,
           zIndex: 50
         }}
       >
-        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', flexWrap: 'wrap' }}>
+          {/* Logo & Brand */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
             <div
               style={{
-                width: '36px',
-                height: '36px',
+                width: '34px',
+                height: '34px',
                 borderRadius: '6px',
                 backgroundColor: 'var(--accent-blue)',
                 color: 'var(--bg-base)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontWeight: 700,
-                fontSize: '1.1rem'
+                fontWeight: 800,
+                fontSize: '1.05rem',
+                flexShrink: 0
               }}
             >
               E
             </div>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: 'var(--text-main)' }}>
                   EXAMER
                 </span>
-                <span className="badge badge-module">KTU CSE Suite</span>
-                <span className="badge badge-optional mono" style={{ fontSize: '0.65rem' }}>
-                  Updated: {appData.lastUpdatedDisplay || '2026-11-19 08:51 IST'}
-                </span>
+                <span className="badge badge-module">KTU CSE</span>
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Personal Exam Preparation & Curated GATE Playlist Suite</p>
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-dim)', lineHeight: 1.2 }}>Personal Exam Suite & Playlist Tracker</p>
             </div>
           </div>
 
-          {/* Right Header Controls: Speed, Urgency Banner */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          {/* Right Header Controls: Speed & Next Exam */}
+          <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
             {/* Speed Selector */}
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.4rem',
+                gap: '0.35rem',
                 backgroundColor: 'var(--bg-overlay)',
-                padding: '0.3rem 0.6rem',
-                borderRadius: '6px',
+                padding: '0.25rem 0.5rem',
+                borderRadius: '5px',
                 border: '1px solid var(--border-default)'
               }}
             >
-              <Zap size={14} color="var(--accent-yellow)" />
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Pace:</span>
+              <Zap size={13} color="var(--accent-yellow)" />
               <select
                 value={playbackSpeed}
                 onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
@@ -285,7 +310,7 @@ export default function App() {
                   backgroundColor: 'transparent',
                   color: 'var(--accent-yellow)',
                   fontWeight: 600,
-                  fontSize: '0.8rem',
+                  fontSize: '0.78rem',
                   border: 'none',
                   outline: 'none',
                   cursor: 'pointer'
@@ -293,7 +318,7 @@ export default function App() {
               >
                 <option value={1.0} style={{ background: '#11131b' }}>1.0x Normal</option>
                 <option value={1.25} style={{ background: '#11131b' }}>1.25x Swift</option>
-                <option value={1.5} style={{ background: '#11131b' }}>1.5x Recommended</option>
+                <option value={1.5} style={{ background: '#11131b' }}>1.5x Rec.</option>
                 <option value={1.75} style={{ background: '#11131b' }}>1.75x Rapid</option>
                 <option value={2.0} style={{ background: '#11131b' }}>2.0x Double</option>
               </select>
@@ -304,31 +329,42 @@ export default function App() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
-                backgroundColor: 'rgba(231, 130, 132, 0.1)',
-                border: '1px solid rgba(231, 130, 132, 0.3)',
-                padding: '0.3rem 0.75rem',
-                borderRadius: '6px'
+                gap: '0.4rem',
+                backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                border: '1px solid rgba(248, 113, 113, 0.25)',
+                padding: '0.25rem 0.6rem',
+                borderRadius: '5px'
               }}
             >
-              <Flame size={15} color="var(--accent-red)" />
-              <span style={{ fontSize: '0.78rem', color: 'var(--text-main)' }}>
-                Next: <strong style={{ color: 'var(--accent-red)' }}>CN Theory</strong> in <strong>4 Days</strong> (Nov 23)
+              <Flame size={14} color="var(--accent-red)" />
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-main)', whiteSpace: 'nowrap' }}>
+                <strong>CN Theory</strong> in <strong style={{ color: 'var(--accent-red)' }}>4 Days</strong> (Nov 23)
               </span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Tabs Navigation */}
+      {/* Main Tabs Navigation Bar */}
       <div style={{ backgroundColor: 'var(--bg-surface)', borderBottom: '1px solid var(--border-default)' }}>
-        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', gap: '0.5rem', padding: '0 1.5rem', overflowX: 'auto' }}>
+        <div
+          className="no-scrollbar"
+          style={{
+            maxWidth: '1440px',
+            margin: '0 auto',
+            display: 'flex',
+            gap: '0.35rem',
+            padding: '0 0.75rem',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch'
+          }}
+        >
           <button
             onClick={() => setActiveTab('dashboard')}
             style={{
-              padding: '0.75rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: activeTab === 'dashboard' ? 600 : 500,
+              padding: '0.7rem 0.85rem',
+              fontSize: '0.82rem',
+              fontWeight: activeTab === 'dashboard' ? 700 : 500,
               color: activeTab === 'dashboard' ? 'var(--accent-blue)' : 'var(--text-muted)',
               borderBottom: activeTab === 'dashboard' ? '2px solid var(--accent-blue)' : '2px solid transparent',
               background: 'none',
@@ -338,11 +374,12 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              whiteSpace: 'nowrap'
+              gap: '0.35rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
-            <Layers size={16} /> Main Dashboard
+            <Layers size={15} /> Dashboard
           </button>
 
           <button
@@ -351,9 +388,9 @@ export default function App() {
               setSelectedModule('ALL');
             }}
             style={{
-              padding: '0.75rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: activeTab === 'cn' ? 600 : 500,
+              padding: '0.7rem 0.85rem',
+              fontSize: '0.82rem',
+              fontWeight: activeTab === 'cn' ? 700 : 500,
               color: activeTab === 'cn' ? 'var(--accent-red)' : 'var(--text-muted)',
               borderBottom: activeTab === 'cn' ? '2px solid var(--accent-red)' : '2px solid transparent',
               background: 'none',
@@ -363,13 +400,14 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              whiteSpace: 'nowrap'
+              gap: '0.35rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
-            <Clock size={15} color="var(--accent-red)" />
-            Computer Networks (Nov 23)
-            <span className="badge badge-critical" style={{ fontSize: '0.65rem', padding: '0.05rem 0.35rem' }}>4d</span>
+            <Clock size={14} color="var(--accent-red)" />
+            CN (Nov 23)
+            <span className="badge badge-critical" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>4d</span>
           </button>
 
           <button
@@ -378,9 +416,9 @@ export default function App() {
               setSelectedModule('ALL');
             }}
             style={{
-              padding: '0.75rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: activeTab === 'daa' ? 600 : 500,
+              padding: '0.7rem 0.85rem',
+              fontSize: '0.82rem',
+              fontWeight: activeTab === 'daa' ? 700 : 500,
               color: activeTab === 'daa' ? 'var(--accent-peach)' : 'var(--text-muted)',
               borderBottom: activeTab === 'daa' ? '2px solid var(--accent-peach)' : '2px solid transparent',
               background: 'none',
@@ -390,13 +428,14 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              whiteSpace: 'nowrap'
+              gap: '0.35rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
-            <Sparkles size={15} color="var(--accent-peach)" />
+            <Sparkles size={14} color="var(--accent-peach)" />
             DAA (Nov 27)
-            <span className="badge badge-theory" style={{ fontSize: '0.65rem', padding: '0.05rem 0.35rem' }}>8d</span>
+            <span className="badge badge-theory" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>8d</span>
           </button>
 
           <button
@@ -405,9 +444,9 @@ export default function App() {
               setSelectedModule('ALL');
             }}
             style={{
-              padding: '0.75rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: activeTab === 'dsa' ? 600 : 500,
+              padding: '0.7rem 0.85rem',
+              fontSize: '0.82rem',
+              fontWeight: activeTab === 'dsa' ? 700 : 500,
               color: activeTab === 'dsa' ? 'var(--accent-green)' : 'var(--text-muted)',
               borderBottom: activeTab === 'dsa' ? '2px solid var(--accent-green)' : '2px solid transparent',
               background: 'none',
@@ -417,21 +456,22 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              whiteSpace: 'nowrap'
+              gap: '0.35rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
-            <BookOpen size={15} color="var(--accent-green)" />
+            <BookOpen size={14} color="var(--accent-green)" />
             S3 DSA Supply (Nov 30)
-            <span className="badge badge-supply" style={{ fontSize: '0.65rem', padding: '0.05rem 0.35rem' }}>11d</span>
+            <span className="badge badge-supply" style={{ fontSize: '0.62rem', padding: '0.05rem 0.3rem' }}>11d</span>
           </button>
 
           <button
             onClick={() => setActiveTab('syllabus')}
             style={{
-              padding: '0.75rem 1rem',
-              fontSize: '0.875rem',
-              fontWeight: activeTab === 'syllabus' ? 600 : 500,
+              padding: '0.7rem 0.85rem',
+              fontSize: '0.82rem',
+              fontWeight: activeTab === 'syllabus' ? 700 : 500,
               color: activeTab === 'syllabus' ? 'var(--accent-purple)' : 'var(--text-muted)',
               borderBottom: activeTab === 'syllabus' ? '2px solid var(--accent-purple)' : '2px solid transparent',
               background: 'none',
@@ -441,41 +481,42 @@ export default function App() {
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
-              whiteSpace: 'nowrap'
+              gap: '0.35rem',
+              whiteSpace: 'nowrap',
+              flexShrink: 0
             }}
           >
-            <FolderTree size={15} /> Directory & Datasets
+            <Download size={14} color="var(--accent-purple)" /> Study Files & Syllabi
           </button>
         </div>
       </div>
 
       {/* Main Container */}
-      <main style={{ maxWidth: '1440px', width: '100%', margin: '1.5rem auto', padding: '0 1.5rem', flex: 1 }}>
+      <main style={{ maxWidth: '1440px', width: '100%', margin: '1rem auto', padding: '0 1rem', flex: 1 }}>
         {/* ===================== VIEW 1: DASHBOARD ===================== */}
         {activeTab === 'dashboard' && (
           <div>
-            {/* Urgency Highlight Banner */}
+            {/* Urgency Banner */}
             <div
               className="card"
               style={{
-                padding: '1.25rem',
-                marginBottom: '1.5rem',
+                padding: '1rem',
+                marginBottom: '1rem',
                 borderLeft: '4px solid var(--accent-red)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '1rem'
+                gap: '0.85rem'
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem' }}>
                   <span className="badge badge-critical">IMMEDIATE FOCUS</span>
-                  <h2 style={{ fontSize: '1.15rem', fontWeight: 700 }}>Computer Networks (Theory) on Monday, Nov 23</h2>
+                  <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Computer Networks (Theory) • Nov 23</h2>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                  You have <strong>4 days remaining</strong>. Filtered core watch time is <strong>{cnStats.coreHours.toFixed(1)} hrs</strong> at 1.0x, or <strong>{(cnStats.coreHours / playbackSpeed).toFixed(1)} hrs</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                  <strong>4 days remaining</strong>. Filtered core watch time is <strong>{cnStats.coreHours.toFixed(1)} hrs</strong> at 1.0x, or <strong>{(cnStats.coreHours / playbackSpeed).toFixed(1)} hrs</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
                 </p>
               </div>
               <button
@@ -487,117 +528,117 @@ export default function App() {
                   backgroundColor: 'var(--accent-red)',
                   color: '#fff',
                   border: 'none',
-                  borderRadius: '6px',
-                  padding: '0.6rem 1.25rem',
+                  borderRadius: '5px',
+                  padding: '0.55rem 1rem',
                   fontWeight: 600,
-                  fontSize: '0.875rem',
+                  fontSize: '0.82rem',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem'
+                  gap: '0.4rem'
                 }}
               >
-                Start CN Fast Track <ArrowRight size={16} />
+                Start CN Core Fast Track <ArrowRight size={14} />
               </button>
             </div>
 
             {/* Quick KPI Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
               {/* Card 1: CN */}
-              <div className="card" style={{ padding: '1.25rem', borderTop: '3px solid var(--accent-red)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>Computer Networks</h3>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>Computer Networks</h3>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
                   </div>
                   <span className="badge badge-critical">4 Days Left</span>
                 </div>
-                <div style={{ margin: '1rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.35rem' }}>
+                <div style={{ margin: '0.75rem 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
                     <span style={{ color: 'var(--text-muted)' }}>Progress: {cnStats.completedVideos} / {cnStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-red)', fontWeight: 600 }}>{cnStats.completionRate.toFixed(1)}%</span>
+                    <span className="mono" style={{ color: 'var(--accent-red)', fontWeight: 700 }}>{cnStats.completionRate.toFixed(1)}%</span>
                   </div>
-                  <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
                     <div style={{ width: `${cnStats.completionRate}%`, background: 'var(--accent-red)', height: '100%' }} />
                   </div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-muted)', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
                   <span>Core: <strong>{cnStats.coreVideos} vids</strong> ({cnStats.coreHours.toFixed(1)}h)</span>
                   <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(cnStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
                 </div>
               </div>
 
               {/* Card 2: DAA */}
-              <div className="card" style={{ padding: '1.25rem', borderTop: '3px solid var(--accent-peach)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>DAA (Algorithms)</h3>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>DAA (Algorithms)</h3>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
                   </div>
                   <span className="badge badge-theory">8 Days Left</span>
                 </div>
-                <div style={{ margin: '1rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.35rem' }}>
+                <div style={{ margin: '0.75rem 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
                     <span style={{ color: 'var(--text-muted)' }}>Progress: {daaStats.completedVideos} / {daaStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-peach)', fontWeight: 600 }}>{daaStats.completionRate.toFixed(1)}%</span>
+                    <span className="mono" style={{ color: 'var(--accent-peach)', fontWeight: 700 }}>{daaStats.completionRate.toFixed(1)}%</span>
                   </div>
-                  <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
                     <div style={{ width: `${daaStats.completionRate}%`, background: 'var(--accent-peach)', height: '100%' }} />
                   </div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-muted)', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
                   <span>Core: <strong>{daaStats.coreVideos} vids</strong> ({daaStats.coreHours.toFixed(1)}h)</span>
                   <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(daaStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
                 </div>
               </div>
 
               {/* Card 3: S3 DSA */}
-              <div className="card" style={{ padding: '1.25rem', borderTop: '3px solid var(--accent-green)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
-                    <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>S3 DSA (Data Structures)</h3>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>S3 DSA (Supply)</h3>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
                   </div>
                   <span className="badge badge-supply">11 Days Left</span>
                 </div>
-                <div style={{ margin: '1rem 0' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem', marginBottom: '0.35rem' }}>
+                <div style={{ margin: '0.75rem 0' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
                     <span style={{ color: 'var(--text-muted)' }}>Progress: {dsaStats.completedVideos} / {dsaStats.totalVideos} videos</span>
-                    <span className="mono" style={{ color: 'var(--accent-green)', fontWeight: 600 }}>{dsaStats.completionRate.toFixed(1)}%</span>
+                    <span className="mono" style={{ color: 'var(--accent-green)', fontWeight: 700 }}>{dsaStats.completionRate.toFixed(1)}%</span>
                   </div>
-                  <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
+                  <div style={{ height: '5px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
                     <div style={{ width: `${dsaStats.completionRate}%`, background: 'var(--accent-green)', height: '100%' }} />
                   </div>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-muted)', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
                   <span>Core: <strong>{dsaStats.coreVideos} vids</strong> ({dsaStats.coreHours.toFixed(1)}h)</span>
                   <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(dsaStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
                 </div>
               </div>
             </div>
 
-            {/* Complete Examination Timetable Schedule Table */}
-            <div className="card" style={{ padding: '1.25rem', marginBottom: '1.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {/* Timetable Schedule Table (Clean & Responsive) */}
+            <div className="card" style={{ padding: '1rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Calendar size={18} color="var(--accent-blue)" /> Official Examination Schedule
+                  <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <Calendar size={16} color="var(--accent-blue)" /> Official Examination Schedule
                   </h3>
-                  <p style={{ color: 'var(--text-dim)', fontSize: '0.78rem' }}>Matches your official updated examination timeline (KTU 2026)</p>
+                  <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>Full examination timeline (KTU 2026)</p>
                 </div>
                 <span className="badge badge-optional mono">Updated: {appData.lastUpdatedDisplay}</span>
               </div>
 
-              <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
+              <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                <table style={{ width: '100%', minWidth: '550px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid var(--border-default)', color: 'var(--text-muted)' }}>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Date</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Subject</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Code</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Type</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Days Remaining</th>
-                      <th style={{ padding: '0.65rem 0.75rem' }}>Status / Action</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Date</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Subject</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Code</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Type</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Countdown</th>
+                      <th style={{ padding: '0.55rem 0.65rem' }}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -611,24 +652,24 @@ export default function App() {
                           key={idx}
                           style={{
                             borderBottom: '1px solid var(--border-subtle)',
-                            backgroundColor: isNext ? 'rgba(231, 130, 132, 0.05)' : isPast ? 'rgba(255, 255, 255, 0.01)' : 'transparent'
+                            backgroundColor: isNext ? 'rgba(248, 113, 113, 0.05)' : isPast ? 'rgba(255, 255, 255, 0.01)' : 'transparent'
                           }}
                         >
-                          <td style={{ padding: '0.65rem 0.75rem', fontWeight: 600 }} className="mono">
+                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: 600 }} className="mono">
                             {item.displayDate}
                           </td>
-                          <td style={{ padding: '0.65rem 0.75rem', fontWeight: isNext ? 700 : 500, color: isNext ? 'var(--accent-red)' : 'var(--text-main)' }}>
+                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: isNext ? 700 : 500, color: isNext ? 'var(--accent-red)' : 'var(--text-main)' }}>
                             {item.subject}
                           </td>
-                          <td style={{ padding: '0.65rem 0.75rem', color: 'var(--text-dim)' }} className="mono">
+                          <td style={{ padding: '0.55rem 0.65rem', color: 'var(--text-dim)' }} className="mono">
                             {item.code}
                           </td>
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.55rem 0.65rem' }}>
                             <span className={`badge badge-${item.type.toLowerCase()}`}>{item.type}</span>
                           </td>
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.55rem 0.65rem' }}>
                             {isPast ? (
-                              <span style={{ color: 'var(--text-dim)' }}>Completed</span>
+                              <span style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>Completed</span>
                             ) : days === 0 ? (
                               <span className="badge badge-critical">Today!</span>
                             ) : (
@@ -637,7 +678,7 @@ export default function App() {
                               </span>
                             )}
                           </td>
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.55rem 0.65rem' }}>
                             {item.playlistKey ? (
                               <button
                                 onClick={() => {
@@ -648,22 +689,22 @@ export default function App() {
                                   background: 'var(--bg-active)',
                                   border: '1px solid var(--border-default)',
                                   color: 'var(--accent-blue)',
-                                  padding: '0.25rem 0.6rem',
+                                  padding: '0.2rem 0.55rem',
                                   borderRadius: '4px',
-                                  fontSize: '0.75rem',
+                                  fontSize: '0.72rem',
                                   fontWeight: 600,
                                   cursor: 'pointer',
                                   display: 'inline-flex',
                                   alignItems: 'center',
-                                  gap: '0.3rem'
+                                  gap: '0.25rem'
                                 }}
                               >
-                                View Plan <ArrowRight size={12} />
+                                View <ArrowRight size={11} />
                               </button>
                             ) : isPast ? (
-                              <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem' }}>✓ Finished</span>
+                              <span style={{ color: 'var(--accent-green)', fontSize: '0.72rem' }}>✓ Done</span>
                             ) : (
-                              <span style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>Self Study</span>
+                              <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Self Study</span>
                             )}
                           </td>
                         </tr>
@@ -674,38 +715,38 @@ export default function App() {
               </div>
             </div>
 
-            {/* Reduction Analysis / Pedagogical Impact Card */}
-            <div className="card" style={{ padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <TrendingUp size={18} color="var(--accent-green)" /> Syllabus Filtering Impact Summary
+            {/* Reduction Analysis Summary */}
+            <div className="card" style={{ padding: '1rem' }}>
+              <h3 style={{ fontSize: '0.98rem', fontWeight: 700, marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <TrendingUp size={16} color="var(--accent-green)" /> Syllabus Filtering Impact Summary
               </h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem', marginBottom: '1rem' }}>
-                By removing redundant GATE PYQs, isolated competitive coding tricks, and non-KTU topics, we extracted pure university syllabus portions:
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginBottom: '0.85rem' }}>
+                Eliminated repetitive competitive programming and isolated 2-minute GATE questions to isolate pure university syllabus portions:
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Original Raw Playlists</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-main)' }}>500 Videos</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>260.2 Hours watch time</div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
+                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Original Raw Playlists</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>500 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>260.2 Hours raw watch time</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Curated Core (Must-Watch)</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-green)' }}>290 Videos</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--accent-green)' }}>152.0 Hours (42% Load Cut)</div>
+                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Curated Core (Must-Watch)</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-green)' }}>290 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-green)' }}>152.0 Hours (42% Load Cut)</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Optional In-Depth Practice</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-yellow)' }}>155 Videos</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--accent-yellow)' }}>85.9 Hours extra practice</div>
+                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Optional Practice</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-yellow)' }}>155 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-yellow)' }}>85.9 Hours extra practice</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Eliminated Overkill</div>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--accent-red)' }}>55 Videos</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--accent-red)' }}>22.3 Hours saved directly</div>
+                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Eliminated Overkill</div>
+                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-red)' }}>55 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-red)' }}>22.3 Hours saved directly</div>
                 </div>
               </div>
             </div>
@@ -719,200 +760,120 @@ export default function App() {
             <div
               className="card"
               style={{
-                padding: '1.25rem',
-                marginBottom: '1rem',
+                padding: '1rem',
+                marginBottom: '0.85rem',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 flexWrap: 'wrap',
-                gap: '1rem'
+                gap: '0.75rem'
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-                  <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>{currentSubjectData.title}</h2>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
+                  <h2 style={{ fontSize: '1.2rem', fontWeight: 700 }}>{currentSubjectData.title}</h2>
                   <span className="badge badge-module mono">{currentSubjectData.code}</span>
                   <span className="badge badge-critical">{currentSubjectData.daysLeft} Days Left</span>
-                  <span className="badge badge-optional mono" style={{ fontSize: '0.68rem' }}>Updated: {appData.lastUpdatedDisplay}</span>
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
-                  Exam Date: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem' }}>
+                  Exam: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
                 </p>
               </div>
 
-              {/* Progress Summary Pill */}
+              {/* Progress Summary */}
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-dim)' }}>Subject Progress</div>
-                <div style={{ fontSize: '1.25rem', fontWeight: 700 }} className="mono">
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Completion</div>
+                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
                   {currentSubjectData.stats.completedVideos} / {currentSubjectData.stats.totalVideos}{' '}
-                  <span style={{ fontSize: '0.85rem', color: 'var(--accent-green)' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--accent-green)' }}>
                     ({currentSubjectData.stats.completionRate.toFixed(1)}%)
                   </span>
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                   Remaining Core: <strong>{currentSubjectData.stats.remainingCoreHours.toFixed(1)}h</strong> at {playbackSpeed}x
                 </div>
               </div>
             </div>
 
-            {/* Subject Stats & Speed Breakdown Strip */}
+            {/* Subject Stats Strip */}
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '0.75rem',
-                marginBottom: '1rem'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                gap: '0.65rem',
+                marginBottom: '0.85rem'
               }}
             >
-              <div className="card" style={{ padding: '0.85rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Core Watch Time (1.0x)</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700 }} className="mono">
-                  {currentSubjectData.stats.coreHours.toFixed(1)} hrs
+              <div className="card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core Watch Time (1.0x)</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
+                  {currentSubjectData.stats.coreHours.toFixed(1)}h
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch videos</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch vids</div>
               </div>
 
-              <div className="card" style={{ padding: '0.85rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Core at 1.5x Speed</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
-                  {(currentSubjectData.stats.coreHours / 1.5).toFixed(1)} hrs
+              <div className="card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core at 1.5x Speed</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
+                  {(currentSubjectData.stats.coreHours / 1.5).toFixed(1)}h
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Saves {((currentSubjectData.stats.coreHours * 0.33)).toFixed(1)} hrs!</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Saves {((currentSubjectData.stats.coreHours * 0.33)).toFixed(1)}h</div>
               </div>
 
-              <div className="card" style={{ padding: '0.85rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Required Study Pace</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {currentSubjectData.daysLeft > 0 ? ((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1) : 0} hrs/day
+              <div className="card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace Target</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
+                  {currentSubjectData.daysLeft > 0 ? ((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1) : 0} h/day
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Over next {currentSubjectData.daysLeft} days at {playbackSpeed}x</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Next {currentSubjectData.daysLeft} days @ {playbackSpeed}x</div>
               </div>
 
-              <div className="card" style={{ padding: '0.85rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Optional Deep Dive</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700 }} className="mono">
-                  {currentSubjectData.stats.optHours.toFixed(1)} hrs
+              <div className="card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Optional Depth</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
+                  {currentSubjectData.stats.optHours.toFixed(1)}h
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice videos</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice vids</div>
               </div>
 
-              <div className="card" style={{ padding: '0.85rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Removed Overkill</div>
-                <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {currentSubjectData.stats.remHours.toFixed(1)} hrs
+              <div className="card" style={{ padding: '0.75rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Removed Overkill</div>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
+                  {currentSubjectData.stats.remHours.toFixed(1)}h
                 </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} unnecessary videos cut</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} cut videos</div>
               </div>
-            </div>
-
-            {/* Syllabus Details Accordion */}
-            <div className="card" style={{ marginBottom: '1rem', overflow: 'hidden' }}>
-              <button
-                onClick={() => setExpandedSyllabus(!expandedSyllabus)}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '0.75rem 1rem',
-                  background: 'var(--bg-overlay)',
-                  border: 'none',
-                  color: 'var(--text-main)',
-                  fontWeight: 600,
-                  fontSize: '0.85rem',
-                  cursor: 'pointer'
-                }}
-              >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <BookOpen size={16} color="var(--accent-blue)" /> View Official KTU Course Syllabus Breakdown
-                </span>
-                {expandedSyllabus ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              </button>
-              {expandedSyllabus && (
-                <div style={{ padding: '1rem', borderTop: '1px solid var(--border-default)', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                  {activeTab === 'cn' && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--accent-blue)' }}>Module 1 (6 Hours):</strong> Overview of Internet, Protocol layering; Application Layer: HTTP, FTP, Email (SMTP, POP, IMAP), DNS, Peer-to-Peer & BitTorrent.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-blue)' }}>Module 2 (18 Hours):</strong> Transport Layer: UDP, TCP Header, 3-Way Handshake, Flow & Congestion Control (AIMD); Network Layer: IPv4, IPv6, ICMP, ARP, Unicast Routing (Distance Vector, Link State), QoS (Leaky/Token Bucket).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-blue)' }}>Module 3 (11 Hours):</strong> Data-Link Layer: Framing, CRC, Hamming, Flow Control (Stop & Wait, GBN, SR); MAC Protocols (ALOHA, CSMA/CD, CSMA/CA, Polling); Connecting Devices (Hub, Switch, Router); Wireless LANs 802.11.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-blue)' }}>Module 4 (9 Hours):</strong> Physical Layer: Analog & Digital signals, Line coding (NRZ, RZ, Manchester), Multiplexing (FDM, TDM, WDM), Transmission media; SNMP & ASN.1.
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'daa' && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--accent-peach)' }}>Module 1 (11 Hours):</strong> Algorithms criteria, Asymptotic Notations & properties; Recurrence relations: Substitution, Recursion Tree, Master's Theorem; Balanced Search Trees: AVL Trees (Insert/Delete with all rotations).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-peach)' }}>Module 2 (11 Hours):</strong> Disjoint Sets (Union-find, path compression); Graph Traversals (BFS, DFS, SCC); Topological Sorting; Divide and Conquer (Merge Sort, Strassen's Matrix Multiplication).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-peach)' }}>Module 3 (11 Hours):</strong> Greedy Strategy (Fractional Knapsack, Kruskal's & Prim's MST, Dijkstra); Dynamic Programming (MCM, Floyd-Warshall); Backtracking (N-Queens).
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-peach)' }}>Module 4 (11 Hours):</strong> Branch & Bound (TSP); Complexity Classes: P, NP, NP-Hard, NP-Complete (Clique & Vertex Cover proofs); Approximation (Bin Packing); Randomized Quick Sort.
-                      </div>
-                    </div>
-                  )}
-
-                  {activeTab === 'dsa' && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
-                      <div>
-                        <strong style={{ color: 'var(--accent-green)' }}>Module 1 (11 Hours):</strong> Basic Concepts, Time & Space Complexity, Asymptotic Notations; Polynomials & Sparse Matrix; Stacks, Queues, Circular Queues, Deque; Infix to Postfix & Evaluation.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-green)' }}>Module 2 (11 Hours):</strong> Singly, Doubly, and Circular Linked Lists; Stack & Queue using Linked List; Memory Allocation Schemes (First-fit, Best-fit, Worst-fit), Garbage collection.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-green)' }}>Module 3 (11 Hours):</strong> Trees: Binary Trees & properties, Traversals; Expression Trees; BST Operations; Binary Heaps & Priority Queues; Graph Definitions, BFS, DFS, Single-Source Shortest Path.
-                      </div>
-                      <div>
-                        <strong style={{ color: 'var(--accent-green)' }}>Module 4 (11 Hours):</strong> Sorting: Selection, Insertion, Quick, Merge, Heap, Radix Sort; Searching: Linear Search, Binary Search; Hashing & Collision Resolution (Linear/Quadratic probing, Double hashing, Chaining).
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
 
             {/* Filter Bar: Views, Module, Search */}
             <div
               className="card"
               style={{
-                padding: '0.85rem 1rem',
-                marginBottom: '1rem',
+                padding: '0.75rem',
+                marginBottom: '0.85rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: '0.75rem'
+                gap: '0.65rem'
               }}
             >
-              {/* View Switcher Buttons */}
-              <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+              {/* View Switcher Pills */}
+              <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => setActiveViewMode('study')}
                   style={{
                     backgroundColor: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--bg-active)',
                     color: activeViewMode === 'study' ? 'var(--bg-base)' : 'var(--text-main)',
                     border: '1px solid var(--border-default)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '5px',
-                    fontSize: '0.78rem',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
                   }}
                 >
-                  🎯 Study Plan ({currentSubjectData.stats.coreVideos + currentSubjectData.stats.optVideos})
+                  🎯 Study ({currentSubjectData.stats.coreVideos + currentSubjectData.stats.optVideos})
                 </button>
 
                 <button
@@ -921,14 +882,14 @@ export default function App() {
                     backgroundColor: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--bg-active)',
                     color: activeViewMode === 'core' ? 'var(--bg-base)' : 'var(--text-main)',
                     border: '1px solid var(--border-default)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '5px',
-                    fontSize: '0.78rem',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
                   }}
                 >
-                  ⚡ Core Only ({currentSubjectData.stats.coreVideos})
+                  ⚡ Core ({currentSubjectData.stats.coreVideos})
                 </button>
 
                 <button
@@ -937,9 +898,9 @@ export default function App() {
                     backgroundColor: activeViewMode === 'optional' ? 'var(--accent-yellow)' : 'var(--bg-active)',
                     color: activeViewMode === 'optional' ? 'var(--bg-base)' : 'var(--text-main)',
                     border: '1px solid var(--border-default)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '5px',
-                    fontSize: '0.78rem',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
                   }}
@@ -953,9 +914,9 @@ export default function App() {
                     backgroundColor: activeViewMode === 'removed' ? 'var(--accent-red)' : 'var(--bg-active)',
                     color: activeViewMode === 'removed' ? '#fff' : 'var(--text-main)',
                     border: '1px solid var(--border-default)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '5px',
-                    fontSize: '0.78rem',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
                   }}
@@ -969,35 +930,36 @@ export default function App() {
                     backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
                     color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
                     border: '1px solid var(--border-default)',
-                    padding: '0.35rem 0.75rem',
-                    borderRadius: '5px',
-                    fontSize: '0.78rem',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
                     fontWeight: 600,
                     cursor: 'pointer'
                   }}
                 >
-                  📜 Original ({currentSubjectData.stats.totalVideos})
+                  📜 All ({currentSubjectData.stats.totalVideos})
                 </button>
               </div>
 
               {/* Right Side: Search and Batch Actions */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', width: 'auto' }}>
                 {/* Search Box */}
                 <div
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
+                    gap: '0.35rem',
                     backgroundColor: 'var(--bg-overlay)',
-                    padding: '0.3rem 0.6rem',
-                    borderRadius: '6px',
-                    border: '1px solid var(--border-default)'
+                    padding: '0.25rem 0.55rem',
+                    borderRadius: '5px',
+                    border: '1px solid var(--border-default)',
+                    flexGrow: 1
                   }}
                 >
-                  <Search size={14} color="var(--text-dim)" />
+                  <Search size={13} color="var(--text-dim)" />
                   <input
                     type="text"
-                    placeholder="Search topic or video..."
+                    placeholder="Search videos..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     style={{
@@ -1005,14 +967,14 @@ export default function App() {
                       border: 'none',
                       outline: 'none',
                       color: 'var(--text-main)',
-                      fontSize: '0.8rem',
-                      width: '160px'
+                      fontSize: '0.78rem',
+                      width: '130px'
                     }}
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '0.75rem' }}
+                      style={{ background: 'none', border: 'none', color: 'var(--text-dim)', cursor: 'pointer', fontSize: '0.72rem' }}
                     >
                       ✕
                     </button>
@@ -1022,56 +984,56 @@ export default function App() {
                 {/* Batch Mark Buttons */}
                 <button
                   onClick={() => markBatch(displayedVideos, true)}
-                  title="Mark all currently shown videos as completed"
+                  title="Mark visible videos completed"
                   style={{
                     backgroundColor: 'var(--bg-active)',
                     border: '1px solid var(--border-default)',
                     color: 'var(--accent-green)',
                     borderRadius: '4px',
-                    padding: '0.3rem 0.6rem',
-                    fontSize: '0.75rem',
+                    padding: '0.25rem 0.5rem',
+                    fontSize: '0.72rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.3rem'
+                    gap: '0.25rem'
                   }}
                 >
-                  <CheckCircle2 size={13} /> Check All
+                  <CheckCircle2 size={12} /> Check All
                 </button>
 
                 <button
                   onClick={() => markBatch(displayedVideos, false)}
-                  title="Uncheck all currently shown videos"
+                  title="Uncheck visible videos"
                   style={{
                     backgroundColor: 'var(--bg-active)',
                     border: '1px solid var(--border-default)',
                     color: 'var(--text-dim)',
                     borderRadius: '4px',
-                    padding: '0.3rem 0.6rem',
-                    fontSize: '0.75rem',
+                    padding: '0.25rem 0.5rem',
+                    fontSize: '0.72rem',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.3rem'
+                    gap: '0.25rem'
                   }}
                 >
-                  <RotateCcw size={13} /> Reset
+                  <RotateCcw size={12} /> Reset
                 </button>
               </div>
             </div>
 
-            {/* Video Table List */}
-            <div className="card" style={{ overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.84rem' }}>
+            {/* DESKTOP TABLE VIEW (>= 769px) */}
+            <div className="card desktop-table-view" style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+              <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid var(--border-default)', backgroundColor: 'var(--bg-overlay)', color: 'var(--text-muted)' }}>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '45px' }}>Done</th>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '50px' }}>#</th>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '110px' }}>Module</th>
-                    <th style={{ padding: '0.65rem 0.75rem' }}>Video Title & Details</th>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '100px' }}>Duration</th>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '90px' }}>Status</th>
-                    <th style={{ padding: '0.65rem 0.75rem', width: '85px' }}>Link</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '45px' }}>Done</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '45px' }}>#</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '105px' }}>Module</th>
+                    <th style={{ padding: '0.6rem 0.75rem' }}>Video Title & Details</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '95px' }}>Duration</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '85px' }}>Status</th>
+                    <th style={{ padding: '0.6rem 0.75rem', width: '80px' }}>Link</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -1095,8 +1057,7 @@ export default function App() {
                             transition: 'background-color 0.15s ease'
                           }}
                         >
-                          {/* Checkbox */}
-                          <td style={{ padding: '0.65rem 0.75rem', textAlign: 'center' }}>
+                          <td style={{ padding: '0.6rem 0.75rem', textAlign: 'center' }}>
                             <button
                               onClick={() => toggleComplete(itemKey)}
                               style={{
@@ -1109,52 +1070,46 @@ export default function App() {
                                 justifyContent: 'center'
                               }}
                             >
-                              {isCompleted ? <CheckCircle2 size={18} /> : <Circle size={18} />}
+                              {isCompleted ? <CheckCircle2 size={17} /> : <Circle size={17} />}
                             </button>
                           </td>
 
-                          {/* Index */}
-                          <td style={{ padding: '0.65rem 0.75rem', color: 'var(--text-dim)' }} className="mono">
+                          <td style={{ padding: '0.6rem 0.75rem', color: 'var(--text-dim)' }} className="mono">
                             {item.Index}
                           </td>
 
-                          {/* Module Badge */}
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
-                            <span className="badge badge-module" style={{ fontSize: '0.7rem' }}>
+                          <td style={{ padding: '0.6rem 0.75rem' }}>
+                            <span className="badge badge-module" style={{ fontSize: '0.68rem' }}>
                               {item.Module || 'General'}
                             </span>
                           </td>
 
-                          {/* Title & Topic Description */}
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.6rem 0.75rem' }}>
                             <div style={{ fontWeight: 600, color: isCompleted ? 'var(--text-muted)' : 'var(--text-main)', textDecoration: isCompleted ? 'line-through' : 'none' }}>
                               {item.Title}
                             </div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '0.15rem' }}>
                               <span style={{ color: 'var(--accent-blue)', fontWeight: 500 }}>{item.Topic}</span>
                               {item.Reason && (
-                                <span style={{ marginLeft: '0.5rem', color: 'var(--text-muted)' }}>
+                                <span style={{ marginLeft: '0.4rem', color: 'var(--text-muted)' }}>
                                   — {item.Reason}
                                 </span>
                               )}
                             </div>
                           </td>
 
-                          {/* Duration */}
-                          <td style={{ padding: '0.65rem 0.75rem', whiteSpace: 'nowrap' }} className="mono">
-                            <div>{item.Duration} min</div>
-                            <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>
+                          <td style={{ padding: '0.6rem 0.75rem', whiteSpace: 'nowrap' }} className="mono">
+                            <div>{item.Duration}m</div>
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>
                               {(item.Duration / playbackSpeed).toFixed(1)}m @ {playbackSpeed}x
                             </div>
                           </td>
 
-                          {/* Status */}
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.6rem 0.75rem' }}>
                             <span className={`badge badge-${item.Status.toLowerCase()}`}>{item.Status}</span>
                           </td>
 
-                          {/* YouTube Link */}
-                          <td style={{ padding: '0.65rem 0.75rem' }}>
+                          <td style={{ padding: '0.6rem 0.75rem' }}>
                             <a
                               href={item['Video url']}
                               target="_blank"
@@ -1162,16 +1117,16 @@ export default function App() {
                               style={{
                                 display: 'inline-flex',
                                 alignItems: 'center',
-                                gap: '0.25rem',
+                                gap: '0.2rem',
                                 color: 'var(--accent-blue)',
                                 fontWeight: 600,
-                                fontSize: '0.78rem',
+                                fontSize: '0.75rem',
                                 padding: '0.2rem 0.45rem',
                                 borderRadius: '4px',
                                 backgroundColor: 'var(--bg-active)'
                               }}
                             >
-                              Watch <ExternalLink size={12} />
+                              Watch <ExternalLink size={11} />
                             </a>
                           </td>
                         </tr>
@@ -1181,108 +1136,541 @@ export default function App() {
                 </tbody>
               </table>
             </div>
+
+            {/* MOBILE CARD VIEW (< 769px) - Zero horizontal scroll, touch-friendly */}
+            <div className="mobile-card-view">
+              {displayedVideos.length === 0 ? (
+                <div className="card" style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-dim)' }}>
+                  No videos found matching your filter criteria.
+                </div>
+              ) : (
+                displayedVideos.map((item) => {
+                  const itemKey = `${item.Subject}_${item.Index}`;
+                  const isCompleted = !!completedMap[itemKey];
+
+                  return (
+                    <div
+                      key={itemKey}
+                      className="card"
+                      style={{
+                        padding: '0.75rem',
+                        backgroundColor: isCompleted ? 'rgba(74, 222, 128, 0.03)' : 'var(--bg-surface)',
+                        borderLeft: isCompleted ? '3px solid var(--accent-green)' : '3px solid var(--border-default)'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                          <button
+                            onClick={() => toggleComplete(itemKey)}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              cursor: 'pointer',
+                              color: isCompleted ? 'var(--accent-green)' : 'var(--text-dim)',
+                              padding: 0,
+                              display: 'flex',
+                              alignItems: 'center'
+                            }}
+                          >
+                            {isCompleted ? <CheckCircle2 size={20} /> : <Circle size={20} />}
+                          </button>
+                          <span className="mono" style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>#{item.Index}</span>
+                          <span className="badge badge-module" style={{ fontSize: '0.65rem' }}>{item.Module}</span>
+                          <span className={`badge badge-${item.Status.toLowerCase()}`} style={{ fontSize: '0.65rem' }}>{item.Status}</span>
+                        </div>
+
+                        <a
+                          href={item['Video url']}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
+                            color: 'var(--accent-blue)',
+                            fontWeight: 600,
+                            fontSize: '0.75rem',
+                            padding: '0.2rem 0.5rem',
+                            borderRadius: '4px',
+                            backgroundColor: 'var(--bg-active)',
+                            flexShrink: 0
+                          }}
+                        >
+                          Watch <ExternalLink size={11} />
+                        </a>
+                      </div>
+
+                      <div style={{ fontWeight: 600, fontSize: '0.84rem', color: isCompleted ? 'var(--text-muted)' : 'var(--text-main)', textDecoration: isCompleted ? 'line-through' : 'none', marginBottom: '0.25rem' }}>
+                        {item.Title}
+                      </div>
+
+                      <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginBottom: '0.4rem' }}>
+                        <span style={{ color: 'var(--accent-blue)' }}>{item.Topic}</span>
+                        {item.Reason && <span> — {item.Reason}</span>}
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: 'var(--text-muted)', paddingTop: '0.35rem', borderTop: '1px solid var(--border-subtle)' }}>
+                        <span className="mono">Duration: <strong>{item.Duration}m</strong></span>
+                        <span className="mono" style={{ color: 'var(--accent-yellow)' }}>{(item.Duration / playbackSpeed).toFixed(1)}m @ {playbackSpeed}x</span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
           </div>
         )}
 
-        {/* ===================== VIEW 3: DIRECTORY & DATASETS VIEW ===================== */}
+        {/* ===================== VIEW 3: STUDY FILES & SYLLABI (VASTLY IMPROVED) ===================== */}
         {activeTab === 'syllabus' && (
           <div>
-            <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
-                <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>
-                  Curated Datasets & Refined Directory
-                </h2>
-                <span className="badge badge-optional mono">Last Updated: {appData.lastUpdatedDisplay}</span>
+            <div className="card" style={{ padding: '1.25rem', marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                <div>
+                  <h2 style={{ fontSize: '1.2rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Download size={18} color="var(--accent-purple)" /> Curated Study Files & Datasets
+                  </h2>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+                    Export complete filtered study portions and review official syllabi directly in your browser.
+                  </p>
+                </div>
+                <span className="badge badge-optional mono">Last Synced: {appData.lastUpdatedDisplay}</span>
               </div>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-                All filtered CSV datasets have been systematically compiled with pedagogical classification, YouTube links, and KTU module mappings, organized into clean subdirectories:
-              </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
-                {/* File 1 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-blue)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Data_Structures_and_Algorithms_Study_Portions.csv</h4>
-                    <span className="badge badge-core">270 Rows</span>
+              {/* Grid of Actionable Resource Cards with Direct Download */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.85rem', marginTop: '1rem' }}>
+                {/* 1. Combined Master Plan */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-blue)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA & DAA Master Study Plan</h4>
+                      <span className="badge badge-core">270 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      Combined master curriculum covering S3 DSA and S5 DAA university portions with YouTube links.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    Combined master study list for both S3 DSA and S5 DAA, classified by module, core/optional status, and YouTube links.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Data_Structures_and_Algorithms_Study_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('Data_Structures_and_Algorithms_Study_Portions.csv', appData.dsa_all.filter((v) => v.Status !== 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--accent-blue)',
+                        color: 'var(--bg-base)',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/Data_Structures_and_Algorithms_Study_Portions.csv', 'dsa_study')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'dsa_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'dsa_study' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* File 2 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-red)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Computer_Networks_Study_Portions.csv</h4>
-                    <span className="badge badge-core">175 Rows</span>
+                {/* 2. Computer Networks Study Plan */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>Computer Networks Study Plan</h4>
+                      <span className="badge badge-critical">175 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      Complete S5 CN (PCCST501) curated course playlist mapped to KTU Modules 1 through 4.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    Curated study portions for S5 Computer Networks (PCCST501), classified into Modules 1 to 4 with core and optional badges.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Computer_Networks_Study_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('Computer_Networks_Study_Portions.csv', appData.cn_all.filter((v) => v.Status !== 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--accent-red)',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/Computer_Networks_Study_Portions.csv', 'cn_study')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'cn_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'cn_study' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* File 3 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-peach)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>S5_DAA_Study_Portions.csv</h4>
-                    <span className="badge badge-theory">164 Rows</span>
+                {/* 3. DAA Theory Plan */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-peach)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DAA (Algorithms) Focused Plan</h4>
+                      <span className="badge badge-theory">164 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      Specific playlist for S5 DAA Theory exam (Nov 27): recurrences, AVL trees, and greedy/DP.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    Standalone study playlist specifically for the S5 DAA Theory exam (Nov 27), including recurrences, AVL trees, and greedy/DP.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/S5_DAA_Study_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('S5_DAA_Study_Portions.csv', playlists.daa.filter((v) => v.Status !== 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--accent-peach)',
+                        color: 'var(--bg-base)',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/S5_DAA_Study_Portions.csv', 'daa_study')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'daa_study' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'daa_study' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* File 4 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-green)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>S3_DSA_Study_Portions.csv</h4>
-                    <span className="badge badge-supply">163 Rows</span>
+                {/* 4. S3 DSA Supply Plan */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-green)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>S3 DSA Supply Plan</h4>
+                      <span className="badge badge-supply">163 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      Targeted playlist for S3 DSA Supply exam (Nov 30): Stacks, Queues, Trees, Heaps, and Sorting.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    Standalone study playlist specifically for S3 DSA Supply (Nov 30), focusing on Stacks, Queues, Trees, Heaps, and Sorting.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/S3_DSA_Study_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('S3_DSA_Study_Portions.csv', playlists.dsa.filter((v) => v.Status !== 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--accent-green)',
+                        color: 'var(--bg-base)',
+                        border: 'none',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/S3_DSA_Study_Portions.csv', 'dsa_supply')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'dsa_supply' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'dsa_supply' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* File 5 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-red)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Computer_Networks_Removed_Portions.csv</h4>
-                    <span className="badge badge-removed">27 Rows</span>
+                {/* 5. CN Removed Topics */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>CN Filtered Out Topics</h4>
+                      <span className="badge badge-removed">27 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      All removed videos from the CN playlist with reasons explaining why they were excluded.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    All eliminated CN videos (isolated GATE PYQ snippets, syllabus intro) with detailed reasons for removal.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Computer_Networks_Removed_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('Computer_Networks_Removed_Portions.csv', appData.cn_all.filter((v) => v.Status === 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--accent-red)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/Computer_Networks_Removed_Portions.csv', 'cn_rem')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'cn_rem' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'cn_rem' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
 
-                {/* File 6 */}
-                <div className="card" style={{ padding: '1rem', borderLeft: '4px solid var(--accent-red)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: 600 }}>Data_Structures_and_Algorithms_Removed_Portions.csv</h4>
-                    <span className="badge badge-removed">28 Rows</span>
+                {/* 6. DSA/DAA Removed Topics */}
+                <div className="card" style={{ padding: '0.85rem', borderLeft: '3px solid var(--accent-red)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: 700 }}>DSA/DAA Filtered Out Topics</h4>
+                      <span className="badge badge-removed">28 Vids</span>
+                    </div>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                      All removed DSA/DAA videos with reasons explaining why they were excluded.
+                    </p>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
-                    All eliminated DSA/DAA videos (excessive placement problems, LeetCode questions, multistage graphs) with reasons.
-                  </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv</span>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={() => downloadCSV('Data_Structures_and_Algorithms_Removed_Portions.csv', appData.dsa_all.filter((v) => v.Status === 'Removed'))}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--accent-red)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '0.74rem',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.3rem'
+                      }}
+                    >
+                      <Download size={12} /> Download CSV
+                    </button>
+                    <button
+                      onClick={() => copyPath('data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv', 'dsa_rem')}
+                      style={{
+                        backgroundColor: 'var(--bg-active)',
+                        border: '1px solid var(--border-default)',
+                        color: 'var(--text-muted)',
+                        borderRadius: '4px',
+                        padding: '0.3rem 0.55rem',
+                        fontSize: '0.72rem',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}
+                    >
+                      {copiedKey === 'dsa_rem' ? <Check size={12} color="var(--accent-green)" /> : <Copy size={12} />}
+                      {copiedKey === 'dsa_rem' ? 'Copied' : 'Path'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Markdown Documentation Reference */}
+            {/* Quick Interactive Syllabus Reader */}
             <div className="card" style={{ padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Info size={18} color="var(--accent-purple)" /> Comprehensive Study Plan Documentation
-              </h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                A complete markdown breakdown is available at <strong>docs/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md</strong> with full course syllabus descriptions, pedagogical filtering criteria, and day-by-day exam roadmaps.
-              </p>
-              <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem 1rem', borderRadius: '4px', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--accent-blue)' }} className="mono">
-                docs/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <FileText size={16} color="var(--accent-blue)" /> Official University Syllabus Viewer
+                </h3>
+
+                {/* Syllabus Switcher Tabs */}
+                <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+                  <button
+                    onClick={() => setSelectedSyllabusTab('cn')}
+                    style={{
+                      backgroundColor: selectedSyllabusTab === 'cn' ? 'var(--accent-red)' : 'var(--bg-active)',
+                      color: selectedSyllabusTab === 'cn' ? '#fff' : 'var(--text-muted)',
+                      border: '1px solid var(--border-default)',
+                      padding: '0.25rem 0.6rem',
+                      borderRadius: '4px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    S5 CN
+                  </button>
+                  <button
+                    onClick={() => setSelectedSyllabusTab('daa')}
+                    style={{
+                      backgroundColor: selectedSyllabusTab === 'daa' ? 'var(--accent-peach)' : 'var(--bg-active)',
+                      color: selectedSyllabusTab === 'daa' ? '#fff' : 'var(--text-muted)',
+                      border: '1px solid var(--border-default)',
+                      padding: '0.25rem 0.6rem',
+                      borderRadius: '4px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    S5 DAA
+                  </button>
+                  <button
+                    onClick={() => setSelectedSyllabusTab('dsa')}
+                    style={{
+                      backgroundColor: selectedSyllabusTab === 'dsa' ? 'var(--accent-green)' : 'var(--bg-active)',
+                      color: selectedSyllabusTab === 'dsa' ? '#fff' : 'var(--text-muted)',
+                      border: '1px solid var(--border-default)',
+                      padding: '0.25rem 0.6rem',
+                      borderRadius: '4px',
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    S3 DSA
+                  </button>
+                </div>
+              </div>
+
+              {/* Syllabus Content Display */}
+              <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '1rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                {selectedSyllabusTab === 'cn' && (
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--accent-red)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
+                      KTU S5 Computer Networks (PCCST501) • ESE: 60 Marks, CIE: 40 Marks
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (6 Hours):</strong> Overview of Internet, Protocol layering; Application Layer: World Wide Web and HTTP, FTP, Email (SMTP, POP, IMAP), DNS, Peer-to-peer paradigm & BitTorrent.
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (18 Hours):</strong> Transport Layer: UDP, TCP Header, Connection Establishment/Termination, Flow Control, Congestion Control (AIMD); Network Layer: IPv4, IPv6, ICMP, ARP, Unicast Routing (Distance Vector, Link State), Multicast, QoS (Leaky/Token Bucket).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Data-Link Layer: Data link control (DLC), Framing, Flow & Error Control (CRC, Hamming, Stop-and-wait, GBN, SR); Multiple Access Protocols (ALOHA, CSMA/CD, CSMA/CA); Ethernet; Connecting Devices (Hub, Switch, Router); Wireless LANs 802.11.
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (9 Hours):</strong> SNMP, ASN.1; Physical Layer: Data & Signals, Digital transmission (NRZ, RZ, Manchester), Analog transmission, Bandwidth utilization (FDM, TDM, WDM), Transmission media.
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedSyllabusTab === 'daa' && (
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--accent-peach)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
+                      KTU S5 Design and Analysis of Algorithms (PCCST502) • ESE: 60 Marks, CIE: 40 Marks
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (11 Hours):</strong> Algorithms criteria; Asymptotic Notations & properties; Recurrence Equations: Iteration Method, Recursion Tree Method, Substitution Method, Master's Theorem; Balanced Search Trees: AVL Trees (Insertion & Deletion with all rotations).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (11 Hours):</strong> Disjoint Sets: Union and find, Union by rank with path compression, Connected components; Graph Traversals (BFS, DFS, SCC); Topological Sorting; Divide and Conquer (Control Abstraction, Merge Sort, Strassen's Matrix Multiplication).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Greedy Strategy (Control Abstraction, Fractional Knapsack, Kruskal's and Prim's MST, Dijkstra Shortest Path); Dynamic Programming (Control Abstraction, Optimality Principle, Matrix Chain Multiplication, Floyd-Warshall); Backtracking (N-Queens Problem).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (11 Hours):</strong> Branch and Bound (Traveling Salesman Problem); Complexity Classes (P, NP, NP-Hard, NP-Complete, Clique & Vertex Cover proofs); Approximation (Bin Packing); Randomized Quick Sort with analysis.
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedSyllabusTab === 'dsa' && (
+                  <div>
+                    <div style={{ fontWeight: 700, color: 'var(--accent-green)', marginBottom: '0.5rem', fontSize: '0.88rem' }}>
+                      KTU S3 Data Structures and Algorithms (PCCST303) • ESE: 60 Marks, CIE: 40 Marks
+                    </div>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem' }}>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 1 (11 Hours):</strong> Basic Concepts, Time & Space Complexity, Asymptotic Notations; Polynomial representation using Arrays, Sparse matrix; Stacks, Queues, Circular Queues, Deque; Expression Evaluation (Infix to Postfix, Postfix evaluation).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 2 (11 Hours):</strong> Singly Linked List, Stacks & Queues using Linked List, Polynomials; Doubly Linked List, Circular Linked List; Memory Allocation (First-fit, Best-fit, Worst-fit), Garbage collection and compaction.
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 3 (11 Hours):</strong> Trees: Binary Trees & properties, Traversals; Expression Trees; BST Operations; Binary Heaps & Priority Queues; Graphs (Definitions, Adjacency Matrix & List, BFS, DFS, Single-Source Shortest Path).
+                      </div>
+                      <div>
+                        <strong style={{ color: 'var(--text-main)' }}>Module 4 (11 Hours):</strong> Sorting: Selection, Insertion, Quick, Merge, Heap, Radix Sort; Searching: Linear Search, Binary Search; Hashing & Collision Resolution (Linear probing, Quadratic probing, Double hashing, Chaining).
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -1290,10 +1678,10 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--border-default)', backgroundColor: 'var(--bg-surface)', padding: '1rem 1.5rem', marginTop: '2rem' }}>
-        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-dim)' }}>
+      <footer style={{ borderTop: '1px solid var(--border-default)', backgroundColor: 'var(--bg-surface)', padding: '0.85rem 1rem', marginTop: '1.5rem' }}>
+        <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.74rem', color: 'var(--text-dim)' }}>
           <div>
-            <strong>EXAMER</strong> • Prepared for Vishnu Nandan • KTU CSE B.Tech Examination Suite • <span className="mono">Updated: {appData.lastUpdatedDisplay}</span>
+            <strong>EXAMER</strong> • Prepared for Vishnu Nandan • KTU CSE B.Tech Suite • <span className="mono">Updated: {appData.lastUpdatedDisplay}</span>
           </div>
           <div>
             Repository: <code className="mono" style={{ color: 'var(--accent-blue)' }}>git@github.com:vishnunandan555/examer.git</code>
