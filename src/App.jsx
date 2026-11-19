@@ -149,11 +149,20 @@ export default function App() {
     return { cn, daa, dsa, dsaAll };
   }, []);
 
-  // Compute Days Remaining helper
+  // Compute Days Remaining helper (Normalized to start-of-day IST)
   const getDaysLeft = (dateStr) => {
-    const target = new Date(dateStr + 'T09:30:00+05:30');
-    const diffTime = target - CURRENT_DATE;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const now = new Date();
+    // Use actual system date if in 2026, otherwise fallback to current timeline date 2026-11-19
+    const baseDate = now.getFullYear() === 2026 ? now : new Date('2026-11-19T09:08:43+05:30');
+    const todayYear = baseDate.getFullYear();
+    const todayMonth = String(baseDate.getMonth() + 1).padStart(2, '0');
+    const todayDay = String(baseDate.getDate()).padStart(2, '0');
+    const todayIso = `${todayYear}-${todayMonth}-${todayDay}`;
+
+    const targetTime = new Date(dateStr + 'T00:00:00').getTime();
+    const todayTime = new Date(todayIso + 'T00:00:00').getTime();
+
+    const diffDays = Math.round((targetTime - todayTime) / (1000 * 60 * 60 * 24));
     return diffDays;
   };
 
@@ -731,7 +740,7 @@ export default function App() {
                   <tbody>
                     {appData.examTimetable.map((item, idx) => {
                       const days = getDaysLeft(item.date);
-                      const isPast = days < 0;
+                      const isPast = days < 0 || item.status === 'completed';
                       const isNext = item.date === '2026-11-23';
 
                       return (
@@ -739,13 +748,14 @@ export default function App() {
                           key={idx}
                           style={{
                             borderBottom: '1px solid var(--border-subtle)',
-                            backgroundColor: isNext ? 'rgba(248, 113, 113, 0.05)' : isPast ? 'rgba(255, 255, 255, 0.01)' : 'transparent'
+                            backgroundColor: isNext ? 'rgba(248, 113, 113, 0.05)' : isPast ? 'rgba(255, 255, 255, 0.01)' : 'transparent',
+                            opacity: isPast ? 0.65 : 1
                           }}
                         >
                           <td style={{ padding: '0.55rem 0.65rem', fontWeight: 600 }} className="mono">
                             {item.displayDate}
                           </td>
-                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: isNext ? 700 : 500, color: isNext ? 'var(--accent-red)' : 'var(--text-main)' }}>
+                          <td style={{ padding: '0.55rem 0.65rem', fontWeight: isNext ? 700 : 500, color: isNext ? 'var(--accent-red)' : isPast ? 'var(--text-muted)' : 'var(--text-main)' }}>
                             {item.subject}
                           </td>
                           <td style={{ padding: '0.55rem 0.65rem', color: 'var(--text-dim)' }} className="mono">
@@ -756,7 +766,7 @@ export default function App() {
                           </td>
                           <td style={{ padding: '0.55rem 0.65rem' }}>
                             {isPast ? (
-                              <span style={{ color: 'var(--text-dim)', fontSize: '0.75rem' }}>Completed</span>
+                              <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>Completed</span>
                             ) : days === 0 ? (
                               <span className="badge badge-critical">Today!</span>
                             ) : (
@@ -789,7 +799,7 @@ export default function App() {
                                 View <ArrowRight size={11} />
                               </button>
                             ) : isPast ? (
-                              <span style={{ color: 'var(--accent-green)', fontSize: '0.72rem' }}>✓ Done</span>
+                              <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>✓ Done</span>
                             ) : (
                               <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Self Study</span>
                             )}
