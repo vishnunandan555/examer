@@ -39,6 +39,15 @@ export default function App() {
   const [copiedKey, setCopiedKey] = useState(null);
   const [selectedSyllabusTab, setSelectedSyllabusTab] = useState('cn');
 
+  // Time unit display: 'hrs' or 'days'
+  const [timeUnitMode, setTimeUnitMode] = useState(() => {
+    try {
+      return localStorage.getItem('examer_time_unit_v1') || 'hrs';
+    } catch (e) {
+      return 'hrs';
+    }
+  });
+
   const [completedMap, setCompletedMap] = useState(() => {
     try {
       const saved = localStorage.getItem('examer_completed_v1');
@@ -50,7 +59,7 @@ export default function App() {
 
   const [expandedSyllabus, setExpandedSyllabus] = useState(false);
 
-  // Sync completedMap to localStorage
+  // Sync state to localStorage
   useEffect(() => {
     try {
       localStorage.setItem('examer_completed_v1', JSON.stringify(completedMap));
@@ -58,6 +67,31 @@ export default function App() {
       console.error('Failed to save to localStorage', e);
     }
   }, [completedMap]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_time_unit_v1', timeUnitMode);
+    } catch (e) {
+      console.error('Failed to save time unit', e);
+    }
+  }, [timeUnitMode]);
+
+  const toggleTimeUnit = () => {
+    setTimeUnitMode((prev) => (prev === 'hrs' ? 'days' : 'hrs'));
+  };
+
+  // Format hours vs days: if >= 12 hrs in days mode, convert to Days (i.e. 12 hrs = 0.5 Days)
+  const formatTime = (hours) => {
+    if (typeof hours !== 'number' || isNaN(hours)) return '0 hrs';
+    if (timeUnitMode === 'days') {
+      if (hours >= 12) {
+        const days = (hours / 24).toFixed(1);
+        return `${days} Days`;
+      }
+      return `${hours.toFixed(1)} hrs`;
+    }
+    return `${hours.toFixed(1)} hrs`;
+  };
 
   const toggleComplete = (itemKey) => {
     setCompletedMap((prev) => ({
@@ -288,8 +322,30 @@ export default function App() {
             </div>
           </div>
 
-          {/* Right Header Controls: Speed & Next Exam */}
+          {/* Right Header Controls: Unit Toggle, Speed & Next Exam */}
           <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            {/* Global Time Format Toggle (Hrs vs Days) */}
+            <button
+              onClick={toggleTimeUnit}
+              title="Click to toggle time units (Hours vs Days if >= 12hrs)"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                backgroundColor: 'var(--bg-overlay)',
+                padding: '0.3rem 0.6rem',
+                borderRadius: '5px',
+                border: '1px solid var(--border-default)',
+                color: timeUnitMode === 'days' ? 'var(--accent-green)' : 'var(--accent-blue)',
+                fontWeight: 600,
+                fontSize: '0.76rem',
+                cursor: 'pointer'
+              }}
+            >
+              <Clock size={13} />
+              <span>Format: <strong>{timeUnitMode === 'days' ? 'Days (0.5d+)' : 'Hours'}</strong></span>
+            </button>
+
             {/* Speed Selector */}
             <div
               style={{
@@ -516,7 +572,7 @@ export default function App() {
                   <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Computer Networks (Theory) • Nov 23</h2>
                 </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-                  <strong>4 days remaining</strong>. Filtered core watch time is <strong>{cnStats.coreHours.toFixed(1)} hrs</strong> at 1.0x, or <strong>{(cnStats.coreHours / playbackSpeed).toFixed(1)} hrs</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
+                  <strong>4 days remaining</strong>. Filtered core watch time is <strong>{formatTime(cnStats.coreHours)}</strong> at 1.0x, or <strong>{formatTime(cnStats.coreHours / playbackSpeed)}</strong> at {playbackSpeed}x speed ({((cnStats.coreHours / playbackSpeed) / 4).toFixed(1)} hrs/day target).
                 </p>
               </div>
               <button
@@ -542,16 +598,26 @@ export default function App() {
               </button>
             </div>
 
-            {/* Quick KPI Grid */}
+            {/* Quick KPI Grid - Clickable boxes to toggle Days format */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '0.85rem', marginBottom: '1.25rem' }}>
               {/* Card 1: CN */}
-              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)' }}>
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Hours / Days format"
+                style={{ padding: '1rem', borderTop: '3px solid var(--accent-red)', cursor: 'pointer', userSelect: 'none' }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
                     <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>Computer Networks</h3>
                     <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 23 • S5 Theory (PCCST501)</span>
                   </div>
-                  <span className="badge badge-critical">4 Days Left</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span className="badge badge-critical">4 Days Left</span>
+                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
                 <div style={{ margin: '0.75rem 0' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
@@ -563,19 +629,29 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{cnStats.coreVideos} vids</strong> ({cnStats.coreHours.toFixed(1)}h)</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(cnStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
+                  <span>Core: <strong>{cnStats.coreVideos} vids</strong> ({formatTime(cnStats.coreHours)})</span>
+                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(cnStats.coreHours / playbackSpeed)}</strong></span>
                 </div>
               </div>
 
               {/* Card 2: DAA */}
-              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)' }}>
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Hours / Days format"
+                style={{ padding: '1rem', borderTop: '3px solid var(--accent-peach)', cursor: 'pointer', userSelect: 'none' }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
                     <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>DAA (Algorithms)</h3>
                     <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 27 • S5 Theory (PCCST502)</span>
                   </div>
-                  <span className="badge badge-theory">8 Days Left</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span className="badge badge-theory">8 Days Left</span>
+                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
                 <div style={{ margin: '0.75rem 0' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
@@ -587,19 +663,29 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{daaStats.coreVideos} vids</strong> ({daaStats.coreHours.toFixed(1)}h)</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(daaStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
+                  <span>Core: <strong>{daaStats.coreVideos} vids</strong> ({formatTime(daaStats.coreHours)})</span>
+                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(daaStats.coreHours / playbackSpeed)}</strong></span>
                 </div>
               </div>
 
               {/* Card 3: S3 DSA */}
-              <div className="card" style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)' }}>
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Hours / Days format"
+                style={{ padding: '1rem', borderTop: '3px solid var(--accent-green)', cursor: 'pointer', userSelect: 'none' }}
+              >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
                   <div>
                     <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>S3 DSA (Supply)</h3>
                     <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>Nov 30 • S3 Supply (PCCST303)</span>
                   </div>
-                  <span className="badge badge-supply">11 Days Left</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <span className="badge badge-supply">11 Days Left</span>
+                    <span style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
                 <div style={{ margin: '0.75rem 0' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
@@ -611,8 +697,8 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <span>Core: <strong>{dsaStats.coreVideos} vids</strong> ({dsaStats.coreHours.toFixed(1)}h)</span>
-                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{(dsaStats.coreHours / playbackSpeed).toFixed(1)}h</strong></span>
+                  <span>Core: <strong>{dsaStats.coreVideos} vids</strong> ({formatTime(dsaStats.coreHours)})</span>
+                  <span>At {playbackSpeed}x: <strong style={{ color: 'var(--text-main)' }}>{formatTime(dsaStats.coreHours / playbackSpeed)}</strong></span>
                 </div>
               </div>
             </div>
@@ -717,36 +803,59 @@ export default function App() {
 
             {/* Reduction Analysis Summary */}
             <div className="card" style={{ padding: '1rem' }}>
-              <h3 style={{ fontSize: '0.98rem', fontWeight: 700, marginBottom: '0.4rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <TrendingUp size={16} color="var(--accent-green)" /> Syllabus Filtering Impact Summary
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.4rem' }}>
+                <h3 style={{ fontSize: '0.98rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <TrendingUp size={16} color="var(--accent-green)" /> Syllabus Filtering Impact Summary
+                </h3>
+                <span style={{ fontSize: '0.7rem', color: 'var(--accent-blue)' }}>(Click any box to toggle Days / Hours)</span>
+              </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginBottom: '0.85rem' }}>
                 Eliminated repetitive competitive programming and isolated 2-minute GATE questions to isolate pure university syllabus portions:
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                <div
+                  className="card card-hover"
+                  onClick={toggleTimeUnit}
+                  title="Click to toggle Days format"
+                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
+                >
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Original Raw Playlists</div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-main)' }}>500 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>260.2 Hours raw watch time</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-main)' }}>500 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>{formatTime(260.2)} total watch time</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                <div
+                  className="card card-hover"
+                  onClick={toggleTimeUnit}
+                  title="Click to toggle Days format"
+                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
+                >
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Curated Core (Must-Watch)</div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-green)' }}>290 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-green)' }}>152.0 Hours (42% Load Cut)</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-green)' }}>290 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-green)' }}>{formatTime(152.0)} (42% Load Cut)</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                <div
+                  className="card card-hover"
+                  onClick={toggleTimeUnit}
+                  title="Click to toggle Days format"
+                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
+                >
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Optional Practice</div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-yellow)' }}>155 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-yellow)' }}>85.9 Hours extra practice</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-yellow)' }}>155 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-yellow)' }}>{formatTime(85.9)} extra practice</div>
                 </div>
 
-                <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)' }}>
+                <div
+                  className="card card-hover"
+                  onClick={toggleTimeUnit}
+                  title="Click to toggle Days format"
+                  style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--border-subtle)', cursor: 'pointer', userSelect: 'none' }}
+                >
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-dim)' }}>Eliminated Overkill</div>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--accent-red)' }}>55 Videos</div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-red)' }}>22.3 Hours saved directly</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--accent-red)' }}>55 Videos</div>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--accent-red)' }}>{formatTime(22.3)} saved directly</div>
                 </div>
               </div>
             </div>
@@ -790,12 +899,12 @@ export default function App() {
                   </span>
                 </div>
                 <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
-                  Remaining Core: <strong>{currentSubjectData.stats.remainingCoreHours.toFixed(1)}h</strong> at {playbackSpeed}x
+                  Remaining Core: <strong>{formatTime(currentSubjectData.stats.remainingCoreHours)}</strong> at {playbackSpeed}x
                 </div>
               </div>
             </div>
 
-            {/* Subject Stats Strip */}
+            {/* Subject Stats Strip - CLICKABLE STAT BOXES WITH >=12H DAYS FORMAT */}
             <div
               style={{
                 display: 'grid',
@@ -804,42 +913,103 @@ export default function App() {
                 marginBottom: '0.85rem'
               }}
             >
-              <div className="card" style={{ padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core Watch Time (1.0x)</div>
+              {/* Box 1 */}
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
+                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core Watch Time (1.0x)</span>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
+                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  </span>
+                </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
-                  {currentSubjectData.stats.coreHours.toFixed(1)}h
+                  {formatTime(currentSubjectData.stats.coreHours)}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch vids</div>
               </div>
 
-              <div className="card" style={{ padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core at 1.5x Speed</div>
+              {/* Box 2 */}
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
+                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core at {playbackSpeed}x Speed</span>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-yellow)', opacity: 0.8 }}>
+                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  </span>
+                </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
-                  {(currentSubjectData.stats.coreHours / 1.5).toFixed(1)}h
+                  {formatTime(currentSubjectData.stats.coreHours / playbackSpeed)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>Saves {((currentSubjectData.stats.coreHours * 0.33)).toFixed(1)}h</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                  Saves {formatTime(currentSubjectData.stats.coreHours * (1 - 1 / playbackSpeed))}
+                </div>
               </div>
 
-              <div className="card" style={{ padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace Target</div>
+              {/* Box 3 */}
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Days format"
+                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Required Study Pace</span>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.8 }}>
+                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  </span>
+                </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {currentSubjectData.daysLeft > 0 ? ((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1) : 0} h/day
+                  {currentSubjectData.daysLeft > 0
+                    ? `${((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1)} hrs/day`
+                    : '0 hrs/day'}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Next {currentSubjectData.daysLeft} days @ {playbackSpeed}x</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>
+                  Over next {currentSubjectData.daysLeft} days @ {playbackSpeed}x
+                </div>
               </div>
 
-              <div className="card" style={{ padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Optional Depth</div>
+              {/* Box 4 */}
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
+                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Optional Deep Dive</span>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-yellow)', opacity: 0.8 }}>
+                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  </span>
+                </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700 }} className="mono">
-                  {currentSubjectData.stats.optHours.toFixed(1)}h
+                  {formatTime(currentSubjectData.stats.optHours)}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice vids</div>
               </div>
 
-              <div className="card" style={{ padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Removed Overkill</div>
+              {/* Box 5 */}
+              <div
+                className="card card-hover"
+                onClick={toggleTimeUnit}
+                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
+                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Removed Overkill</span>
+                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.8 }}>
+                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  </span>
+                </div>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {currentSubjectData.stats.remHours.toFixed(1)}h
+                  {formatTime(currentSubjectData.stats.remHours)}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} cut videos</div>
               </div>
@@ -1221,7 +1391,7 @@ export default function App() {
           </div>
         )}
 
-        {/* ===================== VIEW 3: STUDY FILES & SYLLABI (VASTLY IMPROVED) ===================== */}
+        {/* ===================== VIEW 3: STUDY FILES & SYLLABI ===================== */}
         {activeTab === 'syllabus' && (
           <div>
             <div className="card" style={{ padding: '1.25rem', marginBottom: '1.25rem' }}>
