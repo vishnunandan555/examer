@@ -42,14 +42,15 @@ export default function App() {
 
   const [animatingOutKeys, setAnimatingOutKeys] = useState({});
 
-  // Security Passcode State
-  const [isUnlocked, setIsUnlocked] = useState(() => {
+  // Security Passcode State: Locks on reload/refresh for privacy
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  // Clean up legacy persistent unlock if present
+  useEffect(() => {
     try {
-      return localStorage.getItem('examer_unlocked_v1') === 'true';
-    } catch (e) {
-      return false;
-    }
-  });
+      localStorage.removeItem('examer_unlocked_v1');
+    } catch (e) {}
+  }, []);
 
   const [passcode, setPasscode] = useState(() => {
     try {
@@ -259,17 +260,11 @@ export default function App() {
 
   const handleLockDashboard = () => {
     setIsUnlocked(false);
-    try {
-      localStorage.removeItem('examer_unlocked_v1');
-    } catch (e) {}
     setShowSettingsModal(false);
   };
 
   const handleUnlock = () => {
     setIsUnlocked(true);
-    try {
-      localStorage.setItem('examer_unlocked_v1', 'true');
-    } catch (e) {}
   };
 
   // If locked, render Minimalist Passcode Gate

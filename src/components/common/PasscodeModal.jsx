@@ -132,10 +132,6 @@ export default function PasscodeModal({
             <ArrowRight size={15} />
           </button>
         </form>
-
-        <div style={{ marginTop: '1.25rem', fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-          Desktop default PIN: <code style={{ color: 'var(--accent-blue)' }}>0000</code>. Production PIN loaded from <code style={{ color: 'var(--accent-peach)' }}>PIN</code> env.
-        </div>
       </div>
     </div>
   );
