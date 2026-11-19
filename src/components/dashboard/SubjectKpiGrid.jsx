@@ -16,23 +16,25 @@ export default function SubjectKpiGrid({
   allSubjectStats = {},
   onNavigate
 }) {
-  const subjectList = Object.entries(allSubjectStats).map(([id, info]) => {
-    const meta = SUBJECT_METADATA[id] || {
-      badgeClass: 'badge-theory',
-      accentColor: 'var(--accent-blue)',
-      typeLabel: 'Course'
-    };
-    return {
-      id,
-      title: info.data.title,
-      code: `${info.data.displayDate} • ${meta.typeLabel} (${info.data.code})`,
-      badgeClass: meta.badgeClass,
-      accentColor: meta.accentColor,
-      stats: info.stats,
-      days: info.days,
-      viewLabel: `Open ${info.data.code} Syllabus`
-    };
-  });
+  const subjectList = Object.entries(allSubjectStats)
+    .map(([id, info]) => {
+      const meta = SUBJECT_METADATA[id] || {
+        badgeClass: 'badge-theory',
+        accentColor: 'var(--accent-blue)',
+        typeLabel: 'Course'
+      };
+      return {
+        id,
+        title: info.data.title,
+        code: `${info.data.displayDate} • ${meta.typeLabel} (${info.data.code})`,
+        badgeClass: meta.badgeClass,
+        accentColor: meta.accentColor,
+        stats: info.stats,
+        days: info.days,
+        viewLabel: `Open ${info.data.code} Syllabus`
+      };
+    })
+    .sort((a, b) => a.days - b.days);
 
   return (
     <div
