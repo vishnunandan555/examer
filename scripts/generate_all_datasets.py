@@ -1,13 +1,23 @@
 import csv
 import json
 import os
+import shutil
+
+LAST_UPDATED_ISO = '2026-11-19T08:51:05+05:30'
+LAST_UPDATED_DISPLAY = '2026-11-19 08:51 IST'
+
+RAW_DIR = 'data/raw'
+PROCESSED_DIR = 'data/processed'
+os.makedirs(PROCESSED_DIR, exist_ok=True)
 
 # Load original DSA CSV
-with open('Data Structures and Algorithms for GATE — Complete Playlist.csv', encoding='utf-8') as f:
+dsa_csv_path = os.path.join(RAW_DIR, 'Data Structures and Algorithms for GATE — Complete Playlist.csv')
+with open(dsa_csv_path, encoding='utf-8') as f:
     dsa_raw = list(csv.DictReader(f))
 
 # Load original CN CSV
-with open('Computer Networks (CN) for GATE — Complete Playlist.csv', encoding='utf-8') as f:
+cn_csv_path = os.path.join(RAW_DIR, 'Computer Networks (CN) for GATE — Complete Playlist.csv')
+with open(cn_csv_path, encoding='utf-8') as f:
     cn_raw = list(csv.DictReader(f))
 
 dsa_records = []
@@ -561,7 +571,8 @@ for idx, r in enumerate(dsa_raw, start=1):
         'Module': module,
         'Topic': topic,
         'Status': status,
-        'Reason': reason
+        'Reason': reason,
+        'Last Updated': LAST_UPDATED_DISPLAY
     })
 
 # CN records
@@ -755,22 +766,23 @@ for idx, r in enumerate(cn_raw, start=1):
         'Module': module,
         'Topic': topic,
         'Status': status,
-        'Reason': reason
+        'Reason': reason,
+        'Last Updated': LAST_UPDATED_DISPLAY
     })
 
-# Write CSV Helper
 def write_csv(filename, fieldnames, data):
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
+    filepath = os.path.join(PROCESSED_DIR, filename)
+    with open(filepath, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         for row in data:
             writer.writerow({k: row.get(k, '') for k in fieldnames})
-    print(f"Generated {filename} ({len(data)} rows)")
+    print(f"Generated {filepath} ({len(data)} rows)")
 
-study_fields = ['Index', 'Subject', 'Module', 'Topic', 'Title', 'Duration in minutes', 'Video url', 'Status', 'Reason']
-removed_fields = ['Index', 'Subject', 'Module', 'Topic', 'Title', 'Duration in minutes', 'Video url', 'Reason for Removal']
+study_fields = ['Index', 'Subject', 'Module', 'Topic', 'Title', 'Duration in minutes', 'Video url', 'Status', 'Reason', 'Last Updated']
+removed_fields = ['Index', 'Subject', 'Module', 'Topic', 'Title', 'Duration in minutes', 'Video url', 'Reason for Removal', 'Last Updated']
 
-# 1. Combined DSA & DAA Study portions (Core + Optional)
+# 1. Combined DSA & DAA Study portions
 dsa_study = [{
     'Index': r['Index'],
     'Subject': r['Subject'],
@@ -780,7 +792,8 @@ dsa_study = [{
     'Duration in minutes': r['Duration'],
     'Video url': r['Video url'],
     'Status': r['Status'],
-    'Reason': r['Reason']
+    'Reason': r['Reason'],
+    'Last Updated': r['Last Updated']
 } for r in dsa_records if r['Status'] in ['Core', 'Optional']]
 write_csv('Data_Structures_and_Algorithms_Study_Portions.csv', study_fields, dsa_study)
 
@@ -793,7 +806,8 @@ dsa_removed = [{
     'Title': r['Title'],
     'Duration in minutes': r['Duration'],
     'Video url': r['Video url'],
-    'Reason for Removal': r['Reason']
+    'Reason for Removal': r['Reason'],
+    'Last Updated': r['Last Updated']
 } for r in dsa_records if r['Status'] == 'Removed']
 write_csv('Data_Structures_and_Algorithms_Removed_Portions.csv', removed_fields, dsa_removed)
 
@@ -815,7 +829,8 @@ cn_study = [{
     'Duration in minutes': r['Duration'],
     'Video url': r['Video url'],
     'Status': r['Status'],
-    'Reason': r['Reason']
+    'Reason': r['Reason'],
+    'Last Updated': r['Last Updated']
 } for r in cn_records if r['Status'] in ['Core', 'Optional']]
 write_csv('Computer_Networks_Study_Portions.csv', study_fields, cn_study)
 
@@ -828,12 +843,15 @@ cn_removed = [{
     'Title': r['Title'],
     'Duration in minutes': r['Duration'],
     'Video url': r['Video url'],
-    'Reason for Removal': r['Reason']
+    'Reason for Removal': r['Reason'],
+    'Last Updated': r['Last Updated']
 } for r in cn_records if r['Status'] == 'Removed']
 write_csv('Computer_Networks_Removed_Portions.csv', removed_fields, cn_removed)
 
-# Also dump everything to a comprehensive JSON file for the Web App
+# JSON dump
 app_data = {
+    'lastUpdated': LAST_UPDATED_ISO,
+    'lastUpdatedDisplay': LAST_UPDATED_DISPLAY,
     'examTimetable': [
         {'date': '2026-11-16', 'displayDate': 'Nov 16', 'subject': 'Machine Learning', 'code': 'CST307', 'type': 'Lab', 'status': 'completed'},
         {'date': '2026-11-18', 'displayDate': 'Nov 18', 'subject': 'Computer Networks', 'code': 'PCCST501-L', 'type': 'Lab', 'status': 'completed'},
@@ -850,7 +868,10 @@ app_data = {
     'cn_all': cn_records
 }
 
-with open('playlist_data.json', 'w', encoding='utf-8') as f:
+with open('data/playlist_data.json', 'w', encoding='utf-8') as f:
     json.dump(app_data, f, indent=2)
 
-print("Generated playlist_data.json successfully!")
+os.makedirs('src/data', exist_ok=True)
+shutil.copy('data/playlist_data.json', 'src/data/playlist_data.json')
+
+print("Updated and generated all processed CSVs and JSON data successfully!")

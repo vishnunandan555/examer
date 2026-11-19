@@ -21,10 +21,12 @@ import {
   ChevronUp,
   Zap,
   ShieldCheck,
-  Flame
+  Flame,
+  RefreshCw,
+  FolderTree
 } from 'lucide-react';
 
-const CURRENT_DATE = new Date('2026-11-19T08:30:00+05:30');
+const CURRENT_DATE = new Date('2026-11-19T08:51:00+05:30');
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -76,13 +78,8 @@ export default function App() {
     const dsaAll = appData.dsa_all;
     const cnAll = appData.cn_all;
 
-    // CN: PCCST501
     const cn = cnAll;
-
-    // S5 DAA: videos where Subject is 'S5 DAA' or 'Both'
     const daa = dsaAll.filter((v) => v.Subject === 'S5 DAA' || v.Subject === 'Both');
-
-    // S3 DSA: videos where Subject is 'S3 DSA' or 'Both'
     const dsa = dsaAll.filter((v) => v.Subject === 'S3 DSA' || v.Subject === 'Both');
 
     return { cn, daa, dsa, dsaAll };
@@ -257,8 +254,11 @@ export default function App() {
                   EXAMER
                 </span>
                 <span className="badge badge-module">KTU CSE Suite</span>
+                <span className="badge badge-optional mono" style={{ fontSize: '0.65rem' }}>
+                  Updated: {appData.lastUpdatedDisplay || '2026-11-19 08:51 IST'}
+                </span>
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Personal Exam Prep & Curated GATE Playlist Tracker</p>
+              <p style={{ fontSize: '0.75rem', color: 'var(--text-dim)' }}>Personal Exam Preparation & Curated GATE Playlist Suite</p>
             </div>
           </div>
 
@@ -445,7 +445,7 @@ export default function App() {
               whiteSpace: 'nowrap'
             }}
           >
-            <Info size={15} /> All Syllabi & Datasets
+            <FolderTree size={15} /> Directory & Datasets
           </button>
         </div>
       </div>
@@ -583,9 +583,9 @@ export default function App() {
                   <h3 style={{ fontSize: '1.1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Calendar size={18} color="var(--accent-blue)" /> Official Examination Schedule
                   </h3>
-                  <p style={{ color: 'var(--text-dim)', fontSize: '0.78rem' }}>Matches your official updated examination timeline</p>
+                  <p style={{ color: 'var(--text-dim)', fontSize: '0.78rem' }}>Matches your official updated examination timeline (KTU 2026)</p>
                 </div>
-                <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>Reference: <strong>Nov 19, 2026</strong></span>
+                <span className="badge badge-optional mono">Updated: {appData.lastUpdatedDisplay}</span>
               </div>
 
               <div style={{ overflowX: 'auto' }}>
@@ -729,10 +729,11 @@ export default function App() {
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
                   <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>{currentSubjectData.title}</h2>
                   <span className="badge badge-module mono">{currentSubjectData.code}</span>
                   <span className="badge badge-critical">{currentSubjectData.daysLeft} Days Left</span>
+                  <span className="badge badge-optional mono" style={{ fontSize: '0.68rem' }}>Updated: {appData.lastUpdatedDisplay}</span>
                 </div>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
                   Exam Date: <strong>{currentSubjectData.displayDate}</strong> • {currentSubjectData.syllabusNote}
@@ -1183,15 +1184,18 @@ export default function App() {
           </div>
         )}
 
-        {/* ===================== VIEW 3: SYLLABUS & DATASETS VIEW ===================== */}
+        {/* ===================== VIEW 3: DIRECTORY & DATASETS VIEW ===================== */}
         {activeTab === 'syllabus' && (
           <div>
             <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-                Curated Datasets & Syllabus References
-              </h2>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                <h2 style={{ fontSize: '1.3rem', fontWeight: 700 }}>
+                  Curated Datasets & Refined Directory
+                </h2>
+                <span className="badge badge-optional mono">Last Updated: {appData.lastUpdatedDisplay}</span>
+              </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1.5rem' }}>
-                All filtered CSV datasets have been systematically compiled with pedagogical classification, YouTube links, and KTU module mappings:
+                All filtered CSV datasets have been systematically compiled with pedagogical classification, YouTube links, and KTU module mappings, organized into clean subdirectories:
               </p>
 
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1rem' }}>
@@ -1204,7 +1208,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     Combined master study list for both S3 DSA and S5 DAA, classified by module, core/optional status, and YouTube links.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/Data_Structures_and_Algorithms_Study_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Data_Structures_and_Algorithms_Study_Portions.csv</span>
                 </div>
 
                 {/* File 2 */}
@@ -1216,7 +1220,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     Curated study portions for S5 Computer Networks (PCCST501), classified into Modules 1 to 4 with core and optional badges.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/Computer_Networks_Study_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Computer_Networks_Study_Portions.csv</span>
                 </div>
 
                 {/* File 3 */}
@@ -1228,7 +1232,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     Standalone study playlist specifically for the S5 DAA Theory exam (Nov 27), including recurrences, AVL trees, and greedy/DP.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/S5_DAA_Study_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/S5_DAA_Study_Portions.csv</span>
                 </div>
 
                 {/* File 4 */}
@@ -1240,7 +1244,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     Standalone study playlist specifically for S3 DSA Supply (Nov 30), focusing on Stacks, Queues, Trees, Heaps, and Sorting.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/S3_DSA_Study_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/S3_DSA_Study_Portions.csv</span>
                 </div>
 
                 {/* File 5 */}
@@ -1252,7 +1256,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     All eliminated CN videos (isolated GATE PYQ snippets, syllabus intro) with detailed reasons for removal.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/Computer_Networks_Removed_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Computer_Networks_Removed_Portions.csv</span>
                 </div>
 
                 {/* File 6 */}
@@ -1264,7 +1268,7 @@ export default function App() {
                   <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '0.5rem 0' }}>
                     All eliminated DSA/DAA videos (excessive placement problems, LeetCode questions, multistage graphs) with reasons.
                   </p>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>File: /home/vishnunandan555/Repos/STUDY_PLAN/Data_Structures_and_Algorithms_Removed_Portions.csv</span>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }} className="mono">data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv</span>
                 </div>
               </div>
             </div>
@@ -1275,10 +1279,10 @@ export default function App() {
                 <Info size={18} color="var(--accent-purple)" /> Comprehensive Study Plan Documentation
               </h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '1rem' }}>
-                A complete markdown breakdown has been generated at <strong>SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md</strong> with full course syllabus descriptions, pedagogical filtering criteria, and day-by-day exam roadmaps.
+                A complete markdown breakdown is available at <strong>docs/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md</strong> with full course syllabus descriptions, pedagogical filtering criteria, and day-by-day exam roadmaps.
               </p>
               <div style={{ backgroundColor: 'var(--bg-overlay)', padding: '0.75rem 1rem', borderRadius: '4px', border: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--accent-blue)' }} className="mono">
-                /home/vishnunandan555/Repos/STUDY_PLAN/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md
+                docs/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md
               </div>
             </div>
           </div>
@@ -1289,7 +1293,7 @@ export default function App() {
       <footer style={{ borderTop: '1px solid var(--border-default)', backgroundColor: 'var(--bg-surface)', padding: '1rem 1.5rem', marginTop: '2rem' }}>
         <div style={{ maxWidth: '1440px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', fontSize: '0.78rem', color: 'var(--text-dim)' }}>
           <div>
-            <strong>EXAMER</strong> • Prepared for Vishnu Nandan • KTU CSE B.Tech Examination Suite
+            <strong>EXAMER</strong> • Prepared for Vishnu Nandan • KTU CSE B.Tech Examination Suite • <span className="mono">Updated: {appData.lastUpdatedDisplay}</span>
           </div>
           <div>
             Repository: <code className="mono" style={{ color: 'var(--accent-blue)' }}>git@github.com:vishnunandan555/examer.git</code>

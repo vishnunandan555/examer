@@ -1,4 +1,6 @@
 {
+  "lastUpdated": "2026-11-19T08:51:05+05:30",
+  "lastUpdatedDisplay": "2026-11-19 08:51 IST",
   "examTimetable": [
     {
       "date": "2026-11-16",
@@ -94,7 +96,8 @@
       "Module": "None",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "GATE syllabus intro - not university course content"
+      "Reason": "GATE syllabus intro - not university course content",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 2,
@@ -105,7 +108,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Introduction to Data Structures & Algorithms",
       "Status": "Core",
-      "Reason": "Foundational definitions, algorithms criteria, and abstract concepts"
+      "Reason": "Foundational definitions, algorithms criteria, and abstract concepts",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 3,
@@ -116,7 +120,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Introduction to Data Structures & Algorithms",
       "Status": "Core",
-      "Reason": "Foundational definitions, algorithms criteria, and abstract concepts"
+      "Reason": "Foundational definitions, algorithms criteria, and abstract concepts",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 4,
@@ -127,7 +132,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Algorithm Analysis Criteria (Apriori & Aposteriori)",
       "Status": "Core",
-      "Reason": "Characteristics and criteria for analyzing algorithms"
+      "Reason": "Characteristics and criteria for analyzing algorithms",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 5,
@@ -138,7 +144,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Algorithm Analysis Criteria (Apriori & Aposteriori)",
       "Status": "Core",
-      "Reason": "Characteristics and criteria for analyzing algorithms"
+      "Reason": "Characteristics and criteria for analyzing algorithms",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 6,
@@ -149,7 +156,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 7,
@@ -160,7 +168,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 8,
@@ -171,7 +180,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 9,
@@ -182,7 +192,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 10,
@@ -193,7 +204,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 11,
@@ -204,7 +216,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 12,
@@ -215,7 +228,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 13,
@@ -226,7 +240,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 14,
@@ -237,7 +252,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 15,
@@ -248,7 +264,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Asymptotic Notations (Big-O, Omega, Theta, o, w) & Properties",
       "Status": "Core",
-      "Reason": "Fundamental asymptotic notations and their mathematical properties"
+      "Reason": "Fundamental asymptotic notations and their mathematical properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 16,
@@ -259,7 +276,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Core",
-      "Reason": "Key practice for university exam complexity questions"
+      "Reason": "Key practice for university exam complexity questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 17,
@@ -270,7 +288,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Core",
-      "Reason": "Key practice for university exam complexity questions"
+      "Reason": "Key practice for university exam complexity questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 18,
@@ -281,7 +300,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Core",
-      "Reason": "Key practice for university exam complexity questions"
+      "Reason": "Key practice for university exam complexity questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 19,
@@ -292,7 +312,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 20,
@@ -303,7 +324,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 21,
@@ -314,7 +336,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 22,
@@ -325,7 +348,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 23,
@@ -336,7 +360,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 24,
@@ -347,7 +372,8 @@
       "Module": "S5-M1",
       "Topic": "Asymptotic Notations Complexity Calculation Practice",
       "Status": "Optional",
-      "Reason": "Extra practice problems; review if time permits"
+      "Reason": "Extra practice problems; review if time permits",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 25,
@@ -358,7 +384,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Core",
-      "Reason": "Step-by-step complexity calculation of iterative loops"
+      "Reason": "Step-by-step complexity calculation of iterative loops",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 26,
@@ -369,7 +396,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Core",
-      "Reason": "Step-by-step complexity calculation of iterative loops"
+      "Reason": "Step-by-step complexity calculation of iterative loops",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 27,
@@ -380,7 +408,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Core",
-      "Reason": "Step-by-step complexity calculation of iterative loops"
+      "Reason": "Step-by-step complexity calculation of iterative loops",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 28,
@@ -391,7 +420,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Core",
-      "Reason": "Step-by-step complexity calculation of iterative loops"
+      "Reason": "Step-by-step complexity calculation of iterative loops",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 29,
@@ -402,7 +432,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Optional",
-      "Reason": "Additional nested loop practice problems"
+      "Reason": "Additional nested loop practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 30,
@@ -413,7 +444,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Optional",
-      "Reason": "Additional nested loop practice problems"
+      "Reason": "Additional nested loop practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 31,
@@ -424,7 +456,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Time Complexity Calculation of Iterative Algorithms",
       "Status": "Optional",
-      "Reason": "Additional nested loop practice problems"
+      "Reason": "Additional nested loop practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 32,
@@ -435,7 +468,8 @@
       "Module": "S3-M1 / S5-M1",
       "Topic": "Space Complexity Calculation of Iterative Algorithms",
       "Status": "Core",
-      "Reason": "Required in both S3 DSA & S5 DAA performance analysis"
+      "Reason": "Required in both S3 DSA & S5 DAA performance analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 33,
@@ -446,7 +480,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Core",
-      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)"
+      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 34,
@@ -457,7 +492,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Core",
-      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)"
+      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 35,
@@ -468,7 +504,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Core",
-      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)"
+      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 36,
@@ -479,7 +516,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Optional",
-      "Reason": "Extended recursive complexity practice"
+      "Reason": "Extended recursive complexity practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 37,
@@ -490,7 +528,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Optional",
-      "Reason": "Extended recursive complexity practice"
+      "Reason": "Extended recursive complexity practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 38,
@@ -501,7 +540,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Optional",
-      "Reason": "Extended recursive complexity practice"
+      "Reason": "Extended recursive complexity practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 39,
@@ -512,7 +552,8 @@
       "Module": "S5-M1",
       "Topic": "Analysis of Recursive Algorithms & Recurrences",
       "Status": "Core",
-      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)"
+      "Reason": "Recursion tree / time-space analysis (e.g. Fibonacci)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 40,
@@ -523,7 +564,8 @@
       "Module": "S5-M1",
       "Topic": "Recursive Analysis - Tower of Hanoi",
       "Status": "Core",
-      "Reason": "Classic recursion and recurrence example frequently asked in university exams"
+      "Reason": "Classic recursion and recurrence example frequently asked in university exams",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 41,
@@ -534,7 +576,8 @@
       "Module": "S5-M1",
       "Topic": "Recursive Analysis - Tower of Hanoi",
       "Status": "Core",
-      "Reason": "Classic recursion and recurrence example frequently asked in university exams"
+      "Reason": "Classic recursion and recurrence example frequently asked in university exams",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 42,
@@ -545,7 +588,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Substitution Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Substitution Method"
+      "Reason": "Syllabus explicitly specifies Substitution Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 43,
@@ -556,7 +600,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Substitution Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Substitution Method"
+      "Reason": "Syllabus explicitly specifies Substitution Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 44,
@@ -567,7 +612,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Substitution Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Substitution Method"
+      "Reason": "Syllabus explicitly specifies Substitution Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 45,
@@ -578,7 +624,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Substitution Method",
       "Status": "Optional",
-      "Reason": "Additional substitution problems"
+      "Reason": "Additional substitution problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 46,
@@ -589,7 +636,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Substitution Method",
       "Status": "Optional",
-      "Reason": "Additional substitution problems"
+      "Reason": "Additional substitution problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 47,
@@ -600,7 +648,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Recursion Tree Method"
+      "Reason": "Syllabus explicitly specifies Recursion Tree Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 48,
@@ -611,7 +660,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Recursion Tree Method"
+      "Reason": "Syllabus explicitly specifies Recursion Tree Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 49,
@@ -622,7 +672,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Core",
-      "Reason": "Syllabus explicitly specifies Recursion Tree Method"
+      "Reason": "Syllabus explicitly specifies Recursion Tree Method",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 50,
@@ -633,7 +684,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Optional",
-      "Reason": "Advanced recursion tree variants"
+      "Reason": "Advanced recursion tree variants",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 51,
@@ -644,7 +696,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Optional",
-      "Reason": "Advanced recursion tree variants"
+      "Reason": "Advanced recursion tree variants",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 52,
@@ -655,7 +708,8 @@
       "Module": "S5-M1",
       "Topic": "Solving Recurrences: Recursion Tree Method",
       "Status": "Optional",
-      "Reason": "Advanced recursion tree variants"
+      "Reason": "Advanced recursion tree variants",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 53,
@@ -666,7 +720,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem for Recurrence Relations",
       "Status": "Core",
-      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)"
+      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 54,
@@ -677,7 +732,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem for Recurrence Relations",
       "Status": "Core",
-      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)"
+      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 55,
@@ -688,7 +744,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem for Recurrence Relations",
       "Status": "Core",
-      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)"
+      "Reason": "Directly part of DAA Module 1 (proof not expected, cases required)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 56,
@@ -699,7 +756,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem for Recurrence Relations",
       "Status": "Optional",
-      "Reason": "Detailed derivations / edge cases"
+      "Reason": "Detailed derivations / edge cases",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 57,
@@ -710,7 +768,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem for Recurrence Relations",
       "Status": "Optional",
-      "Reason": "Detailed derivations / edge cases"
+      "Reason": "Detailed derivations / edge cases",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 58,
@@ -721,7 +780,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem Practice & Extensions",
       "Status": "Core",
-      "Reason": "High yield practice for exam questions"
+      "Reason": "High yield practice for exam questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 59,
@@ -732,7 +792,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem Practice & Extensions",
       "Status": "Core",
-      "Reason": "High yield practice for exam questions"
+      "Reason": "High yield practice for exam questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 60,
@@ -743,7 +804,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem Practice & Extensions",
       "Status": "Optional",
-      "Reason": "Extended Master Theorem and deep practice"
+      "Reason": "Extended Master Theorem and deep practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 61,
@@ -754,7 +816,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem Practice & Extensions",
       "Status": "Optional",
-      "Reason": "Extended Master Theorem and deep practice"
+      "Reason": "Extended Master Theorem and deep practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 62,
@@ -765,7 +828,8 @@
       "Module": "S5-M1",
       "Topic": "Master's Theorem Practice & Extensions",
       "Status": "Optional",
-      "Reason": "Extended Master Theorem and deep practice"
+      "Reason": "Extended Master Theorem and deep practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 63,
@@ -776,7 +840,8 @@
       "Module": "S3-M4",
       "Topic": "Linear Search & Analysis",
       "Status": "Core",
-      "Reason": "Linear search algorithm & complexity (S3 DSA Module 4)"
+      "Reason": "Linear search algorithm & complexity (S3 DSA Module 4)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 64,
@@ -787,7 +852,8 @@
       "Module": "S3-M4",
       "Topic": "Linear Search & Analysis",
       "Status": "Core",
-      "Reason": "Linear search algorithm & complexity (S3 DSA Module 4)"
+      "Reason": "Linear search algorithm & complexity (S3 DSA Module 4)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 65,
@@ -798,7 +864,8 @@
       "Module": "S3-M4",
       "Topic": "Linear Search & Analysis",
       "Status": "Optional",
-      "Reason": "Extra practice problems on linear search"
+      "Reason": "Extra practice problems on linear search",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 66,
@@ -809,7 +876,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Core",
-      "Reason": "Binary search, average case comparison analysis"
+      "Reason": "Binary search, average case comparison analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 67,
@@ -820,7 +888,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Core",
-      "Reason": "Binary search, average case comparison analysis"
+      "Reason": "Binary search, average case comparison analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 68,
@@ -831,7 +900,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Optional",
-      "Reason": "Modified binary search / placement questions"
+      "Reason": "Modified binary search / placement questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 69,
@@ -842,7 +912,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Core",
-      "Reason": "Binary search, average case comparison analysis"
+      "Reason": "Binary search, average case comparison analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 70,
@@ -853,7 +924,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Core",
-      "Reason": "Binary search, average case comparison analysis"
+      "Reason": "Binary search, average case comparison analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 71,
@@ -864,7 +936,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Optional",
-      "Reason": "Modified binary search / placement questions"
+      "Reason": "Modified binary search / placement questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 72,
@@ -875,7 +948,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Optional",
-      "Reason": "Modified binary search / placement questions"
+      "Reason": "Modified binary search / placement questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 73,
@@ -886,7 +960,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Removed",
-      "Reason": "Excessive placement practice problems"
+      "Reason": "Excessive placement practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 74,
@@ -897,7 +972,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Removed",
-      "Reason": "Excessive placement practice problems"
+      "Reason": "Excessive placement practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 75,
@@ -908,7 +984,8 @@
       "Module": "S3-M4",
       "Topic": "Binary Search & Analysis",
       "Status": "Removed",
-      "Reason": "Excessive placement practice problems"
+      "Reason": "Excessive placement practice problems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 76,
@@ -919,7 +996,8 @@
       "Module": "S3-M4",
       "Topic": "Selection Sort",
       "Status": "Core",
-      "Reason": "Selection sort algorithm, stability, in-place, complexity"
+      "Reason": "Selection sort algorithm, stability, in-place, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 77,
@@ -930,7 +1008,8 @@
       "Module": "S3-M4",
       "Topic": "Selection Sort",
       "Status": "Core",
-      "Reason": "Selection sort algorithm, stability, in-place, complexity"
+      "Reason": "Selection sort algorithm, stability, in-place, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 78,
@@ -941,7 +1020,8 @@
       "Module": "S3-M4",
       "Topic": "Bubble Sort",
       "Status": "Optional",
-      "Reason": "Foundational sorting concept (good for comparison with Selection/Insertion)"
+      "Reason": "Foundational sorting concept (good for comparison with Selection/Insertion)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 79,
@@ -952,7 +1032,8 @@
       "Module": "S3-M4",
       "Topic": "Bubble Sort",
       "Status": "Optional",
-      "Reason": "Foundational sorting concept (good for comparison with Selection/Insertion)"
+      "Reason": "Foundational sorting concept (good for comparison with Selection/Insertion)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 80,
@@ -963,7 +1044,8 @@
       "Module": "S3-M4",
       "Topic": "Insertion Sort",
       "Status": "Core",
-      "Reason": "Insertion sort algorithm and complexity analysis"
+      "Reason": "Insertion sort algorithm and complexity analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 81,
@@ -974,7 +1056,8 @@
       "Module": "S3-M4",
       "Topic": "Insertion Sort",
       "Status": "Core",
-      "Reason": "Insertion sort algorithm and complexity analysis"
+      "Reason": "Insertion sort algorithm and complexity analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 82,
@@ -985,7 +1068,8 @@
       "Module": "S3-M4",
       "Topic": "Insertion Sort",
       "Status": "Optional",
-      "Reason": "Additional analysis practice"
+      "Reason": "Additional analysis practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 83,
@@ -996,7 +1080,8 @@
       "Module": "S3-M4",
       "Topic": "Counting Sort (Linear Time Sort)",
       "Status": "Optional",
-      "Reason": "Foundation for Radix Sort, useful supplementary sorting concept"
+      "Reason": "Foundation for Radix Sort, useful supplementary sorting concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 84,
@@ -1007,7 +1092,8 @@
       "Module": "S3-M4",
       "Topic": "Counting Sort (Linear Time Sort)",
       "Status": "Optional",
-      "Reason": "Foundation for Radix Sort, useful supplementary sorting concept"
+      "Reason": "Foundation for Radix Sort, useful supplementary sorting concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 85,
@@ -1018,7 +1104,8 @@
       "Module": "S3-M4",
       "Topic": "Radix Sort",
       "Status": "Core",
-      "Reason": "Explicitly in S3 DSA Module 4 syllabus"
+      "Reason": "Explicitly in S3 DSA Module 4 syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 86,
@@ -1029,7 +1116,8 @@
       "Module": "S3-M4",
       "Topic": "Radix Sort",
       "Status": "Core",
-      "Reason": "Explicitly in S3 DSA Module 4 syllabus"
+      "Reason": "Explicitly in S3 DSA Module 4 syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 87,
@@ -1040,7 +1128,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 88,
@@ -1051,7 +1140,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 89,
@@ -1062,7 +1152,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 90,
@@ -1073,7 +1164,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 91,
@@ -1084,7 +1176,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 92,
@@ -1095,7 +1188,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Core",
-      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity"
+      "Reason": "Heap sort algorithm, max/min heapify, build heap, complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 93,
@@ -1106,7 +1200,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Optional",
-      "Reason": "Advanced heap operations and priority queue analysis"
+      "Reason": "Advanced heap operations and priority queue analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 94,
@@ -1117,7 +1212,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Optional",
-      "Reason": "Advanced heap operations and priority queue analysis"
+      "Reason": "Advanced heap operations and priority queue analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 95,
@@ -1128,7 +1224,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Optional",
-      "Reason": "Advanced heap operations and priority queue analysis"
+      "Reason": "Advanced heap operations and priority queue analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 96,
@@ -1139,7 +1236,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Removed",
-      "Reason": "Repetitive practice questions on heap"
+      "Reason": "Repetitive practice questions on heap",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 97,
@@ -1150,7 +1248,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Removed",
-      "Reason": "Repetitive practice questions on heap"
+      "Reason": "Repetitive practice questions on heap",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 98,
@@ -1161,7 +1260,8 @@
       "Module": "S3-M4 / S3-M3",
       "Topic": "Heap Sort & Binary Heap Operations",
       "Status": "Removed",
-      "Reason": "Repetitive practice questions on heap"
+      "Reason": "Repetitive practice questions on heap",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 99,
@@ -1172,7 +1272,8 @@
       "Module": "S3-M1",
       "Topic": "Arrays & Memory Representation / Row-Column Major",
       "Status": "Core",
-      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)"
+      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 100,
@@ -1183,7 +1284,8 @@
       "Module": "S3-M1",
       "Topic": "Arrays & Memory Representation / Row-Column Major",
       "Status": "Core",
-      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)"
+      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 101,
@@ -1194,7 +1296,8 @@
       "Module": "S3-M1",
       "Topic": "Arrays & Memory Representation / Row-Column Major",
       "Status": "Core",
-      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)"
+      "Reason": "Array representation and addressing in memory (S3 DSA Module 1)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 102,
@@ -1205,7 +1308,8 @@
       "Module": "S3-M1",
       "Topic": "Arrays & Memory Representation / Row-Column Major",
       "Status": "Optional",
-      "Reason": "Extended multidimensional array indexing"
+      "Reason": "Extended multidimensional array indexing",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 103,
@@ -1216,7 +1320,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 104,
@@ -1227,7 +1332,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 105,
@@ -1238,7 +1344,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 106,
@@ -1249,7 +1356,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 107,
@@ -1260,7 +1368,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 108,
@@ -1271,7 +1380,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 109,
@@ -1282,7 +1392,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Optional",
-      "Reason": "Specialized linked list algorithms and problem solving"
+      "Reason": "Specialized linked list algorithms and problem solving",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 110,
@@ -1293,7 +1404,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Optional",
-      "Reason": "Specialized linked list algorithms and problem solving"
+      "Reason": "Specialized linked list algorithms and problem solving",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 111,
@@ -1304,7 +1416,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 112,
@@ -1315,7 +1428,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Core",
-      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)"
+      "Reason": "Linked list operations (insertion, deletion, traversal, doubly & circular)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 113,
@@ -1326,7 +1440,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Optional",
-      "Reason": "Specialized linked list algorithms and problem solving"
+      "Reason": "Specialized linked list algorithms and problem solving",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 114,
@@ -1337,7 +1452,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Optional",
-      "Reason": "Specialized linked list algorithms and problem solving"
+      "Reason": "Specialized linked list algorithms and problem solving",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 115,
@@ -1348,7 +1464,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Removed",
-      "Reason": "Excessive competitive programming questions on linked lists"
+      "Reason": "Excessive competitive programming questions on linked lists",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 116,
@@ -1359,7 +1476,8 @@
       "Module": "S3-M2",
       "Topic": "Linked Lists (Singly, Doubly, Circular)",
       "Status": "Removed",
-      "Reason": "Excessive competitive programming questions on linked lists"
+      "Reason": "Excessive competitive programming questions on linked lists",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 117,
@@ -1370,7 +1488,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Core",
-      "Reason": "Basic definitions, binary tree properties, tree formulas"
+      "Reason": "Basic definitions, binary tree properties, tree formulas",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 118,
@@ -1381,7 +1500,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Core",
-      "Reason": "Basic definitions, binary tree properties, tree formulas"
+      "Reason": "Basic definitions, binary tree properties, tree formulas",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 119,
@@ -1392,7 +1512,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Core",
-      "Reason": "Basic definitions, binary tree properties, tree formulas"
+      "Reason": "Basic definitions, binary tree properties, tree formulas",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 120,
@@ -1403,7 +1524,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Core",
-      "Reason": "Basic definitions, binary tree properties, tree formulas"
+      "Reason": "Basic definitions, binary tree properties, tree formulas",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 121,
@@ -1414,7 +1536,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Optional",
-      "Reason": "Additional tree properties and theorems"
+      "Reason": "Additional tree properties and theorems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 122,
@@ -1425,7 +1548,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Concepts, Binary Tree Representation & Properties",
       "Status": "Optional",
-      "Reason": "Additional tree properties and theorems"
+      "Reason": "Additional tree properties and theorems",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 123,
@@ -1436,7 +1560,8 @@
       "Module": "S3-M3",
       "Topic": "Binary Search Tree (BST) Operations",
       "Status": "Core",
-      "Reason": "BST creation, insertion, deletion, searching"
+      "Reason": "BST creation, insertion, deletion, searching",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 124,
@@ -1447,7 +1572,8 @@
       "Module": "S3-M3",
       "Topic": "Binary Search Tree (BST) Operations",
       "Status": "Core",
-      "Reason": "BST creation, insertion, deletion, searching"
+      "Reason": "BST creation, insertion, deletion, searching",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 125,
@@ -1458,7 +1584,8 @@
       "Module": "S3-M3",
       "Topic": "Binary Search Tree (BST) Operations",
       "Status": "Core",
-      "Reason": "BST creation, insertion, deletion, searching"
+      "Reason": "BST creation, insertion, deletion, searching",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 126,
@@ -1469,7 +1596,8 @@
       "Module": "S3-M3",
       "Topic": "Binary Search Tree (BST) Operations",
       "Status": "Core",
-      "Reason": "BST creation, insertion, deletion, searching"
+      "Reason": "BST creation, insertion, deletion, searching",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 127,
@@ -1480,7 +1608,8 @@
       "Module": "S3-M3",
       "Topic": "Binary Search Tree (BST) Operations",
       "Status": "Optional",
-      "Reason": "BST complex deletion edge cases"
+      "Reason": "BST complex deletion edge cases",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 128,
@@ -1491,7 +1620,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Traversals (Inorder, Preorder, Postorder, Level order)",
       "Status": "Core",
-      "Reason": "Tree traversal algorithms and tree reconstruction from traversals"
+      "Reason": "Tree traversal algorithms and tree reconstruction from traversals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 129,
@@ -1502,7 +1632,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Traversals (Inorder, Preorder, Postorder, Level order)",
       "Status": "Core",
-      "Reason": "Tree traversal algorithms and tree reconstruction from traversals"
+      "Reason": "Tree traversal algorithms and tree reconstruction from traversals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 130,
@@ -1513,7 +1644,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Traversals (Inorder, Preorder, Postorder, Level order)",
       "Status": "Core",
-      "Reason": "Tree traversal algorithms and tree reconstruction from traversals"
+      "Reason": "Tree traversal algorithms and tree reconstruction from traversals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 131,
@@ -1524,7 +1656,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Traversals (Inorder, Preorder, Postorder, Level order)",
       "Status": "Core",
-      "Reason": "Tree traversal algorithms and tree reconstruction from traversals"
+      "Reason": "Tree traversal algorithms and tree reconstruction from traversals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 132,
@@ -1535,7 +1668,8 @@
       "Module": "S3-M3",
       "Topic": "Tree Traversals (Inorder, Preorder, Postorder, Level order)",
       "Status": "Optional",
-      "Reason": "Extended traversal practice"
+      "Reason": "Extended traversal practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 133,
@@ -1546,7 +1680,8 @@
       "Module": "S3-M3",
       "Topic": "GATE PYQs on Trees",
       "Status": "Removed",
-      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)"
+      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 134,
@@ -1557,7 +1692,8 @@
       "Module": "S3-M3",
       "Topic": "GATE PYQs on Trees",
       "Status": "Removed",
-      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)"
+      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 135,
@@ -1568,7 +1704,8 @@
       "Module": "S3-M3",
       "Topic": "Catalan Numbers & Counting Binary Trees",
       "Status": "Optional",
-      "Reason": "Number of binary trees with n nodes"
+      "Reason": "Number of binary trees with n nodes",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 136,
@@ -1579,7 +1716,8 @@
       "Module": "S3-M3",
       "Topic": "Catalan Numbers & Counting Binary Trees",
       "Status": "Optional",
-      "Reason": "Number of binary trees with n nodes"
+      "Reason": "Number of binary trees with n nodes",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 137,
@@ -1590,7 +1728,8 @@
       "Module": "S3-M3",
       "Topic": "GATE PYQs on Trees",
       "Status": "Removed",
-      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)"
+      "Reason": "Specialized GATE questions (Leftmost child right sibling, etc.)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 138,
@@ -1601,7 +1740,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Core",
-      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)"
+      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 139,
@@ -1612,7 +1752,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Core",
-      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)"
+      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 140,
@@ -1623,7 +1764,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Core",
-      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)"
+      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 141,
@@ -1634,7 +1776,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Core",
-      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)"
+      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 142,
@@ -1645,7 +1788,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Core",
-      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)"
+      "Reason": "Explicitly in S5 DAA Module 1 (Insertion & Deletion with all rotations in detail)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 143,
@@ -1656,7 +1800,8 @@
       "Module": "S5-M1",
       "Topic": "AVL Trees (Rotations: LL, RR, LR, RL & Insertion/Deletion)",
       "Status": "Optional",
-      "Reason": "Advanced AVL deletion examples"
+      "Reason": "Advanced AVL deletion examples",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 144,
@@ -1667,7 +1812,8 @@
       "Module": "S3-M3",
       "Topic": "Sub Trees GATE PYQ",
       "Status": "Removed",
-      "Reason": "GATE 2014 specific question"
+      "Reason": "GATE 2014 specific question",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 145,
@@ -1678,7 +1824,8 @@
       "Module": "S3-M3",
       "Topic": "Expression Trees",
       "Status": "Core",
-      "Reason": "Expression trees explicitly listed in S3 DSA Module 3"
+      "Reason": "Expression trees explicitly listed in S3 DSA Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 146,
@@ -1689,7 +1836,8 @@
       "Module": "S3-M3",
       "Topic": "Various Tree Representations",
       "Status": "Core",
-      "Reason": "Array & linked representation of trees"
+      "Reason": "Array & linked representation of trees",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 147,
@@ -1700,7 +1848,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Representations (Adjacency Matrix & Adjacency List)",
       "Status": "Core",
-      "Reason": "Foundational for both S3 DSA Module 3 and S5 DAA Module 2"
+      "Reason": "Foundational for both S3 DSA Module 3 and S5 DAA Module 2",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 148,
@@ -1711,7 +1860,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Representations (Adjacency Matrix & Adjacency List)",
       "Status": "Core",
-      "Reason": "Foundational for both S3 DSA Module 3 and S5 DAA Module 2"
+      "Reason": "Foundational for both S3 DSA Module 3 and S5 DAA Module 2",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 149,
@@ -1722,7 +1872,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 150,
@@ -1733,7 +1884,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 151,
@@ -1744,7 +1896,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 152,
@@ -1755,7 +1908,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 153,
@@ -1766,7 +1920,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 154,
@@ -1777,7 +1932,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 155,
@@ -1788,7 +1944,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Optional",
-      "Reason": "Iterative DFS / extra edge properties"
+      "Reason": "Iterative DFS / extra edge properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 156,
@@ -1799,7 +1956,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Optional",
-      "Reason": "Iterative DFS / extra edge properties"
+      "Reason": "Iterative DFS / extra edge properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 157,
@@ -1810,7 +1968,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Optional",
-      "Reason": "Iterative DFS / extra edge properties"
+      "Reason": "Iterative DFS / extra edge properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 158,
@@ -1821,7 +1980,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 159,
@@ -1832,7 +1992,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Core",
-      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges"
+      "Reason": "BFS/DFS algorithm, discovery/finish times, tree/back/forward/cross edges",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 160,
@@ -1843,7 +2004,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Optional",
-      "Reason": "Iterative DFS / extra edge properties"
+      "Reason": "Iterative DFS / extra edge properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 161,
@@ -1854,7 +2016,8 @@
       "Module": "S3-M3 / S5-M2",
       "Topic": "Graph Traversals (BFS, DFS, Edge Classifications, Analysis)",
       "Status": "Optional",
-      "Reason": "Iterative DFS / extra edge properties"
+      "Reason": "Iterative DFS / extra edge properties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 162,
@@ -1865,7 +2028,8 @@
       "Module": "S3-M1",
       "Topic": "Parameter Passing (Call by value, Call by reference)",
       "Status": "Optional",
-      "Reason": "Programming concepts useful for implementation"
+      "Reason": "Programming concepts useful for implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 163,
@@ -1876,7 +2040,8 @@
       "Module": "S3-M1",
       "Topic": "Parameter Passing (Call by value, Call by reference)",
       "Status": "Optional",
-      "Reason": "Programming concepts useful for implementation"
+      "Reason": "Programming concepts useful for implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 164,
@@ -1887,7 +2052,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Core",
-      "Reason": "Stack ADT, push/pop operations, array & LL implementation"
+      "Reason": "Stack ADT, push/pop operations, array & LL implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 165,
@@ -1898,7 +2064,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Core",
-      "Reason": "Stack ADT, push/pop operations, array & LL implementation"
+      "Reason": "Stack ADT, push/pop operations, array & LL implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 166,
@@ -1909,7 +2076,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Core",
-      "Reason": "Stack ADT, push/pop operations, array & LL implementation"
+      "Reason": "Stack ADT, push/pop operations, array & LL implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 167,
@@ -1920,7 +2088,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Core",
-      "Reason": "Stack ADT, push/pop operations, array & LL implementation"
+      "Reason": "Stack ADT, push/pop operations, array & LL implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 168,
@@ -1931,7 +2100,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Removed",
-      "Reason": "GATE PYQs on stack"
+      "Reason": "GATE PYQs on stack",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 169,
@@ -1942,7 +2112,8 @@
       "Module": "S3-M1 / S3-M2",
       "Topic": "Stacks (Operations & Array/Linked List Implementation)",
       "Status": "Core",
-      "Reason": "Stack ADT, push/pop operations, array & LL implementation"
+      "Reason": "Stack ADT, push/pop operations, array & LL implementation",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 170,
@@ -1953,7 +2124,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 171,
@@ -1964,7 +2136,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 172,
@@ -1975,7 +2148,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 173,
@@ -1986,7 +2160,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 174,
@@ -1997,7 +2172,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 175,
@@ -2008,7 +2184,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 176,
@@ -2019,7 +2196,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 177,
@@ -2030,7 +2208,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Removed",
-      "Reason": "GATE question specific videos"
+      "Reason": "GATE question specific videos",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 178,
@@ -2041,7 +2220,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Removed",
-      "Reason": "GATE question specific videos"
+      "Reason": "GATE question specific videos",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 179,
@@ -2052,7 +2232,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Optional",
-      "Reason": "Queue variations"
+      "Reason": "Queue variations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 180,
@@ -2063,7 +2244,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 181,
@@ -2074,7 +2256,8 @@
       "Module": "S3-M1",
       "Topic": "Queues & Circular Queues & Deque",
       "Status": "Core",
-      "Reason": "Queue ADT, linear queue, circular queue, deque"
+      "Reason": "Queue ADT, linear queue, circular queue, deque",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 182,
@@ -2085,7 +2268,8 @@
       "Module": "S3-M3",
       "Topic": "Priority Queue & Heap Operations",
       "Status": "Core",
-      "Reason": "Explicitly in S3 DSA Module 3 (Priority Queue using Heaps)"
+      "Reason": "Explicitly in S3 DSA Module 3 (Priority Queue using Heaps)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 183,
@@ -2096,7 +2280,8 @@
       "Module": "S3-M3",
       "Topic": "Priority Queue & Heap Operations",
       "Status": "Core",
-      "Reason": "Explicitly in S3 DSA Module 3 (Priority Queue using Heaps)"
+      "Reason": "Explicitly in S3 DSA Module 3 (Priority Queue using Heaps)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 184,
@@ -2107,7 +2292,8 @@
       "Module": "S3-M1",
       "Topic": "Stack Application in Recursion & Call Frames",
       "Status": "Optional",
-      "Reason": "Run-time stack and recursion mechanics"
+      "Reason": "Run-time stack and recursion mechanics",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 185,
@@ -2118,7 +2304,8 @@
       "Module": "S3-M1",
       "Topic": "Stack Application in Recursion & Call Frames",
       "Status": "Optional",
-      "Reason": "Run-time stack and recursion mechanics"
+      "Reason": "Run-time stack and recursion mechanics",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 186,
@@ -2129,7 +2316,8 @@
       "Module": "S3-M1",
       "Topic": "Stack Application in Recursion & Call Frames",
       "Status": "Optional",
-      "Reason": "Run-time stack and recursion mechanics"
+      "Reason": "Run-time stack and recursion mechanics",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 187,
@@ -2140,7 +2328,8 @@
       "Module": "S3-M1",
       "Topic": "Evaluation of Expressions (Infix to Postfix, Postfix Evaluation)",
       "Status": "Core",
-      "Reason": "Directly listed in S3 DSA Module 1"
+      "Reason": "Directly listed in S3 DSA Module 1",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 188,
@@ -2151,7 +2340,8 @@
       "Module": "S3-M1",
       "Topic": "Evaluation of Expressions (Infix to Postfix, Postfix Evaluation)",
       "Status": "Core",
-      "Reason": "Directly listed in S3 DSA Module 1"
+      "Reason": "Directly listed in S3 DSA Module 1",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 189,
@@ -2162,7 +2352,8 @@
       "Module": "S3-M1",
       "Topic": "Evaluation of Expressions (Infix to Postfix, Postfix Evaluation)",
       "Status": "Core",
-      "Reason": "Directly listed in S3 DSA Module 1"
+      "Reason": "Directly listed in S3 DSA Module 1",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 190,
@@ -2173,7 +2364,8 @@
       "Module": "S5-M3",
       "Topic": "MST Concept Question",
       "Status": "Optional",
-      "Reason": "Practice question on Minimum Spanning Trees"
+      "Reason": "Practice question on Minimum Spanning Trees",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 191,
@@ -2184,7 +2376,8 @@
       "Module": "S3-M1",
       "Topic": "Evaluation of Expressions (Infix to Postfix, Postfix Evaluation)",
       "Status": "Core",
-      "Reason": "Directly listed in S3 DSA Module 1"
+      "Reason": "Directly listed in S3 DSA Module 1",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 192,
@@ -2195,7 +2388,8 @@
       "Module": "S3-M1",
       "Topic": "Evaluation of Expressions (Infix to Postfix, Postfix Evaluation)",
       "Status": "Core",
-      "Reason": "Directly listed in S3 DSA Module 1"
+      "Reason": "Directly listed in S3 DSA Module 1",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 193,
@@ -2206,7 +2400,8 @@
       "Module": "None",
       "Topic": "",
       "Status": "Optional",
-      "Reason": "Infix to prefix conversion"
+      "Reason": "Infix to prefix conversion",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 194,
@@ -2217,7 +2412,8 @@
       "Module": "S3-M1",
       "Topic": "Stack Application in Recursion & Call Frames",
       "Status": "Optional",
-      "Reason": "Run-time stack and recursion mechanics"
+      "Reason": "Run-time stack and recursion mechanics",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 195,
@@ -2228,7 +2424,8 @@
       "Module": "S3-M1",
       "Topic": "Stack Application in Recursion & Call Frames",
       "Status": "Optional",
-      "Reason": "Run-time stack and recursion mechanics"
+      "Reason": "Run-time stack and recursion mechanics",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 196,
@@ -2239,7 +2436,8 @@
       "Module": "None",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "GATE Algorithms syllabus intro video"
+      "Reason": "GATE Algorithms syllabus intro video",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 197,
@@ -2250,7 +2448,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Core",
-      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem"
+      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 198,
@@ -2261,7 +2460,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Core",
-      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem"
+      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 199,
@@ -2272,7 +2472,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Core",
-      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem"
+      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 200,
@@ -2283,7 +2484,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Optional",
-      "Reason": "Detailed steps and power of element"
+      "Reason": "Detailed steps and power of element",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 201,
@@ -2294,7 +2496,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Core",
-      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem"
+      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 202,
@@ -2305,7 +2508,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Core",
-      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem"
+      "Reason": "Control abstraction of Divide and Conquer and Min-Max problem",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 203,
@@ -2316,7 +2520,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Optional",
-      "Reason": "Detailed steps and power of element"
+      "Reason": "Detailed steps and power of element",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 204,
@@ -2327,7 +2532,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Optional",
-      "Reason": "Detailed steps and power of element"
+      "Reason": "Detailed steps and power of element",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 205,
@@ -2338,7 +2544,8 @@
       "Module": "S5-M2",
       "Topic": "Divide and Conquer (Control Abstraction & Min-Max Algorithm)",
       "Status": "Optional",
-      "Reason": "Detailed steps and power of element"
+      "Reason": "Detailed steps and power of element",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 206,
@@ -2349,7 +2556,8 @@
       "Module": "S5-M2",
       "Topic": "Binary Search as Divide and Conquer Application",
       "Status": "Optional",
-      "Reason": "Recurrence and DAC perspective of Binary Search"
+      "Reason": "Recurrence and DAC perspective of Binary Search",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 207,
@@ -2360,7 +2568,8 @@
       "Module": "S5-M2",
       "Topic": "Binary Search as Divide and Conquer Application",
       "Status": "Optional",
-      "Reason": "Recurrence and DAC perspective of Binary Search"
+      "Reason": "Recurrence and DAC perspective of Binary Search",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 208,
@@ -2371,7 +2580,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Core",
-      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis"
+      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 209,
@@ -2382,7 +2592,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Core",
-      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis"
+      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 210,
@@ -2393,7 +2604,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Core",
-      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis"
+      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 211,
@@ -2404,7 +2616,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Core",
-      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis"
+      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 212,
@@ -2415,7 +2628,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Core",
-      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis"
+      "Reason": "Merge sort implementation, 2-way merging, recurrence analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 213,
@@ -2426,7 +2640,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Removed",
-      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)"
+      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 214,
@@ -2437,7 +2652,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Optional",
-      "Reason": "Union/intersection and k-way merge applications"
+      "Reason": "Union/intersection and k-way merge applications",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 215,
@@ -2448,7 +2664,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Optional",
-      "Reason": "Union/intersection and k-way merge applications"
+      "Reason": "Union/intersection and k-way merge applications",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 216,
@@ -2459,7 +2676,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Optional",
-      "Reason": "Union/intersection and k-way merge applications"
+      "Reason": "Union/intersection and k-way merge applications",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 217,
@@ -2470,7 +2688,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Removed",
-      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)"
+      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 218,
@@ -2481,7 +2700,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Merge Sort (Algorithm, Recurrence, Complexity Analysis)",
       "Status": "Removed",
-      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)"
+      "Reason": "Fibonacci merge sort and inversion count (outside KTU syllabus)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 219,
@@ -2492,7 +2712,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 220,
@@ -2503,7 +2724,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 221,
@@ -2514,7 +2736,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 222,
@@ -2525,7 +2748,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 223,
@@ -2536,7 +2760,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 224,
@@ -2547,7 +2772,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Core",
-      "Reason": "Partition algorithm, pivot selection, recurrence and complexity"
+      "Reason": "Partition algorithm, pivot selection, recurrence and complexity",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 225,
@@ -2558,7 +2784,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Optional",
-      "Reason": "Extended worst-case scenarios and recursion depth"
+      "Reason": "Extended worst-case scenarios and recursion depth",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 226,
@@ -2569,7 +2796,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Optional",
-      "Reason": "Extended worst-case scenarios and recursion depth"
+      "Reason": "Extended worst-case scenarios and recursion depth",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 227,
@@ -2580,7 +2808,8 @@
       "Module": "S3-M4 / S5-M2",
       "Topic": "Quick Sort (Partitioning, Best/Worst/Avg Case Analysis)",
       "Status": "Optional",
-      "Reason": "Extended worst-case scenarios and recursion depth"
+      "Reason": "Extended worst-case scenarios and recursion depth",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 228,
@@ -2591,7 +2820,8 @@
       "Module": "S5-M4",
       "Topic": "Randomized Quick Sort Algorithm & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 4 (Randomized version of Quick Sort)"
+      "Reason": "Directly in S5 DAA Module 4 (Randomized version of Quick Sort)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 229,
@@ -2602,7 +2832,8 @@
       "Module": "S5-M2",
       "Topic": "Selection Problem / Quickselect Algorithm",
       "Status": "Optional",
-      "Reason": "Linear-time median / kth element selection using D&C"
+      "Reason": "Linear-time median / kth element selection using D&C",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 230,
@@ -2613,7 +2844,8 @@
       "Module": "S5-M2",
       "Topic": "Selection Problem / Quickselect Algorithm",
       "Status": "Optional",
-      "Reason": "Linear-time median / kth element selection using D&C"
+      "Reason": "Linear-time median / kth element selection using D&C",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 231,
@@ -2624,7 +2856,8 @@
       "Module": "S5-M2",
       "Topic": "Strassen's Matrix Multiplication & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 2 (Strassen's Matrix Multiplication, Analysis)"
+      "Reason": "Directly in S5 DAA Module 2 (Strassen's Matrix Multiplication, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 232,
@@ -2635,7 +2868,8 @@
       "Module": "S5-M2",
       "Topic": "Strassen's Matrix Multiplication & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 2 (Strassen's Matrix Multiplication, Analysis)"
+      "Reason": "Directly in S5 DAA Module 2 (Strassen's Matrix Multiplication, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 233,
@@ -2646,7 +2880,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy & Fractional Knapsack Problem",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)"
+      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 234,
@@ -2657,7 +2892,8 @@
       "Module": "S5-M3",
       "Topic": "Job Sequencing with Deadlines",
       "Status": "Optional",
-      "Reason": "Standard greedy technique, excellent for conceptual understanding"
+      "Reason": "Standard greedy technique, excellent for conceptual understanding",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 235,
@@ -2668,7 +2904,8 @@
       "Module": "S5-M3",
       "Topic": "Job Sequencing with Deadlines",
       "Status": "Optional",
-      "Reason": "Standard greedy technique, excellent for conceptual understanding"
+      "Reason": "Standard greedy technique, excellent for conceptual understanding",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 236,
@@ -2679,7 +2916,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy & Fractional Knapsack Problem",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)"
+      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 237,
@@ -2690,7 +2928,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy & Fractional Knapsack Problem",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)"
+      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 238,
@@ -2701,7 +2940,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy & Fractional Knapsack Problem",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)"
+      "Reason": "Directly in S5 DAA Module 3 (Greedy Strategy Control Abstraction, Fractional Knapsack)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 239,
@@ -2712,7 +2952,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy - Huffman Coding & Optimal Merge Pattern",
       "Status": "Optional",
-      "Reason": "Classic greedy applications often asked in university questions"
+      "Reason": "Classic greedy applications often asked in university questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 240,
@@ -2723,7 +2964,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy - Huffman Coding & Optimal Merge Pattern",
       "Status": "Optional",
-      "Reason": "Classic greedy applications often asked in university questions"
+      "Reason": "Classic greedy applications often asked in university questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 241,
@@ -2734,7 +2976,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy - Huffman Coding & Optimal Merge Pattern",
       "Status": "Optional",
-      "Reason": "Classic greedy applications often asked in university questions"
+      "Reason": "Classic greedy applications often asked in university questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 242,
@@ -2745,7 +2988,8 @@
       "Module": "S5-M3",
       "Topic": "Greedy Strategy - Huffman Coding & Optimal Merge Pattern",
       "Status": "Optional",
-      "Reason": "Classic greedy applications often asked in university questions"
+      "Reason": "Classic greedy applications often asked in university questions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 243,
@@ -2756,7 +3000,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 244,
@@ -2767,7 +3012,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 245,
@@ -2778,7 +3024,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 246,
@@ -2789,7 +3036,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 247,
@@ -2800,7 +3048,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 248,
@@ -2811,7 +3060,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 249,
@@ -2822,7 +3072,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Kruskal's and Prim's, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 250,
@@ -2833,7 +3084,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Optional",
-      "Reason": "Cut property, cycle property, MST variations"
+      "Reason": "Cut property, cycle property, MST variations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 251,
@@ -2844,7 +3096,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Optional",
-      "Reason": "Cut property, cycle property, MST variations"
+      "Reason": "Cut property, cycle property, MST variations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 252,
@@ -2855,7 +3108,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Optional",
-      "Reason": "Cut property, cycle property, MST variations"
+      "Reason": "Cut property, cycle property, MST variations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 253,
@@ -2866,7 +3120,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Optional",
-      "Reason": "Cut property, cycle property, MST variations"
+      "Reason": "Cut property, cycle property, MST variations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 254,
@@ -2877,7 +3132,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Removed",
-      "Reason": "Excessive practice videos on spanning tree"
+      "Reason": "Excessive practice videos on spanning tree",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 255,
@@ -2888,7 +3144,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Removed",
-      "Reason": "Excessive practice videos on spanning tree"
+      "Reason": "Excessive practice videos on spanning tree",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 256,
@@ -2899,7 +3156,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Removed",
-      "Reason": "Excessive practice videos on spanning tree"
+      "Reason": "Excessive practice videos on spanning tree",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 257,
@@ -2910,7 +3168,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Removed",
-      "Reason": "Excessive practice videos on spanning tree"
+      "Reason": "Excessive practice videos on spanning tree",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 258,
@@ -2921,7 +3180,8 @@
       "Module": "S5-M3",
       "Topic": "Minimum Cost Spanning Tree (Prim's & Kruskal's Algorithms)",
       "Status": "Removed",
-      "Reason": "Excessive practice videos on spanning tree"
+      "Reason": "Excessive practice videos on spanning tree",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 259,
@@ -2932,7 +3192,8 @@
       "Module": "S3-M3 / S5-M3",
       "Topic": "Shortest Path Problem - Dijkstra's Algorithm & Analysis",
       "Status": "Core",
-      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3"
+      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 260,
@@ -2943,7 +3204,8 @@
       "Module": "S3-M3 / S5-M3",
       "Topic": "Shortest Path Problem - Dijkstra's Algorithm & Analysis",
       "Status": "Core",
-      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3"
+      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 261,
@@ -2954,7 +3216,8 @@
       "Module": "S3-M3 / S5-M3",
       "Topic": "Shortest Path Problem - Dijkstra's Algorithm & Analysis",
       "Status": "Core",
-      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3"
+      "Reason": "Single Source Shortest Path in both S3 DSA Module 3 and S5 DAA Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 262,
@@ -2965,7 +3228,8 @@
       "Module": "S3-M3 / S5-M3",
       "Topic": "Shortest Path Problem - Dijkstra's Algorithm & Analysis",
       "Status": "Optional",
-      "Reason": "Negative weight edge behavior and limitations"
+      "Reason": "Negative weight edge behavior and limitations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 263,
@@ -2976,7 +3240,8 @@
       "Module": "S5-M3",
       "Topic": "Bellman-Ford Algorithm (Comparison with Dijkstra)",
       "Status": "Optional",
-      "Reason": "Valuable comparison for Dijkstra limitations, though not standalone topic"
+      "Reason": "Valuable comparison for Dijkstra limitations, though not standalone topic",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 264,
@@ -2987,7 +3252,8 @@
       "Module": "S5-M3",
       "Topic": "Bellman-Ford Algorithm (Comparison with Dijkstra)",
       "Status": "Optional",
-      "Reason": "Valuable comparison for Dijkstra limitations, though not standalone topic"
+      "Reason": "Valuable comparison for Dijkstra limitations, though not standalone topic",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 265,
@@ -2998,7 +3264,8 @@
       "Module": "S5-M2",
       "Topic": "Topological Sorting (using DFS and BFS / Kahn's)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 2 (Topological Sorting)"
+      "Reason": "Directly in S5 DAA Module 2 (Topological Sorting)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 266,
@@ -3009,7 +3276,8 @@
       "Module": "S5-M2",
       "Topic": "Shortest Path in Directed Acyclic Graphs",
       "Status": "Optional",
-      "Reason": "Application of topological sorting"
+      "Reason": "Application of topological sorting",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 267,
@@ -3020,7 +3288,8 @@
       "Module": "S5-M3",
       "Topic": "Dynamic Programming (Control Abstraction & Principle of Optimality)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Control Abstraction, Optimality Principle)"
+      "Reason": "Directly in S5 DAA Module 3 (Control Abstraction, Optimality Principle)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 268,
@@ -3031,7 +3300,8 @@
       "Module": "S5-M3",
       "Topic": "Dynamic Programming (Control Abstraction & Principle of Optimality)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Control Abstraction, Optimality Principle)"
+      "Reason": "Directly in S5 DAA Module 3 (Control Abstraction, Optimality Principle)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 269,
@@ -3042,7 +3312,8 @@
       "Module": "S5-M3",
       "Topic": "MCM Practice & GATE PYQs",
       "Status": "Optional",
-      "Reason": "Extra practice problems on MCM"
+      "Reason": "Extra practice problems on MCM",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 270,
@@ -3053,7 +3324,8 @@
       "Module": "S5-M3",
       "Topic": "Matrix Chain Multiplication (MCM) & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 271,
@@ -3064,7 +3336,8 @@
       "Module": "S5-M3",
       "Topic": "Matrix Chain Multiplication (MCM) & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 272,
@@ -3075,7 +3348,8 @@
       "Module": "S5-M3",
       "Topic": "Matrix Chain Multiplication (MCM) & Analysis",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Matrix Chain Multiplication, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 273,
@@ -3086,7 +3360,8 @@
       "Module": "S5-M3",
       "Topic": "MCM Practice & GATE PYQs",
       "Status": "Optional",
-      "Reason": "Extra practice problems on MCM"
+      "Reason": "Extra practice problems on MCM",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 274,
@@ -3097,7 +3372,8 @@
       "Module": "S5-M3",
       "Topic": "Longest Common Subsequence (LCS)",
       "Status": "Optional",
-      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus"
+      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 275,
@@ -3108,7 +3384,8 @@
       "Module": "S5-M3",
       "Topic": "Longest Common Subsequence (LCS)",
       "Status": "Optional",
-      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus"
+      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 276,
@@ -3119,7 +3396,8 @@
       "Module": "S5-M3",
       "Topic": "Longest Common Subsequence (LCS)",
       "Status": "Optional",
-      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus"
+      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 277,
@@ -3130,7 +3408,8 @@
       "Module": "S5-M3",
       "Topic": "Longest Common Subsequence (LCS)",
       "Status": "Optional",
-      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus"
+      "Reason": "Classic DP problem; helpful for understanding DP tables though not strictly named in syllabus",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 278,
@@ -3141,7 +3420,8 @@
       "Module": "None",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "Multistage Graph is not in KTU S5 DAA syllabus (MCM and Floyd-Warshall are specified)"
+      "Reason": "Multistage Graph is not in KTU S5 DAA syllabus (MCM and Floyd-Warshall are specified)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 279,
@@ -3152,7 +3432,8 @@
       "Module": "None",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "Multistage Graph is not in KTU S5 DAA syllabus (MCM and Floyd-Warshall are specified)"
+      "Reason": "Multistage Graph is not in KTU S5 DAA syllabus (MCM and Floyd-Warshall are specified)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 280,
@@ -3163,7 +3444,8 @@
       "Module": "S5-M3",
       "Topic": "0/1 Knapsack Problem using Dynamic Programming",
       "Status": "Optional",
-      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack"
+      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 281,
@@ -3174,7 +3456,8 @@
       "Module": "S5-M3",
       "Topic": "0/1 Knapsack Problem using Dynamic Programming",
       "Status": "Optional",
-      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack"
+      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 282,
@@ -3185,7 +3468,8 @@
       "Module": "S5-M3",
       "Topic": "0/1 Knapsack Problem using Dynamic Programming",
       "Status": "Optional",
-      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack"
+      "Reason": "Frequently tested in algorithm interviews and contrast with Fractional Knapsack",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 283,
@@ -3196,7 +3480,8 @@
       "Module": "S5-M3",
       "Topic": "Subset Sum Problem",
       "Status": "Optional",
-      "Reason": "Foundation for NP-complete reductions"
+      "Reason": "Foundation for NP-complete reductions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 284,
@@ -3207,7 +3492,8 @@
       "Module": "S5-M3",
       "Topic": "Subset Sum Problem",
       "Status": "Optional",
-      "Reason": "Foundation for NP-complete reductions"
+      "Reason": "Foundation for NP-complete reductions",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 285,
@@ -3218,7 +3504,8 @@
       "Module": "S5-M4",
       "Topic": "Traveling Salesman Problem (TSP)",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 4 (Branch and Bound / TSP)"
+      "Reason": "Directly in S5 DAA Module 4 (Branch and Bound / TSP)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 286,
@@ -3229,7 +3516,8 @@
       "Module": "S5-M3",
       "Topic": "All Pairs Shortest Path - Floyd-Warshall Algorithm",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Floyd-Warshall Algorithm, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Floyd-Warshall Algorithm, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 287,
@@ -3240,7 +3528,8 @@
       "Module": "S5-M3",
       "Topic": "All Pairs Shortest Path - Floyd-Warshall Algorithm",
       "Status": "Core",
-      "Reason": "Directly in S5 DAA Module 3 (Floyd-Warshall Algorithm, Analysis)"
+      "Reason": "Directly in S5 DAA Module 3 (Floyd-Warshall Algorithm, Analysis)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 288,
@@ -3251,7 +3540,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 289,
@@ -3262,7 +3552,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 290,
@@ -3273,7 +3564,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 291,
@@ -3284,7 +3576,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 292,
@@ -3295,7 +3588,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 293,
@@ -3306,7 +3600,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Core",
-      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)"
+      "Reason": "Hash functions (Mid-square, division, folding), Collision resolution (Linear/Quadratic probing, Double hashing, Open hashing)",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 294,
@@ -3317,7 +3612,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Optional",
-      "Reason": "Advanced hash table load factor & uniform hashing analysis"
+      "Reason": "Advanced hash table load factor & uniform hashing analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 295,
@@ -3328,7 +3624,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Optional",
-      "Reason": "Advanced hash table load factor & uniform hashing analysis"
+      "Reason": "Advanced hash table load factor & uniform hashing analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 296,
@@ -3339,7 +3636,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Removed",
-      "Reason": "GATE PYQ collection video"
+      "Reason": "GATE PYQ collection video",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 297,
@@ -3350,7 +3648,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Optional",
-      "Reason": "Advanced hash table load factor & uniform hashing analysis"
+      "Reason": "Advanced hash table load factor & uniform hashing analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 298,
@@ -3361,7 +3660,8 @@
       "Module": "S3-M4",
       "Topic": "Hashing & Collision Resolution Techniques",
       "Status": "Optional",
-      "Reason": "Advanced hash table load factor & uniform hashing analysis"
+      "Reason": "Advanced hash table load factor & uniform hashing analysis",
+      "Last Updated": "2026-11-19 08:51 IST"
     }
   ],
   "cn_all": [
@@ -3374,7 +3674,8 @@
       "Module": "",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "GATE syllabus intro video - not course content"
+      "Reason": "GATE syllabus intro video - not course content",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 2,
@@ -3385,7 +3686,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 3,
@@ -3396,7 +3698,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 4,
@@ -3407,7 +3710,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 5,
@@ -3418,7 +3722,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 6,
@@ -3429,7 +3734,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 7,
@@ -3440,7 +3746,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 8,
@@ -3451,7 +3758,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 9,
@@ -3462,7 +3770,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 10,
@@ -3473,7 +3782,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 11,
@@ -3484,7 +3794,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Optional",
-      "Reason": "Historical context on OSI vs TCP/IP"
+      "Reason": "Historical context on OSI vs TCP/IP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 12,
@@ -3495,7 +3806,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 13,
@@ -3506,7 +3818,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 14,
@@ -3517,7 +3830,8 @@
       "Module": "Module 1",
       "Topic": "Network Models (OSI, TCP/IP, Protocol Layering)",
       "Status": "Core",
-      "Reason": "Core concept of layered architecture and layer duties"
+      "Reason": "Core concept of layered architecture and layer duties",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 15,
@@ -3528,7 +3842,8 @@
       "Module": "Module 4",
       "Topic": "Data & Signals (Analog, Digital, Composite)",
       "Status": "Core",
-      "Reason": "Explicit in Module 4 Physical Layer"
+      "Reason": "Explicit in Module 4 Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 16,
@@ -3539,7 +3854,8 @@
       "Module": "Module 4",
       "Topic": "Data & Signals (Analog, Digital, Composite)",
       "Status": "Core",
-      "Reason": "Explicit in Module 4 Physical Layer"
+      "Reason": "Explicit in Module 4 Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 17,
@@ -3550,7 +3866,8 @@
       "Module": "Module 4",
       "Topic": "Data & Signals (Analog, Digital, Composite)",
       "Status": "Core",
-      "Reason": "Explicit in Module 4 Physical Layer"
+      "Reason": "Explicit in Module 4 Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 18,
@@ -3561,7 +3878,8 @@
       "Module": "Module 4",
       "Topic": "Data & Signals (Analog, Digital, Composite)",
       "Status": "Core",
-      "Reason": "Explicit in Module 4 Physical Layer"
+      "Reason": "Explicit in Module 4 Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 19,
@@ -3572,7 +3890,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 20,
@@ -3583,7 +3902,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 21,
@@ -3594,7 +3914,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 22,
@@ -3605,7 +3926,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 23,
@@ -3616,7 +3938,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Details",
       "Status": "Optional",
-      "Reason": "Secondary physical layer concept"
+      "Reason": "Secondary physical layer concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 24,
@@ -3627,7 +3950,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 25,
@@ -3638,7 +3962,8 @@
       "Module": "Module 4",
       "Topic": "Digital Transmission & Signal Encoding (NRZ, RZ, Manchester)",
       "Status": "Core",
-      "Reason": "Line coding techniques in Physical Layer"
+      "Reason": "Line coding techniques in Physical Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 26,
@@ -3649,7 +3974,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Details",
       "Status": "Optional",
-      "Reason": "Secondary physical layer concept"
+      "Reason": "Secondary physical layer concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 27,
@@ -3660,7 +3986,8 @@
       "Module": "Module 4",
       "Topic": "Transmission Impairments & Transmission Modes",
       "Status": "Core",
-      "Reason": "Bit rate, baud rate, serial vs parallel transmission"
+      "Reason": "Bit rate, baud rate, serial vs parallel transmission",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 28,
@@ -3671,7 +3998,8 @@
       "Module": "Module 4",
       "Topic": "Transmission Impairments & Transmission Modes",
       "Status": "Core",
-      "Reason": "Bit rate, baud rate, serial vs parallel transmission"
+      "Reason": "Bit rate, baud rate, serial vs parallel transmission",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 29,
@@ -3682,7 +4010,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Details",
       "Status": "Optional",
-      "Reason": "Secondary physical layer concept"
+      "Reason": "Secondary physical layer concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 30,
@@ -3693,7 +4022,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Numerical Practice",
       "Status": "Removed",
-      "Reason": "Specific isolated GATE PYQ"
+      "Reason": "Specific isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 31,
@@ -3704,7 +4034,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Numerical Practice",
       "Status": "Removed",
-      "Reason": "Specific isolated GATE PYQ"
+      "Reason": "Specific isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 32,
@@ -3715,7 +4046,8 @@
       "Module": "Module 4",
       "Topic": "Bandwidth, Throughput, Propagation & Transmission Delay",
       "Status": "Core",
-      "Reason": "Essential performance metrics & delay calculations"
+      "Reason": "Essential performance metrics & delay calculations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 33,
@@ -3726,7 +4058,8 @@
       "Module": "Module 4",
       "Topic": "Bandwidth, Throughput, Propagation & Transmission Delay",
       "Status": "Core",
-      "Reason": "Essential performance metrics & delay calculations"
+      "Reason": "Essential performance metrics & delay calculations",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 34,
@@ -3737,7 +4070,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Numerical Practice",
       "Status": "Optional",
-      "Reason": "Representative numerical on delay & TDM"
+      "Reason": "Representative numerical on delay & TDM",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 35,
@@ -3748,7 +4082,8 @@
       "Module": "Module 4",
       "Topic": "Bandwidth Utilization: Multiplexing (FDM, WDM, TDM)",
       "Status": "Core",
-      "Reason": "Explicitly in Module 4 Bandwidth utilization"
+      "Reason": "Explicitly in Module 4 Bandwidth utilization",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 36,
@@ -3759,7 +4094,8 @@
       "Module": "Module 4",
       "Topic": "Bandwidth Utilization: Multiplexing (FDM, WDM, TDM)",
       "Status": "Core",
-      "Reason": "Explicitly in Module 4 Bandwidth utilization"
+      "Reason": "Explicitly in Module 4 Bandwidth utilization",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 37,
@@ -3770,7 +4106,8 @@
       "Module": "Module 4",
       "Topic": "Bandwidth Utilization: Multiplexing (FDM, WDM, TDM)",
       "Status": "Core",
-      "Reason": "Explicitly in Module 4 Bandwidth utilization"
+      "Reason": "Explicitly in Module 4 Bandwidth utilization",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 38,
@@ -3781,7 +4118,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Details",
       "Status": "Optional",
-      "Reason": "Secondary physical layer concept"
+      "Reason": "Secondary physical layer concept",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 39,
@@ -3792,7 +4130,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Numerical Practice",
       "Status": "Removed",
-      "Reason": "Specific isolated GATE PYQ"
+      "Reason": "Specific isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 40,
@@ -3803,7 +4142,8 @@
       "Module": "Module 4",
       "Topic": "Physical Layer Numerical Practice",
       "Status": "Removed",
-      "Reason": "Specific isolated GATE PYQ"
+      "Reason": "Specific isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 41,
@@ -3814,7 +4154,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection Concepts & Hamming Distance",
       "Status": "Core",
-      "Reason": "Foundation of error control in Data Link Layer"
+      "Reason": "Foundation of error control in Data Link Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 42,
@@ -3825,7 +4166,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection Concepts & Hamming Distance",
       "Status": "Core",
-      "Reason": "Foundation of error control in Data Link Layer"
+      "Reason": "Foundation of error control in Data Link Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 43,
@@ -3836,7 +4178,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection Concepts & Hamming Distance",
       "Status": "Core",
-      "Reason": "Foundation of error control in Data Link Layer"
+      "Reason": "Foundation of error control in Data Link Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 44,
@@ -3847,7 +4190,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection Concepts & Hamming Distance",
       "Status": "Core",
-      "Reason": "Foundation of error control in Data Link Layer"
+      "Reason": "Foundation of error control in Data Link Layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 45,
@@ -3858,7 +4202,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 46,
@@ -3869,7 +4214,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 47,
@@ -3880,7 +4226,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection GATE Questions",
       "Status": "Optional",
-      "Reason": "Helpful worked examples on 2D parity & Hamming code"
+      "Reason": "Helpful worked examples on 2D parity & Hamming code",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 48,
@@ -3891,7 +4238,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection GATE Questions",
       "Status": "Removed",
-      "Reason": "Isolated GATE PYQ"
+      "Reason": "Isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 49,
@@ -3902,7 +4250,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 50,
@@ -3913,7 +4262,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 51,
@@ -3924,7 +4274,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 52,
@@ -3935,7 +4286,8 @@
       "Module": "Module 3",
       "Topic": "Cyclic codes & error control",
       "Status": "Optional",
-      "Reason": "In-depth code theory"
+      "Reason": "In-depth code theory",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 53,
@@ -3946,7 +4298,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection GATE Questions",
       "Status": "Removed",
-      "Reason": "Isolated GATE PYQ"
+      "Reason": "Isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 54,
@@ -3957,7 +4310,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 55,
@@ -3968,7 +4322,8 @@
       "Module": "Module 3",
       "Topic": "Error Detecting Codes (Parity, CRC, Checksum, Hamming Code)",
       "Status": "Core",
-      "Reason": "Core syllabus topics for DLC error detection"
+      "Reason": "Core syllabus topics for DLC error detection",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 56,
@@ -3979,7 +4334,8 @@
       "Module": "Module 3",
       "Topic": "Cyclic codes & error control",
       "Status": "Optional",
-      "Reason": "In-depth code theory"
+      "Reason": "In-depth code theory",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 57,
@@ -3990,7 +4346,8 @@
       "Module": "Module 3",
       "Topic": "Error Detection GATE Questions",
       "Status": "Removed",
-      "Reason": "Isolated GATE PYQ"
+      "Reason": "Isolated GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 58,
@@ -4001,7 +4358,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 59,
@@ -4012,7 +4370,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 60,
@@ -4023,7 +4382,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 61,
@@ -4034,7 +4394,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Variations & Analysis",
       "Status": "Optional",
-      "Reason": "Piggybacking, link capacity, and pipelining comparisons"
+      "Reason": "Piggybacking, link capacity, and pipelining comparisons",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 62,
@@ -4045,7 +4406,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 63,
@@ -4056,7 +4418,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 64,
@@ -4067,7 +4430,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Variations & Analysis",
       "Status": "Optional",
-      "Reason": "Piggybacking, link capacity, and pipelining comparisons"
+      "Reason": "Piggybacking, link capacity, and pipelining comparisons",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 65,
@@ -4078,7 +4442,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Optional",
-      "Reason": "Standard university-level numerical practice"
+      "Reason": "Standard university-level numerical practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 66,
@@ -4089,7 +4454,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 67,
@@ -4100,7 +4466,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 68,
@@ -4111,7 +4478,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 69,
@@ -4122,7 +4490,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 70,
@@ -4133,7 +4502,8 @@
       "Module": "Module 3",
       "Topic": "Sliding window details",
       "Status": "Optional",
-      "Reason": "Supplementary sliding window detail"
+      "Reason": "Supplementary sliding window detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 71,
@@ -4144,7 +4514,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Variations & Analysis",
       "Status": "Optional",
-      "Reason": "Piggybacking, link capacity, and pipelining comparisons"
+      "Reason": "Piggybacking, link capacity, and pipelining comparisons",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 72,
@@ -4155,7 +4526,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Variations & Analysis",
       "Status": "Optional",
-      "Reason": "Piggybacking, link capacity, and pipelining comparisons"
+      "Reason": "Piggybacking, link capacity, and pipelining comparisons",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 73,
@@ -4166,7 +4538,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 74,
@@ -4177,7 +4550,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 75,
@@ -4188,7 +4562,8 @@
       "Module": "Module 3",
       "Topic": "Sliding window details",
       "Status": "Optional",
-      "Reason": "Supplementary sliding window detail"
+      "Reason": "Supplementary sliding window detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 76,
@@ -4199,7 +4574,8 @@
       "Module": "Module 3",
       "Topic": "Sliding window details",
       "Status": "Optional",
-      "Reason": "Supplementary sliding window detail"
+      "Reason": "Supplementary sliding window detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 77,
@@ -4210,7 +4586,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 78,
@@ -4221,7 +4598,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Optional",
-      "Reason": "Standard university-level numerical practice"
+      "Reason": "Standard university-level numerical practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 79,
@@ -4232,7 +4610,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 80,
@@ -4243,7 +4622,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Protocols (Stop-and-Wait, GBN, Selective Repeat)",
       "Status": "Core",
-      "Reason": "DLC protocol operation, window size, efficiency, throughput"
+      "Reason": "DLC protocol operation, window size, efficiency, throughput",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 81,
@@ -4254,7 +4634,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 82,
@@ -4265,7 +4646,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control Variations & Analysis",
       "Status": "Optional",
-      "Reason": "Piggybacking, link capacity, and pipelining comparisons"
+      "Reason": "Piggybacking, link capacity, and pipelining comparisons",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 83,
@@ -4276,7 +4658,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 84,
@@ -4287,7 +4670,8 @@
       "Module": "Module 3",
       "Topic": "Flow Control GATE Numericals",
       "Status": "Removed",
-      "Reason": "Redundant GATE PYQ"
+      "Reason": "Redundant GATE PYQ",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 85,
@@ -4298,7 +4682,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 86,
@@ -4309,7 +4694,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 87,
@@ -4320,7 +4706,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 88,
@@ -4331,7 +4718,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 89,
@@ -4342,7 +4730,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 90,
@@ -4353,7 +4742,8 @@
       "Module": "Module 3",
       "Topic": "MAC Protocol Analysis & Questions",
       "Status": "Optional",
-      "Reason": "Efficiency analysis and controlled access detail"
+      "Reason": "Efficiency analysis and controlled access detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 91,
@@ -4364,7 +4754,8 @@
       "Module": "Module 3",
       "Topic": "MAC GATE PYQs",
       "Status": "Removed",
-      "Reason": "Short single-year GATE question"
+      "Reason": "Short single-year GATE question",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 92,
@@ -4375,7 +4766,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 93,
@@ -4386,7 +4778,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 94,
@@ -4397,7 +4790,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 95,
@@ -4408,7 +4802,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 96,
@@ -4419,7 +4814,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 97,
@@ -4430,7 +4826,8 @@
       "Module": "Module 3",
       "Topic": "MAC Protocol Analysis & Questions",
       "Status": "Optional",
-      "Reason": "Efficiency analysis and controlled access detail"
+      "Reason": "Efficiency analysis and controlled access detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 98,
@@ -4441,7 +4838,8 @@
       "Module": "Module 3",
       "Topic": "MAC GATE PYQs",
       "Status": "Removed",
-      "Reason": "Short single-year GATE question"
+      "Reason": "Short single-year GATE question",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 99,
@@ -4452,7 +4850,8 @@
       "Module": "Module 3",
       "Topic": "MAC GATE PYQs",
       "Status": "Removed",
-      "Reason": "Short single-year GATE question"
+      "Reason": "Short single-year GATE question",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 100,
@@ -4463,7 +4862,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 101,
@@ -4474,7 +4874,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 102,
@@ -4485,7 +4886,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 103,
@@ -4496,7 +4898,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 104,
@@ -4507,7 +4910,8 @@
       "Module": "Module 3",
       "Topic": "MAC Protocol Analysis & Questions",
       "Status": "Optional",
-      "Reason": "Efficiency analysis and controlled access detail"
+      "Reason": "Efficiency analysis and controlled access detail",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 105,
@@ -4518,7 +4922,8 @@
       "Module": "Module 3",
       "Topic": "Multiple Access Protocols (ALOHA, CSMA, CSMA/CD, CSMA/CA, Polling, Token Passing)",
       "Status": "Core",
-      "Reason": "Explicit in Module 3 MAC protocols"
+      "Reason": "Explicit in Module 3 MAC protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 106,
@@ -4529,7 +4934,8 @@
       "Module": "Module 3",
       "Topic": "MAC GATE PYQs",
       "Status": "Removed",
-      "Reason": "Short single-year GATE question"
+      "Reason": "Short single-year GATE question",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 107,
@@ -4540,7 +4946,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 108,
@@ -4551,7 +4958,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 109,
@@ -4562,7 +4970,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 110,
@@ -4573,7 +4982,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 111,
@@ -4584,7 +4994,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 112,
@@ -4595,7 +5006,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 113,
@@ -4606,7 +5018,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 114,
@@ -4617,7 +5030,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 115,
@@ -4628,7 +5042,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 116,
@@ -4639,7 +5054,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Core",
-      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3"
+      "Reason": "Connecting devices and Ethernet framing explicitly in Module 3",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 117,
@@ -4650,7 +5066,8 @@
       "Module": "Module 3",
       "Topic": "Ethernet & Connecting Devices (Hub, Switch, Bridge, Router, Gateway)",
       "Status": "Optional",
-      "Reason": "Collision vs broadcast domain concepts"
+      "Reason": "Collision vs broadcast domain concepts",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 118,
@@ -4661,7 +5078,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 119,
@@ -4672,7 +5090,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 120,
@@ -4683,7 +5102,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 121,
@@ -4694,7 +5114,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 122,
@@ -4705,7 +5126,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 123,
@@ -4716,7 +5138,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 124,
@@ -4727,7 +5150,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 125,
@@ -4738,7 +5162,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 126,
@@ -4749,7 +5174,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 127,
@@ -4760,7 +5186,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 128,
@@ -4771,7 +5198,8 @@
       "Module": "Module 2",
       "Topic": "IP Addressing GATE PYQs",
       "Status": "Removed",
-      "Reason": "Isolated multi-year GATE question sets"
+      "Reason": "Isolated multi-year GATE question sets",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 129,
@@ -4782,7 +5210,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 130,
@@ -4793,7 +5222,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 131,
@@ -4804,7 +5234,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 132,
@@ -4815,7 +5246,8 @@
       "Module": "Module 2",
       "Topic": "IP Addressing GATE PYQs",
       "Status": "Removed",
-      "Reason": "Isolated multi-year GATE question sets"
+      "Reason": "Isolated multi-year GATE question sets",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 133,
@@ -4826,7 +5258,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 134,
@@ -4837,7 +5270,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 135,
@@ -4848,7 +5282,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 136,
@@ -4859,7 +5294,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 137,
@@ -4870,7 +5306,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 138,
@@ -4881,7 +5318,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 139,
@@ -4892,7 +5330,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 140,
@@ -4903,7 +5342,8 @@
       "Module": "Module 2",
       "Topic": "IP Addressing GATE PYQs",
       "Status": "Removed",
-      "Reason": "Isolated multi-year GATE question sets"
+      "Reason": "Isolated multi-year GATE question sets",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 141,
@@ -4914,7 +5354,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 142,
@@ -4925,7 +5366,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 143,
@@ -4936,7 +5378,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 144,
@@ -4947,7 +5390,8 @@
       "Module": "Module 2",
       "Topic": "IPv4 Addressing, Subnetting, CIDR, Header Format, Fragmentation, ARP & ICMP",
       "Status": "Core",
-      "Reason": "Core Network Layer addressing and protocol fundamentals"
+      "Reason": "Core Network Layer addressing and protocol fundamentals",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 145,
@@ -4958,7 +5402,8 @@
       "Module": "Module 2",
       "Topic": "Subnetting Practice & Protocol Details",
       "Status": "Optional",
-      "Reason": "Extended subnetting problems, Supernetting, and RARP"
+      "Reason": "Extended subnetting problems, Supernetting, and RARP",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 146,
@@ -4969,7 +5414,8 @@
       "Module": "Module 2",
       "Topic": "IP Addressing GATE PYQs",
       "Status": "Removed",
-      "Reason": "Isolated multi-year GATE question sets"
+      "Reason": "Isolated multi-year GATE question sets",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 147,
@@ -4980,7 +5426,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 148,
@@ -4991,7 +5438,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 149,
@@ -5002,7 +5450,8 @@
       "Module": "Module 2",
       "Topic": "Routing Table Optimization & Routing Questions",
       "Status": "Optional",
-      "Reason": "Routing table reduction and practice"
+      "Reason": "Routing table reduction and practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 150,
@@ -5013,7 +5462,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 151,
@@ -5024,7 +5474,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 152,
@@ -5035,7 +5486,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 153,
@@ -5046,7 +5498,8 @@
       "Module": "Module 2",
       "Topic": "Routing Table Optimization & Routing Questions",
       "Status": "Optional",
-      "Reason": "Routing table reduction and practice"
+      "Reason": "Routing table reduction and practice",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 154,
@@ -5057,7 +5510,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 155,
@@ -5068,7 +5522,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 156,
@@ -5079,7 +5534,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 157,
@@ -5090,7 +5546,8 @@
       "Module": "Module 2",
       "Topic": "Unicast Routing (Distance Vector, Count to Infinity, Link State)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Routing protocols"
+      "Reason": "Directly in Module 2 Routing protocols",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 158,
@@ -5101,7 +5558,8 @@
       "Module": "Module 2",
       "Topic": "Routing GATE Questions",
       "Status": "Removed",
-      "Reason": "GATE specific question video"
+      "Reason": "GATE specific question video",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 159,
@@ -5112,7 +5570,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 160,
@@ -5123,7 +5582,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 161,
@@ -5134,7 +5594,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 162,
@@ -5145,7 +5606,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 163,
@@ -5156,7 +5618,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 164,
@@ -5167,7 +5630,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 165,
@@ -5178,7 +5642,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 166,
@@ -5189,7 +5654,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 167,
@@ -5200,7 +5666,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 168,
@@ -5211,7 +5678,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 169,
@@ -5222,7 +5690,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 170,
@@ -5233,7 +5702,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 171,
@@ -5244,7 +5714,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 172,
@@ -5255,7 +5726,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 173,
@@ -5266,7 +5738,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 174,
@@ -5277,7 +5750,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 175,
@@ -5288,7 +5762,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 176,
@@ -5299,7 +5774,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 177,
@@ -5310,7 +5786,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 178,
@@ -5321,7 +5798,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 179,
@@ -5332,7 +5810,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 180,
@@ -5343,7 +5822,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 181,
@@ -5354,7 +5834,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 182,
@@ -5365,7 +5846,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 183,
@@ -5376,7 +5858,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 184,
@@ -5387,7 +5870,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 185,
@@ -5398,7 +5882,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 186,
@@ -5409,7 +5894,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 187,
@@ -5420,7 +5906,8 @@
       "Module": "Module 2",
       "Topic": "Transport Layer (UDP, TCP Header, Connection Management, Leaky/Token Bucket, AIMD)",
       "Status": "Core",
-      "Reason": "Directly in Module 2 Transport layer & QoS"
+      "Reason": "Directly in Module 2 Transport layer & QoS",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 188,
@@ -5431,7 +5918,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 189,
@@ -5442,7 +5930,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 190,
@@ -5453,7 +5942,8 @@
       "Module": "Module 2",
       "Topic": "TCP In-Depth (State Machine, Timers, System Calls, Flags)",
       "Status": "Optional",
-      "Reason": "Detailed state transitions and advanced TCP features"
+      "Reason": "Detailed state transitions and advanced TCP features",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 191,
@@ -5464,7 +5954,8 @@
       "Module": "Module 2",
       "Topic": "TCP Corner Cases",
       "Status": "Removed",
-      "Reason": "Specific corner-case videos"
+      "Reason": "Specific corner-case videos",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 192,
@@ -5475,7 +5966,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 193,
@@ -5486,7 +5978,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 194,
@@ -5497,7 +5990,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 195,
@@ -5508,7 +6002,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 196,
@@ -5519,7 +6014,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 197,
@@ -5530,7 +6026,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 198,
@@ -5541,7 +6038,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 199,
@@ -5552,7 +6050,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Protocols (DNS, Email / SMTP, FTP, HTTP)",
       "Status": "Core",
-      "Reason": "Explicitly listed in Module 1 Application layer"
+      "Reason": "Explicitly listed in Module 1 Application layer",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 200,
@@ -5563,7 +6062,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Review & Questions",
       "Status": "Optional",
-      "Reason": "Application layer summary and PYQ points"
+      "Reason": "Application layer summary and PYQ points",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 201,
@@ -5574,7 +6074,8 @@
       "Module": "Module 1",
       "Topic": "Application Layer Review & Questions",
       "Status": "Optional",
-      "Reason": "Application layer summary and PYQ points"
+      "Reason": "Application layer summary and PYQ points",
+      "Last Updated": "2026-11-19 08:51 IST"
     },
     {
       "Index": 202,
@@ -5585,7 +6086,8 @@
       "Module": "",
       "Topic": "",
       "Status": "Removed",
-      "Reason": "Course conclusion video"
+      "Reason": "Course conclusion video",
+      "Last Updated": "2026-11-19 08:51 IST"
     }
   ]
 }

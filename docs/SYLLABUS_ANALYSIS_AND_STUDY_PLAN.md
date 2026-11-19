@@ -2,13 +2,56 @@
 
 > **Academic Context**: B.Tech Computer Science & Engineering (KTU Syllabus)  
 > **Upcoming Critical Examination Window**: November 19, 2026 – December 08, 2026  
-> **Repository**: [examer](git@github.com:vishnunandan555/examer.git)
+> **Repository**: [git@github.com:vishnunandan555/examer.git](git@github.com:vishnunandan555/examer.git)  
+> **Last Updated**: November 19, 2026, 08:51 AM IST (`2026-11-19T08:51:05+05:30`)
 
 ---
 
-## 1. Examination Timetable & Urgency Analysis
+## 1. Directory Structure & File Map
 
-The examination timeline extracted from the official timetable is as follows:
+The repository is structured cleanly with separated concerns:
+
+```
+examer/
+├── data/
+│   ├── raw/                                 # Original raw GATE playlists
+│   │   ├── Computer Networks (CN) for GATE — Complete Playlist.csv
+│   │   └── Data Structures and Algorithms for GATE — Complete Playlist.csv
+│   ├── processed/                           # Curated study portions & removed playlists
+│   │   ├── Computer_Networks_Study_Portions.csv
+│   │   ├── Computer_Networks_Removed_Portions.csv
+│   │   ├── Data_Structures_and_Algorithms_Study_Portions.csv
+│   │   ├── Data_Structures_and_Algorithms_Removed_Portions.csv
+│   │   ├── S3_DSA_Study_Portions.csv
+│   │   └── S5_DAA_Study_Portions.csv
+│   └── playlist_data.json                   # Master indexed JSON data
+├── docs/                                    # Documentation, official syllabi, and timetable
+│   ├── syllabus/
+│   │   ├── S3 CSE DSA.pdf
+│   │   ├── S5 CSE CN.pdf
+│   │   └── S5 CSE DAA.pdf
+│   ├── timetable/
+│   │   └── EXAM Time table.jpeg
+│   └── SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md
+├── scripts/
+│   └── generate_all_datasets.py             # Data processing & classification pipeline
+├── src/                                     # Web application source code (Vite + React)
+│   ├── data/
+│   │   └── playlist_data.json
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
+```
+
+---
+
+## 2. Examination Timetable & Urgency Analysis
+
+*Last Synchronized: 2026-11-19 08:51 IST*
 
 | Date | Day | Examination | Subject Code | Type | Status / Days Left | Priority Level |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -25,7 +68,7 @@ The examination timeline extracted from the official timetable is as follows:
 
 ---
 
-## 2. Comparative Analysis: GATE Syllabus vs. KTU University Syllabus
+## 3. Comparative Analysis: GATE Syllabus vs. KTU University Syllabus
 
 GATE playlists are designed for comprehensive competitive examination depth, with heavy emphasis on tricky numericals, historical GATE question solving, and advanced competitive programming variations. In contrast, **KTU University End Semester Examinations (ESE - 60 Marks)** focus on:
 1. Standard conceptual derivations and clear architecture explanations.
@@ -37,16 +80,18 @@ By separating the playlists into **Core (Must Watch)**, **Optional (High-Yield P
 ```
 Original Total: 500 Videos | 260.2 Hours
 Reduced Core:   290 Videos | 152.0 Hours (~42% reduction in study load!)
+Last Updated:   2026-11-19 08:51 IST
 ```
 
 ---
 
-## 3. Computer Networks (S5 CSE - PCCST501)
+## 4. Computer Networks (S5 CSE - PCCST501)
 
 - **Exam Date**: November 23, 2026 (4 Days Left)
 - **Original Playlist**: 202 Videos (4,637.3 minutes ≈ 77.3 hours)
 - **Curated Study Plan**: 175 Videos (Core: 124, Optional: 51)
 - **Removed Overkill**: 27 Videos (397.3 minutes ≈ 6.6 hours)
+- **Dataset**: `data/processed/Computer_Networks_Study_Portions.csv`
 
 ### Module-by-Module Breakdown
 
@@ -91,23 +136,19 @@ Reduced Core:   290 Videos | 152.0 Hours (~42% reduction in study load!)
   - Videos 15–40: Analog and digital signals, Line coding techniques (NRZ-L, NRZ-I, RZ, Manchester), Bit rate vs Baud rate, Serial vs Parallel, Delay & Bandwidth metrics, Multiplexing (FDM, WDM, TDM).
 * **Core Hours**: ~7.2 hours | **Optional**: ~2.7 hours
 
-### What Was Removed from CN and Why:
-- **Video 1 & 202**: Generic GATE syllabus introduction and course sign-off.
-- **Isolated GATE Numerical Snippets (Videos 23, 26, 29, 30, 31, 39, 48, 52, 53, 57, 66, 67, 73, 76, 77, 79, 81, 83, 84, 91, 98, 99, 128, 132)**: These are 2-5 minute videos solving hyper-specific GATE tricky numericals from 2004–2018. They do not teach university theory and waste critical time right before the exam.
-
 ---
 
-## 4. DAA (S5 CSE - PCCST502) & S3 DSA (S3 CSE - PCCST303)
+## 5. DAA (S5 CSE - PCCST502) & S3 DSA (S3 CSE - PCCST303)
 
-The single 298-video playlist covers both subjects. Here is the exact partitioning:
+The single 298-video playlist covers both subjects. Partitioning summary:
 
 ```
 Combined Playlist: 298 Videos (10,974.5 minutes ≈ 182.9 hours)
-├── S3 DSA Specific Portions: 163 Videos
-├── S5 DAA Specific Portions: 164 Videos
+├── S3 DSA Specific Portions: 163 Videos (data/processed/S3_DSA_Study_Portions.csv)
+├── S5 DAA Specific Portions: 164 Videos (data/processed/S5_DAA_Study_Portions.csv)
 ├── Common Foundations (Both): 57 Videos (Asymptotic notations, BFS/DFS, Merge/Quick Sort, Dijkstra)
-├── Study Plan Total (Core + Optional): 270 Videos
-└── Removed (Irrelevant / Overkill): 28 Videos (15.7 hours saved)
+├── Study Plan Total (Core + Optional): 270 Videos (data/processed/Data_Structures_and_Algorithms_Study_Portions.csv)
+└── Removed (Irrelevant / Overkill): 28 Videos (data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv)
 ```
 
 ### S5 DAA (PCCST502) — Exam Date: Nov 27 (8 Days Left)
@@ -130,21 +171,11 @@ Combined Playlist: 298 Videos (10,974.5 minutes ≈ 182.9 hours)
 * **Module 4**: Sorting (Selection Sort, Insertion Sort, Quick Sort, Merge Sort, Heap Sort, Radix Sort), Searching (Linear Search, Binary Search), Hashing (Hash functions: Mid-square, Division, Folding, Digit Analysis; Collision Resolution: Linear Probing, Quadratic Probing, Double Hashing, Open Hashing / Chaining).
   * *Playlist Videos*: 63–98, 208–212, 219–224, 288–298.
 
-### What Was Removed from DSA/DAA and Why:
-- **Videos 1 & 196**: Syllabus introduction videos.
-- **Videos 73–75**: Excessive placement practice problems on binary search.
-- **Videos 96–98**: Repetitive heap practice questions.
-- **Videos 115–116**: LeetCode-style advanced competitive programming questions on linked lists.
-- **Videos 133–134, 137, 144**: Specialized GATE questions on sub-trees and leftmost-child right-sibling representations.
-- **Videos 168, 177–178**: Isolated GATE question solving on stacks and queues.
-- **Videos 213, 217–218**: Fibonacci merge sort and inversion counting algorithms (not in KTU syllabus).
-- **Videos 254–258**: Repetitive spanning tree practice problems.
-- **Videos 278–279**: Multistage Graph (not in KTU S5 DAA; syllabus specifies MCM and Floyd-Warshall).
-- **Video 296**: GATE PYQ compilation on hashing.
-
 ---
 
-## 5. Time & Study Pace Matrix (Action Plan)
+## 6. Time & Study Pace Matrix (Action Plan)
+
+*Last Updated: 2026-11-19 08:51 IST*
 
 | Target Exam | Exam Date | Available Days | Total Core Hours | At 1.0x Speed | At 1.25x Speed | At 1.5x Speed (Recommended) | Daily Target (1.5x) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -152,20 +183,15 @@ Combined Playlist: 298 Videos (10,974.5 minutes ≈ 182.9 hours)
 | **DAA** | Nov 27 | 8 Days | 58.4 hrs | 7.3 hrs/day | 5.8 hrs/day | **38.9 hrs (4.9 hrs/day)** | **5 hours/day** |
 | **S3 DSA** | Nov 30 | 11 Days | 52.8 hrs | 4.8 hrs/day | 3.8 hrs/day | **35.2 hrs (3.2 hrs/day)** | **3.5 hours/day** |
 
-> [!TIP]
-> **Recommended Viewing Speed**:
-> Watching at **1.5x playback speed** reduces total watch time by 33%, allowing you to finish the entire Computer Networks core syllabus in just **32.5 hours** across the remaining 4 days!
-
 ---
 
-## 6. Generated CSV Artifacts Summary
+## 7. Curated Dataset Files Location
 
-The following production-ready CSV files have been created in the workspace:
-
-1. [Data_Structures_and_Algorithms_Study_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/Data_Structures_and_Algorithms_Study_Portions.csv) (270 curated study videos, mapped to S3 DSA / S5 DAA / Both, Module, Status [Core/Optional], YouTube link).
-2. [Data_Structures_and_Algorithms_Removed_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/Data_Structures_and_Algorithms_Removed_Portions.csv) (28 removed videos with pedagogical exclusion reasons).
-3. [S3_DSA_Study_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/S3_DSA_Study_Portions.csv) (163 videos specifically relevant to the S3 DSA supply examination).
-4. [S5_DAA_Study_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/S5_DAA_Study_Portions.csv) (164 videos specifically relevant to the S5 DAA theory examination).
-5. [Computer_Networks_Study_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/Computer_Networks_Study_Portions.csv) (175 curated study videos, mapped to KTU Modules 1-4, Status [Core/Optional], YouTube link).
-6. [Computer_Networks_Removed_Portions.csv](file:///home/vishnunandan555/Repos/STUDY_PLAN/Computer_Networks_Removed_Portions.csv) (27 removed videos with pedagogical exclusion reasons).
-7. [playlist_data.json](file:///home/vishnunandan555/Repos/STUDY_PLAN/playlist_data.json) (Pre-indexed structured JSON data feeding the Examer web application).
+All processed files reside in `data/processed/`:
+1. `data/processed/Data_Structures_and_Algorithms_Study_Portions.csv`
+2. `data/processed/Data_Structures_and_Algorithms_Removed_Portions.csv`
+3. `data/processed/S3_DSA_Study_Portions.csv`
+4. `data/processed/S5_DAA_Study_Portions.csv`
+5. `data/processed/Computer_Networks_Study_Portions.csv`
+6. `data/processed/Computer_Networks_Removed_Portions.csv`
+7. `data/playlist_data.json`
