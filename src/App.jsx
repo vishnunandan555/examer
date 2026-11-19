@@ -291,11 +291,11 @@ export default function App() {
                   cursor: 'pointer'
                 }}
               >
-                <option value={1.0} style={{ background: '#1e2030' }}>1.0x Normal</option>
-                <option value={1.25} style={{ background: '#1e2030' }}>1.25x Swift</option>
-                <option value={1.5} style={{ background: '#1e2030' }}>1.5x Recommended</option>
-                <option value={1.75} style={{ background: '#1e2030' }}>1.75x Rapid</option>
-                <option value={2.0} style={{ background: '#1e2030' }}>2.0x Double</option>
+                <option value={1.0} style={{ background: '#11131b' }}>1.0x Normal</option>
+                <option value={1.25} style={{ background: '#11131b' }}>1.25x Swift</option>
+                <option value={1.5} style={{ background: '#11131b' }}>1.5x Recommended</option>
+                <option value={1.75} style={{ background: '#11131b' }}>1.75x Rapid</option>
+                <option value={2.0} style={{ background: '#11131b' }}>2.0x Double</option>
               </select>
             </div>
 
