@@ -1,34 +1,18 @@
 # Dependencies
-node_modules
+node_modules/
 .pnp
 .pnp.js
 
-# Build output
-dist
-dist-ssr
-*.local
+# Production build output
+dist/
+dist-ssr/
 
-# Editor & System
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-*.txt
-
-# Logs
+# Environment and logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-# Python scratch
-__pycache__/
-*.pyc
-categorize_data.py
-EOF
+# System files
+.DS_Store
+Thumbs.db

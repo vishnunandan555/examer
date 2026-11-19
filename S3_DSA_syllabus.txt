@@ -1,0 +1,418 @@
+GO LEARNERZ
+Where Learnerz Meets progress
+
+KTU BTECH ONLINE CLASSES
+KTU CRASH COURSES| KTU MOCK TEST | KTU
+PREVIOUS YEAR QUESTION PAPER SOLVED
+
+www.golearnerz.com
+
+SEMESTER S3
+DATA STRUCTURES AND ALGORITHMS
+(Common to CS/CA/CM/CD/CR/AI/AM/AD/CB/CN/CC/CU/CI/CG)
+Course Code
+Teaching Hours/Week
+(L: T:P: R)
+Credits
+Prerequisites (if any)
+
+PCCST303
+
+CIE Marks
+
+40
+
+3:1:0:0
+
+ESE Marks
+
+60
+
+4
+
+Exam Hours
+
+2 Hrs. 30 Min.
+
+UCEST105
+
+Course Type
+
+Theory
+
+Course Objectives:
+1. To provide the learner a comprehensive understanding of data structures and algorithms.
+2. To prepare them for advanced studies or professional work in computer science and related
+fields.
+
+SYLLABUS
+Module
+No.
+
+Syllabus Description
+
+Contact
+Hours
+
+Basic Concepts of Data Structures
+Definitions; Data Abstraction; Performance Analysis - Time & Space
+
+1
+
+Complexity, Asymptotic Notations; Polynomial representation using
+Arrays, Sparse matrix (Tuple representation); Stacks and Queues - Stacks,
+
+11
+
+Multi-Stacks, Queues, Circular Queues, Double Ended Queues; Evaluation
+of Expressions- Infix to Postfix, Evaluating Postfix Expressions.
+Linked List and Memory Management
+Singly Linked List - Operations on Linked List, Stacks and Queues using
+
+2
+
+Linked List, Polynomial representation using Linked List; Doubly Linked
+
+11
+
+List; Circular Linked List; Memory allocation - First-fit, Best-fit, and
+Worst-fit allocation schemes; Garbage collection and compaction.
+Trees and Graphs
+Trees :- Representation Of Trees; Binary Trees - Types and Properties,
+
+3
+
+Binary Tree Representation, Tree Operations, Tree Traversals; Expression
+Trees; Binary Search Trees - Binary Search Tree Operations; Binary Heaps
+
+11
+
+- Binary Heap Operations, Priority Queue.
+Graphs :- Definitions; Representation of Graphs; Depth First Search and
+
+For More Lecture Videos: www.golearnerz.com
+
+Breadth First Search; Applications of Graphs
+
+- Single Source All
+
+Destination.
+Sorting and Searching
+Sorting Techniques :- Selection Sort, Insertion Sort, Quick Sort, Merge
+Sort, Heap Sort, Radix Sort.
+Searching Techniques :- Linear Search, Binary Search, Hashing - Hashing
+
+4
+
+11
+
+functions : Mid square, Division, Folding, Digit Analysis; Collision
+Resolution : Linear probing, Quadratic Probing, Double hashing, Open
+hashing.
+
+Course Assessment Method
+(CIE: 40 marks, ESE: 60 marks)
+Continuous Internal Evaluation Marks (CIE):
+
+Attendance
+
+Assignment/
+Microproject
+
+Internal
+Examination-1
+(Written)
+
+Internal
+Examination- 2
+(Written)
+
+Total
+
+5
+
+15
+
+10
+
+10
+
+40
+
+End Semester Examination Marks (ESE)
+In Part A, all questions need to be answered and in Part B, each student can choose any one
+full question out of two questions
+Part A
+ 2 Questions from each
+
+module.
+ Total of 8 Questions, each
+carrying 3 marks
+
+Part B
+
+Total
+
+ Each question carries 9 marks.
+
+ Two questions will be given from each module, out
+of which 1 question should be answered.
+ Each question can have a maximum of 3 sub
+
+60
+
+divisions.
+(8x3 =24 marks)
+
+(4x9 = 36 marks)
+
+For More Lecture Videos: www.golearnerz.com
+
+Course Outcomes (COs)
+At the end of the course students should be able to:
+Bloom’s
+Knowledge
+Level (KL)
+
+Course Outcome
+CO1
+CO2
+CO3
+CO4
+
+Identify appropriate data structures for solving real world problems.
+
+K3
+
+Describe and implement linear data structures such as arrays, linked
+
+K3
+
+lists, stacks, and queues.
+Describe and Implement non linear data structures such as trees and
+
+K3
+
+graphs.
+Select appropriate searching and sorting algorithms to be used in
+
+K3
+
+specific circumstances.
+
+Note: K1- Remember, K2- Understand, K3- Apply, K4- Analyse, K5- Evaluate, K6- Create
+
+CO-PO Mapping Table (Mapping of Course Outcomes to Program Outcomes)
+PO1
+
+PO2
+
+PO3
+
+PO4
+
+PO5
+
+PO6
+
+PO7
+
+PO8
+
+PO9
+
+PO10
+
+CO1
+
+3
+
+3
+
+3
+
+3
+
+CO2
+
+3
+
+3
+
+3
+
+3
+
+CO3
+
+3
+
+3
+
+3
+
+3
+
+CO4
+
+3
+
+3
+
+3
+
+3
+
+PO11 PO12
+
+Note: 1: Slight (Low), 2: Moderate (Medium), 3: Substantial (High), -: No Correlation
+
+Text Books
+Sl. No
+
+Title of the Book
+
+Name of the Author/s
+
+1
+
+Fundamentals of Data Structures in C
+
+Ellis Horowitz, Sartaj Sahni
+and Susan Anderson-Freed,
+
+2
+
+Introduction to Algorithms
+
+Thomas H Cormen, Charles
+Leisesrson, Ronald L
+Rivest, Clifford Stein
+
+Name of the
+Publisher
+Universities
+press,
+
+Edition
+and Year
+
+PHI
+
+3/e, 2009
+
+2/e, 2007
+
+For More Lecture Videos: www.golearnerz.com
+
+Reference Books
+Sl. No
+
+Title of the Book
+
+1
+
+Classic Data Structures
+
+2
+
+Data Structures and Algorithms
+
+Samanta D.
+
+Introduction to Data Structures with
+Applications
+Theory and Problems of Data
+Structures
+
+3
+4
+
+Name of the Author/s
+
+Name of the
+Publisher
+Prentice Hall
+India.
+
+Edition
+and Year
+2/e, 2018
+
+Aho A. V., J. E.
+Hopcroft and J. D.
+Ullman
+Tremblay J. P. and P. G.
+Sorenson
+
+Pearson
+Publication.
+
+1/e, 2003
+
+Tata McGraw
+Hill.
+
+2/e, 2017
+
+Lipschuts S.
+
+Schaum’s Series
+
+2/e, 2014
+
+Video Links (NPTEL, SWAYAM…)
+Module
+No.
+1
+2
+
+Link ID
+https://nptel.ac.in/courses/106102064
+https://ocw.mit.edu/courses/6-851-advanced-data-structures-spring-2012/
+
+For More Lecture Videos: www.golearnerz.com
+
+WHERE LEARNERS
+MEETS PROGRESS
+ELEVATE YOUR EXPERIENCE
+
+Easy To Use,
+Anywhere, Anytime
+
+Streamlined User
+Interface
+
+Personalized
+Experience
+
+24 Hours
+Support
+
+Why Choose Us?
+Top Faculties and
+Mentor Support
+
+Free Webinars on
+Exam preparation
+
+Subject wise community for
+discussion and doubt solving
+
+Well Formatted
+Recorded classes
+
+Solved Previous Year
+Questions With Detailed
+Video
+
+Subject Wise Materials
+
+Contact Us
+
++918089464002
+
+www.golearnerz.com
+golearnerz
+
+

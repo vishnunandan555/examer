@@ -1,0 +1,517 @@
+GO LEARNERZ
+Where Learnerz Meets progress
+
+KTU BTECH ONLINE CLASSES
+KTU CRASH COURSES| KTU MOCK TEST | KTU
+PREVIOUS YEAR QUESTION PAPER SOLVED
+
+www.golearnerz.com
+
+SEMESTER S5
+DESIGN AND ANALYSIS OF ALGORITHMS
+(Common to CS/CD/CM/AM/CB/CN/CU/CG)
+Course Code
+Teaching Hours/Week
+(L: T:P: R)
+Credits
+Prerequisites (if any)
+
+PCCST502
+
+CIE Marks
+
+40
+
+3:1:0:0
+
+ESE Marks
+
+60
+
+4
+
+Exam Hours
+
+2 Hrs 30 Min.
+
+PCCST303
+
+Course Type
+
+Theory
+
+Course Objectives:
+● To gain a foundational understanding of algorithms and their analysis.
+● To develop problem-solving skills using various algorithm design paradigms like
+divide and conquer, dynamic programming, etc.
+● To understand the concepts of tractable and intractable problems, and different
+complexity classes (P, NP, NP-hard, NP-complete).
+
+SYLLABUS
+Module
+
+Syllabus Description
+
+No.
+
+Contact
+Hours
+
+Algorithms – Characteristics, Criteria for Analysing Algorithms; Time and
+Space Complexity - Best, Worst, and Average Case Complexities;
+Asymptotic Notations and their properties; Time and Space Complexity
+
+1
+
+Calculation of simple algorithms; Analysis of Recursive Algorithms Recurrence Equations, Solution of Recurrence Equations : Iteration
+
+11
+
+Method, Recursion Tree Method, Substitution method and Master’s
+Theorem (proof not expected); Balanced Search Trees - AVL Trees
+(Insertion and deletion operations with all rotations in detail, algorithms
+not expected)
+
+For More Lecture Videos: www.golearnerz.com
+
+Disjoint Sets - Disjoint set operations, Union and find algorithms, Analysis
+of union by rank with path compression, Connected components of a
+Graph; Graphs – Representations, Traversals : BFS, DFS and their analysis,
+
+11
+
+Strongly Connected Components; Topological Sorting. Divide and Conquer
+
+2
+
+Strategy
+
+–
+
+Control
+
+Abstraction,
+
+Merge
+
+Sort,
+
+Strassen’s
+
+Matrix
+
+Multiplication, Analysis.
+Greedy Strategy - Control Abstraction, Fractional Knapsack; Minimum
+Cost Spanning Tree – Kruskal’s and Prim’s, Analysis; Shortest Path
+Problem – Dijkstra’s Algorithm,
+
+Analysis;
+
+Dynamic Programming -
+
+11
+
+Control Abstraction, Optimality Principle, Matrix Chain Multiplicati on,
+
+3
+
+Analysis; All Pairs Shortest Path Algorithm - Floyd-Warshall Algorithm,
+Analysis; Backtracking - Control Abstraction, N – Queens Problem,
+Algorithm.
+Branch and Bound - Control Abstraction, Travelling Salesman Problem,
+Algorithm; Complexity - Tractable and Intractable Problems; Complexity
+Classes : P, NP, NP- Hard and NP-Complete Classes; NP Completeness
+
+11
+
+proof - Clique Problem and Vertex Cover Problem; Approximation
+
+4
+
+algorithms - Bin Packing; Randomized Algorithms - Definitions of Monte
+Carlo and Las Vegas algorithms; Randomized version of Quick Sort
+algorithm with analysis.
+
+Course Assessment Method
+(CIE: 40 marks, ESE: 60 marks)
+Continuous Internal Evaluation Marks (CIE):
+Attendance
+
+5
+
+Assignment/
+Microproject
+
+15
+
+Internal
+
+Internal
+
+Examination-1
+
+Examination- 2
+
+(Written)
+
+(Written )
+
+10
+
+10
+
+Total
+
+40
+
+End Semester Examination Marks (ESE)
+In Part A, all questions need to be answered and in Part B, each student can choose any one
+full question out of two questions
+
+For More Lecture Videos: www.golearnerz.com
+
+Part A
+
+Part B
+
+● 2 Questions from each
+
+● Each question carries 9 marks.
+● Two questions will be given from each module, out
+
+module.
+● Total of 8 Questions, each
+carrying 3 marks
+
+Total
+
+of which 1 question should be answered.
+
+60
+
+● Each question can have a maximum of 3
+subdivisions.
+
+(8x3 =24 marks)
+
+(4x9 = 36 marks)
+
+Course Outcomes (COs)
+At the end of the course students should be able to:
+Bloom’s
+Course Outcome
+
+Knowledge
+Level (KL)
+
+Analyze any given algorithm and express its time and space
+CO1
+
+K4
+
+complexities in asymptotic notations.
+Solve the recurrence equations using Iteration, Recurrence Tree,
+
+CO2
+
+Substitution and Master’s Method to compute time complexity of
+
+K3
+
+algorithms.
+Illustrate the operations of advanced data structures like AVL trees and
+CO3
+
+K3
+
+Disjoint sets.
+Illustrate the representation, traversal and different operations on
+
+CO4
+
+Demonstrate
+CO5
+
+K3
+
+Graphs.
+Divide-and-conquer,
+
+Greedy
+
+Strategy,
+
+Dynamic
+
+programming, Branch-and Bound and Backtracking algorithm design
+
+K2
+
+techniques.
+Classify a problem as computationally tractable or intractable, and
+CO6
+
+discuss strategies to address intractability.
+
+K4
+
+Note: K1- Remember, K2- Understand, K3- Apply, K4- Analyse, K5- Evaluate, K6- Create
+
+For More Lecture Videos: www.golearnerz.com
+
+CO-PO Mapping Table (Mapping of Course Outcomes to Program Outcomes)
+PO1
+
+PO2
+
+PO3
+
+PO4
+
+PO5
+
+PO6
+
+PO7
+
+PO8
+
+PO9
+
+PO10 PO11 PO12
+
+CO1
+
+3
+
+3
+
+3
+
+2
+
+CO2
+
+3
+
+3
+
+3
+
+2
+
+CO3
+
+3
+
+3
+
+3
+
+3
+
+CO4
+
+3
+
+3
+
+3
+
+3
+
+CO5
+
+3
+
+3
+
+3
+
+2
+
+2
+
+CO6
+
+3
+
+3
+
+3
+
+2
+
+2
+
+3
+
+Note: 1: Slight (Low), 2: Moderate (Medium), 3: Substantial (High), -: No Correlation
+Text Books
+Sl. No
+
+Title of the Book
+
+1
+
+Introduction to Algorithms
+
+2
+
+Fundamentals of Computer
+Algorithms
+
+3
+
+Computer Algorithms,
+Introduction to Design and
+Analysis
+
+Name of the
+Publisher
+
+Edition
+and Year
+
+Prentice-Hall India
+
+4/e, 2018
+
+Orient Longman
+Universities Press
+
+2/e, 2008
+
+Pearson Education
+
+3/e, 2009
+
+Name of the Author/s
+T.H.Cormen,
+C.E.Leiserson, R.L.Rivest,
+C. Stein,
+Ellis Horowitz, Sartaj
+Sahni, Sanguthevar
+Rajasekaran,
+Sara Baase and Allen Van
+Gelder
+
+Reference Books
+Sl. No
+
+Title of the Book
+
+1
+
+Design and Analysis of
+Algorithms
+
+2
+
+Algorithm Design
+
+3
+
+Algorithms
+
+4
+
+Fundamentals of Algorithmics
+
+5
+
+The Algorithm Design Manual
+
+Name of the Author/s
+Michael T. Goodrich
+Roberto Tamassia
+Jon Kleinberg, Eva
+Tardos
+Robert Sedgewick, Kevin
+Wayne
+GIlles Brassard, Paul
+Brately
+Steven S. Skiena
+
+Name of the
+Publisher
+Wiley
+
+Edition
+and Year
+1/e, 2021
+
+Pearson Education 1/e, 2005
+Pearson Education 4/e, 2011
+Pearson Education 1/e, 1996
+Springer
+
+2/e, 2008
+
+For More Lecture Videos: www.golearnerz.com
+
+Video Links (NPTEL, SWAYAM…)
+Module
+
+Link ID
+
+No.
+1
+
+https://archive.nptel.ac.in/courses/106/106/106106131/
+
+2
+
+https://www.coursera.org/learn/dynamic-programming-greedy-algorithms
+
+3
+4
+
+https://online.stanford.edu/courses/soe-ycsalgorithms1-algorithms-design-and-analysispart-1
+https://online.stanford.edu/courses/soe-ycs0001-algorithms-design-and-analysis-part-2
+
+For More Lecture Videos: www.golearnerz.com
+
+WHERE LEARNERS
+MEETS PROGRESS
+ELEVATE YOUR EXPERIENCE
+
+Easy To Use,
+Anywhere, Anytime
+
+Streamlined User
+Interface
+
+Personalized
+Experience
+
+24 Hours
+Support
+
+Why Choose Us?
+Top Faculties and
+Mentor Support
+
+Free Webinars on
+Exam preparation
+
+Subject wise community for
+discussion and doubt solving
+
+Well Formatted
+Recorded classes
+
+Solved Previous Year
+Questions With Detailed
+Video
+
+Subject Wise Materials
+
+Contact Us
+
++918089464002
+
+www.golearnerz.com
+golearnerz
+
+
