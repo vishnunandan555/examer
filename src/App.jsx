@@ -29,7 +29,9 @@ import {
   Lock,
   Cloud,
   Settings,
-  KeyRound
+  KeyRound,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 import { pullFromCloud, pushToCloud, getCloudConfig, saveCloudConfig } from './services/cloudSync';
 
@@ -68,6 +70,25 @@ export default function App() {
       return {};
     }
   });
+
+  const [showCompleted, setShowCompleted] = useState(() => {
+    try {
+      const saved = localStorage.getItem('examer_show_completed_v1');
+      return saved !== null ? saved === 'true' : true;
+    } catch (e) {
+      return true;
+    }
+  });
+
+  const [animatingOutKeys, setAnimatingOutKeys] = useState({});
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_show_completed_v1', String(showCompleted));
+    } catch (e) {
+      // ignore
+    }
+  }, [showCompleted]);
 
   const [expandedSyllabus, setExpandedSyllabus] = useState(false);
 
@@ -238,10 +259,36 @@ export default function App() {
   };
 
   const toggleComplete = (itemKey) => {
-    setCompletedMap((prev) => ({
-      ...prev,
-      [itemKey]: !prev[itemKey]
-    }));
+    const willBeCompleted = !completedMap[itemKey];
+
+    if (willBeCompleted && !showCompleted) {
+      // Initiate smooth removal animation
+      setAnimatingOutKeys((prev) => ({ ...prev, [itemKey]: true }));
+      setCompletedMap((prev) => ({
+        ...prev,
+        [itemKey]: true
+      }));
+
+      setTimeout(() => {
+        setAnimatingOutKeys((prev) => {
+          const next = { ...prev };
+          delete next[itemKey];
+          return next;
+        });
+      }, 450);
+    } else {
+      if (animatingOutKeys[itemKey]) {
+        setAnimatingOutKeys((prev) => {
+          const next = { ...prev };
+          delete next[itemKey];
+          return next;
+        });
+      }
+      setCompletedMap((prev) => ({
+        ...prev,
+        [itemKey]: !prev[itemKey]
+      }));
+    }
   };
 
   const markBatch = (items, done) => {
@@ -501,8 +548,18 @@ export default function App() {
       );
     }
 
+    // Filter out completed videos when showCompleted is false (except if actively animating out)
+    if (!showCompleted) {
+      items = items.filter((v) => {
+        const key = getItemKey(v);
+        const isDone = !!completedMap[key];
+        const isAnimating = !!animatingOutKeys[key];
+        return !isDone || isAnimating;
+      });
+    }
+
     return items;
-  }, [currentSubjectData, activeViewMode, selectedModule, searchQuery]);
+  }, [currentSubjectData, activeViewMode, selectedModule, searchQuery, showCompleted, completedMap, animatingOutKeys]);
 
   // If locked, render Minimalist Passcode Gate
   if (!isUnlocked) {
@@ -1700,6 +1757,29 @@ export default function App() {
                 >
                   <RotateCcw size={12} /> Reset
                 </button>
+
+                {/* Show / Hide Completed Toggle */}
+                <button
+                  onClick={() => setShowCompleted((prev) => !prev)}
+                  title={showCompleted ? 'Click to hide completed videos' : 'Click to show all completed videos'}
+                  style={{
+                    backgroundColor: showCompleted ? 'rgba(56, 189, 248, 0.12)' : 'var(--bg-active)',
+                    border: showCompleted ? '1px solid var(--accent-blue)' : '1px solid var(--border-default)',
+                    color: showCompleted ? 'var(--accent-blue)' : 'var(--text-dim)',
+                    borderRadius: '4px',
+                    padding: '0.25rem 0.55rem',
+                    fontSize: '0.72rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.3rem',
+                    fontWeight: showCompleted ? 600 : 400,
+                    transition: 'all 0.15s ease'
+                  }}
+                >
+                  {showCompleted ? <Eye size={12} /> : <EyeOff size={12} />}
+                  <span>Show Completed</span>
+                </button>
               </div>
             </div>
 
@@ -1721,21 +1801,24 @@ export default function App() {
                   {displayedVideos.length === 0 ? (
                     <tr>
                       <td colSpan={7} style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-dim)' }}>
-                        No videos found matching your filter criteria.
+                        {showCompleted
+                          ? 'No videos found matching your filter criteria.'
+                          : 'All matching videos completed! (Click "Show Completed" to reveal them)'}
                       </td>
                     </tr>
                   ) : (
                     displayedVideos.map((item) => {
                       const itemKey = getItemKey(item);
                       const isCompleted = !!completedMap[itemKey];
+                      const isAnimatingOut = !!animatingOutKeys[itemKey];
 
                       return (
                         <tr
                           key={itemKey}
-                          className={isCompleted ? 'table-row-completed' : ''}
+                          className={`${isCompleted ? 'table-row-completed' : ''} ${isAnimatingOut ? 'row-animating-out' : ''}`.trim()}
                           style={{
                             borderBottom: '1px solid var(--border-subtle)',
-                            transition: 'background-color 0.15s ease'
+                            transition: 'background-color 0.15s ease, opacity 0.45s ease, transform 0.45s ease'
                           }}
                         >
                           <td style={{ padding: '0.6rem 0.75rem', textAlign: 'center' }}>
@@ -1822,21 +1905,25 @@ export default function App() {
             <div className="mobile-card-view">
               {displayedVideos.length === 0 ? (
                 <div className="card" style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-dim)' }}>
-                  No videos found matching your filter criteria.
+                  {showCompleted
+                    ? 'No videos found matching your filter criteria.'
+                    : 'All matching videos completed! (Click "Show Completed" to reveal them)'}
                 </div>
               ) : (
                 displayedVideos.map((item) => {
                   const itemKey = getItemKey(item);
                   const isCompleted = !!completedMap[itemKey];
+                  const isAnimatingOut = !!animatingOutKeys[itemKey];
 
                   return (
                     <div
                       key={itemKey}
-                      className="card"
+                      className={`card ${isAnimatingOut ? 'card-animating-out' : ''}`.trim()}
                       style={{
                         padding: '0.75rem',
                         backgroundColor: isCompleted ? 'rgba(74, 222, 128, 0.03)' : 'var(--bg-surface)',
-                        borderLeft: isCompleted ? '3px solid var(--accent-green)' : '3px solid var(--border-default)'
+                        borderLeft: isCompleted ? '3px solid var(--accent-green)' : '3px solid var(--border-default)',
+                        transition: 'opacity 0.45s ease, transform 0.45s ease, max-height 0.45s ease, padding 0.45s ease, margin 0.45s ease'
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.4rem' }}>
