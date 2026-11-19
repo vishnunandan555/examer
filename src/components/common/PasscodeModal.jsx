@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Lock, ArrowRight, KeyRound } from 'lucide-react';
+import { Lock, ArrowRight, KeyRound, AlertTriangle } from 'lucide-react';
 
 export default function PasscodeModal({
   passcode,
+  hasPinConfigured = true,
   onUnlock
 }) {
   const [passcodeAttempt, setPasscodeAttempt] = useState('');
@@ -10,7 +11,9 @@ export default function PasscodeModal({
 
   const handleUnlock = (e) => {
     if (e) e.preventDefault();
-    if (passcodeAttempt.trim() === String(passcode).trim()) {
+    if (!hasPinConfigured) return; // Strict: if no PIN in env, no secret works
+
+    if (passcode && passcodeAttempt.trim() === String(passcode).trim()) {
       setPasscodeError(false);
       onUnlock();
     } else {
@@ -47,14 +50,15 @@ export default function PasscodeModal({
             width: '52px',
             height: '52px',
             borderRadius: '12px',
-            backgroundColor: 'var(--accent-blue)',
-            color: 'var(--bg-base)',
+            backgroundColor: hasPinConfigured ? 'var(--accent-blue)' : 'var(--bg-active)',
+            color: hasPinConfigured ? 'var(--bg-base)' : 'var(--text-dim)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontWeight: 800,
             fontSize: '1.4rem',
-            margin: '0 auto 1.15rem'
+            margin: '0 auto 1.15rem',
+            border: hasPinConfigured ? 'none' : '1px solid var(--border-default)'
           }}
         >
           <KeyRound size={26} />
@@ -72,23 +76,32 @@ export default function PasscodeModal({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'var(--bg-active)',
-                border: passcodeError ? '1px solid var(--accent-red)' : '1px solid var(--border-default)',
+                backgroundColor: hasPinConfigured ? 'var(--bg-active)' : 'rgba(255, 255, 255, 0.02)',
+                border: !hasPinConfigured
+                  ? '1px solid var(--border-subtle)'
+                  : passcodeError
+                  ? '1px solid var(--accent-red)'
+                  : '1px solid var(--border-default)',
                 borderRadius: '6px',
                 padding: '0.55rem 0.75rem',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                opacity: hasPinConfigured ? 1 : 0.45,
+                cursor: hasPinConfigured ? 'text' : 'not-allowed'
               }}
             >
               <Lock size={16} color="var(--text-dim)" />
               <input
                 type="password"
-                placeholder="Enter 5-key PIN"
+                placeholder={hasPinConfigured ? 'Enter 5-key PIN' : 'PIN Not Configured (Disabled)'}
                 value={passcodeAttempt}
                 onChange={(e) => {
-                  setPasscodeAttempt(e.target.value);
-                  setPasscodeError(false);
+                  if (hasPinConfigured) {
+                    setPasscodeAttempt(e.target.value);
+                    setPasscodeError(false);
+                  }
                 }}
-                autoFocus
+                disabled={!hasPinConfigured}
+                autoFocus={hasPinConfigured}
                 maxLength={12}
                 style={{
                   background: 'none',
@@ -97,12 +110,14 @@ export default function PasscodeModal({
                   color: 'var(--text-main)',
                   width: '100%',
                   fontSize: '1.05rem',
-                  letterSpacing: '0.25em',
-                  textAlign: 'center'
+                  letterSpacing: hasPinConfigured ? '0.25em' : 'normal',
+                  textAlign: 'center',
+                  cursor: hasPinConfigured ? 'text' : 'not-allowed'
                 }}
               />
             </div>
-            {passcodeError && (
+
+            {passcodeError && hasPinConfigured && (
               <div style={{ color: 'var(--accent-red)', fontSize: '0.72rem', marginTop: '0.45rem', textAlign: 'center' }}>
                 Incorrect PIN. Please try again.
               </div>
@@ -111,16 +126,18 @@ export default function PasscodeModal({
 
           <button
             type="submit"
+            disabled={!hasPinConfigured || passcodeAttempt.trim().length === 0}
             style={{
               width: '100%',
-              backgroundColor: 'var(--accent-blue)',
-              color: 'var(--bg-base)',
+              backgroundColor: hasPinConfigured ? 'var(--accent-blue)' : 'var(--bg-active)',
+              color: hasPinConfigured ? 'var(--bg-base)' : 'var(--text-dim)',
               border: 'none',
               borderRadius: '6px',
               padding: '0.65rem',
               fontWeight: 700,
               fontSize: '0.85rem',
-              cursor: 'pointer',
+              cursor: hasPinConfigured && passcodeAttempt.trim().length > 0 ? 'pointer' : 'not-allowed',
+              opacity: hasPinConfigured && passcodeAttempt.trim().length > 0 ? 1 : 0.4,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -128,10 +145,38 @@ export default function PasscodeModal({
               transition: 'opacity 0.15s ease'
             }}
           >
-            <span>Unlock Dashboard</span>
+            <span>{hasPinConfigured ? 'Unlock Dashboard' : 'Access Disabled'}</span>
             <ArrowRight size={15} />
           </button>
         </form>
+
+        {/* Warning banner when no PIN secret is detected in environment */}
+        {!hasPinConfigured && (
+          <div
+            style={{
+              marginTop: '1.25rem',
+              padding: '0.75rem 0.85rem',
+              borderRadius: '6px',
+              backgroundColor: 'rgba(248, 113, 113, 0.08)',
+              border: '1px solid rgba(248, 113, 113, 0.25)',
+              fontSize: '0.73rem',
+              color: 'var(--text-muted)',
+              textAlign: 'left',
+              lineHeight: 1.45,
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.5rem'
+            }}
+          >
+            <AlertTriangle size={16} color="var(--accent-red)" style={{ flexShrink: 0, marginTop: '0.1rem' }} />
+            <div>
+              <strong style={{ color: 'var(--accent-red)', display: 'block', marginBottom: '0.15rem' }}>
+                No PIN Configured
+              </strong>
+              No security secret detected. To protect your data, access is disabled until the <code style={{ color: 'var(--accent-peach)' }}>PIN</code> environment variable is set in Vercel.
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

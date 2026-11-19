@@ -4,8 +4,8 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
-  // 1. PIN Security: Desktop fallback '0000', or production PIN
-  const pin = env.PIN || env.VITE_PIN || process.env.PIN || process.env.VITE_PIN || '0000';
+  // 1. PIN Security: Must be explicitly configured in environment. If missing, no secret works.
+  const pin = env.PIN || env.VITE_PIN || process.env.PIN || process.env.VITE_PIN || '';
 
   // 2. Built-in Single-User Cloud Sync (Upstash Redis)
   const upstashUrl =

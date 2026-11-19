@@ -14,8 +14,8 @@ import DashboardView from './components/dashboard/DashboardView';
 import SubjectSyllabusView from './components/syllabus/SubjectSyllabusView';
 import ReferencesView from './components/references/ReferencesView';
 
-// Default Desktop PIN fallback is '0000'. Production PIN is injected via PIN or VITE_PIN
-const DEFAULT_PIN = import.meta.env.VITE_PIN || '0000';
+// Production PIN is injected via PIN or VITE_PIN. If missing, no secret works.
+const CONFIGURED_PIN = import.meta.env.VITE_PIN || '';
 
 export default function App() {
   // Navigation State
@@ -54,11 +54,13 @@ export default function App() {
 
   const [passcode, setPasscode] = useState(() => {
     try {
-      return localStorage.getItem('examer_passcode_v1') || DEFAULT_PIN;
+      return localStorage.getItem('examer_passcode_v1') || CONFIGURED_PIN;
     } catch (e) {
-      return DEFAULT_PIN;
+      return CONFIGURED_PIN;
     }
   });
+
+  const hasPinConfigured = Boolean(passcode && passcode.trim().length > 0);
 
   // Modal Dialogs State
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -290,7 +292,13 @@ export default function App() {
 
   // If locked, render Minimalist Passcode Gate
   if (!isUnlocked) {
-    return <PasscodeModal passcode={passcode} onUnlock={handleUnlock} />;
+    return (
+      <PasscodeModal
+        passcode={passcode}
+        hasPinConfigured={hasPinConfigured}
+        onUnlock={handleUnlock}
+      />
+    );
   }
 
   const availableSubjectIds = Object.keys(syllabusData.subjects);
