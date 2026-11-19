@@ -1,12 +1,9 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { formatTime } from '../../utils/timeUtils';
+import { ArrowRight, AlertTriangle } from 'lucide-react';
 
 export default function UrgencyBanner({
   cnStats,
   cnDays,
-  cnMetrics,
-  playbackSpeed,
   onNavigateToCN
 }) {
   return (
@@ -27,17 +24,16 @@ export default function UrgencyBanner({
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
           <span className="badge badge-critical">IMMEDIATE FOCUS</span>
           <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
-          <span className={`badge ${cnMetrics.trackBadge}`} style={{ fontSize: '0.65rem' }}>
-            {cnMetrics.trackName}
-          </span>
+          <span className="badge badge-optional mono" style={{ fontSize: '0.65rem' }}>PCCST501</span>
         </div>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
-          <strong>{cnDays} days remaining</strong> • <strong>{cnMetrics.trackName}</strong>:{' '}
-          <strong>{formatTime(cnMetrics.remainingHrs)}</strong> remaining at {playbackSpeed}x ({cnMetrics.completedVids}/{cnMetrics.totalVids} completed, {cnMetrics.rate.toFixed(1)}%). Target pace:{' '}
-          <strong style={{ color: cnMetrics.paceColor }} className="mono">
-            {cnMetrics.pace.toFixed(1)} hrs/day
+          <strong>{cnDays} days remaining</strong> • Syllabus Progress:{' '}
+          <strong>{cnStats.completedTopics} / {cnStats.totalTopics} topics mastered</strong> ({cnStats.completionRate.toFixed(1)}%). Target revision pace:{' '}
+          <strong style={{ color: cnStats.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
+            {cnStats.hasWarning && <AlertTriangle size={13} color="#f87171" />}
+            {cnStats.requiredPace.toFixed(1)} topics/day
           </strong>{' '}
-          ({cnMetrics.stress}).
+          ({cnStats.stress}).
         </p>
       </div>
       <button
@@ -57,7 +53,7 @@ export default function UrgencyBanner({
           flexShrink: 0
         }}
       >
-        Open CN ({cnMetrics.trackName}) <ArrowRight size={14} />
+        Open CN Syllabus Checklist <ArrowRight size={14} />
       </button>
     </div>
   );

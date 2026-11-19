@@ -1,69 +1,58 @@
 import React from 'react';
 import UrgencyBanner from './UrgencyBanner';
-import DashboardTrackBar from './DashboardTrackBar';
 import SubjectKpiGrid from './SubjectKpiGrid';
 import ExamTimetable from './ExamTimetable';
-import ReductionSummary from './ReductionSummary';
+import OverallProgressSummary from './OverallProgressSummary';
 
 export default function DashboardView({
   cnStats,
   cnDays,
-  cnMetrics,
-  daaMetrics,
+  daaStats,
   daaDays,
-  dsaMetrics,
+  dsaStats,
   dsaDays,
-  activeViewMode,
-  setActiveViewMode,
-  playbackSpeed,
-  timeUnitMode,
-  toggleTimeUnit,
   timetable,
   lastUpdatedDisplay,
+  availableSubjectIds,
   onNavigate
 }) {
+  const totalTopics = (cnStats?.totalTopics || 0) + (daaStats?.totalTopics || 0) + (dsaStats?.totalTopics || 0);
+  const completedTopics = (cnStats?.completedTopics || 0) + (daaStats?.completedTopics || 0) + (dsaStats?.completedTopics || 0);
+  const overallRate = totalTopics > 0 ? (completedTopics / totalTopics) * 100 : 0;
+
   return (
     <div>
-      {/* 1. Urgency Banner for Immediate Exam */}
+      {/* 1. Urgency Banner for Computer Networks (Immediate Exam) */}
       <UrgencyBanner
         cnStats={cnStats}
         cnDays={cnDays}
-        cnMetrics={cnMetrics}
-        playbackSpeed={playbackSpeed}
         onNavigateToCN={() => onNavigate('cn')}
       />
 
-      {/* 2. Track Selector for Main Dashboard */}
-      <DashboardTrackBar
-        activeViewMode={activeViewMode}
-        setActiveViewMode={setActiveViewMode}
-      />
-
-      {/* 3. Subject KPI Grid (CN, DAA, S3 DSA) */}
+      {/* 2. Subject KPI Grid (CN, DAA, S3 DSA) */}
       <SubjectKpiGrid
-        cnMetrics={cnMetrics}
+        cnStats={cnStats}
         cnDays={cnDays}
-        daaMetrics={daaMetrics}
+        daaStats={daaStats}
         daaDays={daaDays}
-        dsaMetrics={dsaMetrics}
+        dsaStats={dsaStats}
         dsaDays={dsaDays}
-        playbackSpeed={playbackSpeed}
-        timeUnitMode={timeUnitMode}
-        toggleTimeUnit={toggleTimeUnit}
         onNavigate={onNavigate}
       />
 
-      {/* 4. Examination Timetable Table */}
+      {/* 3. Official Examination Timetable */}
       <ExamTimetable
         timetable={timetable}
         lastUpdatedDisplay={lastUpdatedDisplay}
+        availableSubjectIds={availableSubjectIds}
         onNavigate={onNavigate}
       />
 
-      {/* 5. Reduction Analysis Summary */}
-      <ReductionSummary
-        timeUnitMode={timeUnitMode}
-        toggleTimeUnit={toggleTimeUnit}
+      {/* 4. Overall Exam Series Readiness */}
+      <OverallProgressSummary
+        totalTopics={totalTopics}
+        completedTopics={completedTopics}
+        overallRate={overallRate}
       />
     </div>
   );

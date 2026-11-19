@@ -1,17 +1,13 @@
 import React from 'react';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
-import { formatTime } from '../../utils/timeUtils';
+import { AlertTriangle, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function SubjectKpiGrid({
-  cnMetrics,
+  cnStats,
   cnDays,
-  daaMetrics,
+  daaStats,
   daaDays,
-  dsaMetrics,
+  dsaStats,
   dsaDays,
-  playbackSpeed,
-  timeUnitMode,
-  toggleTimeUnit,
   onNavigate
 }) {
   const cards = [
@@ -21,9 +17,9 @@ export default function SubjectKpiGrid({
       code: 'Nov 23 • S5 Theory (PCCST501)',
       badgeClass: 'badge-critical',
       accentColor: 'var(--accent-red)',
-      metrics: cnMetrics,
+      stats: cnStats,
       days: cnDays,
-      viewLabel: 'View CN Videos'
+      viewLabel: 'Open CN Syllabus'
     },
     {
       id: 'daa',
@@ -31,9 +27,9 @@ export default function SubjectKpiGrid({
       code: 'Nov 27 • S5 Theory (PCCST502)',
       badgeClass: 'badge-theory',
       accentColor: 'var(--accent-peach)',
-      metrics: daaMetrics,
+      stats: daaStats,
       days: daaDays,
-      viewLabel: 'View DAA Videos'
+      viewLabel: 'Open DAA Syllabus'
     },
     {
       id: 'dsa',
@@ -41,9 +37,9 @@ export default function SubjectKpiGrid({
       code: 'Nov 30 • S3 Supply (PCCST303)',
       badgeClass: 'badge-supply',
       accentColor: 'var(--accent-green)',
-      metrics: dsaMetrics,
+      stats: dsaStats,
       days: dsaDays,
-      viewLabel: 'View DSA Videos'
+      viewLabel: 'Open DSA Syllabus'
     }
   ];
 
@@ -57,7 +53,7 @@ export default function SubjectKpiGrid({
       }}
     >
       {cards.map((card) => {
-        const m = card.metrics;
+        const s = card.stats;
 
         return (
           <div
@@ -65,7 +61,7 @@ export default function SubjectKpiGrid({
             className="card card-hover"
             style={{ padding: '1rem', borderTop: `3px solid ${card.accentColor}`, userSelect: 'none' }}
           >
-            {/* Card Header */}
+            {/* Header */}
             <div
               style={{
                 display: 'flex',
@@ -77,40 +73,26 @@ export default function SubjectKpiGrid({
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>{card.title}</h3>
-                  <span className={`badge ${m.trackBadge}`} style={{ fontSize: '0.62rem' }}>
-                    {m.trackName}
-                  </span>
-                </div>
+                <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: 0 }}>{card.title}</h3>
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)' }}>{card.code}</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <span className={`badge ${card.badgeClass}`}>{card.days} Days Left</span>
-                <span
-                  onClick={toggleTimeUnit}
-                  title="Click to toggle Hours / Days format"
-                  style={{ fontSize: '0.62rem', color: 'var(--accent-blue)', opacity: 0.8, cursor: 'pointer' }}
-                >
-                  {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                </span>
-              </div>
+              <span className={`badge ${card.badgeClass}`}>{card.days} Days Left</span>
             </div>
 
             {/* Progress Section */}
             <div style={{ margin: '0.75rem 0' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
                 <span style={{ color: 'var(--text-muted)' }}>
-                  Progress: {m.completedVids} / {m.totalVids} videos
+                  Mastery: {s.completedTopics} / {s.totalTopics} syllabus topics
                 </span>
                 <span className="mono" style={{ color: card.accentColor, fontWeight: 700 }}>
-                  {m.rate.toFixed(1)}%
+                  {s.completionRate.toFixed(1)}%
                 </span>
               </div>
               <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
                 <div
                   style={{
-                    width: `${m.rate}%`,
+                    width: `${s.completionRate}%`,
                     background: card.accentColor,
                     height: '100%',
                     transition: 'width 0.3s ease'
@@ -119,7 +101,7 @@ export default function SubjectKpiGrid({
               </div>
             </div>
 
-            {/* Remaining Watch Time & Study Pace Footer */}
+            {/* Remaining Topics & Study Pace Footer */}
             <div
               style={{
                 display: 'flex',
@@ -134,20 +116,16 @@ export default function SubjectKpiGrid({
               }}
             >
               <span>
-                Remaining:{' '}
-                <strong style={{ color: 'var(--text-main)' }}>
-                  {formatTime(m.remainingHrs, timeUnitMode)}
-                </strong>{' '}
-                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>({playbackSpeed}x)</span>
+                Remaining: <strong style={{ color: 'var(--text-main)' }}>{s.remainingTopics} topics</strong>
               </span>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Pace:</span>
+                <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Target Pace:</span>
                 <strong
-                  style={{ color: m.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
+                  style={{ color: s.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
                   className="mono"
                 >
-                  {m.hasWarning && <AlertTriangle size={12} color="#f87171" />}
-                  {m.pace.toFixed(1)} hrs/day
+                  {s.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                  {s.requiredPace.toFixed(1)} topics/day
                 </strong>
               </div>
             </div>

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, ArrowRight, Check } from 'lucide-react';
 import { getDaysLeft } from '../../utils/timeUtils';
 
 export default function ExamTimetable({
   timetable,
   lastUpdatedDisplay,
+  availableSubjectIds = [],
   onNavigate
 }) {
   return (
@@ -24,7 +25,7 @@ export default function ExamTimetable({
             <Calendar size={16} color="var(--accent-blue)" /> Official Examination Schedule
           </h3>
           <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem', margin: '0.2rem 0 0' }}>
-            Full examination timeline (KTU 2026)
+            Full examination timeline (KTU 2026 Series)
           </p>
         </div>
         <span className="badge badge-optional mono">Updated: {lastUpdatedDisplay}</span>
@@ -47,6 +48,7 @@ export default function ExamTimetable({
               const days = getDaysLeft(item.date);
               const isPast = days < 0 || item.status === 'completed';
               const isNext = item.date === '2026-11-23';
+              const hasSyllabus = item.subjectId && availableSubjectIds.includes(item.subjectId);
 
               return (
                 <tr
@@ -93,9 +95,9 @@ export default function ExamTimetable({
                     )}
                   </td>
                   <td style={{ padding: '0.55rem 0.65rem' }}>
-                    {item.playlistKey ? (
+                    {hasSyllabus ? (
                       <button
-                        onClick={() => onNavigate(item.playlistKey)}
+                        onClick={() => onNavigate(item.subjectId)}
                         style={{
                           background: 'var(--bg-active)',
                           border: '1px solid var(--border-default)',
@@ -110,12 +112,12 @@ export default function ExamTimetable({
                           gap: '0.25rem'
                         }}
                       >
-                        View <ArrowRight size={11} />
+                        Syllabus <ArrowRight size={11} />
                       </button>
                     ) : isPast ? (
                       <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>✓ Done</span>
                     ) : (
-                      <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Self Study</span>
+                      <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Awaiting Syllabus</span>
                     )}
                   </td>
                 </tr>

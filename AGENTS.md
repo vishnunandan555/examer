@@ -1,6 +1,6 @@
 # Agent Instructions & Guidelines (`AGENTS.md`)
 
-*Last Updated: 2026-11-19 09:27 IST*
+*Last Updated: 2026-11-19 10:11 IST*
 
 ## 1. Git Push & Commit Policy (Strict)
 
@@ -17,46 +17,40 @@
 
 ## 2. Codebase Architecture & Conventions
 
-* **Project**: Examer — Personal Exam Preparation & Curated GATE Playlist Suite for KTU B.Tech CSE (S5 & S3).
+* **Project**: Examer — KTU B.Tech CSE (S5 Regular & S3 Supply) Direct Syllabus Progress Tracker.
 * **Tech Stack**: React 18, Vite, Lucide-React icons, vanilla responsive CSS (`src/index.css`).
 * **Design & Theme**:
   * **Pitch Dark Theme**: Pure Frappe / Obsidian dark aesthetics (`#090a0f`, `#10121a`, `#171a26`).
   * **No AI Gradients**: Avoid loud, generic AI-style gradients; use crisp, solid borders and subtle status badges.
-  * **Mobile-First Layout**: Ensure every table, card, and modal remains completely responsive on mobile viewports (< 768px) with zero layout breakage or awkward text wrapping.
+  * **Mobile-First Layout**: Ensure every card, checklist row, and modal remains completely responsive on mobile viewports (< 768px) with zero layout breakage or awkward text wrapping.
 
 ---
 
 ## 3. Data & State Management Rules
 
-1. **Cross-Track & Cross-Tab Video Key Synchronization**:
-   * Every video item must be keyed by its unique YouTube URL (`item['Video url']`) for completion state.
-   * If a user marks a video completed in `Full` track, it must instantly reflect as completed in `Selected`, `Core`, and across subjects (e.g., common DAA/DSA topics).
-2. **Study Tracks Hierarchy**:
-   * **`Full`**: Entire raw playlist (all original videos).
-   * **`Selected`**: Curated study plan (Core + Optional, excluding removed overkill).
-   * **`Core`**: High-yield essential exam videos only (excluding optional deep dives).
-   * **`Optional`**: Practice, proofs, and supplementary topics.
-   * **`Removed`**: Verified overkill or out-of-syllabus topics with explicit pedagogical reasons.
-3. **Required Study Pace Metric**:
-   * **Always display in `hrs/day`** (never convert study pace to days format).
+1. **Syllabus Topic Key Synchronization**:
+   * Every syllabus item must be keyed by its unique topic ID (e.g., `cn-m1-01`, `daa-m2-03`) for completion state.
+   * Completions persist in `localStorage` under `examer_syllabus_completed_v1` and sync seamlessly with cloud storage (Upstash Redis / Vercel KV REST).
+2. **Required Revision Pace Metric**:
+   * **Always display in `topics/day`** based on integer days left until the exam ($remainingTopics / daysLeft$).
    * Stress indicators:
-     * $\le 3.5\text{ hrs/day}$: Green (`#4ade80`) — Comfortable Pace
-     * $3.5 - 6.5\text{ hrs/day}$: Yellow (`#facc15`) — Moderate Pace
-     * $6.5 - 11.9\text{ hrs/day}$: Orange (`#fb923c`) — Intensive Study
-     * $\ge 12.0\text{ hrs/day}$: Red (`#f87171`) — Extreme Crunch / Overload + Lucide `<AlertTriangle />` icon (not emoji).
-4. **Dates & Timetable**:
+     * $\le 2.5\text{ topics/day}$: Green (`#4ade80`) — Comfortable Pace
+     * $2.5 - 4.5\text{ topics/day}$: Yellow (`#facc15`) — Moderate Pace
+     * $4.5 - 8.0\text{ topics/day}$: Orange (`#fb923c`) — Focused Study Required
+     * $> 8.0\text{ topics/day}$: Red (`#f87171`) — Intensive Exam Crunch + Lucide `<AlertTriangle />` icon (not emoji).
+3. **Dates & Timetable**:
    * Always normalize date calculations to start-of-day IST (`T00:00:00`) using integer day differences (`Math.round`).
    * Explicitly check `item.status === 'completed' || days < 0` for past exams.
+4. **Historical Archive Branch**:
+   * The historical video playlist suite is permanently preserved in branch `archive/playlist-suite`.
 
 ---
 
 ## 4. Directory Organization
 
-* `data/raw/`: Original downloaded CSV playlists.
-* `data/processed/`: Filtered and curated CSV datasets with `Last Updated` columns.
-* `data/playlist_data.json` & `src/data/playlist_data.json`: Application JSON database.
-* `docs/syllabus/`: PDF course syllabi and extracted text files.
+* `data/syllabus_data.json` & `src/data/syllabus_data.json`: Application JSON database with full course syllabi and timetable.
+* `docs/syllabus/`: PDF course syllabi and reference materials.
 * `docs/timetable/`: Exam schedule graphics and assets.
-* `docs/SYLLABUS_ANALYSIS_AND_STUDY_PLAN.md`: Comprehensive pedagogical study plan and gap report.
-* `scripts/`: Generation and verification scripts.
-* `src/`: React source files.
+* `src/components/`: Modular React components (common, dashboard, syllabus, references).
+* `src/utils/`: Pure utilities (`timeUtils.js`, `syllabusUtils.js`, `exportUtils.js`).
+* `src/services/`: Cloud sync provider (`cloudSync.js`).

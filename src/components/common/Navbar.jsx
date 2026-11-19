@@ -1,9 +1,7 @@
 import React from 'react';
-import { Sparkles, Clock, Flame, Cloud, Settings } from 'lucide-react';
+import { BookOpen, Flame, Cloud, Settings } from 'lucide-react';
 
 export default function Navbar({
-  playbackSpeed,
-  setPlaybackSpeed,
   lastUpdatedDisplay,
   cloudSyncState,
   cloudConfig,
@@ -52,13 +50,13 @@ export default function Navbar({
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
               <span style={{ fontWeight: 800, fontSize: '0.95rem', letterSpacing: '-0.02em' }}>EXAMER</span>
-              <span className="badge badge-core" style={{ fontSize: '0.65rem' }}>KTU CSE SUITE</span>
+              <span className="badge badge-core" style={{ fontSize: '0.65rem' }}>SYLLABUS PROGRESS TRACKER</span>
               <span className="badge badge-optional mono" style={{ fontSize: '0.65rem' }}>
                 UPDATED: {lastUpdatedDisplay}
               </span>
             </div>
             <p style={{ margin: 0, fontSize: '0.7rem', color: 'var(--text-dim)' }}>
-              Personal Exam Preparation & Curated GATE Playlist Suite
+              KTU B.Tech CSE (S5 & S3 Supply) • Direct Exam Syllabus Mastery Checklist
             </p>
           </div>
         </div>
@@ -93,42 +91,6 @@ export default function Navbar({
             <Settings size={11} style={{ opacity: 0.7 }} />
           </button>
 
-          {/* Speed Selector */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              backgroundColor: 'var(--bg-active)',
-              padding: '0.3rem 0.6rem',
-              borderRadius: '5px',
-              border: '1px solid var(--border-default)',
-              fontSize: '0.75rem'
-            }}
-          >
-            <ZapIcon size={13} color="var(--accent-yellow)" />
-            <span style={{ color: 'var(--text-muted)' }}>Pace:</span>
-            <select
-              value={playbackSpeed}
-              onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-main)',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                outline: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <option value="1.0" style={{ background: 'var(--bg-surface)' }}>1.0x (Raw Normal)</option>
-              <option value="1.25" style={{ background: 'var(--bg-surface)' }}>1.25x (Steady Pace)</option>
-              <option value="1.5" style={{ background: 'var(--bg-surface)' }}>1.5x (Recommended)</option>
-              <option value="1.75" style={{ background: 'var(--bg-surface)' }}>1.75x (Aggressive)</option>
-              <option value="2.0" style={{ background: 'var(--bg-surface)' }}>2.0x (Ultra Crunch)</option>
-            </select>
-          </div>
-
           {/* Next Exam Pill */}
           <div
             style={{
@@ -151,8 +113,4 @@ export default function Navbar({
       </div>
     </header>
   );
-}
-
-function ZapIcon(props) {
-  return <Sparkles {...props} />;
 }
