@@ -101,7 +101,7 @@ export default function ReferencesView({ lastUpdatedDisplay }) {
         'R. Paneerselvam, Engineering Economics, PHI, 2012'
       ],
       pdfPath: 'docs/syllabus/S3 CSE EE.pdf',
-      color: '#ec4899'
+      color: 'var(--accent-pink)'
     }
   ];
 

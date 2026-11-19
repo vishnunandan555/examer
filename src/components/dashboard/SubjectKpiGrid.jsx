@@ -9,7 +9,7 @@ const SUBJECT_METADATA = {
   ml: { badgeClass: 'badge-theory', accentColor: 'var(--accent-blue)', typeLabel: 'S5 Theory' },
   mc: { badgeClass: 'badge-theory', accentColor: 'var(--accent-purple)', typeLabel: 'S5 Theory' },
   da: { badgeClass: 'badge-theory', accentColor: 'var(--accent-cyan)', typeLabel: 'S5 Theory' },
-  ethics: { badgeClass: 'badge-supply', accentColor: '#ec4899', typeLabel: 'S3 Supply' }
+  ethics: { badgeClass: 'badge-supply', accentColor: 'var(--accent-pink)', typeLabel: 'S3 Supply' }
 };
 
 export default function SubjectKpiGrid({
