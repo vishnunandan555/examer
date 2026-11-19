@@ -93,6 +93,11 @@ export default function App() {
     return `${hours.toFixed(1)} hrs`;
   };
 
+  // Universal unique video identifier across all tracks & tabs
+  const getItemKey = (item) => {
+    return item['Video url'] || `${item.Subject}_${item.Index}`;
+  };
+
   const toggleComplete = (itemKey) => {
     setCompletedMap((prev) => ({
       ...prev,
@@ -104,7 +109,7 @@ export default function App() {
     setCompletedMap((prev) => {
       const next = { ...prev };
       items.forEach((item) => {
-        const key = `${item.Subject}_${item.Index}`;
+        const key = getItemKey(item);
         if (done) next[key] = true;
         else delete next[key];
       });
@@ -166,7 +171,7 @@ export default function App() {
     return diffDays;
   };
 
-  // Stats computation for a subject list
+  // Stats computation for a subject list (Dynamic metrics based on global video status)
   const getSubjectStats = (list, subjectKey) => {
     const totalVideos = list.length;
     const totalMinutes = list.reduce((acc, v) => acc + v.Duration, 0);
@@ -180,31 +185,51 @@ export default function App() {
     const remVideos = list.filter((v) => v.Status === 'Removed');
     const remMinutes = remVideos.reduce((acc, v) => acc + v.Duration, 0);
 
-    const completedVideos = list.filter((v) => {
-      const key = `${v.Subject}_${v.Index}`;
-      return !!completedMap[key];
-    });
-    const completedMinutes = completedVideos.reduce((acc, v) => acc + v.Duration, 0);
+    const selectedVideos = list.filter((v) => v.Status === 'Core' || v.Status === 'Optional');
+    const selectedMinutes = selectedVideos.reduce((acc, v) => acc + v.Duration, 0);
 
-    const remainingCoreMinutes = coreVideos
-      .filter((v) => !completedMap[`${v.Subject}_${v.Index}`])
-      .reduce((acc, v) => acc + v.Duration, 0);
+    // Completed counts & minutes using unified video key
+    const completedTotalVideos = list.filter((v) => !!completedMap[getItemKey(v)]);
+    const completedTotalMinutes = completedTotalVideos.reduce((acc, v) => acc + v.Duration, 0);
+    const remainingTotalMinutes = Math.max(0, totalMinutes - completedTotalMinutes);
 
-    const remainingCoreHoursAdjusted = remainingCoreMinutes / (60 * playbackSpeed);
+    const completedCoreVideos = coreVideos.filter((v) => !!completedMap[getItemKey(v)]);
+    const completedCoreMinutes = completedCoreVideos.reduce((acc, v) => acc + v.Duration, 0);
+    const remainingCoreMinutes = Math.max(0, coreMinutes - completedCoreMinutes);
+
+    const completedOptVideos = optVideos.filter((v) => !!completedMap[getItemKey(v)]);
+    const completedOptMinutes = completedOptVideos.reduce((acc, v) => acc + v.Duration, 0);
+    const remainingOptMinutes = Math.max(0, optMinutes - completedOptMinutes);
+
+    const completedSelectedVideos = selectedVideos.filter((v) => !!completedMap[getItemKey(v)]);
+    const completedSelectedMinutes = completedSelectedVideos.reduce((acc, v) => acc + v.Duration, 0);
+    const remainingSelectedMinutes = Math.max(0, selectedMinutes - completedSelectedMinutes);
 
     return {
       totalVideos,
       totalHours: totalMinutes / 60,
+      remainingTotalHours: remainingTotalMinutes / (60 * playbackSpeed),
+      completedTotalVideos: completedTotalVideos.length,
+
       coreVideos: coreVideos.length,
       coreHours: coreMinutes / 60,
+      remainingCoreHours: remainingCoreMinutes / (60 * playbackSpeed),
+      completedCoreVideos: completedCoreVideos.length,
+
       optVideos: optVideos.length,
       optHours: optMinutes / 60,
+      remainingOptHours: remainingOptMinutes / (60 * playbackSpeed),
+      completedOptVideos: completedOptVideos.length,
+
+      selectedVideos: selectedVideos.length,
+      selectedHours: selectedMinutes / 60,
+      remainingSelectedHours: remainingSelectedMinutes / (60 * playbackSpeed),
+      completedSelectedVideos: completedSelectedVideos.length,
+
       remVideos: remVideos.length,
       remHours: remMinutes / 60,
-      completedVideos: completedVideos.length,
-      completedHours: completedMinutes / 60,
-      completionRate: totalVideos > 0 ? (completedVideos.length / totalVideos) * 100 : 0,
-      remainingCoreHours: remainingCoreHoursAdjusted
+
+      completionRate: totalVideos > 0 ? (completedTotalVideos.length / totalVideos) * 100 : 0
     };
   };
 
@@ -253,6 +278,59 @@ export default function App() {
     }
     return null;
   }, [activeTab, playlists, cnStats, daaStats, dsaStats]);
+
+  // Dynamic Study Pace computation based on active track and live remaining unwatched videos
+  const activePaceData = useMemo(() => {
+    if (!currentSubjectData) return { pace: 0, color: '#4ade80', stress: 'Relaxed', trackLabel: 'Core Track', hasWarning: false };
+    const stats = currentSubjectData.stats;
+    const days = currentSubjectData.daysLeft > 0 ? currentSubjectData.daysLeft : 1;
+
+    let targetRemainingHours = stats.remainingCoreHours;
+    let trackLabel = 'Core Track';
+
+    if (activeViewMode === 'original') {
+      targetRemainingHours = stats.remainingTotalHours;
+      trackLabel = 'Full Track';
+    } else if (activeViewMode === 'study') {
+      targetRemainingHours = stats.remainingSelectedHours;
+      trackLabel = 'Selected Track';
+    } else if (activeViewMode === 'optional') {
+      targetRemainingHours = stats.remainingOptHours;
+      trackLabel = 'Optional Track';
+    } else if (activeViewMode === 'removed') {
+      targetRemainingHours = stats.remHours / playbackSpeed;
+      trackLabel = 'Removed Videos';
+    }
+
+    const pace = currentSubjectData.daysLeft > 0 ? targetRemainingHours / days : 0;
+
+    let color = '#4ade80'; // Green
+    let stress = 'Chill / Manageable';
+    let hasWarning = false;
+
+    if (pace > 12.0) {
+      color = '#f87171'; // Red
+      stress = 'Extreme Crunch / Overload';
+      hasWarning = true;
+    } else if (pace > 6.5) {
+      color = '#fb923c'; // Orange
+      stress = 'Intensive Study';
+      hasWarning = false;
+    } else if (pace > 3.5) {
+      color = '#facc15'; // Yellow
+      stress = 'Moderate Pace';
+      hasWarning = false;
+    }
+
+    return {
+      pace,
+      color,
+      stress,
+      trackLabel,
+      hasWarning,
+      remainingHours: targetRemainingHours
+    };
+  }, [currentSubjectData, activeViewMode, playbackSpeed]);
 
   // Filter videos for the current active tab
   const displayedVideos = useMemo(() => {
@@ -907,107 +985,219 @@ export default function App() {
               </div>
             </div>
 
-            {/* Subject Stats Strip - 5 BOXES IN A SINGLE HORIZONTAL ROW (stats-grid-5) */}
+            {/* Subject Stats Strip - 5 DYNAMIC TRACK CARDS (stats-grid-5) */}
             <div className="stats-grid-5">
-              {/* Box 1 */}
+              {/* Card 1: FULL TRACK */}
               <div
                 className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
-                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setActiveViewMode('original')}
+                title="Click to view Full Playlist Track (Click Days/Hrs badge to toggle format)"
+                style={{
+                  padding: '0.75rem',
+                  cursor: 'pointer',
+                  userSelect: 'none',
+                  borderTop: activeViewMode === 'original' ? '3px solid var(--text-main)' : '1px solid var(--border-default)',
+                  backgroundColor: activeViewMode === 'original' ? 'rgba(255, 255, 255, 0.03)' : 'var(--bg-surface)'
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core Watch Time (1.0x)</span>
-                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.8 }}>
-                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--text-dim)', fontWeight: 700 }}>
+                    1. FULL Time
                   </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    {activeViewMode === 'original' && (
+                      <span className="badge badge-core" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
+                    )}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTimeUnit();
+                      }}
+                      title="Toggle Days / Hours format"
+                      style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.85, cursor: 'pointer' }}
+                    >
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
-                  {formatTime(currentSubjectData.stats.coreHours)}
-                </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-green)' }}>{currentSubjectData.stats.coreVideos} Must-Watch videos</div>
-              </div>
-
-              {/* Box 2 */}
-              <div
-                className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
-                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Core at {playbackSpeed}x Speed</span>
-                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-yellow)', opacity: 0.8 }}>
-                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
-                  </span>
-                </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-yellow)' }} className="mono">
-                  {formatTime(currentSubjectData.stats.coreHours / playbackSpeed)}
+                  {formatTime(currentSubjectData.stats.remainingTotalHours)}
                 </div>
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                  Saves {formatTime(currentSubjectData.stats.coreHours * (1 - 1 / playbackSpeed))}!
+                  {currentSubjectData.stats.completedTotalVideos} / {currentSubjectData.stats.totalVideos} watched ({formatTime(currentSubjectData.stats.totalHours)} total)
                 </div>
               </div>
 
-              {/* Box 3 */}
+              {/* Card 2: CORE TRACK */}
               <div
                 className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Days format"
-                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setActiveViewMode('core')}
+                title="Click to view Core Track (Click Days/Hrs badge to toggle format)"
+                style={{
+                  padding: '0.75rem',
+                  cursor: 'pointer',
+                  userSelect: 'none',
+                  borderTop: activeViewMode === 'core' ? '3px solid var(--accent-green)' : '1px solid var(--border-default)',
+                  backgroundColor: activeViewMode === 'core' ? 'rgba(74, 222, 128, 0.03)' : 'var(--bg-surface)'
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Required Study Pace</span>
-                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.8 }}>
-                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'core' ? 'var(--accent-green)' : 'var(--text-dim)', fontWeight: 700 }}>
+                    2. CORE Time
                   </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    {activeViewMode === 'core' && (
+                      <span className="badge badge-supply" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
+                    )}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTimeUnit();
+                      }}
+                      title="Toggle Days / Hours format"
+                      style={{ fontSize: '0.6rem', color: 'var(--accent-green)', opacity: 0.85, cursor: 'pointer' }}
+                    >
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
-                  {currentSubjectData.daysLeft > 0
-                    ? `${((currentSubjectData.stats.coreHours / playbackSpeed) / currentSubjectData.daysLeft).toFixed(1)} hrs/day`
-                    : '0 hrs/day'}
+                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-green)' }} className="mono">
+                  {formatTime(currentSubjectData.stats.remainingCoreHours)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>
-                  Over next {currentSubjectData.daysLeft} days at {playbackSpeed}x
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                  {currentSubjectData.stats.completedCoreVideos} / {currentSubjectData.stats.coreVideos} watched ({formatTime(currentSubjectData.stats.coreHours)} total)
                 </div>
               </div>
 
-              {/* Box 4 */}
+              {/* Card 3: REQUIRED STUDY PACE (ALWAYS IN HOURS/DAY, COLOR CODED, WARNING ICON IF > 12 HRS/DAY) */}
               <div
                 className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
-                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+                style={{
+                  padding: '0.75rem',
+                  cursor: 'default',
+                  userSelect: 'none',
+                  borderTop: `3px solid ${activePaceData.color}`,
+                  backgroundColor: activePaceData.hasWarning ? 'rgba(248, 113, 113, 0.04)' : 'var(--bg-surface)'
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Optional Deep Dive</span>
-                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-yellow)', opacity: 0.8 }}>
-                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)', fontWeight: 700 }}>
+                    3. Required Study Pace
+                  </span>
+                  <span
+                    className="badge mono"
+                    style={{
+                      fontSize: '0.56rem',
+                      padding: '0.04rem 0.3rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                      color: activePaceData.color,
+                      borderColor: activePaceData.color
+                    }}
+                  >
+                    {activePaceData.trackLabel}
                   </span>
                 </div>
-                <div style={{ fontSize: '1.15rem', fontWeight: 700 }} className="mono">
-                  {formatTime(currentSubjectData.stats.optHours)}
+                <div
+                  style={{
+                    fontSize: '1.15rem',
+                    fontWeight: 700,
+                    color: activePaceData.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}
+                  className="mono"
+                >
+                  {activePaceData.hasWarning && (
+                    <AlertTriangle size={15} color="#f87171" style={{ flexShrink: 0 }} />
+                  )}
+                  <span>{activePaceData.pace.toFixed(1)} hrs/day</span>
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-yellow)' }}>{currentSubjectData.stats.optVideos} practice videos</div>
+                <div style={{ fontSize: '0.68rem', color: activePaceData.color, opacity: 0.9 }}>
+                  Over next {currentSubjectData.daysLeft}d • {activePaceData.stress}
+                </div>
               </div>
 
-              {/* Box 5 */}
+              {/* Card 4: SELECTED STUDY TRACK */}
               <div
                 className="card card-hover"
-                onClick={toggleTimeUnit}
-                title="Click box to toggle Days format (>= 12 hrs converts to Days)"
-                style={{ padding: '0.75rem', cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => setActiveViewMode('study')}
+                title="Click to view Selected Study Track (Click Days/Hrs badge to toggle format)"
+                style={{
+                  padding: '0.75rem',
+                  cursor: 'pointer',
+                  userSelect: 'none',
+                  borderTop: activeViewMode === 'study' ? '3px solid var(--accent-blue)' : '1px solid var(--border-default)',
+                  backgroundColor: activeViewMode === 'study' ? 'rgba(96, 165, 250, 0.03)' : 'var(--bg-surface)'
+                }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
-                  <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Removed Overkill</span>
-                  <span style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.8 }}>
-                    {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'study' ? 'var(--accent-blue)' : 'var(--text-dim)', fontWeight: 700 }}>
+                    Selected Plan
                   </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    {activeViewMode === 'study' && (
+                      <span className="badge badge-module" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
+                    )}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTimeUnit();
+                      }}
+                      title="Toggle Days / Hours format"
+                      style={{ fontSize: '0.6rem', color: 'var(--accent-blue)', opacity: 0.85, cursor: 'pointer' }}
+                    >
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
+                </div>
+                <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-blue)' }} className="mono">
+                  {formatTime(currentSubjectData.stats.remainingSelectedHours)}
+                </div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                  {currentSubjectData.stats.completedSelectedVideos} / {currentSubjectData.stats.selectedVideos} watched ({formatTime(currentSubjectData.stats.selectedHours)} total)
+                </div>
+              </div>
+
+              {/* Card 5: REMOVED OVERKILL */}
+              <div
+                className="card card-hover"
+                onClick={() => setActiveViewMode('removed')}
+                title="Click to view Removed Overkill (Click Days/Hrs badge to toggle format)"
+                style={{
+                  padding: '0.75rem',
+                  cursor: 'pointer',
+                  userSelect: 'none',
+                  borderTop: activeViewMode === 'removed' ? '3px solid var(--accent-red)' : '1px solid var(--border-default)',
+                  backgroundColor: activeViewMode === 'removed' ? 'rgba(248, 113, 113, 0.03)' : 'var(--bg-surface)'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.15rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: activeViewMode === 'removed' ? 'var(--accent-red)' : 'var(--text-dim)', fontWeight: 700 }}>
+                    Removed Overkill
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                    {activeViewMode === 'removed' && (
+                      <span className="badge badge-critical" style={{ fontSize: '0.52rem', padding: '0.02rem 0.25rem' }}>ACTIVE</span>
+                    )}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleTimeUnit();
+                      }}
+                      title="Toggle Days / Hours format"
+                      style={{ fontSize: '0.6rem', color: 'var(--accent-red)', opacity: 0.85, cursor: 'pointer' }}
+                    >
+                      {timeUnitMode === 'days' ? '📅 Days' : '⏱️ Hrs'}
+                    </span>
+                  </div>
                 </div>
                 <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent-red)' }} className="mono">
                   {formatTime(currentSubjectData.stats.remHours)}
                 </div>
-                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>{currentSubjectData.stats.remVideos} unnecessary videos cut</div>
+                <div style={{ fontSize: '0.68rem', color: 'var(--accent-red)' }}>
+                  {currentSubjectData.stats.remVideos} cut videos (saved {formatTime(currentSubjectData.stats.remHours / playbackSpeed)})
+                </div>
               </div>
             </div>
 
@@ -1026,6 +1216,7 @@ export default function App() {
             >
               {/* View Switcher Pills */}
               <div style={{ display: 'flex', gap: '0.3rem', flexWrap: 'wrap' }}>
+                {/* 1. Selected Track */}
                 <button
                   onClick={() => setActiveViewMode('study')}
                   style={{
@@ -1039,9 +1230,10 @@ export default function App() {
                     cursor: 'pointer'
                   }}
                 >
-                  🎯 Study ({currentSubjectData.stats.coreVideos + currentSubjectData.stats.optVideos})
+                  🎯 Selected ({currentSubjectData.stats.selectedVideos})
                 </button>
 
+                {/* 2. Core Track */}
                 <button
                   onClick={() => setActiveViewMode('core')}
                   style={{
@@ -1058,6 +1250,24 @@ export default function App() {
                   ⚡ Core ({currentSubjectData.stats.coreVideos})
                 </button>
 
+                {/* 3. Full Track */}
+                <button
+                  onClick={() => setActiveViewMode('original')}
+                  style={{
+                    backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
+                    color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
+                    border: '1px solid var(--border-default)',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600,
+                    cursor: 'pointer'
+                  }}
+                >
+                  📜 Full ({currentSubjectData.stats.totalVideos})
+                </button>
+
+                {/* 4. Optional Practice */}
                 <button
                   onClick={() => setActiveViewMode('optional')}
                   style={{
@@ -1074,6 +1284,7 @@ export default function App() {
                   💡 Optional ({currentSubjectData.stats.optVideos})
                 </button>
 
+                {/* 5. Removed Overkill */}
                 <button
                   onClick={() => setActiveViewMode('removed')}
                   style={{
@@ -1088,22 +1299,6 @@ export default function App() {
                   }}
                 >
                   🗑️ Removed ({currentSubjectData.stats.remVideos})
-                </button>
-
-                <button
-                  onClick={() => setActiveViewMode('original')}
-                  style={{
-                    backgroundColor: activeViewMode === 'original' ? 'var(--text-main)' : 'var(--bg-active)',
-                    color: activeViewMode === 'original' ? 'var(--bg-base)' : 'var(--text-main)',
-                    border: '1px solid var(--border-default)',
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  📜 All ({currentSubjectData.stats.totalVideos})
                 </button>
               </div>
 
@@ -1211,7 +1406,7 @@ export default function App() {
                     </tr>
                   ) : (
                     displayedVideos.map((item) => {
-                      const itemKey = `${item.Subject}_${item.Index}`;
+                      const itemKey = getItemKey(item);
                       const isCompleted = !!completedMap[itemKey];
 
                       return (
@@ -1311,7 +1506,7 @@ export default function App() {
                 </div>
               ) : (
                 displayedVideos.map((item) => {
-                  const itemKey = `${item.Subject}_${item.Index}`;
+                  const itemKey = getItemKey(item);
                   const isCompleted = !!completedMap[itemKey];
 
                   return (
