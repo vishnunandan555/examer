@@ -1,35 +1,32 @@
 /**
- * Examer Cloud Sync Engine
- * Supports seamless multi-device synchronization via REST API (Upstash Redis, Vercel KV, or custom JSON endpoint)
- * with robust offline-first fallback to localStorage.
+ * Examer Built-in Cloud Sync Engine
+ * Single-user zero-config cloud synchronization via Upstash Redis REST API.
+ * Automatically synchronizes completion status between phone, laptop, and desktop.
  */
 
-const STORAGE_KEY = 'examer_completed_v1';
-const CONFIG_KEY = 'examer_cloud_config_v1';
+const BUILTIN_URL = import.meta.env.VITE_UPSTASH_REDIS_REST_URL || 'https://precious-catfish-207117.upstash.io';
+const BUILTIN_TOKEN = import.meta.env.VITE_UPSTASH_REDIS_REST_TOKEN || '';
+const SYNC_KEY = import.meta.env.VITE_CLOUD_SYNC_KEY || 'examer_dev_progress';
 
 export function getCloudConfig() {
-  try {
-    const saved = localStorage.getItem(CONFIG_KEY);
-    return saved ? JSON.parse(saved) : {
-      enabled: false,
-      endpoint: '',
-      token: ''
-    };
-  } catch (e) {
-    return { enabled: false, endpoint: '', token: '' };
-  }
+  const isConfigured = Boolean(BUILTIN_URL && BUILTIN_TOKEN);
+
+  return {
+    enabled: isConfigured,
+    endpoint: BUILTIN_URL,
+    token: BUILTIN_TOKEN
+  };
 }
 
 export function saveCloudConfig(config) {
+  // Maintained for backward compatibility if custom endpoint is ever set
   try {
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-  } catch (e) {
-    console.error('Failed to save cloud config', e);
-  }
+    localStorage.setItem('examer_cloud_config_v1', JSON.stringify(config));
+  } catch (e) {}
 }
 
 /**
- * Fetch latest completed videos map from cloud (if configured)
+ * Fetch latest completed playlist map from cloud
  */
 export async function pullFromCloud() {
   const config = getCloudConfig();
@@ -38,7 +35,10 @@ export async function pullFromCloud() {
   }
 
   try {
-    const url = config.endpoint.endsWith('/') ? `${config.endpoint}get/examer_progress` : `${config.endpoint}/get/examer_progress`;
+    const url = config.endpoint.endsWith('/')
+      ? `${config.endpoint}get/${SYNC_KEY}`
+      : `${config.endpoint}/get/${SYNC_KEY}`;
+
     const headers = {};
     if (config.token) {
       headers['Authorization'] = `Bearer ${config.token}`;
@@ -50,8 +50,12 @@ export async function pullFromCloud() {
     }
 
     const data = await res.json();
-    // Upstash returns { result: "..." }
-    const payload = data.result ? (typeof data.result === 'string' ? JSON.parse(data.result) : data.result) : data;
+    const payload = data.result
+      ? typeof data.result === 'string'
+        ? JSON.parse(data.result)
+        : data.result
+      : data;
+
     return payload;
   } catch (err) {
     console.warn('Cloud pull error (using local cache):', err);
@@ -60,7 +64,7 @@ export async function pullFromCloud() {
 }
 
 /**
- * Push completed videos map to cloud (if configured)
+ * Push completed playlist map to cloud
  */
 export async function pushToCloud(completedMap) {
   const config = getCloudConfig();
@@ -69,7 +73,10 @@ export async function pushToCloud(completedMap) {
   }
 
   try {
-    const url = config.endpoint.endsWith('/') ? `${config.endpoint}set/examer_progress` : `${config.endpoint}/set/examer_progress`;
+    const url = config.endpoint.endsWith('/')
+      ? `${config.endpoint}set/${SYNC_KEY}`
+      : `${config.endpoint}/set/${SYNC_KEY}`;
+
     const headers = { 'Content-Type': 'application/json' };
     if (config.token) {
       headers['Authorization'] = `Bearer ${config.token}`;

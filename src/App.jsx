@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import appData from './data/playlist_data.json';
 import { getDaysLeft, formatTime } from './utils/timeUtils';
 import { getItemKey, getSubjectStats, getTrackMetrics } from './utils/metricsUtils';
-import { pullFromCloud, pushToCloud, getCloudConfig, saveCloudConfig } from './services/cloudSync';
+import { pullFromCloud, pushToCloud, getCloudConfig } from './services/cloudSync';
 
 // Common Components
 import Navbar from './components/common/Navbar';
@@ -15,6 +15,9 @@ import SyllabusModal from './components/common/SyllabusModal';
 import DashboardView from './components/dashboard/DashboardView';
 import SubjectView from './components/subject/SubjectView';
 import DatasetsView from './components/datasets/DatasetsView';
+
+// Production PIN is injected via PIN or VITE_PIN. If missing, no secret works.
+const CONFIGURED_PIN = import.meta.env.VITE_PIN || '';
 
 export default function App() {
   // Navigation & View Mode State
@@ -69,22 +72,25 @@ export default function App() {
 
   const [animatingOutKeys, setAnimatingOutKeys] = useState({});
 
-  // Security Passcode State
-  const [isUnlocked, setIsUnlocked] = useState(() => {
+  // Security Passcode State: Locks on reload/refresh for privacy
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  // Clean up legacy persistent unlock if present
+  useEffect(() => {
     try {
-      return localStorage.getItem('examer_unlocked_v1') === 'true';
-    } catch (e) {
-      return false;
-    }
-  });
+      localStorage.removeItem('examer_unlocked_v1');
+    } catch (e) {}
+  }, []);
 
   const [passcode, setPasscode] = useState(() => {
     try {
-      return localStorage.getItem('examer_passcode_v1') || '2026';
+      return localStorage.getItem('examer_passcode_v1') || CONFIGURED_PIN;
     } catch (e) {
-      return '2026';
+      return CONFIGURED_PIN;
     }
   });
+
+  const hasPinConfigured = Boolean(passcode && passcode.trim().length > 0);
 
   // Modal Dialogs State
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -94,6 +100,27 @@ export default function App() {
   const [cloudConfig, setCloudConfig] = useState(getCloudConfig);
   const [cloudSyncState, setCloudSyncState] = useState('idle'); // 'idle' | 'syncing' | 'synced' | 'error'
   const [cloudMsg, setCloudMsg] = useState('');
+
+  // Progressive Web App (PWA) Install Prompt
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
 
   // LocalStorage Synchronization Effects
   useEffect(() => {
@@ -120,7 +147,7 @@ export default function App() {
     } catch (e) {}
 
     // Auto-sync to cloud when online and configured
-    if (cloudConfig.enabled && cloudConfig.endpoint && cloudConfig.token) {
+    if (cloudConfig.enabled && cloudConfig.endpoint) {
       setCloudSyncState('syncing');
       pushToCloud(completedMap)
         .then(() => {
@@ -132,7 +159,7 @@ export default function App() {
           setCloudMsg(err.message);
         });
     }
-  }, [completedMap]);
+  }, [completedMap, cloudConfig.enabled, cloudConfig.endpoint]);
 
   useEffect(() => {
     try {
@@ -169,7 +196,7 @@ export default function App() {
     return () => {
       isMounted = false;
     };
-  }, [isUnlocked, cloudConfig.enabled]);
+  }, [isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
 
   // Pre-filter playlists
   const playlists = useMemo(() => {
@@ -372,14 +399,17 @@ export default function App() {
 
   const handleUnlock = () => {
     setIsUnlocked(true);
-    try {
-      localStorage.setItem('examer_unlocked_v1', 'true');
-    } catch (e) {}
   };
 
   // If locked, render Minimalist Passcode Gate
   if (!isUnlocked) {
-    return <PasscodeModal passcode={passcode} onUnlock={handleUnlock} />;
+    return (
+      <PasscodeModal
+        passcode={passcode}
+        hasPinConfigured={hasPinConfigured}
+        onUnlock={handleUnlock}
+      />
+    );
   }
 
   // Dashboard pre-computed metrics
@@ -401,6 +431,8 @@ export default function App() {
         cloudSyncState={cloudSyncState}
         cloudConfig={cloudConfig}
         onOpenSettings={() => setShowSettingsModal(true)}
+        onInstallApp={handleInstallApp}
+        canInstall={!!deferredPrompt}
       />
 
       {/* 2. Primary Tab Switcher */}
@@ -476,13 +508,14 @@ export default function App() {
         onClose={() => setShowSettingsModal(false)}
         passcode={passcode}
         setPasscode={setPasscode}
-        onLockDashboard={handleLockDashboard}
+        onLockNow={handleLockDashboard}
         cloudConfig={cloudConfig}
-        setCloudConfig={setCloudConfig}
         onManualPull={handleManualPull}
         onManualPush={handleManualPush}
         cloudSyncState={cloudSyncState}
         cloudMsg={cloudMsg}
+        onInstallApp={handleInstallApp}
+        canInstall={!!deferredPrompt}
       />
 
       <SyllabusModal

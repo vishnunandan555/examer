@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Clock, Flame, Cloud, Settings } from 'lucide-react';
+import { Sparkles, Flame, Cloud, Settings, Smartphone } from 'lucide-react';
 
 export default function Navbar({
   playbackSpeed,
@@ -7,7 +7,9 @@ export default function Navbar({
   lastUpdatedDisplay,
   cloudSyncState,
   cloudConfig,
-  onOpenSettings
+  onOpenSettings,
+  onInstallApp,
+  canInstall
 }) {
   return (
     <header
@@ -65,6 +67,30 @@ export default function Navbar({
 
         {/* Global Controls & Status */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', flexWrap: 'wrap' }}>
+          {/* Install Web App Button */}
+          {canInstall && (
+            <button
+              onClick={onInstallApp}
+              title="Install Examer as Mobile App"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                backgroundColor: 'rgba(96, 165, 250, 0.12)',
+                border: '1px solid var(--accent-blue)',
+                color: 'var(--accent-blue)',
+                borderRadius: '5px',
+                padding: '0.3rem 0.65rem',
+                fontSize: '0.72rem',
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              <Smartphone size={13} />
+              <span>Install App</span>
+            </button>
+          )}
+
           {/* Cloud Sync Status / Settings Pill */}
           <button
             onClick={onOpenSettings}
