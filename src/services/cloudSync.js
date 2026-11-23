@@ -8,7 +8,12 @@ const BUILTIN_URL = import.meta.env.VITE_UPSTASH_REDIS_REST_URL || 'https://prec
 const BUILTIN_TOKEN = import.meta.env.VITE_UPSTASH_REDIS_REST_TOKEN || '';
 
 export function getCloudConfig() {
-  const isConfigured = Boolean(BUILTIN_URL && BUILTIN_TOKEN);
+  const isConfigured = Boolean(
+    BUILTIN_URL &&
+    BUILTIN_TOKEN &&
+    BUILTIN_TOKEN.trim().length > 0 &&
+    BUILTIN_TOKEN !== 'your_upstash_redis_token_here'
+  );
 
   return {
     enabled: isConfigured,

@@ -169,8 +169,8 @@ export default function App() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setLiveTick((prev) => prev + 1);
-    }, 30000);
+      setLiveTick((prev) => (prev + 1) % 1000000);
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
 

@@ -61,6 +61,8 @@ export default function DashboardView({
         totalTopics={totalTopics}
         completedTopics={completedTopics}
         overallRate={overallRate}
+        nextExam={nextExam}
+        nextSubjectStats={nextSubjectStats}
       />
     </div>
   );

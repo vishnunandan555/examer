@@ -1,6 +1,6 @@
 {
   "lastUpdated": "2026-11-19T09:43:00+05:30",
-  "lastUpdatedDisplay": "2026-11-19 09:43 IST",
+  "lastUpdatedDisplay": "2026-11-23 23:45 IST",
   "examTimetable": [
     {
       "date": "2026-11-16",
@@ -24,7 +24,7 @@
       "subject": "Computer Networks",
       "code": "PCCST501",
       "type": "Theory",
-      "status": "upcoming",
+      "status": "completed",
       "subjectId": "cn"
     },
     {
@@ -2607,7 +2607,7 @@
             },
             {
               "id": "ml-m2-03",
-              "title": "Na\u00efve Bayes Classification",
+              "title": "Naïve Bayes Classification",
               "concepts": "Bayes rule for classification, Class conditional independence assumption, MAP decision rule, handling continuous features with Gaussian Naive Bayes.",
               "priority": "High",
               "type": "Numerical / High-Yield",
@@ -3755,7 +3755,7 @@
             },
             {
               "id": "da-m3-03",
-              "title": "Classification: ID3 Decision Tree & Na\u00efve Bayes",
+              "title": "Classification: ID3 Decision Tree & Naïve Bayes",
               "concepts": "Information Gain, Entropy, ID3 tree construction step-by-step; Naive Bayesian classification on tabular dataset.",
               "priority": "High",
               "type": "Numerical / High-Yield",
@@ -3883,7 +3883,7 @@
             },
             {
               "id": "da-m4-04",
-              "title": "Language Models & Na\u00efve Bayes Text Classification",
+              "title": "Language Models & Naïve Bayes Text Classification",
               "concepts": "Unigram and Bigram language models, Query likelihood model, Naive Bayes probabilistic text classification for spam/sentiment analysis.",
               "priority": "High",
               "type": "Core Theory",

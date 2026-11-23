@@ -79,12 +79,14 @@ export function getExamCountdown(dateStr) {
   }
 
   const diffMs = Math.max(0, examStart.getTime() - current.getTime());
+  const totalSeconds = Math.floor(diffMs / 1000);
   const totalMinutes = Math.floor(diffMs / (1000 * 60));
   const totalHours = diffMs / (1000 * 60 * 60);
   const fractionalDays = Number((totalHours / 24).toFixed(1));
   const days = Math.floor(totalHours / 24);
   const remHours = Math.floor(totalHours % 24);
   const minutes = Math.floor(totalMinutes % 60);
+  const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
 
   let badgeText = '';
   let formatted = '';
@@ -94,13 +96,13 @@ export function getExamCountdown(dateStr) {
     formatted = `${days}d ${remHours}h left`;
   } else if (totalHours >= 24) {
     badgeText = `${fractionalDays}d`;
-    formatted = `${days}d ${remHours}h left`;
+    formatted = `${days}d ${remHours}h ${minutes}m left`;
   } else if (totalHours >= 1) {
     badgeText = `${Math.floor(totalHours)}h`;
-    formatted = `${Math.floor(totalHours)}h ${minutes}m left`;
+    formatted = `${Math.floor(totalHours)}h ${minutes}m ${seconds}s left`;
   } else {
     badgeText = `${Math.max(1, minutes)}m`;
-    formatted = `${Math.max(1, minutes)}m left`;
+    formatted = `${Math.max(1, minutes)}m ${seconds}s left`;
   }
 
   return {

@@ -102,7 +102,29 @@ export default function ExamTimetable({
                     )}
                   </td>
                   <td style={{ padding: '0.55rem 0.65rem' }}>
-                    {hasSyllabus ? (
+                    {isPast ? (
+                      <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                        ✓ Done
+                        {hasSyllabus && (
+                          <button
+                            onClick={() => onNavigate(item.subjectId)}
+                            title="Review completed syllabus checklist"
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: 'var(--text-dim)',
+                              fontSize: '0.7rem',
+                              cursor: 'pointer',
+                              padding: '0 0.2rem',
+                              marginLeft: '0.25rem',
+                              textDecoration: 'underline'
+                            }}
+                          >
+                            (Syllabus)
+                          </button>
+                        )}
+                      </span>
+                    ) : hasSyllabus ? (
                       <button
                         onClick={() => onNavigate(item.subjectId)}
                         style={{
@@ -119,7 +141,7 @@ export default function ExamTimetable({
                           gap: '0.25rem'
                         }}
                       >
-                        Checklist <ArrowRight size={11} />
+                        Syllabus <ArrowRight size={11} />
                       </button>
                     ) : (
                       <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>—</span>

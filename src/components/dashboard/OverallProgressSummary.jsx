@@ -4,7 +4,9 @@ import { Target, CheckCircle2, Flame, Award } from 'lucide-react';
 export default function OverallProgressSummary({
   totalTopics,
   completedTopics,
-  overallRate
+  overallRate,
+  nextExam,
+  nextSubjectStats
 }) {
   const cards = [
     {
@@ -30,8 +32,10 @@ export default function OverallProgressSummary({
     },
     {
       title: 'Immediate Target',
-      value: 'CN (Nov 23)',
-      sub: 'Immediate Exam • 30 Topics in Syllabus',
+      value: nextExam ? `${nextExam.code || nextExam.subject} (${nextExam.displayDate})` : 'All Completed!',
+      sub: nextExam
+        ? `Next Target • ${nextSubjectStats?.totalTopics || 0} Topics in Syllabus`
+        : 'All 8 examinations concluded',
       color: 'var(--accent-red)',
       icon: <Flame size={16} color="var(--accent-red)" />
     }
