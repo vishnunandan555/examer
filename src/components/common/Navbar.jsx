@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, Flame, Cloud, Settings, Smartphone } from 'lucide-react';
-import { getDaysLeft } from '../../utils/timeUtils';
+import { getExamCountdown } from '../../utils/timeUtils';
 
 export default function Navbar({
   lastUpdatedDisplay,
@@ -121,25 +121,30 @@ export default function Navbar({
 
           {/* Next Exam Pill */}
           {nextExam ? (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                backgroundColor: 'rgba(248, 113, 113, 0.1)',
-                border: '1px solid var(--accent-red)',
-                color: 'var(--accent-red)',
-                padding: '0.3rem 0.65rem',
-                borderRadius: '5px',
-                fontSize: '0.75rem',
-                fontWeight: 600
-              }}
-            >
-              <Flame size={13} />
-              <span>
-                Next: {nextExam.subject} {getDaysLeft(nextExam.date) === 0 ? 'Today' : `in ${getDaysLeft(nextExam.date)} Day${getDaysLeft(nextExam.date) > 1 ? 's' : ''}`} ({nextExam.displayDate})
-              </span>
-            </div>
+            (() => {
+              const countdown = getExamCountdown(nextExam.date);
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                    border: '1px solid var(--accent-red)',
+                    color: 'var(--accent-red)',
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '5px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600
+                  }}
+                >
+                  <Flame size={13} />
+                  <span>
+                    Next: {nextExam.subject} • {countdown.formatted} ({nextExam.displayDate})
+                  </span>
+                </div>
+              );
+            })()
           ) : (
             <div
               style={{

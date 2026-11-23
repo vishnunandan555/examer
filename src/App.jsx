@@ -164,13 +164,23 @@ export default function App() {
     };
   }, [isUnlocked, cloudConfig.enabled]);
 
+  // Live tick effect to keep dynamic countdown and timers accurate in real time
+  const [liveTick, setLiveTick] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveTick((prev) => prev + 1);
+    }, 30000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Dynamically compute syllabus stats for all 8 subjects
   const allSubjectStats = useMemo(() => {
     const statsMap = {};
     if (!syllabusData?.subjects) return statsMap;
 
     Object.entries(syllabusData.subjects).forEach(([key, subj]) => {
-      const days = Math.max(1, getDaysLeft(subj.examDate));
+      const days = getDaysLeft(subj.examDate);
       statsMap[key] = {
         data: subj,
         days,
@@ -178,7 +188,7 @@ export default function App() {
       };
     });
     return statsMap;
-  }, [completedMap]);
+  }, [completedMap, liveTick]);
 
   // Active Subject Selection
   const currentSubject = useMemo(() => {
@@ -191,7 +201,7 @@ export default function App() {
   // Next Upcoming Exam determination (auto-skips completed exams past 4 PM)
   const nextExam = useMemo(() => {
     return getNextUpcomingExam(syllabusData.examTimetable);
-  }, []);
+  }, [liveTick]);
 
   // Auto-redirect to dashboard if user is viewing a concluded exam while past exams are hidden
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { AlertTriangle, ArrowRight, Check } from 'lucide-react';
-import { isExamCompleted } from '../../utils/timeUtils';
+import { AlertTriangle, ArrowRight, Check, Clock } from 'lucide-react';
+import { getExamCountdown } from '../../utils/timeUtils';
 
 const SUBJECT_METADATA = {
   cn: { badgeClass: 'badge-critical', accentColor: 'var(--accent-red)', typeLabel: 'S5 Theory' },
@@ -20,7 +20,7 @@ export default function SubjectKpiGrid({
 }) {
   const subjectList = Object.entries(allSubjectStats)
     .map(([id, info]) => {
-      const isCompleted = isExamCompleted(info.data.examDate);
+      const countdown = getExamCountdown(info.data.examDate);
       const meta = SUBJECT_METADATA[id] || {
         badgeClass: 'badge-theory',
         accentColor: 'var(--accent-blue)',
@@ -35,8 +35,8 @@ export default function SubjectKpiGrid({
         badgeClass: meta.badgeClass,
         accentColor: meta.accentColor,
         stats: info.stats,
-        days: info.days,
-        isCompleted
+        countdown,
+        isCompleted: countdown.isCompleted
       };
     })
     .filter((card) => showCompletedExams || !card.isCompleted)
@@ -44,7 +44,7 @@ export default function SubjectKpiGrid({
       if (a.isCompleted !== b.isCompleted) {
         return a.isCompleted ? 1 : -1;
       }
-      return a.days - b.days;
+      return a.countdown.totalHours - b.countdown.totalHours;
     });
 
   return (
@@ -70,10 +70,11 @@ export default function SubjectKpiGrid({
               userSelect: 'none',
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              opacity: card.isCompleted ? 0.7 : 1
             }}
           >
-            {/* 1. Uniform Top Meta Row: Code + Type on Left, Days Left Badge on Right */}
+            {/* 1. Uniform Top Meta Row: Code + Type on Left, Dynamic Countdown Badge on Right */}
             <div>
               <div
                 style={{
@@ -111,9 +112,9 @@ export default function SubjectKpiGrid({
                   >
                     EXAM CONCLUDED
                   </span>
-                ) : (
+                ) : card.countdown.isLive ? (
                   <span
-                    className={`badge ${card.badgeClass} mono`}
+                    className="badge badge-critical mono"
                     style={{
                       fontSize: '0.68rem',
                       flexShrink: 0,
@@ -122,64 +123,47 @@ export default function SubjectKpiGrid({
                       letterSpacing: '0.02em'
                     }}
                   >
-                    {card.days} DAYS LEFT
+                    LIVE NOW
+                  </span>
+                ) : (
+                  <span
+                    className={`badge ${card.badgeClass} mono`}
+                    style={{
+                      fontSize: '0.68rem',
+                      flexShrink: 0,
+                      fontWeight: 700,
+                      padding: '0.15rem 0.45rem',
+                      letterSpacing: '0.02em',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.2rem'
+                    }}
+                  >
+                    <Clock size={10} />
+                    {card.countdown.formatted.toUpperCase()}
                   </span>
                 )}
               </div>
 
-              {/* 2. Standardized Title Block with Uniform Height */}
-              <div style={{ minHeight: '2.7rem', marginBottom: '0.75rem' }}>
-                <h3
-                  style={{
-                    fontSize: '0.96rem',
-                    fontWeight: 700,
-                    margin: 0,
-                    color: 'var(--text-main)',
-                    lineHeight: 1.3
-                  }}
-                  title={card.title}
-                >
-                  {card.title}
-                </h3>
-                <span
-                  style={{
-                    fontSize: '0.72rem',
-                    color: 'var(--text-dim)',
-                    display: 'block',
-                    marginTop: '0.15rem'
-                  }}
-                >
-                  Exam Date: <strong style={{ color: 'var(--text-muted)' }}>{card.displayDate}</strong>
-                </span>
+              {/* Subject Title */}
+              <h3 style={{ fontSize: '1.02rem', fontWeight: 800, margin: '0 0 0.25rem', letterSpacing: '-0.01em' }}>
+                {card.title}
+              </h3>
+              <div style={{ fontSize: '0.74rem', color: 'var(--text-dim)', marginBottom: '0.85rem' }}>
+                Exam Target: <strong style={{ color: 'var(--text-muted)' }}>{card.displayDate}</strong>
               </div>
-            </div>
 
-            {/* 3. Mastery Progress Bar */}
-            <div>
-              <div style={{ margin: '0.5rem 0' }}>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    fontSize: '0.74rem',
-                    marginBottom: '0.25rem'
-                  }}
-                >
+              {/* Progress Summary Section */}
+              <div style={{ marginBottom: '0.85rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.35rem' }}>
                   <span style={{ color: 'var(--text-muted)' }}>
-                    Mastery: {s.completedTopics} / {s.totalTopics} syllabus topics
+                    Mastery: <strong>{s.completedTopics}</strong> / {s.totalTopics} topics
                   </span>
                   <span className="mono" style={{ color: card.accentColor, fontWeight: 700 }}>
                     {s.completionRate.toFixed(1)}%
                   </span>
                 </div>
-                <div
-                  style={{
-                    height: '6px',
-                    background: 'var(--bg-active)',
-                    borderRadius: '3px',
-                    overflow: 'hidden'
-                  }}
-                >
+                <div style={{ height: '6px', background: 'var(--bg-active)', borderRadius: '3px', overflow: 'hidden' }}>
                   <div
                     style={{
                       width: `${s.completionRate}%`,
@@ -190,8 +174,10 @@ export default function SubjectKpiGrid({
                   />
                 </div>
               </div>
+            </div>
 
-              {/* 4. Remaining Topics & Study Pace Footer */}
+            {/* Bottom Row: Revision Pace Indicator & Action Button */}
+            <div>
               <div
                 style={{
                   display: 'flex',
@@ -199,52 +185,50 @@ export default function SubjectKpiGrid({
                   alignItems: 'center',
                   fontSize: '0.74rem',
                   color: 'var(--text-muted)',
-                  paddingTop: '0.55rem',
+                  paddingTop: '0.65rem',
                   borderTop: '1px solid var(--border-subtle)',
-                  marginTop: '0.4rem'
+                  flexWrap: 'wrap',
+                  gap: '0.35rem'
                 }}
               >
                 <span>
-                  Remaining: <strong style={{ color: 'var(--text-main)' }}>{s.remainingTopics} topics</strong>
+                  Remaining:{' '}
+                  <strong style={{ color: 'var(--text-main)' }}>
+                    {s.remainingTopics} topic{s.remainingTopics !== 1 ? 's' : ''}
+                  </strong>
                 </span>
+
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                   <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)' }}>Target Pace:</span>
                   <strong
-                    style={{
-                      color: s.paceColor,
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.2rem'
-                    }}
+                    style={{ color: s.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
                     className="mono"
                   >
-                    {s.hasWarning && <AlertTriangle size={12} color="#f87171" />}
+                    {s.hasWarning && <AlertTriangle size={13} color="#f87171" />}
                     {s.requiredPace.toFixed(1)} topics/day
                   </strong>
                 </div>
               </div>
 
-              {/* 5. Uniform Action Button */}
+              {/* Action Button */}
               <div style={{ marginTop: '0.75rem', textAlign: 'right' }}>
                 <button
                   onClick={() => onNavigate(card.id)}
                   style={{
-                    background: 'var(--bg-active)',
+                    backgroundColor: 'var(--bg-active)',
                     border: '1px solid var(--border-default)',
                     color: card.accentColor,
-                    padding: '0.3rem 0.65rem',
-                    borderRadius: '4px',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '5px',
                     fontSize: '0.74rem',
                     fontWeight: 600,
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.3rem',
-                    transition: 'all 0.15s ease'
+                    gap: '0.35rem'
                   }}
                 >
-                  <span>Open Syllabus</span>
-                  <ArrowRight size={12} />
+                  <span>Open Syllabus Checklist</span> <ArrowRight size={12} />
                 </button>
               </div>
             </div>

@@ -10,8 +10,10 @@ import {
   ChevronDown,
   ChevronUp,
   ChevronsUpDown,
-  ListFilter
+  ListFilter,
+  Clock
 } from 'lucide-react';
+import { getExamCountdown } from '../../utils/timeUtils';
 
 export default function SubjectSyllabusView({
   subject,
@@ -103,7 +105,28 @@ export default function SubjectSyllabusView({
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>{subject.title}</h2>
             <span className="badge badge-module mono">{subject.code}</span>
-            <span className="badge badge-critical">{daysLeft} Days Left</span>
+            {(() => {
+              const countdown = getExamCountdown(subject.examDate);
+              if (countdown.isCompleted) {
+                return (
+                  <span className="badge badge-core mono" style={{ fontSize: '0.68rem', backgroundColor: 'rgba(74, 222, 128, 0.15)', color: 'var(--accent-green)', border: '1px solid rgba(74, 222, 128, 0.4)' }}>
+                    EXAM CONCLUDED
+                  </span>
+                );
+              }
+              if (countdown.isLive) {
+                return (
+                  <span className="badge badge-critical mono" style={{ fontSize: '0.68rem' }}>
+                    LIVE NOW (ENDS 4 PM)
+                  </span>
+                );
+              }
+              return (
+                <span className="badge badge-critical mono" style={{ fontSize: '0.68rem', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+                  <Clock size={11} /> {countdown.formatted.toUpperCase()}
+                </span>
+              );
+            })()}
             <span className="badge badge-optional mono" style={{ fontSize: '0.68rem' }}>
               Updated: {lastUpdatedDisplay}
             </span>

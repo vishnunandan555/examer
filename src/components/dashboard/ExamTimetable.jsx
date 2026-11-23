@@ -1,6 +1,6 @@
 import React from 'react';
-import { Calendar, ArrowRight, Check } from 'lucide-react';
-import { getDaysLeft, isExamCompleted } from '../../utils/timeUtils';
+import { Calendar, ArrowRight, Check, Clock } from 'lucide-react';
+import { getExamCountdown } from '../../utils/timeUtils';
 
 export default function ExamTimetable({
   timetable,
@@ -26,7 +26,7 @@ export default function ExamTimetable({
             <Calendar size={16} color="var(--accent-blue)" /> Official Examination Schedule
           </h3>
           <p style={{ color: 'var(--text-dim)', fontSize: '0.75rem', margin: '0.2rem 0 0' }}>
-            Full examination timeline (KTU 2026 Series)
+            Full examination timeline (KTU 2026 Series) • Dynamic live countdown
           </p>
         </div>
         <span className="badge badge-optional mono">Updated: {lastUpdatedDisplay}</span>
@@ -46,8 +46,8 @@ export default function ExamTimetable({
           </thead>
           <tbody>
             {timetable.map((item, idx) => {
-              const days = getDaysLeft(item.date);
-              const isPast = isExamCompleted(item.date) || item.status === 'completed';
+              const countdown = getExamCountdown(item.date);
+              const isPast = countdown.isCompleted || item.status === 'completed';
               const isNext = nextExam?.date === item.date;
               const hasSyllabus = item.subjectId && availableSubjectIds.includes(item.subjectId);
 
@@ -80,18 +80,24 @@ export default function ExamTimetable({
                   </td>
                   <td style={{ padding: '0.55rem 0.65rem' }}>
                     {isPast ? (
-                      <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>Completed</span>
-                    ) : days === 0 ? (
-                      <span className="badge badge-critical">Today!</span>
+                      <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <Check size={12} /> Completed
+                      </span>
+                    ) : countdown.isLive ? (
+                      <span className="badge badge-critical mono">Live Now (Ends 4 PM)</span>
                     ) : (
                       <span
                         className="mono"
                         style={{
                           fontWeight: 600,
-                          color: days <= 4 ? 'var(--accent-red)' : days <= 8 ? 'var(--accent-peach)' : 'var(--text-main)'
+                          color: countdown.totalHours <= 24 ? 'var(--accent-red)' : countdown.totalHours <= 72 ? 'var(--accent-peach)' : 'var(--text-main)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.25rem'
                         }}
                       >
-                        {days} day{days > 1 ? 's' : ''} left
+                        <Clock size={11} style={{ opacity: 0.7 }} />
+                        {countdown.formatted}
                       </span>
                     )}
                   </td>
@@ -113,12 +119,10 @@ export default function ExamTimetable({
                           gap: '0.25rem'
                         }}
                       >
-                        Syllabus <ArrowRight size={11} />
+                        Checklist <ArrowRight size={11} />
                       </button>
-                    ) : isPast ? (
-                      <span style={{ color: 'var(--accent-green)', fontSize: '0.75rem', fontWeight: 600 }}>✓ Done</span>
                     ) : (
-                      <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>Awaiting Syllabus</span>
+                      <span style={{ color: 'var(--text-dim)', fontSize: '0.72rem' }}>—</span>
                     )}
                   </td>
                 </tr>

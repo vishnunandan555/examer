@@ -1,10 +1,10 @@
 import React from 'react';
-import { ArrowRight, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, AlertTriangle, CheckCircle2, Clock } from 'lucide-react';
+import { getExamCountdown } from '../../utils/timeUtils';
 
 export default function UrgencyBanner({
   nextExam,
   nextSubjectStats,
-  nextDays = 1,
   onNavigate
 }) {
   if (!nextExam || !nextSubjectStats) {
@@ -38,6 +38,7 @@ export default function UrgencyBanner({
   }
 
   const s = nextSubjectStats;
+  const countdown = getExamCountdown(nextExam.date);
 
   return (
     <div
@@ -62,9 +63,12 @@ export default function UrgencyBanner({
           <span className="badge badge-optional mono" style={{ fontSize: '0.65rem' }}>
             {nextExam.code}
           </span>
+          <span className="badge badge-module mono" style={{ fontSize: '0.65rem', display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}>
+            <Clock size={11} /> {countdown.formatted}
+          </span>
         </div>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
-          <strong>{nextDays === 0 ? 'Exam is Today' : `${nextDays} day${nextDays > 1 ? 's' : ''} remaining`}</strong> • Syllabus Progress:{' '}
+          <strong>{countdown.formatted}</strong> • Syllabus Progress:{' '}
           <strong>{s.completedTopics} / {s.totalTopics} topics mastered</strong> ({s.completionRate.toFixed(1)}%). Target revision pace:{' '}
           <strong style={{ color: s.paceColor, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }} className="mono">
             {s.hasWarning && <AlertTriangle size={13} color="#f87171" />}

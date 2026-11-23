@@ -2,39 +2,129 @@
 export const CURRENT_TIMELINE_DATE = new Date('2026-11-23T23:31:00+05:30');
 
 /**
- * Calculates remaining days from today to the given exam date string (YYYY-MM-DD).
- * Normalized strictly to start-of-day IST (T00:00:00) using integer day differences.
+ * Returns the current date/time normalized to IST.
  */
-export function getDaysLeft(dateStr) {
+export function getCurrentIST() {
   const now = new Date();
-  // Fallback to active timeline date if not in 2026
-  const baseDate = now.getFullYear() === 2026 ? now : new Date('2026-11-23T23:31:00+05:30');
-  
-  const todayYear = baseDate.getFullYear();
-  const todayMonth = String(baseDate.getMonth() + 1).padStart(2, '0');
-  const todayDay = String(baseDate.getDate()).padStart(2, '0');
-  
-  const todayNorm = new Date(`${todayYear}-${todayMonth}-${todayDay}T00:00:00+05:30`);
-  const examNorm = new Date(`${dateStr}T00:00:00+05:30`);
-  
-  const diffTime = examNorm.getTime() - todayNorm.getTime();
-  return Math.round(diffTime / (1000 * 60 * 60 * 24));
+  return now.getFullYear() === 2026 ? now : new Date('2026-11-23T23:45:00+05:30');
 }
 
 /**
  * Checks whether an exam is completed.
  * Afternoon exams conclude at 4:00 PM (16:00) IST on the exam day.
- * - If today is the exam day, the exam remains active until 4:00 PM, then becomes completed.
- * - If the exam date is in the past (yesterday or earlier), it is completed.
  */
 export function isExamCompleted(dateStr) {
   if (!dateStr) return false;
-  const now = new Date();
-  const current = now.getFullYear() === 2026 ? now : new Date('2026-11-23T23:31:00+05:30');
-  
-  // Cutoff is 16:00 (4:00 PM) IST on the exam day
+  const current = getCurrentIST();
   const cutoff = new Date(`${dateStr}T16:00:00+05:30`);
   return current.getTime() >= cutoff.getTime();
+}
+
+/**
+ * Returns a comprehensive, dynamic countdown object to the exam session.
+ * Standard KTU afternoon exams begin at 1:30 PM (13:30 IST) and conclude at 4:00 PM (16:00 IST).
+ * Dynamically switches from days (e.g. "3.5d", "1.2d") to hours (e.g. "13h 45m") to minutes ("35m").
+ */
+export function getExamCountdown(dateStr) {
+  if (!dateStr) {
+    return {
+      totalMs: 0,
+      totalHours: 0,
+      fractionalDays: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      isCompleted: false,
+      isLive: false,
+      badgeText: '--',
+      formatted: '--'
+    };
+  }
+
+  const current = getCurrentIST();
+  const examStart = new Date(`${dateStr}T13:30:00+05:30`);
+  const examEnd = new Date(`${dateStr}T16:00:00+05:30`);
+
+  // Past 4:00 PM on exam day -> Concluded
+  if (current.getTime() >= examEnd.getTime()) {
+    return {
+      totalMs: 0,
+      totalHours: 0,
+      fractionalDays: 0,
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      isCompleted: true,
+      isLive: false,
+      badgeText: 'DONE',
+      formatted: 'Exam Concluded'
+    };
+  }
+
+  // Between 1:30 PM and 4:00 PM on exam day -> Live session
+  if (current.getTime() >= examStart.getTime() && current.getTime() < examEnd.getTime()) {
+    const remLiveMins = Math.max(1, Math.floor((examEnd.getTime() - current.getTime()) / (1000 * 60)));
+    return {
+      totalMs: 0,
+      totalHours: 0,
+      fractionalDays: 0,
+      days: 0,
+      hours: 0,
+      minutes: remLiveMins,
+      isCompleted: false,
+      isLive: true,
+      badgeText: 'LIVE',
+      formatted: `Live (Ends in ${remLiveMins}m)`
+    };
+  }
+
+  const diffMs = Math.max(0, examStart.getTime() - current.getTime());
+  const totalMinutes = Math.floor(diffMs / (1000 * 60));
+  const totalHours = diffMs / (1000 * 60 * 60);
+  const fractionalDays = Number((totalHours / 24).toFixed(1));
+  const days = Math.floor(totalHours / 24);
+  const remHours = Math.floor(totalHours % 24);
+  const minutes = Math.floor(totalMinutes % 60);
+
+  let badgeText = '';
+  let formatted = '';
+
+  if (totalHours >= 48) {
+    badgeText = `${fractionalDays}d`;
+    formatted = `${days}d ${remHours}h left`;
+  } else if (totalHours >= 24) {
+    badgeText = `${fractionalDays}d`;
+    formatted = `${days}d ${remHours}h left`;
+  } else if (totalHours >= 1) {
+    badgeText = `${Math.floor(totalHours)}h`;
+    formatted = `${Math.floor(totalHours)}h ${minutes}m left`;
+  } else {
+    badgeText = `${Math.max(1, minutes)}m`;
+    formatted = `${Math.max(1, minutes)}m left`;
+  }
+
+  return {
+    totalMs: diffMs,
+    totalHours,
+    fractionalDays,
+    days,
+    hours: remHours,
+    minutes,
+    isCompleted: false,
+    isLive: false,
+    badgeText,
+    formatted
+  };
+}
+
+/**
+ * Calculates remaining days from today to the given exam date string (YYYY-MM-DD).
+ * Returns fractional days for accurate study pace calculation.
+ */
+export function getDaysLeft(dateStr) {
+  const cd = getExamCountdown(dateStr);
+  if (cd.isCompleted) return 0;
+  return Math.max(0.5, cd.fractionalDays);
 }
 
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layers, Clock, Sparkles, BookOpen, FileText, Cpu, Brain, BarChart3, Scale, Eye, EyeOff } from 'lucide-react';
-import { getDaysLeft, isExamCompleted } from '../../utils/timeUtils';
+import { getExamCountdown, isExamCompleted } from '../../utils/timeUtils';
 import syllabusData from '../../data/syllabus_data.json';
 
 const SUBJECT_CONFIG = {
@@ -25,11 +25,10 @@ export default function NavigationTabs({
     isExamCompleted(s.examDate)
   ).length;
 
-  // Filter and sort subjects chronologically by exam date / days left
+  // Filter and sort subjects chronologically by exam date / remaining hours
   const subjectTabs = Object.entries(syllabusData.subjects)
     .map(([key, subj]) => {
-      const completed = isExamCompleted(subj.examDate);
-      const days = Math.max(0, getDaysLeft(subj.examDate));
+      const countdown = getExamCountdown(subj.examDate);
       const config = SUBJECT_CONFIG[key] || {
         short: subj.code,
         icon: <BookOpen size={13} />,
@@ -38,10 +37,11 @@ export default function NavigationTabs({
       return {
         id: key,
         label: config.short,
-        fullTitle: `${subj.title} (${subj.code}) • ${subj.displayDate}${completed ? ' (Exam Concluded)' : ''}`,
-        badge: completed ? 'DONE' : `${days}D`,
-        days,
-        isCompleted: completed,
+        fullTitle: `${subj.title} (${subj.code}) • ${subj.displayDate} — ${countdown.formatted}`,
+        badge: countdown.badgeText,
+        isCompleted: countdown.isCompleted,
+        totalHours: countdown.totalHours,
+        countdown,
         icon: config.icon
       };
     })
@@ -50,7 +50,7 @@ export default function NavigationTabs({
       if (a.isCompleted !== b.isCompleted) {
         return a.isCompleted ? 1 : -1;
       }
-      return a.days - b.days;
+      return a.totalHours - b.totalHours;
     });
 
   const allTabs = [
@@ -157,7 +157,7 @@ export default function NavigationTabs({
             onClick={() => setShowCompletedExams(!showCompletedExams)}
             title={
               showCompletedExams
-                ? 'Click to hide completed exams (concluded past 4:00 PM)'
+                ? 'Click to hide completed exams'
                 : `Click to show ${completedCount} completed past exam${completedCount > 1 ? 's' : ''}`
             }
             style={{
