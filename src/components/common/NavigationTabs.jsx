@@ -1,5 +1,16 @@
 import React from 'react';
-import { Layers, Clock, Sparkles, BookOpen, FolderTree, Download } from 'lucide-react';
+import { Layers, Flame, BookOpen, Cpu, HardDrive, Network, Binary, Lightbulb, Code2, FolderTree, Download } from 'lucide-react';
+import { SUBJECTS } from '../../config/subjects';
+
+const ICON_MAP = {
+  os: <Cpu size={14} color="var(--accent-red)" />,
+  dbms: <HardDrive size={14} color="var(--accent-peach)" />,
+  coa: <Flame size={14} color="var(--accent-yellow)" />,
+  cn: <Network size={14} color="var(--accent-blue)" />,
+  dsa: <Binary size={14} color="var(--accent-green)" />,
+  aptitude: <Lightbulb size={14} color="var(--accent-teal)" />,
+  cprog: <Code2 size={14} color="var(--accent-purple)" />
+};
 
 export default function NavigationTabs({
   activeTab,
@@ -8,27 +19,15 @@ export default function NavigationTabs({
 }) {
   const tabs = [
     { id: 'dashboard', label: 'Main Dashboard', icon: <Layers size={14} /> },
-    {
-      id: 'cn',
-      label: 'Computer Networks (Nov 23)',
-      badge: '4D',
-      icon: <Clock size={14} color="var(--accent-red)" />
-    },
-    {
-      id: 'daa',
-      label: 'DAA (Nov 27)',
-      badge: '8D',
-      icon: <Sparkles size={14} color="var(--accent-peach)" />
-    },
-    {
-      id: 'dsa',
-      label: 'S3 DSA Supply (Nov 30)',
-      badge: '11D',
-      icon: <BookOpen size={14} color="var(--accent-green)" />
-    },
+    ...SUBJECTS.map((sub) => ({
+      id: sub.id,
+      label: sub.shortName,
+      badge: sub.priority === 'top' ? 'P1' : null,
+      icon: ICON_MAP[sub.id] || <BookOpen size={14} />
+    })),
     {
       id: 'datasets',
-      label: 'Directory & Datasets',
+      label: 'Datasets',
       icon: <FolderTree size={14} color="var(--accent-purple)" />
     }
   ];
@@ -36,6 +35,7 @@ export default function NavigationTabs({
   return (
     <div style={{ borderBottom: '1px solid var(--border-default)', backgroundColor: 'var(--bg-base)' }}>
       <div
+        className="no-scrollbar"
         style={{
           maxWidth: '1440px',
           margin: '0 auto',
@@ -81,9 +81,9 @@ export default function NavigationTabs({
                     style={{
                       fontSize: '0.62rem',
                       padding: '0.05rem 0.35rem',
-                      backgroundColor: isActive ? 'rgba(56, 189, 248, 0.15)' : 'var(--bg-active)',
-                      color: isActive ? 'var(--accent-blue)' : 'var(--text-dim)',
-                      border: '1px solid var(--border-default)'
+                      backgroundColor: 'rgba(248, 113, 113, 0.18)',
+                      color: 'var(--accent-red)',
+                      border: '1px solid rgba(248, 113, 113, 0.4)'
                     }}
                   >
                     {tab.badge}
@@ -111,7 +111,7 @@ export default function NavigationTabs({
             flexShrink: 0
           }}
         >
-          <Download size={14} color="var(--accent-purple)" /> Study Files & Syllabi
+          <Download size={14} color="var(--accent-purple)" /> Study Files &amp; Syllabi
         </button>
       </div>
     </div>

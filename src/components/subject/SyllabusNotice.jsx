@@ -1,7 +1,7 @@
 import React from 'react';
 import { Info, BookOpen } from 'lucide-react';
 
-export default function SyllabusNotice({ activeTab, onOpenSyllabusModal }) {
+export default function SyllabusNotice({ activeTab, subjectData, onOpenSyllabusModal }) {
   return (
     <div
       className="card"
@@ -22,21 +22,8 @@ export default function SyllabusNotice({ activeTab, onOpenSyllabusModal }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
         <Info size={14} color="var(--accent-blue)" style={{ flexShrink: 0 }} />
         <span>
-          {activeTab === 'cn' && (
-            <>
-              <strong>KTU S5 CN Syllabus Verified:</strong> 6 restored high-yield topics (Hamming Code, Dijkstra, Congestion Control, UDP/TCP header fields) are restored to Core/Optional. For standalone SNMP, refer to Kurose & Ross (Ch 9) text notes.
-            </>
-          )}
-          {activeTab === 'daa' && (
-            <>
-              <strong>KTU S5 DAA Syllabus Verified:</strong> Recurrences, AVL Trees, Disjoint Sets, Greedy (Knapsack, MST), Dynamic Programming (MCM, Floyd-Warshall), Branch & Bound (TSP), and P/NP classes are fully mapped.
-            </>
-          )}
-          {activeTab === 'dsa' && (
-            <>
-              <strong>KTU S3 DSA Syllabus Verified:</strong> Linear & non-linear structures (Stacks, Queues, Linked Lists, Trees, Heaps) and all 6 core sorting algorithms are curated for immediate exam clearance.
-            </>
-          )}
+          <strong>{subjectData?.title || 'Subject'} Curriculum Note:</strong>{' '}
+          {subjectData?.sourceNote || 'Structured for GATE and university curriculum mastery.'}
         </span>
       </div>
 

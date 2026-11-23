@@ -6,13 +6,7 @@ import ExamTimetable from './ExamTimetable';
 import ReductionSummary from './ReductionSummary';
 
 export default function DashboardView({
-  cnStats,
-  cnDays,
-  cnMetrics,
-  daaMetrics,
-  daaDays,
-  dsaMetrics,
-  dsaDays,
+  subjectsData,
   activeViewMode,
   setActiveViewMode,
   playbackSpeed,
@@ -24,13 +18,11 @@ export default function DashboardView({
 }) {
   return (
     <div>
-      {/* 1. Urgency Banner for Immediate Exam */}
+      {/* 1. Urgency Banner for January / GATE Milestones */}
       <UrgencyBanner
-        cnStats={cnStats}
-        cnDays={cnDays}
-        cnMetrics={cnMetrics}
-        playbackSpeed={playbackSpeed}
-        onNavigateToCN={() => onNavigate('cn')}
+        onNavigateToOS={() => onNavigate('os')}
+        onNavigateToCOA={() => onNavigate('coa')}
+        onNavigateToDBMS={() => onNavigate('dbms')}
       />
 
       {/* 2. Track Selector for Main Dashboard */}
@@ -39,21 +31,16 @@ export default function DashboardView({
         setActiveViewMode={setActiveViewMode}
       />
 
-      {/* 3. Subject KPI Grid (CN, DAA, S3 DSA) */}
+      {/* 3. Comprehensive Subject KPI Grid */}
       <SubjectKpiGrid
-        cnMetrics={cnMetrics}
-        cnDays={cnDays}
-        daaMetrics={daaMetrics}
-        daaDays={daaDays}
-        dsaMetrics={dsaMetrics}
-        dsaDays={dsaDays}
+        subjectsData={subjectsData}
         playbackSpeed={playbackSpeed}
         timeUnitMode={timeUnitMode}
         toggleTimeUnit={toggleTimeUnit}
         onNavigate={onNavigate}
       />
 
-      {/* 4. Examination Timetable Table */}
+      {/* 4. Examination & Preparation Timetable Table */}
       <ExamTimetable
         timetable={timetable}
         lastUpdatedDisplay={lastUpdatedDisplay}

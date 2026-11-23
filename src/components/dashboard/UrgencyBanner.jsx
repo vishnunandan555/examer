@@ -1,20 +1,17 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { formatTime } from '../../utils/timeUtils';
+import { ArrowRight, Flame, Sparkles } from 'lucide-react';
 
 export default function UrgencyBanner({
-  cnStats,
-  cnDays,
-  cnMetrics,
-  playbackSpeed,
-  onNavigateToCN
+  onNavigateToOS,
+  onNavigateToCOA,
+  onNavigateToDBMS
 }) {
   return (
     <div
       className="card"
       style={{
         padding: '1.15rem 1.25rem',
-        marginBottom: '1rem',
+        marginBottom: '1.25rem',
         borderLeft: '4px solid var(--accent-red)',
         display: 'flex',
         alignItems: 'center',
@@ -24,41 +21,62 @@ export default function UrgencyBanner({
       }}
     >
       <div style={{ flex: '1 1 auto', minWidth: '280px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem', flexWrap: 'wrap' }}>
-          <span className="badge badge-critical">IMMEDIATE FOCUS</span>
-          <h2 style={{ fontSize: '1.05rem', fontWeight: 700, margin: 0 }}>Computer Networks (Theory) • Nov 23</h2>
-          <span className={`badge ${cnMetrics.trackBadge}`} style={{ fontSize: '0.65rem' }}>
-            {cnMetrics.trackName}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
+          <span className="badge badge-critical" style={{ fontSize: '0.65rem' }}>
+            TOP PRIORITY SUITE
+          </span>
+          <h2 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>
+            January Semester Exams & GATE Suite
+          </h2>
+          <span className="badge badge-core" style={{ fontSize: '0.65rem' }}>
+            TARGET 2027
           </span>
         </div>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0 }}>
-          <strong>{cnDays} days remaining</strong> • <strong>{cnMetrics.trackName}</strong>:{' '}
-          <strong>{formatTime(cnMetrics.remainingHrs)}</strong> remaining at {playbackSpeed}x ({cnMetrics.completedVids}/{cnMetrics.totalVids} completed, {cnMetrics.rate.toFixed(1)}%). Target pace:{' '}
-          <strong style={{ color: cnMetrics.paceColor }} className="mono">
-            {cnMetrics.pace.toFixed(1)} hrs/day
-          </strong>{' '}
-          ({cnMetrics.stress}).
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', margin: 0, lineHeight: 1.45 }}>
+          Top priority subjects: <strong style={{ color: 'var(--accent-red)' }}>Operating Systems</strong> &amp;{' '}
+          <strong style={{ color: 'var(--accent-yellow)' }}>COA</strong> (by Viswadeep Gothi / VD Gothi), alongside{' '}
+          <strong style={{ color: 'var(--accent-peach)' }}>DBMS</strong>. Core foundations: CN, DSA (Amit Khurana unified playlist), General Aptitude, and C Programming (Beej's Guide).
         </p>
       </div>
-      <button
-        onClick={onNavigateToCN}
-        style={{
-          backgroundColor: 'var(--accent-red)',
-          color: '#fff',
-          border: 'none',
-          borderRadius: '5px',
-          padding: '0.55rem 1rem',
-          fontWeight: 600,
-          fontSize: '0.82rem',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.4rem',
-          flexShrink: 0
-        }}
-      >
-        Open CN ({cnMetrics.trackName}) <ArrowRight size={14} />
-      </button>
+
+      <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+        <button
+          onClick={onNavigateToOS}
+          style={{
+            backgroundColor: 'var(--accent-red)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '5px',
+            padding: '0.5rem 0.85rem',
+            fontWeight: 600,
+            fontSize: '0.78rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.35rem'
+          }}
+        >
+          <Flame size={13} /> Open OS (P1)
+        </button>
+        <button
+          onClick={onNavigateToCOA}
+          style={{
+            backgroundColor: 'var(--bg-active)',
+            color: 'var(--accent-yellow)',
+            border: '1px solid var(--border-default)',
+            borderRadius: '5px',
+            padding: '0.5rem 0.85rem',
+            fontWeight: 600,
+            fontSize: '0.78rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.35rem'
+          }}
+        >
+          <span>Open COA (P1)</span>
+        </button>
+      </div>
     </div>
   );
 }

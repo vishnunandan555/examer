@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import appData from './data/playlist_data.json';
+import { SUBJECTS, UPCOMING_TIMETABLE } from './config/subjects';
 import { getDaysLeft, formatTime } from './utils/timeUtils';
 import { getItemKey, getSubjectStats, getTrackMetrics } from './utils/metricsUtils';
 import { pullFromCloud, pushToCloud, getCloudConfig } from './services/cloudSync';
@@ -198,64 +199,48 @@ export default function App() {
     };
   }, [isUnlocked, cloudConfig.enabled, cloudConfig.endpoint]);
 
-  // Pre-filter playlists
+  // Pre-filter playlists for all 7 subjects (No fake data for upcoming ones)
   const playlists = useMemo(() => {
-    const dsaAll = appData.dsa_all;
-    const cnAll = appData.cn_all;
-
-    const cn = cnAll;
-    const daa = dsaAll.filter((v) => v.Subject === 'S5 DAA' || v.Subject === 'Both');
-    const dsa = dsaAll.filter((v) => v.Subject === 'S3 DSA' || v.Subject === 'Both');
-
-    return { cn, daa, dsa, dsaAll };
+    return {
+      os: [],
+      dbms: [],
+      coa: [],
+      cn: appData.cn_all || [],
+      dsa: appData.dsa_all || [], // Unified Amit Khurana playlist
+      aptitude: [],
+      cprog: []
+    };
   }, []);
 
-  // Compute Subject Stats dynamically
-  const cnStats = useMemo(() => getSubjectStats(playlists.cn, completedMap, playbackSpeed), [playlists.cn, completedMap, playbackSpeed]);
-  const daaStats = useMemo(() => getSubjectStats(playlists.daa, completedMap, playbackSpeed), [playlists.daa, completedMap, playbackSpeed]);
-  const dsaStats = useMemo(() => getSubjectStats(playlists.dsa, completedMap, playbackSpeed), [playlists.dsa, completedMap, playbackSpeed]);
+  // Compute Subject Stats dynamically for all subjects
+  const subjectsData = useMemo(() => {
+    return SUBJECTS.map((sub) => {
+      const list = playlists[sub.id] || [];
+      const stats = getSubjectStats(list, completedMap, playbackSpeed);
+      const days = Math.max(1, getDaysLeft(sub.targetDate));
+      const metrics = getTrackMetrics(stats, days, activeViewMode, playbackSpeed);
+
+      return {
+        ...sub,
+        list,
+        stats,
+        days,
+        metrics,
+        viewLabel: `View ${sub.shortName}`
+      };
+    });
+  }, [playlists, completedMap, playbackSpeed, activeViewMode]);
 
   // Active Subject Metadata
   const currentSubjectData = useMemo(() => {
-    if (activeTab === 'cn') {
-      return {
-        title: 'Computer Networks',
-        code: 'PCCST501',
-        examDate: '2026-11-23',
-        displayDate: 'Nov 23, 2026',
-        daysLeft: getDaysLeft('2026-11-23'),
-        list: playlists.cn,
-        stats: cnStats,
-        modules: ['Module 1', 'Module 2', 'Module 3', 'Module 4'],
-        syllabusNote: 'KTU S5 CSE Syllabus: Application Layer, Transport & Network Layer, Data Link & MAC, Physical Layer & SNMP.'
-      };
-    } else if (activeTab === 'daa') {
-      return {
-        title: 'Design and Analysis of Algorithms',
-        code: 'PCCST502',
-        examDate: '2026-11-27',
-        displayDate: 'Nov 27, 2026',
-        daysLeft: getDaysLeft('2026-11-27'),
-        list: playlists.daa,
-        stats: daaStats,
-        modules: ['S5-M1', 'S5-M2', 'S5-M3', 'S5-M4', 'S3-M1 / S5-M1', 'S3-M3 / S5-M2', 'S3-M4 / S5-M2', 'S3-M3 / S5-M3'],
-        syllabusNote: 'KTU S5 CSE Syllabus: Recurrences & AVL Trees, Disjoint Sets & Graph Traversals/D&C, Greedy (Knapsack, MST, Dijkstra) & DP (MCM, Floyd-Warshall), Branch & Bound (TSP), Complexity Classes (P/NP).'
-      };
-    } else if (activeTab === 'dsa') {
-      return {
-        title: 'Data Structures and Algorithms',
-        code: 'PCCST303 (Supply)',
-        examDate: '2026-11-30',
-        displayDate: 'Nov 30, 2026',
-        daysLeft: getDaysLeft('2026-11-30'),
-        list: playlists.dsa,
-        stats: dsaStats,
-        modules: ['S3-M1', 'S3-M2', 'S3-M3', 'S3-M4', 'S3-M1 / S5-M1', 'S3-M3 / S5-M2', 'S3-M4 / S5-M2', 'S3-M3 / S5-M3'],
-        syllabusNote: 'KTU S3 CSE Syllabus: Arrays, Stacks, Queues, Expression Evaluation; Singly/Doubly/Circular Linked Lists; Trees, BST, Binary Heaps; Sorting (Selection, Insertion, Quick, Merge, Heap, Radix), Searching & Hashing.'
-      };
-    }
-    return null;
-  }, [activeTab, playlists, cnStats, daaStats, dsaStats]);
+    const found = subjectsData.find((s) => s.id === activeTab);
+    if (!found) return null;
+    return {
+      ...found,
+      daysLeft: found.days,
+      syllabusNote: found.sourceNote
+    };
+  }, [activeTab, subjectsData]);
 
   // Active Subject Pace calculation
   const activePaceData = useMemo(() => {
@@ -412,15 +397,6 @@ export default function App() {
     );
   }
 
-  // Dashboard pre-computed metrics
-  const cnDays = Math.max(1, getDaysLeft('2026-11-23'));
-  const daaDays = Math.max(1, getDaysLeft('2026-11-27'));
-  const dsaDays = Math.max(1, getDaysLeft('2026-11-30'));
-
-  const cnMetrics = getTrackMetrics(cnStats, cnDays, activeViewMode, playbackSpeed);
-  const daaMetrics = getTrackMetrics(daaStats, daaDays, activeViewMode, playbackSpeed);
-  const dsaMetrics = getTrackMetrics(dsaStats, dsaDays, activeViewMode, playbackSpeed);
-
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* 1. Global Navigation Bar */}
@@ -446,19 +422,13 @@ export default function App() {
       <main style={{ maxWidth: '1440px', width: '100%', margin: '1rem auto', padding: '0 1rem', flex: 1 }}>
         {activeTab === 'dashboard' && (
           <DashboardView
-            cnStats={cnStats}
-            cnDays={cnDays}
-            cnMetrics={cnMetrics}
-            daaMetrics={daaMetrics}
-            daaDays={daaDays}
-            dsaMetrics={dsaMetrics}
-            dsaDays={dsaDays}
+            subjectsData={subjectsData}
             activeViewMode={activeViewMode}
             setActiveViewMode={setActiveViewMode}
             playbackSpeed={playbackSpeed}
             timeUnitMode={timeUnitMode}
             toggleTimeUnit={toggleTimeUnit}
-            timetable={appData.examTimetable}
+            timetable={UPCOMING_TIMETABLE}
             lastUpdatedDisplay={appData.lastUpdatedDisplay}
             onNavigate={(tabId) => {
               setActiveTab(tabId);
@@ -467,7 +437,7 @@ export default function App() {
           />
         )}
 
-        {(activeTab === 'cn' || activeTab === 'daa' || activeTab === 'dsa') && currentSubjectData && (
+        {currentSubjectData && (
           <SubjectView
             activeTab={activeTab}
             subjectData={currentSubjectData}
