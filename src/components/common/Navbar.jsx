@@ -1,10 +1,12 @@
 import React from 'react';
 import { BookOpen, Flame, Cloud, Settings, Smartphone } from 'lucide-react';
+import { getDaysLeft } from '../../utils/timeUtils';
 
 export default function Navbar({
   lastUpdatedDisplay,
   cloudSyncState,
   cloudConfig,
+  nextExam,
   onOpenSettings,
   onInstallApp,
   canInstall
@@ -118,23 +120,45 @@ export default function Navbar({
           </button>
 
           {/* Next Exam Pill */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              backgroundColor: 'rgba(248, 113, 113, 0.1)',
-              border: '1px solid var(--accent-red)',
-              color: 'var(--accent-red)',
-              padding: '0.3rem 0.65rem',
-              borderRadius: '5px',
-              fontSize: '0.75rem',
-              fontWeight: 600
-            }}
-          >
-            <Flame size={13} />
-            <span>Next: CN Theory in 4 Days (Nov 23)</span>
-          </div>
+          {nextExam ? (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                backgroundColor: 'rgba(248, 113, 113, 0.1)',
+                border: '1px solid var(--accent-red)',
+                color: 'var(--accent-red)',
+                padding: '0.3rem 0.65rem',
+                borderRadius: '5px',
+                fontSize: '0.75rem',
+                fontWeight: 600
+              }}
+            >
+              <Flame size={13} />
+              <span>
+                Next: {nextExam.subject} {getDaysLeft(nextExam.date) === 0 ? 'Today' : `in ${getDaysLeft(nextExam.date)} Day${getDaysLeft(nextExam.date) > 1 ? 's' : ''}`} ({nextExam.displayDate})
+              </span>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.35rem',
+                backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                border: '1px solid var(--accent-green)',
+                color: 'var(--accent-green)',
+                padding: '0.3rem 0.65rem',
+                borderRadius: '5px',
+                fontSize: '0.75rem',
+                fontWeight: 600
+              }}
+            >
+              <Flame size={13} />
+              <span>All Exams Concluded!</span>
+            </div>
+          )}
         </div>
       </div>
     </header>

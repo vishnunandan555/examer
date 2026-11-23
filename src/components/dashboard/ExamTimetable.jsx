@@ -1,11 +1,12 @@
 import React from 'react';
 import { Calendar, ArrowRight, Check } from 'lucide-react';
-import { getDaysLeft } from '../../utils/timeUtils';
+import { getDaysLeft, isExamCompleted } from '../../utils/timeUtils';
 
 export default function ExamTimetable({
   timetable,
   lastUpdatedDisplay,
   availableSubjectIds = [],
+  nextExam,
   onNavigate
 }) {
   return (
@@ -46,8 +47,8 @@ export default function ExamTimetable({
           <tbody>
             {timetable.map((item, idx) => {
               const days = getDaysLeft(item.date);
-              const isPast = days < 0 || item.status === 'completed';
-              const isNext = item.date === '2026-11-23';
+              const isPast = isExamCompleted(item.date) || item.status === 'completed';
+              const isNext = nextExam?.date === item.date;
               const hasSyllabus = item.subjectId && availableSubjectIds.includes(item.subjectId);
 
               return (

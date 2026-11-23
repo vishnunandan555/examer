@@ -1,5 +1,6 @@
 import React from 'react';
-import { AlertTriangle, ArrowRight } from 'lucide-react';
+import { AlertTriangle, ArrowRight, Check } from 'lucide-react';
+import { isExamCompleted } from '../../utils/timeUtils';
 
 const SUBJECT_METADATA = {
   cn: { badgeClass: 'badge-critical', accentColor: 'var(--accent-red)', typeLabel: 'S5 Theory' },
@@ -14,10 +15,12 @@ const SUBJECT_METADATA = {
 
 export default function SubjectKpiGrid({
   allSubjectStats = {},
+  showCompletedExams = false,
   onNavigate
 }) {
   const subjectList = Object.entries(allSubjectStats)
     .map(([id, info]) => {
+      const isCompleted = isExamCompleted(info.data.examDate);
       const meta = SUBJECT_METADATA[id] || {
         badgeClass: 'badge-theory',
         accentColor: 'var(--accent-blue)',
@@ -32,10 +35,17 @@ export default function SubjectKpiGrid({
         badgeClass: meta.badgeClass,
         accentColor: meta.accentColor,
         stats: info.stats,
-        days: info.days
+        days: info.days,
+        isCompleted
       };
     })
-    .sort((a, b) => a.days - b.days);
+    .filter((card) => showCompletedExams || !card.isCompleted)
+    .sort((a, b) => {
+      if (a.isCompleted !== b.isCompleted) {
+        return a.isCompleted ? 1 : -1;
+      }
+      return a.days - b.days;
+    });
 
   return (
     <div
@@ -85,18 +95,36 @@ export default function SubjectKpiGrid({
                   </span>
                 </div>
 
-                <span
-                  className={`badge ${card.badgeClass} mono`}
-                  style={{
-                    fontSize: '0.68rem',
-                    flexShrink: 0,
-                    fontWeight: 700,
-                    padding: '0.15rem 0.45rem',
-                    letterSpacing: '0.02em'
-                  }}
-                >
-                  {card.days} DAYS LEFT
-                </span>
+                {card.isCompleted ? (
+                  <span
+                    className="badge badge-core mono"
+                    style={{
+                      fontSize: '0.68rem',
+                      flexShrink: 0,
+                      fontWeight: 700,
+                      padding: '0.15rem 0.45rem',
+                      letterSpacing: '0.02em',
+                      backgroundColor: 'rgba(74, 222, 128, 0.15)',
+                      color: 'var(--accent-green)',
+                      border: '1px solid rgba(74, 222, 128, 0.4)'
+                    }}
+                  >
+                    EXAM CONCLUDED
+                  </span>
+                ) : (
+                  <span
+                    className={`badge ${card.badgeClass} mono`}
+                    style={{
+                      fontSize: '0.68rem',
+                      flexShrink: 0,
+                      fontWeight: 700,
+                      padding: '0.15rem 0.45rem',
+                      letterSpacing: '0.02em'
+                    }}
+                  >
+                    {card.days} DAYS LEFT
+                  </span>
+                )}
               </div>
 
               {/* 2. Standardized Title Block with Uniform Height */}

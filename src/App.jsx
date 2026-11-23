@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import syllabusData from './data/syllabus_data.json';
-import { getDaysLeft } from './utils/timeUtils';
+import { getDaysLeft, isExamCompleted, getNextUpcomingExam } from './utils/timeUtils';
 import { getSubjectSyllabusStats } from './utils/syllabusUtils';
 import { pullFromCloud, pushToCloud, getCloudConfig } from './services/cloudSync';
 
@@ -41,6 +41,21 @@ export default function App() {
   });
 
   const [animatingOutKeys, setAnimatingOutKeys] = useState({});
+
+  // Past / Concluded Exam Visibility (Hidden by default, toggled with eye button)
+  const [showCompletedExams, setShowCompletedExams] = useState(() => {
+    try {
+      return localStorage.getItem('examer_show_completed_exams_v1') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('examer_show_completed_exams_v1', String(showCompletedExams));
+    } catch (e) {}
+  }, [showCompletedExams]);
 
   // Security Passcode State: Locks on reload/refresh for privacy
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -172,6 +187,21 @@ export default function App() {
     }
     return null;
   }, [activeTab, allSubjectStats]);
+
+  // Next Upcoming Exam determination (auto-skips completed exams past 4 PM)
+  const nextExam = useMemo(() => {
+    return getNextUpcomingExam(syllabusData.examTimetable);
+  }, []);
+
+  // Auto-redirect to dashboard if user is viewing a concluded exam while past exams are hidden
+  useEffect(() => {
+    if (!showCompletedExams && activeTab !== 'dashboard' && activeTab !== 'references') {
+      const subj = syllabusData.subjects[activeTab];
+      if (subj && isExamCompleted(subj.examDate)) {
+        setActiveTab('dashboard');
+      }
+    }
+  }, [showCompletedExams, activeTab]);
 
   // Toggle Topic Completion with Subtopics and Smooth Animation
   const toggleComplete = (topicId, subtopicIds = []) => {
@@ -310,6 +340,7 @@ export default function App() {
         lastUpdatedDisplay={syllabusData.lastUpdatedDisplay}
         cloudSyncState={cloudSyncState}
         cloudConfig={cloudConfig}
+        nextExam={nextExam}
         onOpenSettings={() => setShowSettingsModal(true)}
         onInstallApp={handleInstallApp}
         canInstall={!!deferredPrompt}
@@ -319,6 +350,8 @@ export default function App() {
       <NavigationTabs
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        showCompletedExams={showCompletedExams}
+        setShowCompletedExams={setShowCompletedExams}
       />
 
       {/* 3. Main Views Container */}
@@ -329,6 +362,8 @@ export default function App() {
             timetable={syllabusData.examTimetable}
             lastUpdatedDisplay={syllabusData.lastUpdatedDisplay}
             availableSubjectIds={availableSubjectIds}
+            nextExam={nextExam}
+            showCompletedExams={showCompletedExams}
             onNavigate={(subjectId) => setActiveTab(subjectId)}
           />
         )}

@@ -1,5 +1,5 @@
 // Normalized base timeline for KTU 2026 Examination Series
-export const CURRENT_TIMELINE_DATE = new Date('2026-11-19T08:51:00+05:30');
+export const CURRENT_TIMELINE_DATE = new Date('2026-11-23T23:31:00+05:30');
 
 /**
  * Calculates remaining days from today to the given exam date string (YYYY-MM-DD).
@@ -8,7 +8,7 @@ export const CURRENT_TIMELINE_DATE = new Date('2026-11-19T08:51:00+05:30');
 export function getDaysLeft(dateStr) {
   const now = new Date();
   // Fallback to active timeline date if not in 2026
-  const baseDate = now.getFullYear() === 2026 ? now : new Date('2026-11-19T09:08:43+05:30');
+  const baseDate = now.getFullYear() === 2026 ? now : new Date('2026-11-23T23:31:00+05:30');
   
   const todayYear = baseDate.getFullYear();
   const todayMonth = String(baseDate.getMonth() + 1).padStart(2, '0');
@@ -19,6 +19,34 @@ export function getDaysLeft(dateStr) {
   
   const diffTime = examNorm.getTime() - todayNorm.getTime();
   return Math.round(diffTime / (1000 * 60 * 60 * 24));
+}
+
+/**
+ * Checks whether an exam is completed.
+ * Afternoon exams conclude at 4:00 PM (16:00) IST on the exam day.
+ * - If today is the exam day, the exam remains active until 4:00 PM, then becomes completed.
+ * - If the exam date is in the past (yesterday or earlier), it is completed.
+ */
+export function isExamCompleted(dateStr) {
+  if (!dateStr) return false;
+  const now = new Date();
+  const current = now.getFullYear() === 2026 ? now : new Date('2026-11-23T23:31:00+05:30');
+  
+  // Cutoff is 16:00 (4:00 PM) IST on the exam day
+  const cutoff = new Date(`${dateStr}T16:00:00+05:30`);
+  return current.getTime() >= cutoff.getTime();
+}
+
+/**
+ * Finds the next upcoming uncompleted exam from the timetable.
+ */
+export function getNextUpcomingExam(timetable = []) {
+  for (const item of timetable) {
+    if (item.status !== 'completed' && !isExamCompleted(item.date)) {
+      return item;
+    }
+  }
+  return null;
 }
 
 /**

@@ -9,11 +9,13 @@ export default function DashboardView({
   timetable,
   lastUpdatedDisplay,
   availableSubjectIds,
+  nextExam,
+  showCompletedExams = false,
   onNavigate
 }) {
-  const cnInfo = allSubjectStats.cn;
-  const cnStats = cnInfo?.stats;
-  const cnDays = cnInfo?.days || 1;
+  const nextSubjectInfo = nextExam?.subjectId ? allSubjectStats[nextExam.subjectId] : null;
+  const nextSubjectStats = nextSubjectInfo?.stats;
+  const nextDays = nextSubjectInfo?.days || 0;
 
   // Aggregate stats across all 8 subjects
   let totalTopics = 0;
@@ -30,16 +32,18 @@ export default function DashboardView({
 
   return (
     <div>
-      {/* 1. Urgency Banner for Computer Networks (Immediate Exam) */}
+      {/* 1. Urgency Banner for Next Immediate Exam */}
       <UrgencyBanner
-        cnStats={cnStats}
-        cnDays={cnDays}
-        onNavigateToCN={() => onNavigate('cn')}
+        nextExam={nextExam}
+        nextSubjectStats={nextSubjectStats}
+        nextDays={nextDays}
+        onNavigate={onNavigate}
       />
 
       {/* 2. Subject KPI Grid across all upcoming courses */}
       <SubjectKpiGrid
         allSubjectStats={allSubjectStats}
+        showCompletedExams={showCompletedExams}
         onNavigate={onNavigate}
       />
 
@@ -48,6 +52,7 @@ export default function DashboardView({
         timetable={timetable}
         lastUpdatedDisplay={lastUpdatedDisplay}
         availableSubjectIds={availableSubjectIds}
+        nextExam={nextExam}
         onNavigate={onNavigate}
       />
 
